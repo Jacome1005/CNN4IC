@@ -1,0 +1,147 @@
+module CNN #(	parameter IMAGEWIDTH = 784,
+					parameter DATAWIDTH_BUS = 8,
+					parameter ADDRESS_WIDTH = 16)(
+    //////////// OUTPUTS //////////
+    output [3:0] CNN_Prediction_DataOutBUS, // El dígito predicho (0-9)
+	
+    //////////// INPUTS //////////
+    input     						   CNN_CLOCK_50,
+    input       						CNN_RESET_InHigh,
+    input       						CNN_StartIn,
+    input [IMAGEWIDTH-1:0] 		CNN_Image_DataInBUS, // Los 784 bits de la imagen 
+    input [DATAWIDTH_BUS-1:0] 	CNN_New_WeightInBUS, // Pesos de 8 bits 
+    input [ADDRESS_WIDTH-1:0] 	CNN_WeightAdress_InBUS,
+    input        						CNN_LoadWeight_InLow
+);
+parameter CNN_CurrentState_Out_Data = 3'b000;
+
+    wire [13:0] CNN_Conv_u0_DataOutBUS_routing_cwire; // 14 bits etapa 1
+	 wire CNN_Conv_u0_Done_cwire;
+	 
+	 wire [21:0] CNN_Conv_u1_DataOutBUS_routing_cwire; // 22 bits etapa 2
+	 wire CNN_Conv_u1_Done_cwire;
+
+    // Salidas de Re-cuantización (8 bits)
+    wire [7:0] CNN_Requant_u0_DataOutBUS_routing_cwire; 
+    wire [7:0] CNN_Requant_u1_DataOutBUS_routing_cwire;
+
+    // Salidas de Pooling (2x2 Half Resolution)
+    wire [7:0] CNN_Pool_u0_DataOutBUS_routing_cwire;
+    wire       CNN_Pool_u0_Done_cwire;
+    wire [7:0] CNN_Pool_u1_DataOutBUS_routing_cwire;
+    wire       CNN_Pool_u1_Done_cwire;
+
+    // Salidas de Fully Connected y Activación
+    wire [DATAWIDTH_BUS-1:0] CNN_FC_u0_DataOutBUS_routing_cwire; // Vector de probabilidades
+    wire                     CNN_FC_u0_Done_cwire;
+	 
+	 // Habilitación de los módulos (STATEMACHINE)
+	 wire CNN_Ctrl_Conv0_Enable_cwire;
+    wire CNN_Ctrl_Pool0_Enable_cwire;
+    wire CNN_Ctrl_Conv1_Enable_cwire;
+    wire CNN_Ctrl_Pool1_Enable_cwire;
+    wire CNN_Ctrl_FC0_Enable_cwire;
+    wire CNN_Ctrl_Max0_Enable_cwire;
+
+// 1. Capa Convolucional 1
+Conv #(.DATAWIDTH_BUS(DATAWIDTH_BUS)) Conv_u0 (
+  .Conv_Enable(CNN_Ctrl_Conv0_Enable_cwire),
+  .Conv_InBUS(CNN_Image_DataInBUS),
+  .Conv_OutBUS(CNN_Conv_u0_DataOutBUS_routing_cwire),
+  .Conv_Done(CNN_Conv_u0_Done_cwire)
+);
+
+// 2. Re-cuantización 1 (Siempre activa o ligada a Conv0)
+Requant #(.IN_WIDTH(14)) Requant_u0 (
+  .Requant_InBUS(CNN_Conv_u0_DataOutBUS_routing_cwire),
+  .Requant_OutBUS(CNN_Requant_u0_DataOutBUS_routing_cwire)
+);
+
+// 3. Max Pooling 1
+Pool Pool_u0 (
+  .Pool_Enable(CNN_Ctrl_Pool0_Enable_cwire),
+  .Pool_InBUS(CNN_Requant_u0_DataOutBUS_routing_cwire),
+  .Pool_OutBUS(CNN_Pool_u0_DataOutBUS_routing_cwire),
+  .Pool_Done(CNN_Pool_u0_Done_cwire)
+);
+
+// 4. Capa Convolucional 2
+Conv #(.DATAWIDTH_BUS(DATAWIDTH_BUS)) Conv_u1 (
+  .Conv_Enable(CNN_Ctrl_Conv1_Enable_cwire),
+  .Conv_InBUS(CNN_Pool_u0_DataOutBUS_routing_cwire),
+  .Conv_OutBUS(CNN_Conv_u1_DataOutBUS_routing_cwire),
+  .Conv_Done(CNN_Conv_u1_Done_cwire)
+);
+
+// 5. Re-cuantización 2
+Requant #(.IN_WIDTH(22)) Requant_u1 (
+  .Requant_InBUS(CNN_Conv_u1_DataOutBUS_routing_cwire),
+  .Requant_OutBUS(CNN_Requant_u1_DataOutBUS_routing_cwire)
+);
+
+// 6. Max Pooling 2
+Pool Pool_u1 (
+  .Pool_Enable(CNN_Ctrl_Pool1_Enable_cwire),
+  .Pool_InBUS(CNN_Requant_u1_DataOutBUS_routing_cwire),
+  .Pool_OutBUS(CNN_Pool_u1_DataOutBUS_routing_cwire),
+  .Pool_Done(CNN_Pool_u1_Done_cwire)
+);
+
+// 7. Fully Connected Layer
+FC #(.DATAWIDTH_BUS(DATAWIDTH_BUS)) FC_u0 (
+  .FC_Enable(CNN_Ctrl_FC0_Enable_cwire),
+  .FC_InBUS(CNN_Pool_u1_DataOutBUS_routing_cwire),
+  .FC_OutBUS(CNN_FC_u0_DataOutBUS_routing_cwire),
+  .FC_Done(CNN_FC_u0_Done_cwire)
+);
+
+// 8. Max Activation Function
+Max_Activation Max_Act_u0 (
+  .Max_Enable(CNN_Ctrl_Max0_Enable_cwire),
+  .Max_InBUS(CNN_FC_u0_DataOutBUS_routing_cwire),
+  .Max_OutBUS(CNN_Prediction_DataOutBUS)
+);
+
+// Bloque de Control de Habilitaciones
+CNN_Control_Unit CNN_Control_Unit_u0 (
+    .CNN_Ctrl_CurrentState_In_DataBUS(CNN_CurrentState_Out_Data),
+    .CNN_Ctrl_Conv0_Enable_Out_Data(CNN_Ctrl_Conv0_Enable_cwire),
+    .CNN_Ctrl_Pool0_Enable_Out_Data(CNN_Ctrl_Pool0_Enable_cwire),
+    .CNN_Ctrl_Conv1_Enable_Out_Data(CNN_Ctrl_Conv1_Enable_cwire),
+    .CNN_Ctrl_Pool1_Enable_Out_Data(CNN_Ctrl_Pool1_Enable_cwire),
+    .CNN_Ctrl_FC0_Enable_Out_Data(CNN_Ctrl_FC0_Enable_cwire),
+    .CNN_Ctrl_Max0_Enable_Out_Data(CNN_Ctrl_Max0_Enable_cwire)
+);
+	 
+	 
+	 
+///////// LÓGICA TIPO STATEMACHINE PARA LOS MÓDULOS /////////
+// Definición de estados
+localparam ST_IDLE    = 3'b000;
+localparam ST_CONV1   = 3'b001;
+localparam ST_POOL1   = 3'b010;
+localparam ST_CONV2   = 3'b011;
+localparam ST_POOL2   = 3'b100;
+localparam ST_FC      = 3'b101; // Fully Connected
+localparam ST_MAX     = 3'b110; // Predicción final
+
+reg [2:0] CNN_CurrentState_Out_Data; 
+
+// Lógica de control de estados
+always @(posedge CNN_Clock_In_Data or posedge CNN_Reset_In_Data) begin
+    if (CNN_Reset_In_Data) begin
+        CNN_CurrentState_Out_Data <= ST_IDLE;
+    end else begin
+        case (CNN_CurrentState_Out_Data)
+            ST_IDLE:  if (CNN_StartIn)										CNN_CurrentState_Out_Data <= ST_CONV1;
+            ST_CONV1: if (CNN_Conv_u0_Done_cwire)						CNN_CurrentState_Out_Data <= ST_POOL1;
+            ST_POOL1: if (CNN_Pool_u0_Done_cwire)      				CNN_CurrentState_Out_Data <= ST_CONV2;
+            ST_CONV2: if (CNN_Conv_u1_Done_cwire)    		 		   CNN_CurrentState_Out_Data <= ST_POOL2;
+            ST_POOL2: if (CNN_Pool_u1_Done_cwire)    		 		   CNN_CurrentState_Out_Data <= ST_FC;
+            ST_FC:    if (CNN_FC_u0_Done_cwire)      		 	      CNN_CurrentState_Out_Data <= ST_MAX;
+            ST_MAX:                           		 					CNN_CurrentState_Out_Data <= ST_IDLE;
+        endcase
+    end
+end
+	 
+endmodule

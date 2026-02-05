@@ -17,7 +17,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition"
 
-// DATE "09/12/2025 22:48:50"
+// DATE "02/05/2026 01:20:43"
 
 // 
 // Device: Altera 5CGXFC9E7F35C8 Package FBGA1152
@@ -31,19 +31,28 @@
 
 module CNN4IC (
 	CNN4IC_data_OutBUS,
+	CNN4IC_MISO,
 	CNN4IC_CLOCK_50,
 	CNN4IC_RESET_InHigh,
-	CNN4IC_data_InBUS);
+	CNN4IC_SPICLOCK_50,
+	CNN4IC_SS_N,
+	CNN4IC_MOSI);
 output 	CNN4IC_data_OutBUS;
+output 	CNN4IC_MISO;
 input 	CNN4IC_CLOCK_50;
 input 	CNN4IC_RESET_InHigh;
-input 	CNN4IC_data_InBUS;
+input 	CNN4IC_SPICLOCK_50;
+input 	CNN4IC_SS_N;
+input 	CNN4IC_MOSI;
 
 // Design Ports Information
-// CNN4IC_data_OutBUS	=>  Location: PIN_Y29,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// CNN4IC_data_OutBUS	=>  Location: PIN_B4,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// CNN4IC_MISO	=>  Location: PIN_M18,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// CNN4IC_SPICLOCK_50	=>  Location: PIN_H29,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// CNN4IC_SS_N	=>  Location: PIN_AK24,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// CNN4IC_MOSI	=>  Location: PIN_AN33,	 I/O Standard: 2.5 V,	 Current Strength: Default
 // CNN4IC_CLOCK_50	=>  Location: PIN_AA32,	 I/O Standard: 2.5 V,	 Current Strength: Default
-// CNN4IC_RESET_InHigh	=>  Location: PIN_AC29,	 I/O Standard: 2.5 V,	 Current Strength: Default
-// CNN4IC_data_InBUS	=>  Location: PIN_Y30,	 I/O Standard: 2.5 V,	 Current Strength: Default
+// CNN4IC_RESET_InHigh	=>  Location: PIN_F30,	 I/O Standard: 2.5 V,	 Current Strength: Default
 
 
 wire gnd;
@@ -57,15 +66,17 @@ assign unknown = 1'bx;
 tri1 devclrn;
 tri1 devpor;
 tri1 devoe;
+wire \CNN4IC_SPICLOCK_50~input_o ;
+wire \CNN4IC_SS_N~input_o ;
+wire \CNN4IC_MOSI~input_o ;
 wire \CNN4IC_CLOCK_50~input_o ;
 wire \CNN4IC_RESET_InHigh~input_o ;
 wire \~QUARTUS_CREATED_GND~I_combout ;
-wire \CNN4IC_data_InBUS~input_o ;
 
 
-// Location: IOOBUF_X121_Y39_N5
+// Location: IOOBUF_X25_Y115_N76
 cyclonev_io_obuf \CNN4IC_data_OutBUS~output (
-	.i(!\CNN4IC_data_InBUS~input_o ),
+	.i(gnd),
 	.oe(vcc),
 	.dynamicterminationcontrol(gnd),
 	.seriesterminationcontrol(16'b0000000000000000),
@@ -79,15 +90,53 @@ defparam \CNN4IC_data_OutBUS~output .open_drain_output = "false";
 defparam \CNN4IC_data_OutBUS~output .shift_series_termination_control = "false";
 // synopsys translate_on
 
-// Location: IOIBUF_X121_Y39_N21
-cyclonev_io_ibuf \CNN4IC_data_InBUS~input (
-	.i(CNN4IC_data_InBUS),
+// Location: IOOBUF_X67_Y115_N2
+cyclonev_io_obuf \CNN4IC_MISO~output (
+	.i(gnd),
+	.oe(vcc),
+	.dynamicterminationcontrol(gnd),
+	.seriesterminationcontrol(16'b0000000000000000),
+	.parallelterminationcontrol(16'b0000000000000000),
+	.devoe(devoe),
+	.o(CNN4IC_MISO),
+	.obar());
+// synopsys translate_off
+defparam \CNN4IC_MISO~output .bus_hold = "false";
+defparam \CNN4IC_MISO~output .open_drain_output = "false";
+defparam \CNN4IC_MISO~output .shift_series_termination_control = "false";
+// synopsys translate_on
+
+// Location: IOIBUF_X121_Y93_N38
+cyclonev_io_ibuf \CNN4IC_SPICLOCK_50~input (
+	.i(CNN4IC_SPICLOCK_50),
 	.ibar(gnd),
 	.dynamicterminationcontrol(gnd),
-	.o(\CNN4IC_data_InBUS~input_o ));
+	.o(\CNN4IC_SPICLOCK_50~input_o ));
 // synopsys translate_off
-defparam \CNN4IC_data_InBUS~input .bus_hold = "false";
-defparam \CNN4IC_data_InBUS~input .simulate_z_as = "z";
+defparam \CNN4IC_SPICLOCK_50~input .bus_hold = "false";
+defparam \CNN4IC_SPICLOCK_50~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X94_Y0_N18
+cyclonev_io_ibuf \CNN4IC_SS_N~input (
+	.i(CNN4IC_SS_N),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\CNN4IC_SS_N~input_o ));
+// synopsys translate_off
+defparam \CNN4IC_SS_N~input .bus_hold = "false";
+defparam \CNN4IC_SS_N~input .simulate_z_as = "z";
+// synopsys translate_on
+
+// Location: IOIBUF_X121_Y30_N38
+cyclonev_io_ibuf \CNN4IC_MOSI~input (
+	.i(CNN4IC_MOSI),
+	.ibar(gnd),
+	.dynamicterminationcontrol(gnd),
+	.o(\CNN4IC_MOSI~input_o ));
+// synopsys translate_off
+defparam \CNN4IC_MOSI~input .bus_hold = "false";
+defparam \CNN4IC_MOSI~input .simulate_z_as = "z";
 // synopsys translate_on
 
 // Location: IOIBUF_X121_Y36_N44
@@ -101,7 +150,7 @@ defparam \CNN4IC_CLOCK_50~input .bus_hold = "false";
 defparam \CNN4IC_CLOCK_50~input .simulate_z_as = "z";
 // synopsys translate_on
 
-// Location: IOIBUF_X121_Y17_N55
+// Location: IOIBUF_X107_Y115_N75
 cyclonev_io_ibuf \CNN4IC_RESET_InHigh~input (
 	.i(CNN4IC_RESET_InHigh),
 	.ibar(gnd),
@@ -112,7 +161,7 @@ defparam \CNN4IC_RESET_InHigh~input .bus_hold = "false";
 defparam \CNN4IC_RESET_InHigh~input .simulate_z_as = "z";
 // synopsys translate_on
 
-// Location: MLABCELL_X109_Y98_N3
+// Location: LABCELL_X38_Y94_N0
 cyclonev_lcell_comb \~QUARTUS_CREATED_GND~I (
 // Equation(s):
 

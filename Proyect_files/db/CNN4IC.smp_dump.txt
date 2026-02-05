@@ -1,0 +1,10 @@
+
+State Machine - |CNN4IC|CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register
+Name STATE_Register.ST_MAX STATE_Register.ST_FC STATE_Register.ST_POOL2 STATE_Register.ST_CONV2 STATE_Register.ST_POOL1 STATE_Register.ST_CONV1 STATE_Register.ST_IDLE 
+STATE_Register.ST_IDLE 0 0 0 0 0 0 0 
+STATE_Register.ST_CONV1 0 0 0 0 0 1 1 
+STATE_Register.ST_POOL1 0 0 0 0 1 0 1 
+STATE_Register.ST_CONV2 0 0 0 1 0 0 1 
+STATE_Register.ST_POOL2 0 0 1 0 0 0 1 
+STATE_Register.ST_FC 0 1 0 0 0 0 1 
+STATE_Register.ST_MAX 1 0 0 0 0 0 1 
