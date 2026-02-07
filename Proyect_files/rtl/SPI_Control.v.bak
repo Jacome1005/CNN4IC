@@ -1,0 +1,27 @@
+module conv_5x5 (
+    input clk,
+    input [7:0] pixel_in,
+    input pixel_valid,
+    input [7:0] kernel [0:24], // 25 coefficients
+    output reg [13:0] conv_out,
+    output reg out_valid
+);
+    // Internal: Line buffers to store 4 rows of the image
+    // Internal: 5x5 Window/Register array
+    
+    // Computation: Sum of (Pixel * Weight)
+    integer i;
+    reg [13:0] sum;
+    always @(posedge clk) begin
+        if (pixel_valid) begin
+            sum = 0;
+            for (i = 0; i < 25; i = i + 1) begin
+                sum = sum + (window[i] * kernel[i]);
+            end
+            conv_out <= sum;
+            out_valid <= 1'b1;
+        end else begin
+            out_valid <= 1'b0;
+        end
+    end
+endmodule

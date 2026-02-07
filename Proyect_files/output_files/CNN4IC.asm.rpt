@@ -1,5 +1,5 @@
 Assembler report for CNN4IC
-Fri Sep 12 22:48:40 2025
+Thu Feb  5 01:20:33 2026
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -10,7 +10,7 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/output_files/CNN4IC.sof
+  5. Assembler Device Options: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/output_files/CNN4IC.sof
   6. Assembler Messages
 
 
@@ -38,7 +38,7 @@ on the Quartus Prime software download page.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Fri Sep 12 22:48:40 2025 ;
+; Assembler Status      ; Successful - Thu Feb  5 01:20:33 2026 ;
 ; Revision Name         ; CNN4IC                                ;
 ; Top-level Entity Name ; CNN4IC                                ;
 ; Family                ; Cyclone V                             ;
@@ -53,23 +53,23 @@ on the Quartus Prime software download page.
 +--------+---------+---------------+
 
 
-+----------------------------------------------------------------------------------+
-; Assembler Generated Files                                                        ;
-+----------------------------------------------------------------------------------+
-; File Name                                                                        ;
-+----------------------------------------------------------------------------------+
-; C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/output_files/CNN4IC.sof ;
-+----------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------+
+; Assembler Generated Files                                                     ;
++-------------------------------------------------------------------------------+
+; File Name                                                                     ;
++-------------------------------------------------------------------------------+
+; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/output_files/CNN4IC.sof ;
++-------------------------------------------------------------------------------+
 
 
-+------------------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/output_files/CNN4IC.sof ;
-+----------------+-------------------------------------------------------------------------------------------+
-; Option         ; Setting                                                                                   ;
-+----------------+-------------------------------------------------------------------------------------------+
-; JTAG usercode  ; 0x01D46E24                                                                                ;
-; Checksum       ; 0x01D46E24                                                                                ;
-+----------------+-------------------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/output_files/CNN4IC.sof ;
++----------------+----------------------------------------------------------------------------------------+
+; Option         ; Setting                                                                                ;
++----------------+----------------------------------------------------------------------------------------+
+; JTAG usercode  ; 0x01D46E59                                                                             ;
+; Checksum       ; 0x01D46E59                                                                             ;
++----------------+----------------------------------------------------------------------------------------+
 
 
 +--------------------+
@@ -78,14 +78,14 @@ on the Quartus Prime software download page.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Fri Sep 12 22:48:24 2025
+    Info: Processing started: Thu Feb  5 01:20:08 2026
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off CNN4IC -c CNN4IC
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 5873 megabytes
-    Info: Processing ended: Fri Sep 12 22:48:41 2025
-    Info: Elapsed time: 00:00:17
-    Info: Total CPU time (on all processors): 00:00:10
+    Info: Peak virtual memory: 5874 megabytes
+    Info: Processing ended: Thu Feb  5 01:20:33 2026
+    Info: Elapsed time: 00:00:25
+    Info: Total CPU time (on all processors): 00:00:16
 
 

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for CNN4IC
-Fri Sep 12 22:47:12 2025
+Thu Feb  5 01:18:43 2026
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -13,13 +13,26 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Parameter Settings for User Entity Instance: Top-level Entity: |CNN4IC
- 10. Parameter Settings for User Entity Instance: SPI:SPI_u0
- 11. Port Connectivity Checks: "SPI:SPI_u0"
- 12. Post-Synthesis Netlist Statistics for Top Partition
- 13. Elapsed Time Per Partition
- 14. Analysis & Synthesis Messages
+  8. State Machine - |CNN4IC|CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register
+  9. Registers Removed During Synthesis
+ 10. Removed Registers Triggering Further Register Optimizations
+ 11. General Register Statistics
+ 12. Parameter Settings for User Entity Instance: Top-level Entity: |CNN4IC
+ 13. Parameter Settings for User Entity Instance: SPI_Control:SPI_Control_u0
+ 14. Parameter Settings for User Entity Instance: CNN:CNN_u0
+ 15. Parameter Settings for User Entity Instance: CNN:CNN_u0|Conv:Conv_u0
+ 16. Parameter Settings for User Entity Instance: CNN:CNN_u0|Requant:Requant_u0
+ 17. Parameter Settings for User Entity Instance: CNN:CNN_u0|Conv:Conv_u1
+ 18. Parameter Settings for User Entity Instance: CNN:CNN_u0|Requant:Requant_u1
+ 19. Parameter Settings for User Entity Instance: CNN:CNN_u0|FC:FC_u0
+ 20. Port Connectivity Checks: "CNN:CNN_u0|Max_Activation:Max_Act_u0"
+ 21. Port Connectivity Checks: "CNN:CNN_u0|FC:FC_u0"
+ 22. Port Connectivity Checks: "CNN:CNN_u0|Conv:Conv_u1"
+ 23. Port Connectivity Checks: "CNN:CNN_u0"
+ 24. Port Connectivity Checks: "SPI_Control:SPI_Control_u0"
+ 25. Post-Synthesis Netlist Statistics for Top Partition
+ 26. Elapsed Time Per Partition
+ 27. Analysis & Synthesis Messages
 
 
 
@@ -46,14 +59,14 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Fri Sep 12 22:47:12 2025           ;
+; Analysis & Synthesis Status     ; Successful - Thu Feb  5 01:18:43 2026           ;
 ; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                   ; CNN4IC                                          ;
 ; Top-level Entity Name           ; CNN4IC                                          ;
 ; Family                          ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                             ;
 ; Total registers                 ; 0                                               ;
-; Total pins                      ; 4                                               ;
+; Total pins                      ; 7                                               ;
 ; Total virtual pins              ; 0                                               ;
 ; Total block memory bits         ; 0                                               ;
 ; Total DSP Blocks                ; 0                                               ;
@@ -169,14 +182,21 @@ on the Quartus Prime software download page.
 +----------------------------+-------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                     ;
-+----------------------------------+-----------------+------------------------+--------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                       ; Library ;
-+----------------------------------+-----------------+------------------------+--------------------------------------------------------------------+---------+
-; CNN4IC.v                         ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/CNN4IC.v  ;         ;
-; rtl/SPI.v                        ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/rtl/SPI.v ;         ;
-+----------------------------------+-----------------+------------------------+--------------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                               ;
++----------------------------------+-----------------+------------------------+------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                 ; Library ;
++----------------------------------+-----------------+------------------------+------------------------------------------------------------------------------+---------+
+; rtl/Max_Activation.v             ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Max_Activation.v   ;         ;
+; rtl/FC.v                         ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/FC.v               ;         ;
+; rtl/Pool.v                       ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Pool.v             ;         ;
+; rtl/Requant.v                    ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Requant.v          ;         ;
+; rtl/Conv.v                       ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Conv.v             ;         ;
+; rtl/CNN_Control_Unit.v           ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN_Control_Unit.v ;         ;
+; rtl/SPI_Control.v                ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/SPI_Control.v      ;         ;
+; rtl/CNN.v                        ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v              ;         ;
+; CNN4IC.v                         ; yes             ; User Verilog HDL File  ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v               ;         ;
++----------------------------------+-----------------+------------------------+------------------------------------------------------------------------------+---------+
 
 
 +-------------------------------------------------------------------------+
@@ -195,14 +215,14 @@ on the Quartus Prime software download page.
 ;                                             ;                           ;
 ; Dedicated logic registers                   ; 0                         ;
 ;                                             ;                           ;
-; I/O pins                                    ; 4                         ;
+; I/O pins                                    ; 7                         ;
 ;                                             ;                           ;
 ; Total DSP Blocks                            ; 0                         ;
 ;                                             ;                           ;
 ; Maximum fan-out node                        ; CNN4IC_data_OutBUS~output ;
 ; Maximum fan-out                             ; 1                         ;
-; Total fan-out                               ; 5                         ;
-; Average fan-out                             ; 0.62                      ;
+; Total fan-out                               ; 7                         ;
+; Average fan-out                             ; 0.50                      ;
 +---------------------------------------------+---------------------------+
 
 
@@ -211,9 +231,60 @@ on the Quartus Prime software download page.
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; |CNN4IC                    ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 4    ; 0            ; |CNN4IC             ; CNN4IC      ; work         ;
+; |CNN4IC                    ; 0 (0)               ; 0 (0)                     ; 0                 ; 0          ; 7    ; 0            ; |CNN4IC             ; CNN4IC      ; work         ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |CNN4IC|CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register                                                                                                                  ;
++-------------------------+-----------------------+----------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------+
+; Name                    ; STATE_Register.ST_MAX ; STATE_Register.ST_FC ; STATE_Register.ST_POOL2 ; STATE_Register.ST_CONV2 ; STATE_Register.ST_POOL1 ; STATE_Register.ST_CONV1 ; STATE_Register.ST_IDLE ;
++-------------------------+-----------------------+----------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------+
+; STATE_Register.ST_IDLE  ; 0                     ; 0                    ; 0                       ; 0                       ; 0                       ; 0                       ; 0                      ;
+; STATE_Register.ST_CONV1 ; 0                     ; 0                    ; 0                       ; 0                       ; 0                       ; 1                       ; 1                      ;
+; STATE_Register.ST_POOL1 ; 0                     ; 0                    ; 0                       ; 0                       ; 1                       ; 0                       ; 1                      ;
+; STATE_Register.ST_CONV2 ; 0                     ; 0                    ; 0                       ; 1                       ; 0                       ; 0                       ; 1                      ;
+; STATE_Register.ST_POOL2 ; 0                     ; 0                    ; 1                       ; 0                       ; 0                       ; 0                       ; 1                      ;
+; STATE_Register.ST_FC    ; 0                     ; 1                    ; 0                       ; 0                       ; 0                       ; 0                       ; 1                      ;
+; STATE_Register.ST_MAX   ; 1                     ; 0                    ; 0                       ; 0                       ; 0                       ; 0                       ; 1                      ;
++-------------------------+-----------------------+----------------------+-------------------------+-------------------------+-------------------------+-------------------------+------------------------+
+
+
++----------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                           ;
++-------------------------------------------------------------------------+--------------------+
+; Register name                                                           ; Reason for Removal ;
++-------------------------------------------------------------------------+--------------------+
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register~4        ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register~5        ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register~6        ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register~7        ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_IDLE  ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_CONV1 ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_POOL1 ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_CONV2 ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_POOL2 ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_FC    ; Lost fanout        ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_MAX   ; Lost fanout        ;
+; Total Number of Removed Registers = 11                                  ;                    ;
++-------------------------------------------------------------------------+--------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                      ;
++------------------------------------------------------------------+--------------------+--------------------------------------------------------------------------+
+; Register name                                                    ; Reason for Removal ; Registers Removed due to This Register                                   ;
++------------------------------------------------------------------+--------------------+--------------------------------------------------------------------------+
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register~4 ; Lost Fanouts       ; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_IDLE,  ;
+;                                                                  ;                    ; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_POOL1, ;
+;                                                                  ;                    ; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_POOL2, ;
+;                                                                  ;                    ; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_MAX    ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register~5 ; Lost Fanouts       ; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_CONV1, ;
+;                                                                  ;                    ; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_FC     ;
+; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register~6 ; Lost Fanouts       ; CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0|STATE_Register.ST_CONV2  ;
++------------------------------------------------------------------+--------------------+--------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -233,32 +304,143 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 +------------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: Top-level Entity: |CNN4IC ;
-+---------------------+-------+------------------------------------------+
-; Parameter Name      ; Value ; Type                                     ;
-+---------------------+-------+------------------------------------------+
-; DATAWIDTH_BUS       ; 8     ; Signed Integer                           ;
-; PRESCALER_DATAWIDTH ; 23    ; Signed Integer                           ;
-+---------------------+-------+------------------------------------------+
++----------------+-------+-----------------------------------------------+
+; Parameter Name ; Value ; Type                                          ;
++----------------+-------+-----------------------------------------------+
+; IMAGEWIDTH     ; 784   ; Signed Integer                                ;
+; DATAWIDTH_BUS  ; 8     ; Signed Integer                                ;
+; ADDRESS_WIDTH  ; 16    ; Signed Integer                                ;
++----------------+-------+-----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: SPI_Control:SPI_Control_u0 ;
++----------------+-------+------------------------------------------------+
+; Parameter Name ; Value ; Type                                           ;
++----------------+-------+------------------------------------------------+
+; IMAGEWIDTH     ; 784   ; Signed Integer                                 ;
+; DATAWIDTH_BUS  ; 8     ; Signed Integer                                 ;
+; ADDRESS_WIDTH  ; 16    ; Signed Integer                                 ;
++----------------+-------+------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
 +---------------------------------------------------------+
-; Parameter Settings for User Entity Instance: SPI:SPI_u0 ;
+; Parameter Settings for User Entity Instance: CNN:CNN_u0 ;
 +----------------+-------+--------------------------------+
 ; Parameter Name ; Value ; Type                           ;
 +----------------+-------+--------------------------------+
-; SPI_DATAWIDTH  ; 8     ; Signed Integer                 ;
+; IMAGEWIDTH     ; 784   ; Signed Integer                 ;
+; DATAWIDTH_BUS  ; 8     ; Signed Integer                 ;
+; ADDRESS_WIDTH  ; 16    ; Signed Integer                 ;
 +----------------+-------+--------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "SPI:SPI_u0"                                                                                                                                                                      ;
-+-----------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port            ; Type   ; Severity ; Details                                                                                                                                                               ;
-+-----------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; SPI_data_OutBUS ; Output ; Warning  ; Output or bidir port (1 bits) is smaller than the port expression (8 bits) it drives.  The 7 most-significant bit(s) in the port expression will be connected to GND. ;
-+-----------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: CNN:CNN_u0|Conv:Conv_u0 ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; DATAWIDTH_BUS  ; 8     ; Signed Integer                              ;
+; KERNEL_SIZE    ; 5     ; Signed Integer                              ;
+; IMAGE_SIZE     ; 28    ; Signed Integer                              ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: CNN:CNN_u0|Requant:Requant_u0 ;
++----------------+-------+---------------------------------------------------+
+; Parameter Name ; Value ; Type                                              ;
++----------------+-------+---------------------------------------------------+
+; DATAIN_WIDTH   ; 14    ; Signed Integer                                    ;
+; DATAOUT_WIDTH  ; 8     ; Signed Integer                                    ;
++----------------+-------+---------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: CNN:CNN_u0|Conv:Conv_u1 ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; DATAWIDTH_BUS  ; 8     ; Signed Integer                              ;
+; KERNEL_SIZE    ; 5     ; Signed Integer                              ;
+; IMAGE_SIZE     ; 28    ; Signed Integer                              ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: CNN:CNN_u0|Requant:Requant_u1 ;
++----------------+-------+---------------------------------------------------+
+; Parameter Name ; Value ; Type                                              ;
++----------------+-------+---------------------------------------------------+
+; DATAIN_WIDTH   ; 22    ; Signed Integer                                    ;
+; DATAOUT_WIDTH  ; 8     ; Signed Integer                                    ;
++----------------+-------+---------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: CNN:CNN_u0|FC:FC_u0 ;
++----------------+-------+-----------------------------------------+
+; Parameter Name ; Value ; Type                                    ;
++----------------+-------+-----------------------------------------+
+; DATAWIDTH_BUS  ; 8     ; Signed Integer                          ;
++----------------+-------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "CNN:CNN_u0|Max_Activation:Max_Act_u0"                                                                                                                   ;
++-----------+-------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port      ; Type  ; Severity ; Details                                                                                                                                             ;
++-----------+-------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+; Max_InBUS ; Input ; Warning  ; Input port expression (8 bits) is smaller than the input port (16 bits) it drives.  Extra input bit(s) "Max_InBUS[15..8]" will be connected to GND. ;
++-----------+-------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "CNN:CNN_u0|FC:FC_u0"                                                                                                                ;
++-----------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                                                                        ;
++-----------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------+
+; FC_OutBUS ; Output ; Warning  ; Output or bidir port (16 bits) is wider than the port expression (8 bits) it drives; bit(s) "FC_OutBUS[15..8]" have no fanouts ;
++-----------+--------+----------+--------------------------------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "CNN:CNN_u0|Conv:Conv_u1"                                                                                                                                                       ;
++-------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                                                                                 ;
++-------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Conv_InBUS  ; Input  ; Warning  ; Input port expression (8 bits) is smaller than the input port (784 bits) it drives.  Extra input bit(s) "Conv_InBUS[783..8]" will be connected to GND.                  ;
+; Conv_OutBUS ; Output ; Warning  ; Output or bidir port (14 bits) is smaller than the port expression (22 bits) it drives.  The 8 most-significant bit(s) in the port expression will be connected to GND. ;
++-------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "CNN:CNN_u0"                                                                                                                                                       ;
++---------------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port                      ; Type   ; Severity ; Details                                                                                                                                      ;
++---------------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; CNN_Prediction_DataOutBUS ; Output ; Warning  ; Output or bidir port (4 bits) is wider than the port expression (1 bits) it drives; bit(s) "CNN_Prediction_DataOutBUS[3..1]" have no fanouts ;
+; CNN_Prediction_DataOutBUS ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                          ;
++---------------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "SPI_Control:SPI_Control_u0"                                                                                                                                                                    ;
++---------------------------+--------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port                      ; Type   ; Severity ; Details                                                                                                                                                                   ;
++---------------------------+--------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; SPI_Control_Data_OutBUS   ; Output ; Warning  ; Output or bidir port (8 bits) is smaller than the port expression (784 bits) it drives.  The 776 most-significant bit(s) in the port expression will be connected to GND. ;
+; SPI_Control_Weight_OutBUS ; Output ; Warning  ; Output or bidir port (1 bits) is smaller than the port expression (8 bits) it drives.  The 7 most-significant bit(s) in the port expression will be connected to GND.     ;
+; SPI_Control_Addr_OutBUS   ; Output ; Warning  ; Output or bidir port (1 bits) is smaller than the port expression (16 bits) it drives.  The 15 most-significant bit(s) in the port expression will be connected to GND.   ;
++---------------------------+--------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -268,11 +450,11 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; arriav_lcell_comb     ; 1                           ;
 ;     normal            ; 1                           ;
-;         1 data inputs ; 1                           ;
-; boundary_port         ; 4                           ;
+;         0 data inputs ; 1                           ;
+; boundary_port         ; 7                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 1.00                        ;
-; Average LUT depth     ; 1.00                        ;
+; Max LUT depth         ; 0.00                        ;
+; Average LUT depth     ; 0.00                        ;
 +-----------------------+-----------------------------+
 
 
@@ -291,31 +473,879 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Fri Sep 12 22:47:03 2025
+    Info: Processing started: Thu Feb  5 01:18:32 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off CNN4IC -c CNN4IC
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/weight_registers.v
+    Info (12023): Found entity 1: Weight_Registers File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Weight_Registers.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/max_activation.v
+    Info (12023): Found entity 1: Max_Activation File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Max_Activation.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/fc.v
+    Info (12023): Found entity 1: FC File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/FC.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/pool.v
+    Info (12023): Found entity 1: Pool File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Pool.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/requant.v
+    Info (12023): Found entity 1: Requant File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Requant.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/conv.v
+    Info (12023): Found entity 1: Conv File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Conv.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/cnn_control_unit.v
+    Info (12023): Found entity 1: CNN_Control_Unit File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN_Control_Unit.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/spi_control.v
+    Info (12023): Found entity 1: SPI_Control File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/SPI_Control.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/cnn.v
+    Info (12023): Found entity 1: CNN File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file cnn4ic.v
-    Info (12023): Found entity 1: CNN4IC File: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/CNN4IC.v Line: 2
-Info (12021): Found 1 design units, including 1 entities, in source file rtl/spi.v
-    Info (12023): Found entity 1: SPI File: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/rtl/SPI.v Line: 2
+    Info (12023): Found entity 1: CNN4IC File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 2
+Warning (10236): Verilog HDL Implicit Net warning at CNN4IC.v(52): created implicit net for "CNN4IC_Data_OutBUS" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 52
 Info (12127): Elaborating entity "CNN4IC" for the top level hierarchy
-Warning (10230): Verilog HDL assignment warning at CNN4IC.v(22): truncated value with size 8 to match size of target (1) File: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/CNN4IC.v Line: 22
-Info (12128): Elaborating entity "SPI" for hierarchy "SPI:SPI_u0" File: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/CNN4IC.v Line: 20
-Warning (10230): Verilog HDL assignment warning at SPI.v(21): truncated value with size 8 to match size of target (1) File: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/rtl/SPI.v Line: 21
-Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (10034): Output port "CNN4IC_data_OutBUS" at CNN4IC.v(4) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 4
+Info (12128): Elaborating entity "SPI_Control" for hierarchy "SPI_Control:SPI_Control_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 41
+Warning (10034): Output port "SPI_Control_MISO" at SPI_Control.v(7) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/SPI_Control.v Line: 7
+Warning (10034): Output port "SPI_Control_Weight_OutBUS" at SPI_Control.v(9) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/SPI_Control.v Line: 9
+Warning (10034): Output port "SPI_Control_Addr_OutBUS" at SPI_Control.v(10) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/SPI_Control.v Line: 10
+Warning (10034): Output port "SPI_Control_Data_Ready" at SPI_Control.v(11) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/SPI_Control.v Line: 11
+Warning (10034): Output port "SPI_Control_Is_Weight" at SPI_Control.v(12) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/SPI_Control.v Line: 12
+Info (12128): Elaborating entity "CNN" for hierarchy "CNN:CNN_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 53
+Info (12128): Elaborating entity "Conv" for hierarchy "CNN:CNN_u0|Conv:Conv_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 55
+Warning (10034): Output port "Conv_OutBUS" at Conv.v(8) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Conv.v Line: 8
+Info (12128): Elaborating entity "Requant" for hierarchy "CNN:CNN_u0|Requant:Requant_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 61
+Info (12128): Elaborating entity "Pool" for hierarchy "CNN:CNN_u0|Pool:Pool_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 69
+Warning (10034): Output port "Pool_OutBUS" at Pool.v(4) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/Pool.v Line: 4
+Info (12128): Elaborating entity "Requant" for hierarchy "CNN:CNN_u0|Requant:Requant_u1" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 83
+Info (12128): Elaborating entity "FC" for hierarchy "CNN:CNN_u0|FC:FC_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 99
+Warning (10034): Output port "FC_OutBUS" at FC.v(6) has no driver File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/FC.v Line: 6
+Info (12128): Elaborating entity "Max_Activation" for hierarchy "CNN:CNN_u0|Max_Activation:Max_Act_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 106
+Info (12128): Elaborating entity "CNN_Control_Unit" for hierarchy "CNN:CNN_u0|CNN_Control_Unit:CNN_Control_Unit_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 125
+Info (10264): Verilog HDL Case Statement information at CNN_Control_Unit.v(93): all case item expressions in this case statement are onehot File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN_Control_Unit.v Line: 93
+Warning (12011): Net is missing source, defaulting to GND
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[21]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[20]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[19]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[18]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[17]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[16]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[15]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+    Warning (12110): Net "CNN:CNN_u0|CNN_Conv_u1_DataOutBUS_routing_cwire[14]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/rtl/CNN.v Line: 40
+Warning (12011): Net is missing source, defaulting to GND
+    Warning (12110): Net "Image_BUS[783]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[782]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[781]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[780]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[779]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[778]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[777]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[776]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[775]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[774]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[773]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[772]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[771]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[770]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[769]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[768]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[767]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[766]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[765]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[764]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[763]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[762]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[761]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[760]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[759]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[758]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[757]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[756]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[755]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[754]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[753]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[752]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[751]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[750]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[749]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[748]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[747]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[746]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[745]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[744]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[743]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[742]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[741]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[740]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[739]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[738]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[737]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[736]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[735]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[734]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[733]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[732]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[731]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[730]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[729]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[728]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[727]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[726]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[725]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[724]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[723]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[722]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[721]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[720]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[719]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[718]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[717]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[716]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[715]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[714]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[713]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[712]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[711]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[710]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[709]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[708]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[707]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[706]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[705]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[704]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[703]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[702]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[701]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[700]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[699]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[698]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[697]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[696]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[695]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[694]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[693]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[692]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[691]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[690]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[689]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[688]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[687]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[686]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[685]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[684]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[683]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[682]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[681]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[680]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[679]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[678]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[677]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[676]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[675]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[674]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[673]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[672]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[671]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[670]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[669]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[668]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[667]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[666]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[665]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[664]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[663]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[662]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[661]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[660]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[659]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[658]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[657]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[656]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[655]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[654]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[653]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[652]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[651]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[650]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[649]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[648]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[647]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[646]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[645]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[644]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[643]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[642]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[641]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[640]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[639]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[638]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[637]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[636]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[635]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[634]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[633]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[632]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[631]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[630]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[629]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[628]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[627]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[626]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[625]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[624]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[623]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[622]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[621]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[620]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[619]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[618]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[617]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[616]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[615]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[614]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[613]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[612]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[611]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[610]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[609]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[608]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[607]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[606]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[605]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[604]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[603]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[602]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[601]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[600]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[599]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[598]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[597]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[596]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[595]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[594]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[593]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[592]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[591]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[590]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[589]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[588]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[587]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[586]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[585]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[584]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[583]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[582]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[581]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[580]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[579]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[578]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[577]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[576]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[575]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[574]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[573]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[572]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[571]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[570]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[569]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[568]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[567]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[566]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[565]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[564]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[563]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[562]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[561]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[560]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[559]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[558]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[557]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[556]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[555]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[554]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[553]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[552]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[551]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[550]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[549]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[548]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[547]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[546]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[545]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[544]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[543]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[542]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[541]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[540]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[539]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[538]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[537]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[536]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[535]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[534]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[533]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[532]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[531]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[530]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[529]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[528]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[527]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[526]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[525]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[524]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[523]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[522]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[521]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[520]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[519]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[518]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[517]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[516]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[515]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[514]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[513]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[512]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[511]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[510]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[509]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[508]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[507]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[506]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[505]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[504]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[503]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[502]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[501]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[500]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[499]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[498]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[497]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[496]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[495]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[494]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[493]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[492]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[491]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[490]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[489]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[488]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[487]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[486]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[485]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[484]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[483]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[482]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[481]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[480]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[479]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[478]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[477]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[476]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[475]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[474]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[473]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[472]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[471]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[470]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[469]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[468]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[467]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[466]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[465]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[464]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[463]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[462]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[461]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[460]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[459]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[458]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[457]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[456]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[455]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[454]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[453]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[452]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[451]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[450]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[449]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[448]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[447]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[446]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[445]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[444]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[443]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[442]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[441]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[440]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[439]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[438]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[437]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[436]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[435]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[434]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[433]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[432]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[431]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[430]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[429]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[428]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[427]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[426]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[425]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[424]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[423]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[422]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[421]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[420]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[419]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[418]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[417]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[416]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[415]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[414]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[413]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[412]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[411]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[410]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[409]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[408]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[407]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[406]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[405]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[404]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[403]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[402]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[401]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[400]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[399]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[398]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[397]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[396]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[395]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[394]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[393]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[392]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[391]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[390]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[389]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[388]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[387]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[386]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[385]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[384]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[383]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[382]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[381]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[380]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[379]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[378]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[377]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[376]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[375]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[374]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[373]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[372]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[371]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[370]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[369]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[368]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[367]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[366]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[365]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[364]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[363]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[362]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[361]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[360]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[359]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[358]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[357]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[356]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[355]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[354]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[353]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[352]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[351]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[350]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[349]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[348]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[347]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[346]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[345]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[344]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[343]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[342]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[341]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[340]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[339]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[338]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[337]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[336]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[335]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[334]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[333]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[332]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[331]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[330]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[329]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[328]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[327]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[326]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[325]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[324]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[323]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[322]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[321]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[320]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[319]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[318]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[317]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[316]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[315]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[314]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[313]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[312]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[311]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[310]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[309]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[308]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[307]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[306]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[305]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[304]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[303]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[302]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[301]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[300]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[299]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[298]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[297]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[296]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[295]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[294]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[293]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[292]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[291]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[290]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[289]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[288]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[287]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[286]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[285]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[284]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[283]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[282]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[281]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[280]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[279]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[278]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[277]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[276]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[275]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[274]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[273]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[272]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[271]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[270]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[269]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[268]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[267]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[266]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[265]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[264]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[263]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[262]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[261]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[260]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[259]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[258]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[257]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[256]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[255]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[254]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[253]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[252]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[251]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[250]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[249]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[248]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[247]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[246]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[245]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[244]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[243]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[242]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[241]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[240]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[239]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[238]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[237]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[236]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[235]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[234]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[233]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[232]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[231]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[230]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[229]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[228]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[227]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[226]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[225]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[224]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[223]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[222]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[221]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[220]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[219]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[218]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[217]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[216]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[215]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[214]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[213]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[212]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[211]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[210]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[209]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[208]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[207]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[206]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[205]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[204]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[203]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[202]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[201]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[200]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[199]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[198]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[197]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[196]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[195]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[194]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[193]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[192]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[191]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[190]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[189]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[188]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[187]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[186]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[185]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[184]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[183]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[182]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[181]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[180]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[179]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[178]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[177]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[176]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[175]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[174]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[173]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[172]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[171]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[170]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[169]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[168]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[167]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[166]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[165]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[164]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[163]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[162]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[161]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[160]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[159]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[158]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[157]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[156]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[155]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[154]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[153]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[152]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[151]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[150]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[149]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[148]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[147]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[146]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[145]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[144]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[143]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[142]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[141]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[140]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[139]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[138]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[137]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[136]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[135]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[134]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[133]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[132]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[131]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[130]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[129]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[128]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[127]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[126]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[125]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[124]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[123]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[122]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[121]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[120]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[119]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[118]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[117]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[116]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[115]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[114]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[113]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[112]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[111]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[110]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[109]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[108]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[107]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[106]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[105]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[104]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[103]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[102]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[101]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[100]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[99]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[98]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[97]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[96]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[95]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[94]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[93]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[92]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[91]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[90]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[89]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[88]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[87]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[86]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[85]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[84]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[83]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[82]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[81]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[80]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[79]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[78]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[77]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[76]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[75]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[74]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[73]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[72]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[71]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[70]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[69]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[68]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[67]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[66]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[65]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[64]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[63]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[62]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[61]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[60]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[59]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[58]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[57]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[56]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[55]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[54]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[53]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[52]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[51]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[50]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[49]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[48]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[47]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[46]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[45]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[44]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[43]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[42]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[41]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[40]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[39]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[38]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[37]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[36]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[35]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[34]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[33]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[32]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[31]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[30]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[29]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[28]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[27]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[26]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[25]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[24]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[23]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[22]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[21]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[20]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[19]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[18]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[17]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[16]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[15]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[14]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[13]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[12]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[11]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[10]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[9]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Image_BUS[8]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 22
+    Warning (12110): Net "Weight_BUS[7]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 23
+    Warning (12110): Net "Weight_BUS[6]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 23
+    Warning (12110): Net "Weight_BUS[5]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 23
+    Warning (12110): Net "Weight_BUS[4]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 23
+    Warning (12110): Net "Weight_BUS[3]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 23
+    Warning (12110): Net "Weight_BUS[2]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 23
+    Warning (12110): Net "Weight_BUS[1]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 23
+    Warning (12110): Net "Adress_BUS[15]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[14]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[13]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[12]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[11]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[10]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[9]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[8]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[7]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[6]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[5]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[4]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[3]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[2]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+    Warning (12110): Net "Adress_BUS[1]" is missing source, defaulting to GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 24
+Warning (12241): 5 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "CNN4IC_data_OutBUS" is stuck at GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 4
+    Warning (13410): Pin "CNN4IC_MISO" is stuck at GND File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 5
+Info (17049): 11 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 2 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "CNN4IC_CLOCK_50" File: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/CNN4IC.v Line: 7
-    Warning (15610): No output dependent on input pin "CNN4IC_RESET_InHigh" File: C:/Users/jacob/Desktop/Conv/New/CNN/CNN4IC/Proyect_files/CNN4IC.v Line: 8
-Info (21057): Implemented 4 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 3 input pins
-    Info (21059): Implemented 1 output pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 7 warnings
-    Info: Peak virtual memory: 4822 megabytes
-    Info: Processing ended: Fri Sep 12 22:47:12 2025
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:22
+Warning (21074): Design contains 5 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "CNN4IC_SPICLOCK_50" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 11
+    Warning (15610): No output dependent on input pin "CNN4IC_SS_N" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 12
+    Warning (15610): No output dependent on input pin "CNN4IC_MOSI" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 14
+    Warning (15610): No output dependent on input pin "CNN4IC_CLOCK_50" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 8
+    Warning (15610): No output dependent on input pin "CNN4IC_RESET_InHigh" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/Proyect_files/CNN4IC.v Line: 9
+Info (21057): Implemented 7 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 5 input pins
+    Info (21059): Implemented 2 output pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 829 warnings
+    Info: Peak virtual memory: 4821 megabytes
+    Info: Processing ended: Thu Feb  5 01:18:43 2026
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:27
 
 
