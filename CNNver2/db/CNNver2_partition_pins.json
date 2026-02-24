@@ -1,0 +1,25 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "CNNver2_MISO",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_SPICLOCK_50",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_SS_N",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_MOSI",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

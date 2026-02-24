@@ -1,0 +1,15 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_conv_v2.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2 {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v}
+
