@@ -1,0 +1,50 @@
+library (CNNver2) {
+  comment                        : "";
+  delay_model                    : table_lookup;
+  simulation                     : false;
+  capacitive_load_unit (1,pF);
+  leakage_power_unit             : 1pW;
+  current_unit                   : "1uA";
+  pulling_resistance_unit        : "1kohm";
+  time_unit                      : "1ns";
+  voltage_unit                   : "1v";
+  library_features(report_delay_calculation);
+
+  input_threshold_pct_rise : 50;
+  input_threshold_pct_fall : 50;
+  output_threshold_pct_rise : 50;
+  output_threshold_pct_fall : 50;
+  slew_lower_threshold_pct_rise : 20;
+  slew_lower_threshold_pct_fall : 20;
+  slew_upper_threshold_pct_rise : 80;
+  slew_upper_threshold_pct_fall : 80;
+  slew_derate_from_library : 1.0;
+
+
+  nom_process                    : 1.0;
+  nom_temperature                : -40.0;
+  nom_voltage                    : 1.32;
+
+
+  cell ("CNNver2") {
+    area : 101044.523 
+    is_macro_cell : true;
+    pin("CNNver2_MISO") {
+      direction : output;
+      capacitance : 0.0201;
+    }
+    pin("CNNver2_MOSI") {
+      direction : input;
+      capacitance : 0.0040;
+    }
+    pin("CNNver2_SPICLOCK_50") {
+      direction : input;
+      capacitance : 0.0032;
+    }
+    pin("CNNver2_SS_N") {
+      direction : input;
+      capacitance : 0.0032;
+    }
+  }
+
+}
