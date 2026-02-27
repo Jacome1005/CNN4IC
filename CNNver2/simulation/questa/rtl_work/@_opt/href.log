@@ -1,16 +1,18 @@
-BEGIN 1:Register:fast:work
-    Register_DataOutBUS :  1:TB_SYSTEM:fast:work
-END 
 BEGIN 1:SC_STATEMACHINE_CNN_CTRL:fast:work
     STATE_Register :  1:TB_SYSTEM:fast:work
-    start_latch :  1:TB_SYSTEM:fast:work
 END 
 BEGIN 1:spi_cnn_slave_8:fast:work
     weight_mem :  1:TB_SYSTEM:fast:work
+    image_mem :  1:TB_SYSTEM:fast:work
+END 
+BEGIN 1:Register_Weight:fast:work
+    Register_Weight_DataOutBUS :  1:TB_SYSTEM:fast:work
+END 
+BEGIN 1:Register_Imag:fast:work
+    Register_Imag_DataOutBUS :  1:TB_SYSTEM:fast:work
 END 
 BEGIN 1:CNNver2:fast:work
-    CNN_Result_DataOutBUS_routing_cwire :  1:TB_SYSTEM:fast:work
-    CNN_ready_routing_cwire :  1:TB_SYSTEM:fast:work
-    CNN_y_out_routing_cwire :  1:TB_SYSTEM:fast:work
-    CNNver2_Reset_InHigh :  1:TB_SYSTEM:fast:work
+    CNN_Result_out_cwire :  1:TB_SYSTEM:fast:work
+    CNN_y_out_cwire :  1:TB_SYSTEM:fast:work
+    CNN_ready_cwire :  1:TB_SYSTEM:fast:work
 END 

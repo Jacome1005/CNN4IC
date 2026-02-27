@@ -335,7 +335,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : C8        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : C9        :        :                   :         : 7D        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C10       :        :                   :         : 7D        :                
 GND                          : C11       : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : C12       :        :                   :         : 8A        :                
+CNNver2_Reset_InHigh         : C12       : input  : 3.3-V LVTTL       :         : 8A        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : C13       :        :                   :         : 7C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C14       :        :                   :         : 7B        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C15       :        :                   :         : 7B        :                
