@@ -24,259 +24,341 @@
 # Copying c:/altera_lite/24.1std/questa_fse/win64/../modelsim.ini to modelsim.ini
 # Modifying modelsim.ini
 # 
-# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2 {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v}
-# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:18:58 on Feb 24,2026
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v 
-# -- Compiling module CNNver2
-# 
-# Top level modules:
-# 	CNNver2
-# End time: 13:18:58 on Feb 24,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v}
-# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:18:59 on Feb 24,2026
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v 
-# -- Compiling module SC_STATEMACHINE_IMAGE_LOADER
-# 
-# Top level modules:
-# 	SC_STATEMACHINE_IMAGE_LOADER
-# End time: 13:18:59 on Feb 24,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v}
-# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:18:59 on Feb 24,2026
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v 
-# -- Compiling module spi_cnn_slave_8
-# 
-# Top level modules:
-# 	spi_cnn_slave_8
-# End time: 13:19:00 on Feb 24,2026, Elapsed time: 0:00:01
-# Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v}
-# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:00 on Feb 24,2026
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v 
-# -- Compiling module SC_STATEMACHINE_CNN_CTRL
-# 
-# Top level modules:
-# 	SC_STATEMACHINE_CNN_CTRL
-# End time: 13:19:00 on Feb 24,2026, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
 # vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register.v}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:00 on Feb 24,2026
+# Start time: 01:01:34 on Feb 27,2026
 # vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register.v 
 # -- Compiling module Register
 # 
 # Top level modules:
 # 	Register
-# End time: 13:19:01 on Feb 24,2026, Elapsed time: 0:00:01
+# End time: 01:01:34 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:34 on Feb 27,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v 
+# -- Compiling module SC_STATEMACHINE_WEIGHT_LOADER
+# 
+# Top level modules:
+# 	SC_STATEMACHINE_WEIGHT_LOADER
+# End time: 01:01:34 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Weight.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:34 on Feb 27,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Weight.v 
+# -- Compiling module Register_Weight
+# 
+# Top level modules:
+# 	Register_Weight
+# End time: 01:01:35 on Feb 27,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Imag.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:35 on Feb 27,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Imag.v 
+# -- Compiling module Register_Imag
+# 
+# Top level modules:
+# 	Register_Imag
+# End time: 01:01:35 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2 {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:35 on Feb 27,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v 
+# -- Compiling module CNNver2
+# 
+# Top level modules:
+# 	CNNver2
+# End time: 01:01:35 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:35 on Feb 27,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v 
+# -- Compiling module SC_STATEMACHINE_IMAGE_LOADER
+# 
+# Top level modules:
+# 	SC_STATEMACHINE_IMAGE_LOADER
+# End time: 01:01:35 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:36 on Feb 27,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v 
+# -- Compiling module spi_cnn_slave_8
+# 
+# Top level modules:
+# 	spi_cnn_slave_8
+# End time: 01:01:36 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v}
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:36 on Feb 27,2026
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v 
+# -- Compiling module SC_STATEMACHINE_CNN_CTRL
+# 
+# Top level modules:
+# 	SC_STATEMACHINE_CNN_CTRL
+# End time: 01:01:36 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:01 on Feb 24,2026
+# Start time: 01:01:36 on Feb 27,2026
 # vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v 
 # -- Compiling module cnn_v2
 # 
 # Top level modules:
 # 	cnn_v2
-# End time: 13:19:01 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:01:36 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_conv_v2.v}
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:01 on Feb 24,2026
+# Start time: 01:01:36 on Feb 27,2026
 # vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl" C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_conv_v2.v 
 # -- Compiling module cnn_conv_v2
 # 
 # Top level modules:
 # 	cnn_conv_v2
-# End time: 13:19:02 on Feb 24,2026, Elapsed time: 0:00:01
+# End time: 01:01:36 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
-# Break key hit
 do testbench_CNNver2.do
 # ** Warning: (vlib-34) Library already exists at "work".
 # Errors: 0, Warnings: 1
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:26 on Feb 24,2026
+# Start time: 01:01:57 on Feb 27,2026
 # vlog -reportprogress 300 ../../rtl/Register.v 
 # -- Compiling module Register
 # 
 # Top level modules:
 # 	Register
-# End time: 13:19:26 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:01:57 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:26 on Feb 24,2026
+# Start time: 01:01:58 on Feb 27,2026
+# vlog -reportprogress 300 ../../rtl/Register_Imag.v 
+# -- Compiling module Register_Imag
+# 
+# Top level modules:
+# 	Register_Imag
+# End time: 01:01:58 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:58 on Feb 27,2026
+# vlog -reportprogress 300 ../../rtl/Register_Weight.v 
+# -- Compiling module Register_Weight
+# 
+# Top level modules:
+# 	Register_Weight
+# End time: 01:01:58 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:58 on Feb 27,2026
 # vlog -reportprogress 300 ../../rtl/STATEMACHINE_IMAGE_LOADER.v 
 # -- Compiling module SC_STATEMACHINE_IMAGE_LOADER
 # 
 # Top level modules:
 # 	SC_STATEMACHINE_IMAGE_LOADER
-# End time: 13:19:26 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:01:58 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:27 on Feb 24,2026
+# Start time: 01:01:58 on Feb 27,2026
+# vlog -reportprogress 300 ../../rtl/SC_STATEMACHINE_WEIGHT_LOADER.v 
+# -- Compiling module SC_STATEMACHINE_WEIGHT_LOADER
+# 
+# Top level modules:
+# 	SC_STATEMACHINE_WEIGHT_LOADER
+# End time: 01:01:58 on Feb 27,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
+# Start time: 01:01:58 on Feb 27,2026
 # vlog -reportprogress 300 ../../rtl/cnn_v2.v 
 # -- Compiling module cnn_v2
 # 
 # Top level modules:
 # 	cnn_v2
-# End time: 13:19:27 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:01:58 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:27 on Feb 24,2026
+# Start time: 01:01:59 on Feb 27,2026
 # vlog -reportprogress 300 ../../rtl/cnn_conv_v2.v 
 # -- Compiling module cnn_conv_v2
 # 
 # Top level modules:
 # 	cnn_conv_v2
-# End time: 13:19:27 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:01:59 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:28 on Feb 24,2026
+# Start time: 01:01:59 on Feb 27,2026
 # vlog -reportprogress 300 ../../rtl/SC_STATEMACHINE_CNN_CTRL.v 
 # -- Compiling module SC_STATEMACHINE_CNN_CTRL
 # 
 # Top level modules:
 # 	SC_STATEMACHINE_CNN_CTRL
-# End time: 13:19:28 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:01:59 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:28 on Feb 24,2026
+# Start time: 01:01:59 on Feb 27,2026
 # vlog -reportprogress 300 ../../rtl/spi_cnn_slave_8.v 
 # -- Compiling module spi_cnn_slave_8
 # 
 # Top level modules:
 # 	spi_cnn_slave_8
-# End time: 13:19:28 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:01:59 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:28 on Feb 24,2026
+# Start time: 01:01:59 on Feb 27,2026
 # vlog -reportprogress 300 ../../CNNver2.v 
 # -- Compiling module CNNver2
 # 
 # Top level modules:
 # 	CNNver2
-# End time: 13:19:29 on Feb 24,2026, Elapsed time: 0:00:01
+# End time: 01:01:59 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Questa Intel Starter FPGA Edition-64 vlog 2024.3 Compiler 2024.09 Sep 10 2024
-# Start time: 13:19:29 on Feb 24,2026
+# Start time: 01:02:00 on Feb 27,2026
 # vlog -reportprogress 300 Testbench_CNNver2.vt 
 # -- Compiling module TB_SYSTEM
 # 
 # Top level modules:
 # 	TB_SYSTEM
-# End time: 13:19:29 on Feb 24,2026, Elapsed time: 0:00:00
+# End time: 01:02:00 on Feb 27,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -voptargs=""+acc"" work.TB_SYSTEM 
-# Start time: 13:19:30 on Feb 24,2026
+# Start time: 01:02:00 on Feb 27,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vopt-10908) Some optimizations are turned off because the +acc switch is in effect.
 # ** Note: (vopt-143) Recognized 1 FSM in module "SC_STATEMACHINE_CNN_CTRL(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "SC_STATEMACHINE_IMAGE_LOADER(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "SC_STATEMACHINE_WEIGHT_LOADER(fast)".
 # ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
 # Loading work.TB_SYSTEM(fast)
 # Loading work.CNNver2(fast)
 # Loading work.spi_cnn_slave_8(fast)
 # Loading work.SC_STATEMACHINE_IMAGE_LOADER(fast)
-# Loading work.Register(fast)
-# Loading work.Register(fast__1)
+# Loading work.SC_STATEMACHINE_WEIGHT_LOADER(fast)
+# Loading work.Register_Imag(fast)
+# Loading work.Register_Weight(fast)
 # Loading work.SC_STATEMACHINE_CNN_CTRL(fast)
 # Loading work.cnn_conv_v2(fast)
 # Loading work.cnn_v2(fast)
-# Loading work.Register(fast__2)
+# Loading work.Register(fast)
 # ===================================================
-#   TB CNNver2 — SPI + CNN Integration Testbench
+#   TB CNNver2 - SPI + CNN Integration Testbench
 # ===================================================
-#   Mapeo: 8 bytes → {11'b0, b7..b0} = 75 bits
-#   25 × 3-bit signed: pos[0..20] datos, [21] parcial, [22..24] cero
-#   Pipeline CNN: 2 ciclos (captura + computo)
+#   Imagen:  10 filas x 30 bits = 300 bits total
+#   Kernel:   5 filas x 15 bits =  75 bits total
+#   Convolucion 5x5 en posicion (R_OFF=0, C_OFF=0)
 # ===================================================
 # 
-# --- TEST 1: SPI LOAD IMAGE (compatibilidad) ---
+# --- TEST 1: SPI LOAD IMAGE (10 filas x 30 bits) ---
 # VERIFICACION DE REGISTROS (Hardware Output):
-# Reg0: 00 (Exp: AA) | Reg1: xx (Exp: BB)
-# Reg2: 00 (Exp: CC) | Reg3: xx (Exp: DD)
-# Reg4: 00 (Exp: EE) | Reg5: xx (Exp: FF)
-# Reg6: 00 (Exp: 11) | Reg7: xx (Exp: 22)
+#   Reg0: 00000001 (Exp: 00000001)
+#   Reg1: 00000249 (Exp: 00000249)
+#   Reg2: 3fffffff (Exp: 3fffffff)
+#   Reg3: 15555555 (Exp: 15555555)
+#   Reg4: 00000000 (Exp: 00000000)
+#   Reg5: 09249249 (Exp: 09249249)
+#   Reg6: 1bbbbbbb (Exp: 1bbbbbbb)
+#   Reg7: 0aaaaaaa (Exp: 0aaaaaaa)
+#   Reg8: 12345678 (Exp: 12345678)
+#   Reg9: 0fedcba9 (Exp: 0fedcba9)
 # ---------------------------------------------------
-#   >> TEST 1 FAILED
+#   >> TEST 1 PASSED
 # 
-# --- TEST 2: SPI LOAD WEIGHTS ---
+# --- TEST 2: SPI LOAD WEIGHTS (5 filas x 15 bits) ---
 # VERIFICACION weight_mem interno del SPI:
-#   wmem[0]: xx (Exp: A1) | wmem[1]: xx (Exp: B2)
-#   wmem[6]: xx (Exp: 17) | wmem[7]: xx (Exp: 28)
-#   >> TEST 2 FAILED
+#   wmem[0]: 0001 (Exp: 0001)
+#   wmem[1]: 0249 (Exp: 0249)
+#   wmem[2]: 1fff (Exp: 1fff)
+#   wmem[3]: 06db (Exp: 06db)
+#   wmem[4]: 0000 (Exp: 0000)
+#   >> TEST 2 PASSED
 # 
-# --- TEST 3: CNN flujo completo — Todo Ceros ---
+# --- TEST 3: CNN flujo completo - Todo Ceros (Exp: 0) ---
 #   CNN y_out   = 0 (signed)
 #   Result Reg  = 0 (signed)
 #   Expected    = 0
-#   MISO[9:0]   = z (signed)
+#   MISO[10:0]  = 0 (signed)
 #   >> PASS
 # 
-# --- TEST 4: CNN flujo completo — Todo 0xFF ---
+# --- TEST 4: CNN - imagen -1 / pesos -1 (Exp: +25) ---
 #   CNN y_out   = 0 (signed)
-#   Result Reg  = x (signed)
-#   Expected    = 22
-#   MISO[9:0]   = z (signed)
-#   >> FAIL (got x, expected 22)
+#   Result Reg  = 25 (signed)
+#   Expected    = 25
+#   MISO[10:0]  = 51 (signed)
+#   >> PASS
 # 
-# --- TEST 5: CNN — patron 001 uniforme ---
+# --- TEST 5: CNN - patron +1 uniforme (Exp: +25) ---
 #   CNN y_out   = 0 (signed)
-#   Result Reg  = x (signed)
-#   Expected    = 21
-#   MISO[9:0]   = z (signed)
-#   >> FAIL (got x, expected 21)
+#   Result Reg  = 20 (signed)
+#   Expected    = 20
+#   MISO[10:0]  = 40 (signed)
+#   >> PASS
 # 
-# --- TEST 6: CNN — imagen positiva, peso negativo ---
+# --- TEST 6: CNN - imagen +1, pesos -1 (Exp: -25) ---
 #   CNN y_out   = 0 (signed)
-#   Result Reg  = x (signed)
-#   Expected    = -21
-#   MISO[9:0]   = z (signed)
-#   >> FAIL (got x, expected -21)
+#   Result Reg  = -25 (signed)
+#   Expected    = -25
+#   MISO[10:0]  = -49 (signed)
+#   >> PASS
 # 
-# --- TEST 7: CNN — patron mixto arbitrario ---
+# --- TEST 7: CNN - patron mixto arbitrario ---
 #   CNN y_out   = 0 (signed)
-#   Result Reg  = x (signed)
-#   Expected    = -106
-#   MISO[9:0]   = z (signed)
-#   >> FAIL (got x, expected -106)
+#   Result Reg  = -27 (signed)
+#   Expected    = -27
+#   MISO[10:0]  = -53 (signed)
+#   >> PASS
 # 
 # --- TEST 8: Verificar weight registers post-CNN ---
-#   WReg0: 80 (Exp: 5A)
-#   WReg3: xx (Exp: 00)
-#   WReg7: xx (Exp: 80)
-#   >> TEST 8 FAILED
+#   WReg0: 16b5 (Exp: 16b5)
+#   WReg1: 0492 (Exp: 0492)
+#   WReg2: 7fff (Exp: 7fff)
+#   WReg3: 0000 (Exp: 0000)
+#   WReg4: 36db (Exp: 36db)
+#   >> TEST 8 PASSED
 # 
 # --- TEST 9: FSM CNN Controller states ---
 #   Estado actual: 0 (esperado: 0=IDLE)
-#   Después de CS↑ (start latched):
-#     Ciclo 1: STATE=0 (start_latch=0)
-#     Ciclo 2: STATE=0
-#     Ciclo 3: STATE=0
-#     Ciclo 4: STATE=0
-#     Ciclo 5: STATE=0
-#     Ciclo 6: STATE=0 (esperado: 0=IDLE)
-#   >> TEST 9 PASSED (FSM retornó a IDLE)
+#   Despues de CS up (start latched):
+#     Ciclo: STATE=1
+#     Ciclo: STATE=2
+#     Ciclo: STATE=3
+#     Ciclo: STATE=4
+#     Ciclo: STATE=0
+#     Ciclo: STATE=0
+#   >> TEST 9 PASSED (FSM retorno a IDLE)
 # 
-# --- TEST 10: CNN ready flag ---
-#   CNN ready = 0 (CNN en reset → esperado: 0)
-#   Result register = x
-#   >> TEST 10 FAILED (resultado indefinido)
+# --- TEST 10: CNN ready flag y result register ---
+#   CNN ready = 0 (esperado: 0 = en reset)
+#   Result register = 20 (signed)
+#   >> TEST 10 PASSED (resultado capturado)
+# 
+# --- TEST 11: Verificar image_mem[0..9] en spi_cnn_slave_8 ---
+#   imem[0]: 09249249 (Exp: 09249249)
+#   imem[4]: 0924924d (Exp: 0924924d)
+#   imem[8]: 09249251 (Exp: 09249251)
+#   imem[9]: 09249252 (Exp: 09249252)
+#   >> TEST 11 PASSED
+# 
+# --- TEST 12: Verificar weight_mem[0..4] en spi_cnn_slave_8 ---
+#   wmem[0]: 0249 (Exp: 0249)
+#   wmem[2]: 024b (Exp: 024b)
+#   wmem[4]: 024d (Exp: 024d)
+#   >> TEST 12 PASSED
 # 
 # ===================================================
-#   RESULTADOS: 2 PASS  |  8 FAIL
-#   SOME TESTS FAILED — revisar ondas
+#   RESULTADOS: 12 PASS  |  0 FAIL
+#   ALL TESTS PASSED
 # ===================================================
-# ** Note: $finish    : Testbench_CNNver2.vt(585)
-#    Time: 25482 ns  Iteration: 0  Instance: /TB_SYSTEM
+# ** Note: $finish    : Testbench_CNNver2.vt(653)
+#    Time: 67962 ns  Iteration: 0  Instance: /TB_SYSTEM
 # 1
-# Break in Module TB_SYSTEM at Testbench_CNNver2.vt line 585
+# Break in Module TB_SYSTEM at Testbench_CNNver2.vt line 653
 # 0 ns
-# 26756 ns
-# End time: 13:54:25 on Feb 24,2026, Elapsed time: 0:34:55
+# 71360 ns
+# End time: 01:03:45 on Feb 27,2026, Elapsed time: 0:01:45
 # Errors: 0, Warnings: 1

@@ -16,6 +16,10 @@
 					"strict" : false
 				},
 				{
+					"name" : "CNNver2_Reset_InHigh",
+					"strict" : false
+				},
+				{
 					"name" : "CNNver2_MOSI",
 					"strict" : false
 				}
