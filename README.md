@@ -23,8 +23,8 @@ _Project still in development_
     
 - **Actual Post-Synthesis Area:** 61598 $\mu m^2$ 
 	- 614.4 $\mu m$  x 633.1 $\mu m$ 
-![[Pasted image 20260227034455.png]]
-![[Pasted image 20260227034516.png]]
+![[AREA_total.png]]
+![[AREA_sides.png]]
 
 ---
 
