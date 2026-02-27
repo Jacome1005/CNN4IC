@@ -11,16 +11,26 @@
 //=======================================================
 
 module CNNver2 (
+    //////////// OUTPUTS //////////
     output 	CNNver2_MISO,
+    //////////// INPUTS //////////
     input  	CNNver2_SPICLOCK_50,
     input  	CNNver2_SS_N,
     input  	CNNver2_MOSI,
-	 input	CNNver2_Reset_InHigh
+	input	CNNver2_Reset_InHigh,
+    // ── Tipo de dato — pin físico ─────────────────────
+    // La PC/controlador externo pone este valor ANTES de
+    // bajar CS_n. La SPI lo muestrea al inicio de cada
+    // transacción. Todo el payload MOSI es ya datos puros.
+    //
+    // 000 → LOAD IMAGE    8 bytes de imagen (5×5 ventana)
+    // 001 → LOAD WEIGHTS  8 bytes de pesos  (5×5 kernel)
+    // 010 → START CNN     sin payload — lanza convolución
+    // 011 → READ RESULT   16 bits MISO desde Master_reg
+    // 100 → LOAD MAXPOOL  16 bits por vector (×4 vectores)
+    input [2:0]  CNNver2_DataType
 );
-
-// ═══════════════════════════════════════════════
-//  PARÁMETROS DEL SISTEMA
-// ═══════════════════════════════════════════════
+//////////// PARAMETERS ////////////
 localparam DATAWIDTH_BUS        = 8;   // ancho bus SPI estándar (no usado directamente)
 localparam DATAWIDTH_BUS_IMAGE  = 10;  // columnas de imagen (pixels por fila)
 localparam DATAWIDTH_BUS_WEIGHT = 5;   // columnas del kernel (pesos por fila)
@@ -64,9 +74,10 @@ wire wload_u0, wload_u1, wload_u2, wload_u3, wload_u4;
 // ═══════════════════════════════════════════════
 //  WIRES — CNN Controller
 // ═══════════════════════════════════════════════
-wire CNN_CTRL_rst_cwire;
-wire CNN_CTRL_weight_load_cwire;
-wire CNN_CTRL_result_load_cwire;
+wire        CNN_CTRL_rst_routing_cwire;
+wire        CNN_CTRL_weight_load_routing_cwire;
+wire        CNN_CTRL_result_load_routing_cwire;
+wire [1:0]  CNN_CTRL_result_sel_routing_cwire;
 
 // ═══════════════════════════════════════════════
 //  WIRES — CNN Core
@@ -74,7 +85,35 @@ wire CNN_CTRL_result_load_cwire;
 wire signed [10:0] CNN_y_out_cwire;
 wire               CNN_ready_cwire;
 wire signed [14:0] CNN_additional_out_cwire;
-wire        [10:0] CNN_Result_out_cwire;
+
+// ═════════════════════════════════════════════════════
+//  WIRE — MaxPool shift register
+// ═════════════════════════════════════════════════════
+wire [10:0]         SPI_mp_data_routing_cwire;
+wire                SPI_mp_load_routing_cwire;
+wire signed [10:0]  MaxPool_result_routing_cwire;
+wire                MaxPool_valid_routing_cwire;
+
+// ═════════════════════════════════════════════════════
+//  WIRE — Master Register resultado (16 bits)
+// ═════════════════════════════════════════════════════
+wire [15:0] Master_Result_DataOutBUS_routing_cwire;
+
+// ═════════════════════════════════════════════════════
+//  WIRE — Mux 4:1 salida → Master_register
+// ═════════════════════════════════════════════════════
+wire [15:0] master_data_in_routing_cwire;
+
+// ═════════════════════════════════════════════════════
+//  WIRE — Entradas futuras al Mux (a tierra hasta crear módulos)
+//  ← Reemplazar cuando existan Acumulador y Comparador
+// ═════════════════════════════════════════════════════
+wire [15:0] Accum_result_routing_cwire;
+assign Accum_result_routing_cwire = 16'd0;
+
+wire Comp_result_routing_cwire;
+assign Comp_result_routing_cwire  = 1'b0;
+
 
 // ═══════════════════════════════════════════════
 //  EMPAQUETADO DE IMAGEN Y KERNEL
