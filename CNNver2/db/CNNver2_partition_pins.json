@@ -8,11 +8,39 @@
 					"strict" : false
 				},
 				{
-					"name" : "CNNver2_SPICLOCK_50",
+					"name" : "CNNver2_result_pos[0]",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_result_pos[1]",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_result_pos[2]",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_result_pos[3]",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_result_pos[4]",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_result_pos[5]",
 					"strict" : false
 				},
 				{
 					"name" : "CNNver2_SS_N",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_CMD_Reset",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver2_SPICLOCK_50",
 					"strict" : false
 				},
 				{

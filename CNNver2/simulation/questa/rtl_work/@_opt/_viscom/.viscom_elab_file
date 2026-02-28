@@ -1,1 +1,1 @@
-c:/altera_lite/24.1std/questa_fse/win64/VisualizerRls/bin/viscom.exe -nolock -quiet -jmem_size 737568 work.TB_SYSTEM -quiet -auto_acc_if_foreign -work work +acc -allow_unnamed -o _opt -id 1-70a8d34c8dad-69a13358-311-8180 +__betafsm
+c:/altera_lite/24.1std/questa_fse/win64/VisualizerRls/bin/viscom.exe -nolock -quiet -jmem_size 1130784 work.TB_SYSTEM -quiet -auto_acc_if_foreign -work work +acc -allow_unnamed -o _opt -id 1-70a8d34c8dad-69a33eb4-a5-bb38 +__betafsm

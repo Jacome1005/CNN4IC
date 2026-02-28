@@ -5,12 +5,14 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_IMAGE_LOADER.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/result_mux_4to1.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/maxpool_shift.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Master_register.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Weight.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Imag.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2 {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v}
-vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v}

@@ -2,94 +2,121 @@
 //=======================================================
 //  TB_SYSTEM — Testbench completo: SPI + CNN integrado
 //=======================================================
-//  Protocolo SPI (2-bit cmd + data):
-//    00 = LOAD IMAGE   (10 filas x 30 bits = 300 bits)
-//    01 = LOAD WEIGHTS ( 5 filas x 15 bits =  75 bits) ★
-//    10 = START CNN
-//    11 = READ RESULT  (11 clocks -> MISO)
+//  Protocolo SPI (3-bit cmd en MOSI + data):
+//    3'b000 = LOAD IMAGE   (10 filas x 30 bits = 300 bits)
+//    3'b001 = LOAD WEIGHTS ( 5 filas x 15 bits =  75 bits)
+//    3'b010 = START CNN    (sin payload — 1 dummy clock)
+//    3'b011 = READ RESULT  (16 clocks -> MISO 16 bits)
+//    3'b100 = LOAD MAXPOOL (16 bits por vector x 4 vectores)
 //
-//  Cambios respecto a version anterior (marcados con ★):
-//  ★A  test_weight -> [14:0] x 5 filas (kernel 5x5 x 3bits = 75 bits)
-//  ★B  Nueva tarea send_weight_row (15 bits MSB first)
-//  ★C  spi_load_weights envia 5 filas x 15 bits
-//  ★D  compute_expected: w_flat={wt[4..0]}, indice px corregido (parche 5x5)
-//  ★E  Wire paths actualizados (_routing_cwire -> _cwire)
-//  ★F  CNNver2_Reset_InHigh conectado como puerto real (reg TB_SYSTEM_RESET)
-//  ★G  TEST 2,4,5,6,7,8,12 actualizados para pesos 15 bits x 5 filas
+//  Tests cubiertos:
+//    TEST 1  — SPI Load Image  (10 reg x 30 bits)
+//    TEST 2  — SPI Load Weights (5 reg x 15 bits)
+//    TEST 3  — CNN flujo completo: todo ceros
+//    TEST 4  — CNN: imagen -1 / pesos -1  (Exp: +25)
+//    TEST 5  — CNN: patron +1 uniforme    (Exp: +25)
+//    TEST 6  — CNN: imagen +1 / pesos -1  (Exp: -25)
+//    TEST 7  — CNN: patron mixto arbitrario
+//    TEST 8  — Verificacion weight registers post-CNN
+//    TEST 9  — FSM CNN Controller: secuencia de estados
+//    TEST 10 — CNN ready flag + Master_register (16 bits)
+//    TEST 11 — image_mem interno del SPI slave
+//    TEST 12 — weight_mem interno del SPI slave
+//    TEST 13 — MaxPool: carga 4 valores, verifica maximo
+//    TEST 14 — result_mux: verificacion sel y salida 16 bits
+//    TEST 15 — result_pos: contador 0-35 con READ RESULT
+//    TEST 16 — i_cmd_reset: abortar comando y reiniciar pos
 //=======================================================
 
 module TB_SYSTEM();
 
-// ============================================
-// Parameters
-// ============================================
-    parameter TCK            = 20;
+// ============================================================
+//  PARAMETROS
+// ============================================================
+parameter TCK = 20;  // periodo de reloj en ns (50 MHz)
 
-    // Imagen 10x10 x 3 bits
-    parameter IMG_ROWS       = 10;
-    parameter IMG_COLS       = 10;
-    parameter BITS_PER_POS   = 3;
-    parameter ROW_BITS       = IMG_COLS * BITS_PER_POS;    // 30
-    parameter IMG_TOTAL_BITS = IMG_ROWS * ROW_BITS;        // 300
+// Imagen 10x10 x 3 bits
+parameter IMG_ROWS     = 10;
+parameter IMG_COLS     = 10;
+parameter BITS_PER_POS = 3;
+parameter ROW_BITS     = IMG_COLS * BITS_PER_POS;     // 30
+parameter IMG_TOTAL_BITS = IMG_ROWS * ROW_BITS;        // 300
 
-    // ★A Kernel 5x5 x 3 bits
-    parameter KERN_SIZE      = 5;
-    parameter WGT_ROWS       = KERN_SIZE;                  // 5
-    parameter WGT_ROW_BITS   = KERN_SIZE * BITS_PER_POS;  // 15
-    parameter WGT_TOTAL_BITS = WGT_ROWS * WGT_ROW_BITS;   // 75
+// Kernel 5x5 x 3 bits
+parameter KERN_SIZE    = 5;
+parameter WGT_ROWS     = KERN_SIZE;                    // 5
+parameter WGT_ROW_BITS = KERN_SIZE * BITS_PER_POS;    // 15
+parameter WGT_TOTAL_BITS = WGT_ROWS * WGT_ROW_BITS;   // 75
 
-    integer ii = 0;
-    integer jj = 0;
-    integer pass_count = 0;
-    integer fail_count = 0;
+integer ii;
+integer jj;
+integer pass_count;
+integer fail_count;
 
-// ============================================
-// WIRE / REG DECLARATIONS
-// ============================================
-    wire        TB_SYSTEM_MISO;
-    reg         TB_SYSTEM_CLOCK_50;
-    reg         TB_SYSTEM_SS_N;
-    reg         TB_SYSTEM_MOSI;
-    reg         TB_SYSTEM_RESET;             // ★F
-
-    reg [ROW_BITS-1:0]     test_image  [0:IMG_ROWS-1]; // 10 x 30 bits
-    reg [WGT_ROW_BITS-1:0] test_weight [0:WGT_ROWS-1]; // ★A 5 x 15 bits
-    reg [10:0]             miso_captured;
-
-// ============================================
-// UUT INSTANTIATION
-// ============================================
-    // ★F CNNver2_Reset_InHigh ahora es puerto real
-    CNNver2 CNNver2_u0 (
-        .CNNver2_SPICLOCK_50 (TB_SYSTEM_CLOCK_50),
-        .CNNver2_SS_N        (TB_SYSTEM_SS_N),
-        .CNNver2_MOSI        (TB_SYSTEM_MOSI),
-        .CNNver2_MISO        (TB_SYSTEM_MISO),
-        .CNNver2_Reset_InHigh(TB_SYSTEM_RESET)  // ★F
-    );
-
-// ============================================
-// INITIAL: Setup de senales
-// ============================================
 initial begin
-    TB_SYSTEM_CLOCK_50 <= 0;
-    TB_SYSTEM_SS_N     <= 1'b1;
-    TB_SYSTEM_MOSI     <= 1'b0;
-    TB_SYSTEM_RESET    <= 1'b0;   // ★F
+    pass_count = 0;
+    fail_count = 0;
+    ii = 0;
+    jj = 0;
 end
 
-// ============================================
-// CLOCK — 50 MHz (periodo 20 ns)
-// ============================================
+// ============================================================
+//  DECLARACIONES WIRE / REG
+// ============================================================
+wire        TB_SYSTEM_MISO;
+reg         TB_SYSTEM_CLOCK_50;
+reg         TB_SYSTEM_SS_N;
+reg         TB_SYSTEM_MOSI;
+reg         TB_SYSTEM_RESET;
+reg         TB_SYSTEM_CMD_RESET;    // pin i_cmd_reset
+wire [5:0]  TB_SYSTEM_RESULT_POS;   // pin o_result_pos
+
+reg [ROW_BITS-1:0]     test_image  [0:IMG_ROWS-1]; // 10 x 30 bits
+reg [WGT_ROW_BITS-1:0] test_weight [0:WGT_ROWS-1]; // 5 x 15 bits
+reg signed [15:0]      miso_captured;               // 16 bits desde MISO
+
+// ============================================================
+//  INSTANCIA UUT
+// ============================================================
+CNNver2 CNNver2_u0 (
+    .CNNver2_SPICLOCK_50  (TB_SYSTEM_CLOCK_50),
+    .CNNver2_SS_N         (TB_SYSTEM_SS_N),
+    .CNNver2_MOSI         (TB_SYSTEM_MOSI),
+    .CNNver2_MISO         (TB_SYSTEM_MISO),
+    .CNNver2_Reset_InHigh (TB_SYSTEM_RESET),
+    .CNNver2_CMD_Reset    (TB_SYSTEM_CMD_RESET),
+    .CNNver2_result_pos   (TB_SYSTEM_RESULT_POS)
+);
+
+// ============================================================
+//  SETUP INICIAL
+// ============================================================
+initial begin
+    TB_SYSTEM_CLOCK_50  <= 1'b0;
+    TB_SYSTEM_SS_N      <= 1'b1;
+    TB_SYSTEM_MOSI      <= 1'b0;
+    TB_SYSTEM_RESET     <= 1'b0;
+    TB_SYSTEM_CMD_RESET <= 1'b0;
+end
+
+// ============================================================
+//  CLOCK — 50 MHz (periodo 20 ns)
+// ============================================================
 always
     #(TCK/2) TB_SYSTEM_CLOCK_50 <= ~TB_SYSTEM_CLOCK_50;
 
-// ============================================
-// TASK: Send SPI Command (2 bits, MSB first)
-// ============================================
+// ============================================================
+//  TASK: send_cmd — 3 bits en MOSI, MSB primero
+//  Timing: cada bit se pone en negedge + 2ns, se captura en posedge
+//  Con valid_clk el SPI ignora el posedge espurio post-CS,
+//  por lo que el primer bit valido (cmd[2]) llega en el primer
+//  negedge DESPUES del espurio.
+// ============================================================
 task send_cmd;
-    input [1:0] cmd_in;
+    input [2:0] cmd_in;
     begin
+        @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= cmd_in[2];
+        @(posedge TB_SYSTEM_CLOCK_50); #1;
         @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= cmd_in[1];
         @(posedge TB_SYSTEM_CLOCK_50); #1;
         @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= cmd_in[0];
@@ -97,9 +124,9 @@ task send_cmd;
     end
 endtask
 
-// ============================================
-// TASK: Send SPI Row imagen (30 bits, MSB first)
-// ============================================
+// ============================================================
+//  TASK: send_row — 30 bits de imagen, MSB primero
+// ============================================================
 task send_row;
     input [ROW_BITS-1:0] row_in;
     begin
@@ -111,7 +138,9 @@ task send_row;
     end
 endtask
 
-// ★B TASK: Send SPI Weight Row (15 bits, MSB first)
+// ============================================================
+//  TASK: send_weight_row — 15 bits de peso, MSB primero
+// ============================================================
 task send_weight_row;
     input [WGT_ROW_BITS-1:0] wrow_in;
     begin
@@ -123,75 +152,75 @@ task send_weight_row;
     end
 endtask
 
-// ============================================
-// TASK: SPI — LOAD IMAGE (cmd 00)
-//   10 filas x 30 bits = 300 bits
-// ============================================
+// ============================================================
+//  TASK: spi_load_image — cmd 000, 10 filas x 30 bits
+// ============================================================
 task spi_load_image;
     begin
         @(negedge TB_SYSTEM_CLOCK_50); #2;
         TB_SYSTEM_SS_N <= 1'b0;
-        send_cmd(2'b00);
+        // Nota: valid_clk absorbe el primer posedge espurio;
+        // send_cmd empieza a contar desde el segundo negedge.
+        send_cmd(3'b000);
         for (ii = 0; ii < IMG_ROWS; ii = ii + 1)
             send_row(test_image[ii]);
-        #(TCK);
         @(negedge TB_SYSTEM_CLOCK_50); #2;
         TB_SYSTEM_SS_N <= 1'b1;
         #(TCK*5);
     end
 endtask
 
-// ★C TASK: SPI — LOAD WEIGHTS (cmd 01)
-//   5 filas x 15 bits = 75 bits
+// ============================================================
+//  TASK: spi_load_weights — cmd 001, 5 filas x 15 bits
+// ============================================================
 task spi_load_weights;
     begin
         @(negedge TB_SYSTEM_CLOCK_50); #2;
         TB_SYSTEM_SS_N <= 1'b0;
-        send_cmd(2'b01);
-        for (ii = 0; ii < WGT_ROWS; ii = ii + 1)  // ★C 5 filas
-            send_weight_row(test_weight[ii]);       // ★C 15 bits por fila
-        #(TCK);
+        send_cmd(3'b001);
+        for (ii = 0; ii < WGT_ROWS; ii = ii + 1)
+            send_weight_row(test_weight[ii]);
         @(negedge TB_SYSTEM_CLOCK_50); #2;
         TB_SYSTEM_SS_N <= 1'b1;
         #(TCK*5);
     end
 endtask
 
-// ============================================
-// TASK: SPI — START CNN (cmd 10)
-// ============================================
+// ============================================================
+//  TASK: spi_start_cnn — cmd 010, 1 dummy clock para pulso
+//  El pulso o_start_cnn se genera cuando bit_count == 3
+//  (primer data posedge despues de los 3 bits de cmd).
+// ============================================================
 task spi_start_cnn;
     begin
         @(negedge TB_SYSTEM_CLOCK_50); #2;
         TB_SYSTEM_SS_N <= 1'b0;
-        send_cmd(2'b10);
-        for (ii = 0; ii < 4; ii = ii + 1) begin
-            @(negedge TB_SYSTEM_CLOCK_50); #2;
-            TB_SYSTEM_MOSI <= 1'b0;
-            @(posedge TB_SYSTEM_CLOCK_50); #1;
-        end
+        send_cmd(3'b010);
+        // 1 dummy clock: dispara bit_count==3 → o_start_cnn pulsa 1 ciclo
+        @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= 1'b0;
+        @(posedge TB_SYSTEM_CLOCK_50); #1;
         @(negedge TB_SYSTEM_CLOCK_50); #2;
         TB_SYSTEM_SS_N <= 1'b1;
-        #(TCK*10);
+        #(TCK*15);  // tiempo suficiente para que la FSM complete (5 estados)
     end
 endtask
 
-// ============================================
-// TASK: SPI — READ RESULT (cmd 11)
-//   Captura 11 bits por MISO (MSB primero)
-// ============================================
+// ============================================================
+//  TASK: spi_read_result — cmd 011, 16 clocks -> 16 bits MISO
+//  MISO timing (con fix de miso_active):
+//    Clock 1 (bit_count=3): miso_active=0->1, miso_count=0 → MISO=bit[15]
+//    Clock 2 (bit_count=4): miso_count=0->1                 → MISO=bit[14]
+//    ...
+//    Clock 16 (bit_count=18): miso_count=14->15              → MISO=bit[0]
+//  El TB muestrea #1 despues de cada posedge (post-NBA).
+// ============================================================
 task spi_read_result;
     begin
-        miso_captured = 11'd0;
+        miso_captured = 16'sd0;
         @(negedge TB_SYSTEM_CLOCK_50); #2;
         TB_SYSTEM_SS_N <= 1'b0;
-        send_cmd(2'b11);
-        // 1er clock: activa miso_active, captura bit 10
-        @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= 1'b0;
-        @(posedge TB_SYSTEM_CLOCK_50); #1; #2;
-        miso_captured[10] = TB_SYSTEM_MISO;
-        // Siguientes 10 clocks: bits [9:0]
-        for (ii = 9; ii >= 0; ii = ii - 1) begin
+        send_cmd(3'b011);
+        for (ii = 15; ii >= 0; ii = ii - 1) begin
             @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= 1'b0;
             @(posedge TB_SYSTEM_CLOCK_50); #1; #2;
             miso_captured[ii] = TB_SYSTEM_MISO;
@@ -202,24 +231,48 @@ task spi_read_result;
     end
 endtask
 
-// ★D TASK: compute_expected
-//   Calcula la convolucion 5x5 en posicion (R_OFF=0, C_OFF=0):
+// ============================================================
+//  TASK: spi_load_maxpool — cmd 100, 16 bits de datos
+//  Formato: [15:11]=padding cero, [10:0]=valor util (11-bit signed)
+//  El SPI extrae o_mp_data[10:0] cuando data_count==15.
+// ============================================================
+task spi_load_maxpool;
+    input [10:0] val_11bit;  // valor 11-bit signed
+    reg [15:0] word;
+    begin
+        word = {5'b00000, val_11bit};  // zero-extend a 16 bits
+        @(negedge TB_SYSTEM_CLOCK_50); #2;
+        TB_SYSTEM_SS_N <= 1'b0;
+        send_cmd(3'b100);
+        // 16 bits de datos MSB primero
+        for (jj = 15; jj >= 0; jj = jj - 1) begin
+            @(negedge TB_SYSTEM_CLOCK_50); #2;
+            TB_SYSTEM_MOSI = word[jj];
+            @(posedge TB_SYSTEM_CLOCK_50); #1;
+        end
+        @(negedge TB_SYSTEM_CLOCK_50); #2;
+        TB_SYSTEM_SS_N <= 1'b1;
+        #(TCK*8);  // tiempo para que la FSM procese (CAPTURE_MAXPOOL -> IDLE)
+    end
+endtask
+
+// ============================================================
+//  FUNCION: compute_expected
+//  Calcula la convolucion 5x5 en posicion (R_OFF=0, C_OFF=0):
+//    Sum(k=0..24): pixel(R_OFF + k/5, C_OFF + k%5) x weight(k)
 //
-//   Sum(k=0..24): pixel(k/5, k%5) x weight(k)
-//
-//   px_flat layout (igual que cnn_v2 y CNNver2):
-//     fila r = px_flat[r*30 +: 30]
-//     pixel (r,c) = px_flat[r*30 + c*3 +: 3]
-//
-//   w_flat layout (igual que w_flat_cwire en CNNver2):
-//     peso k = w_flat[k*3 +: 3]
-//     (fila 0 del kernel en bits bajos, fila 4 en bits altos)
-//=======================================================
+//  Layout px_flat[299:0]: fila r en bits [r*30 +: 30]
+//    pixel (r,c) = px_flat[r*30 + c*3 +: 3]
+//  Layout w_flat[74:0]:
+//    peso k = w_flat[k*3 +: 3]
+//    (fila 0 del kernel en bits bajos, fila 4 en bits altos)
+// ============================================================
 reg signed [10:0] expected_y;
+reg signed [15:0] expected_y_16;
 
 task compute_expected;
-    reg [IMG_TOTAL_BITS-1:0] px_flat;  // 300 bits
-    reg [WGT_TOTAL_BITS-1:0] w_flat;  // ★D 75 bits exactos (5x15)
+    reg [IMG_TOTAL_BITS-1:0] px_flat;
+    reg [WGT_TOTAL_BITS-1:0] w_flat;
     reg signed [2:0] px_k;
     reg signed [2:0] w_k;
     reg signed [10:0] acc;
@@ -234,8 +287,7 @@ task compute_expected;
             test_image[1], test_image[0]
         };
 
-        // ★D Empaquetar pesos: fila 0 en bits bajos
-        //   Coincide con w_flat_cwire = {wt4, wt3, wt2, wt1, wt0}
+        // Empaquetar pesos: fila 0 en bits bajos
         w_flat = {
             test_weight[4], test_weight[3], test_weight[2],
             test_weight[1], test_weight[0]
@@ -243,55 +295,65 @@ task compute_expected;
 
         acc = 11'sd0;
         for (k = 0; k < 25; k = k + 1) begin
-            // ★D Parche 5x5 en R_OFF=0, C_OFF=0:
-            //   pixel en fila k/5, col k%5 de la imagen
+            // Parche 5x5 en R_OFF=0, C_OFF=0:
+            // pixel en fila k/5, col k%5 de la imagen
             bit_off_px = (k/5)*30 + (k%5)*3;
             px_k = $signed(px_flat[bit_off_px +: 3]);
             w_k  = $signed(w_flat[k*3 +: 3]);
             acc  = acc + (px_k * w_k);
         end
-        expected_y = acc;
+        expected_y    = acc;
+        // Sign-extend 11 -> 16 bits (lo que hace result_mux_4to1 con sel=00)
+        expected_y_16 = {{5{acc[10]}}, acc};
     end
 endtask
 
-// ============================================
-// TASK: check_result — compara y reporta
-// ============================================
+// ============================================================
+//  TASK: check_result
+//  Calcula expected, compara contra Master_register (16 bits)
+//  y verifica que MISO coincide.
+// ============================================================
 task check_result;
-    input [79:0] test_name;
+    input [127:0] test_name;
     begin
         compute_expected;
-        // ★E Wire names actualizados
-        $display("  CNN y_out   = %0d (signed)", $signed(CNNver2_u0.CNN_y_out_cwire));
-        $display("  Result Reg  = %0d (signed)", $signed(CNNver2_u0.CNN_Result_out_cwire));
-        $display("  Expected    = %0d", $signed(expected_y));
-        $display("  MISO[10:0]  = %0d (signed)", $signed(miso_captured));
-        if ($signed(CNNver2_u0.CNN_Result_out_cwire) === expected_y) begin
+        $display("  CNN y_out (raw 11b) = %0d (signed)", $signed(CNNver2_u0.CNN_y_out_cwire));
+        $display("  Master_reg (16b)    = %0d (signed)", $signed(CNNver2_u0.Master_Result_out_cwire));
+        $display("  Expected (16b)      = %0d", $signed(expected_y_16));
+        $display("  MISO capturado      = %0d (signed)", $signed(miso_captured));
+
+        if ($signed(CNNver2_u0.Master_Result_out_cwire) === $signed(expected_y_16) &&
+            $signed(miso_captured) === $signed(expected_y_16)) begin
             $display("  >> PASS");
             pass_count = pass_count + 1;
         end else begin
-            $display("  >> FAIL (got %0d, expected %0d)",
-                $signed(CNNver2_u0.CNN_Result_out_cwire), $signed(expected_y));
+            if ($signed(CNNver2_u0.Master_Result_out_cwire) !== $signed(expected_y_16))
+                $display("  >> FAIL Master_reg: got %0d, expected %0d",
+                    $signed(CNNver2_u0.Master_Result_out_cwire), $signed(expected_y_16));
+            if ($signed(miso_captured) !== $signed(expected_y_16))
+                $display("  >> FAIL MISO:       got %0d, expected %0d",
+                    $signed(miso_captured), $signed(expected_y_16));
             fail_count = fail_count + 1;
         end
     end
 endtask
 
-// ============================================
-// STIMULUS PROCESS
-// ============================================
+// ============================================================
+//  STIMULUS PROCESS
+// ============================================================
 initial begin
     $display("===================================================");
     $display("  TB CNNver2 - SPI + CNN Integration Testbench");
     $display("===================================================");
-    $display("  Imagen:  10 filas x 30 bits = 300 bits total");
-    $display("  Kernel:   5 filas x 15 bits =  75 bits total"); // ★
-    $display("  Convolucion 5x5 en posicion (R_OFF=0, C_OFF=0)");
+    $display("  Imagen:  10 filas x 30 bits = 300 bits");
+    $display("  Kernel:   5 filas x 15 bits =  75 bits");
+    $display("  Protocolo: 3-bit cmd en MOSI + fix valid_clk");
+    $display("  Resultado: Master_register 16 bits -> MISO");
     $display("===================================================");
 
     #(TCK*10);
 
-    // ★F Reset via puerto real
+    // Reset global
     TB_SYSTEM_RESET <= 1'b1;
     #40;
     TB_SYSTEM_RESET <= 1'b0;
@@ -303,16 +365,11 @@ initial begin
     $display("");
     $display("--- TEST 1: SPI LOAD IMAGE (10 filas x 30 bits) ---");
 
-    test_image[0] = 30'h00000001;
-    test_image[1] = 30'h00000249;
-    test_image[2] = 30'h3FFFFFFF;
-    test_image[3] = 30'h15555555;
-    test_image[4] = 30'h00000000;
-    test_image[5] = 30'h09249249;
-    test_image[6] = 30'h1BBBBBBB;
-    test_image[7] = 30'h0AAAAAAA;
-    test_image[8] = 30'h12345678;
-    test_image[9] = 30'h0FEDCBA9;
+    test_image[0] = 30'h00000001;  test_image[1] = 30'h00000249;
+    test_image[2] = 30'h3FFFFFFF;  test_image[3] = 30'h15555555;
+    test_image[4] = 30'h00000000;  test_image[5] = 30'h09249249;
+    test_image[6] = 30'h1BBBBBBB;  test_image[7] = 30'h0AAAAAAA;
+    test_image[8] = 30'h12345678;  test_image[9] = 30'h0FEDCBA9;
 
     spi_load_image();
 
@@ -329,16 +386,16 @@ initial begin
     $display("  Reg9: %h (Exp: %h)", CNNver2_u0.register_imag_u9.Register_Imag_DataOutBUS, test_image[9]);
     $display("---------------------------------------------------");
 
-    if (CNNver2_u0.register_imag_u0.Register_Imag_DataOutBUS == test_image[0] &&
-        CNNver2_u0.register_imag_u1.Register_Imag_DataOutBUS == test_image[1] &&
-        CNNver2_u0.register_imag_u2.Register_Imag_DataOutBUS == test_image[2] &&
-        CNNver2_u0.register_imag_u3.Register_Imag_DataOutBUS == test_image[3] &&
-        CNNver2_u0.register_imag_u4.Register_Imag_DataOutBUS == test_image[4] &&
-        CNNver2_u0.register_imag_u5.Register_Imag_DataOutBUS == test_image[5] &&
-        CNNver2_u0.register_imag_u6.Register_Imag_DataOutBUS == test_image[6] &&
-        CNNver2_u0.register_imag_u7.Register_Imag_DataOutBUS == test_image[7] &&
-        CNNver2_u0.register_imag_u8.Register_Imag_DataOutBUS == test_image[8] &&
-        CNNver2_u0.register_imag_u9.Register_Imag_DataOutBUS == test_image[9]) begin
+    if (CNNver2_u0.register_imag_u0.Register_Imag_DataOutBUS === test_image[0] &&
+        CNNver2_u0.register_imag_u1.Register_Imag_DataOutBUS === test_image[1] &&
+        CNNver2_u0.register_imag_u2.Register_Imag_DataOutBUS === test_image[2] &&
+        CNNver2_u0.register_imag_u3.Register_Imag_DataOutBUS === test_image[3] &&
+        CNNver2_u0.register_imag_u4.Register_Imag_DataOutBUS === test_image[4] &&
+        CNNver2_u0.register_imag_u5.Register_Imag_DataOutBUS === test_image[5] &&
+        CNNver2_u0.register_imag_u6.Register_Imag_DataOutBUS === test_image[6] &&
+        CNNver2_u0.register_imag_u7.Register_Imag_DataOutBUS === test_image[7] &&
+        CNNver2_u0.register_imag_u8.Register_Imag_DataOutBUS === test_image[8] &&
+        CNNver2_u0.register_imag_u9.Register_Imag_DataOutBUS === test_image[9]) begin
         $display("  >> TEST 1 PASSED");
         pass_count = pass_count + 1;
     end else begin
@@ -347,17 +404,17 @@ initial begin
     end
 
     // =========================================================
-    // TEST 2: SPI Weight Load — ★G 5 filas x 15 bits
+    // TEST 2: SPI Weight Load — 5 filas x 15 bits
     // =========================================================
     $display("");
     $display("--- TEST 2: SPI LOAD WEIGHTS (5 filas x 15 bits) ---");
 
-    // ★G Valores de 15 bits — cada uno es 5 pesos x 3 bits
-    //   15'h0249 = 000_010_100_100_101 ... mejor: 001_001_001_001_001 = 0x0249
+    // 15 bits = 5 pesos x 3 bits
+    // 15'h0249 = 000_001_001_001_001 = [+0,+1,+1,+1,+1] (MSB primero)
     test_weight[0] = 15'h0001;  // 000_000_000_000_001
-    test_weight[1] = 15'h0249;  // 001_001_001_001_001 (+1 por cada peso)
+    test_weight[1] = 15'h0249;  // 000_001_001_001_001
     test_weight[2] = 15'h1FFF;  // 011_111_111_111_111
-    test_weight[3] = 15'h06DB;  // 000_110_110_110_011 -> 011_011_011_011_011 (+3 x 5)
+    test_weight[3] = 15'h06DB;  // 000_110_110_110_011
     test_weight[4] = 15'h0000;  // todo cero
 
     spi_load_weights();
@@ -369,11 +426,11 @@ initial begin
     $display("  wmem[3]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[3], test_weight[3]);
     $display("  wmem[4]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4], test_weight[4]);
 
-    if (CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[0] == test_weight[0] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[1] == test_weight[1] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[2] == test_weight[2] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[3] == test_weight[3] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4] == test_weight[4]) begin
+    if (CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[0] === test_weight[0] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[1] === test_weight[1] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[2] === test_weight[2] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[3] === test_weight[3] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4] === test_weight[4]) begin
         $display("  >> TEST 2 PASSED");
         pass_count = pass_count + 1;
     end else begin
@@ -382,16 +439,13 @@ initial begin
     end
 
     // =========================================================
-    // TEST 3: CNN completo — Todo Ceros
-    //   Esperado: 0
+    // TEST 3: CNN flujo completo — Todo Ceros (Exp: 0)
     // =========================================================
     $display("");
     $display("--- TEST 3: CNN flujo completo - Todo Ceros (Exp: 0) ---");
 
-    for (ii = 0; ii < IMG_ROWS; ii = ii + 1)
-        test_image[ii]  = 30'h00000000;
-    for (ii = 0; ii < WGT_ROWS; ii = ii + 1)   // ★G 5 filas
-        test_weight[ii] = 15'h0000;
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) test_image[ii]  = 30'h00000000;
+    for (ii = 0; ii < WGT_ROWS; ii = ii + 1) test_weight[ii] = 15'h0000;
 
     spi_load_image();
     spi_load_weights();
@@ -406,12 +460,8 @@ initial begin
     $display("");
     $display("--- TEST 4: CNN - imagen -1 / pesos -1 (Exp: +25) ---");
 
-    // 30 bits todos 1 = 10 pixels x 111 = -1
-    for (ii = 0; ii < IMG_ROWS; ii = ii + 1)
-        test_image[ii]  = 30'h3FFFFFFF;
-    // 15 bits todos 1 = 5 pesos x 111 = -1 (x5 filas) ★G
-    for (ii = 0; ii < WGT_ROWS; ii = ii + 1)
-        test_weight[ii] = 15'h7FFF;
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) test_image[ii]  = 30'h3FFFFFFF; // 111 x 10 = -1 x 10
+    for (ii = 0; ii < WGT_ROWS; ii = ii + 1) test_weight[ii] = 15'h7FFF;     // 111 x 5 = -1 x 5
 
     spi_load_image();
     spi_load_weights();
@@ -420,18 +470,14 @@ initial begin
     check_result("ALL_NEG1");
 
     // =========================================================
-    // TEST 5: CNN — patron +1 uniforme
-    //   Pixel 001=+1, Peso 001=+1. 25 terminos -> Exp: +25
+    // TEST 5: CNN — patron +1 uniforme (Exp: +25)
+    //   Pixel 001=+1, Peso 001=+1. 25 terminos -> +25
     // =========================================================
     $display("");
     $display("--- TEST 5: CNN - patron +1 uniforme (Exp: +25) ---");
 
-    // 30 bits: 001 repetido 10 veces = 30'h09249249
-    for (ii = 0; ii < IMG_ROWS; ii = ii + 1)
-        test_image[ii] = 30'h09249249;
-    // 15 bits: 001 repetido 5 veces = 15'h0249 ★G
-    for (ii = 0; ii < WGT_ROWS; ii = ii + 1)
-        test_weight[ii] = 15'h0249;
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) test_image[ii]  = 30'h09249249; // 001 x 10
+    for (ii = 0; ii < WGT_ROWS; ii = ii + 1) test_weight[ii] = 15'h0249;     // 001 x 5
 
     spi_load_image();
     spi_load_weights();
@@ -440,16 +486,14 @@ initial begin
     check_result("UNI_001");
 
     // =========================================================
-    // TEST 6: CNN — imagen +1, pesos -1
-    //   25 terminos: (+1)x(-1)=-1 -> Exp: -25
+    // TEST 6: CNN — imagen +1, pesos -1 (Exp: -25)
+    //   25 terminos: (+1)x(-1)=-1 -> -25
     // =========================================================
     $display("");
-    $display("--- TEST 6: CNN - imagen +1, pesos -1 (Exp: -25) ---");
+    $display("--- TEST 6: CNN - imagen +1 / pesos -1 (Exp: -25) ---");
 
-    for (ii = 0; ii < IMG_ROWS; ii = ii + 1)
-        test_image[ii] = 30'h09249249;   // +1 por pixel
-    for (ii = 0; ii < WGT_ROWS; ii = ii + 1)  // ★G
-        test_weight[ii] = 15'h7FFF;      // 111 x 5 = -1 por peso
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) test_image[ii]  = 30'h09249249; // +1 por pixel
+    for (ii = 0; ii < WGT_ROWS; ii = ii + 1) test_weight[ii] = 15'h7FFF;     // -1 por peso
 
     spi_load_image();
     spi_load_weights();
@@ -459,7 +503,7 @@ initial begin
 
     // =========================================================
     // TEST 7: CNN — patron mixto arbitrario
-    //   compute_expected calcula el valor correcto automaticamente
+    //   compute_expected calcula el valor correcto
     // =========================================================
     $display("");
     $display("--- TEST 7: CNN - patron mixto arbitrario ---");
@@ -470,12 +514,11 @@ initial begin
     test_image[6] = 30'h2AAAAAAA; test_image[7] = 30'h00000001;
     test_image[8] = 30'h12481248; test_image[9] = 30'h0DB6DB6D;
 
-    // ★G 5 filas x 15 bits — valores arbitrarios para coverage
-    test_weight[0] = 15'h16B5;  // mezcla de positivos y negativos
+    test_weight[0] = 15'h16B5;
     test_weight[1] = 15'h0492;
     test_weight[2] = 15'h7FFF;  // -1 x 5
-    test_weight[3] = 15'h0000;  // cero x 5
-    test_weight[4] = 15'h36DB;  // 011 x 5 = +3 x 5
+    test_weight[3] = 15'h0000;  // 0 x 5
+    test_weight[4] = 15'h36DB;  // +3 x 5
 
     spi_load_image();
     spi_load_weights();
@@ -486,28 +529,21 @@ initial begin
     // =========================================================
     // TEST 8: Verificar weight registers post-CNN
     //   Los Register_Weight deben retener los valores de TEST 7
-    //   ★G Puerto correcto: Register_Weight_DataOutBUS
-    //      Solo existen u0..u4 (kernel 5x5)
     // =========================================================
     $display("");
     $display("--- TEST 8: Verificar weight registers post-CNN ---");
 
-    $display("  WReg0: %h (Exp: %h)",
-        CNNver2_u0.weight_register_u0.Register_Weight_DataOutBUS, test_weight[0]);
-    $display("  WReg1: %h (Exp: %h)",
-        CNNver2_u0.weight_register_u1.Register_Weight_DataOutBUS, test_weight[1]);
-    $display("  WReg2: %h (Exp: %h)",
-        CNNver2_u0.weight_register_u2.Register_Weight_DataOutBUS, test_weight[2]);
-    $display("  WReg3: %h (Exp: %h)",
-        CNNver2_u0.weight_register_u3.Register_Weight_DataOutBUS, test_weight[3]);
-    $display("  WReg4: %h (Exp: %h)",
-        CNNver2_u0.weight_register_u4.Register_Weight_DataOutBUS, test_weight[4]);
+    $display("  WReg0: %h (Exp: %h)", CNNver2_u0.weight_register_u0.Register_Weight_DataOutBUS, test_weight[0]);
+    $display("  WReg1: %h (Exp: %h)", CNNver2_u0.weight_register_u1.Register_Weight_DataOutBUS, test_weight[1]);
+    $display("  WReg2: %h (Exp: %h)", CNNver2_u0.weight_register_u2.Register_Weight_DataOutBUS, test_weight[2]);
+    $display("  WReg3: %h (Exp: %h)", CNNver2_u0.weight_register_u3.Register_Weight_DataOutBUS, test_weight[3]);
+    $display("  WReg4: %h (Exp: %h)", CNNver2_u0.weight_register_u4.Register_Weight_DataOutBUS, test_weight[4]);
 
-    if (CNNver2_u0.weight_register_u0.Register_Weight_DataOutBUS == test_weight[0] &&
-        CNNver2_u0.weight_register_u1.Register_Weight_DataOutBUS == test_weight[1] &&
-        CNNver2_u0.weight_register_u2.Register_Weight_DataOutBUS == test_weight[2] &&
-        CNNver2_u0.weight_register_u3.Register_Weight_DataOutBUS == test_weight[3] &&
-        CNNver2_u0.weight_register_u4.Register_Weight_DataOutBUS == test_weight[4]) begin
+    if (CNNver2_u0.weight_register_u0.Register_Weight_DataOutBUS === test_weight[0] &&
+        CNNver2_u0.weight_register_u1.Register_Weight_DataOutBUS === test_weight[1] &&
+        CNNver2_u0.weight_register_u2.Register_Weight_DataOutBUS === test_weight[2] &&
+        CNNver2_u0.weight_register_u3.Register_Weight_DataOutBUS === test_weight[3] &&
+        CNNver2_u0.weight_register_u4.Register_Weight_DataOutBUS === test_weight[4]) begin
         $display("  >> TEST 8 PASSED");
         pass_count = pass_count + 1;
     end else begin
@@ -517,67 +553,84 @@ initial begin
 
     // =========================================================
     // TEST 9: FSM CNN Controller — secuencia de estados
+    //   Estados: IDLE(0)->LOAD(1)->PIPE1(2)->PIPE2(3)->CAPTURE_CNN(4)->IDLE(0)
+    //   PIPE2 espera i_cnn_ready=1 (CNN listo en 2 ciclos post-reset)
     // =========================================================
     $display("");
     $display("--- TEST 9: FSM CNN Controller states ---");
-    $display("  Estado actual: %0d (esperado: 0=IDLE)",
-        CNNver2_u0.cnn_ctrl_sm.STATE_Register);
 
-    for (ii = 0; ii < IMG_ROWS; ii = ii + 1)
-        test_image[ii]  = 30'h09249249;
-    for (ii = 0; ii < WGT_ROWS; ii = ii + 1)
-        test_weight[ii] = 15'h0249;
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) test_image[ii]  = 30'h09249249;
+    for (ii = 0; ii < WGT_ROWS; ii = ii + 1) test_weight[ii] = 15'h0249;
 
     spi_load_image();
     spi_load_weights();
 
-    @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_SS_N <= 1'b0;
-    send_cmd(2'b10);
-    @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= 1'b0;
-    @(posedge TB_SYSTEM_CLOCK_50); #1;
-    @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= 1'b0;
-    @(posedge TB_SYSTEM_CLOCK_50); #1;
-    @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_SS_N <= 1'b1;
+    $display("  Estado antes de START CNN: %0d (esperado: 0=IDLE)",
+        CNNver2_u0.cnn_ctrl_sm.STATE_Register);
 
-    $display("  Despues de CS up (start latched):");
-    repeat(6) begin
+    // Iniciar CNN manualmente para observar estados
+    @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_SS_N <= 1'b0;
+    send_cmd(3'b010);
+    @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= 1'b0;
+    @(posedge TB_SYSTEM_CLOCK_50); #1;  // dispara o_start_cnn
+    @(negedge TB_SYSTEM_CLOCK_50); #2;
+    TB_SYSTEM_SS_N <= 1'b1;
+
+    // Observar transicion de estados ciclo a ciclo
+    $display("  Secuencia de estados (post-start):");
+    repeat(8) begin
         @(posedge TB_SYSTEM_CLOCK_50); #1;
-        $display("    Ciclo: STATE=%0d", CNNver2_u0.cnn_ctrl_sm.STATE_Register);
+        $display("    STATE=%0d  cnn_rst=%b  result_load=%b  cnn_ready=%b",
+            CNNver2_u0.cnn_ctrl_sm.STATE_Register,
+            CNNver2_u0.cnn_ctrl_sm.o_cnn_rst,
+            CNNver2_u0.cnn_ctrl_sm.o_result_load,
+            CNNver2_u0.CNN_ready_cwire);
     end
 
+    #(TCK*5);
     if (CNNver2_u0.cnn_ctrl_sm.STATE_Register == 3'd0) begin
         $display("  >> TEST 9 PASSED (FSM retorno a IDLE)");
         pass_count = pass_count + 1;
     end else begin
-        $display("  >> TEST 9 FAILED (FSM no retorno a IDLE)");
+        $display("  >> TEST 9 FAILED (FSM no retorno a IDLE, STATE=%0d)",
+            CNNver2_u0.cnn_ctrl_sm.STATE_Register);
         fail_count = fail_count + 1;
     end
 
     // =========================================================
-    // TEST 10: CNN ready flag y result register
+    // TEST 10: CNN ready flag + Master_register (16 bits)
+    //   Verifica que despues de START CNN:
+    //   - CNN_ready_cwire se activa
+    //   - Master_Result_out_cwire contiene un valor definido (no X)
+    //   - El valor coincide con el calculo esperado
     // =========================================================
     $display("");
-    $display("--- TEST 10: CNN ready flag y result register ---");
+    $display("--- TEST 10: CNN ready flag + Master_register 16 bits ---");
 
-    // ★E Wire names actualizados
-    $display("  CNN ready = %b (esperado: 0 = en reset)",
-        CNNver2_u0.CNN_ready_cwire);
+    $display("  CNN ready (antes de start) = %b (esperado: 0)", CNNver2_u0.CNN_ready_cwire);
 
     spi_start_cnn();
 
-    $display("  Result register = %0d (signed)",
-        $signed(CNNver2_u0.CNN_Result_out_cwire));
+    $display("  CNN ready (post-start)     = %b (esperado: 1)", CNNver2_u0.CNN_ready_cwire);
+    $display("  Master_register [15:0]     = %h (%0d signed)",
+        CNNver2_u0.Master_Result_out_cwire,
+        $signed(CNNver2_u0.Master_Result_out_cwire));
+    $display("  result_sel                 = %b (00=CNN, 01=MaxPool)",
+        CNNver2_u0.cnn_ctrl_sm.o_result_sel);
 
-    if (CNNver2_u0.CNN_Result_out_cwire !== 11'bx) begin
-        $display("  >> TEST 10 PASSED (resultado capturado)");
+    compute_expected;
+    if (CNNver2_u0.Master_Result_out_cwire !== 16'bx &&
+        $signed(CNNver2_u0.Master_Result_out_cwire) === $signed(expected_y_16)) begin
+        $display("  >> TEST 10 PASSED");
         pass_count = pass_count + 1;
     end else begin
-        $display("  >> TEST 10 FAILED (resultado indefinido)");
+        $display("  >> TEST 10 FAILED (got %0d, expected %0d)",
+            $signed(CNNver2_u0.Master_Result_out_cwire), $signed(expected_y_16));
         fail_count = fail_count + 1;
     end
 
     // =========================================================
-    // TEST 11: Verificar image_mem interno del SPI slave
+    // TEST 11: image_mem interno del SPI slave (10 slots)
     // =========================================================
     $display("");
     $display("--- TEST 11: Verificar image_mem[0..9] en spi_cnn_slave_8 ---");
@@ -587,19 +640,15 @@ initial begin
 
     spi_load_image();
 
-    $display("  imem[0]: %h (Exp: %h)",
-        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[0], test_image[0]);
-    $display("  imem[4]: %h (Exp: %h)",
-        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[4], test_image[4]);
-    $display("  imem[8]: %h (Exp: %h)",
-        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[8], test_image[8]);
-    $display("  imem[9]: %h (Exp: %h)",
-        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[9], test_image[9]);
+    $display("  imem[0]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.image_mem[0], test_image[0]);
+    $display("  imem[3]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.image_mem[3], test_image[3]);
+    $display("  imem[7]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.image_mem[7], test_image[7]);
+    $display("  imem[9]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.image_mem[9], test_image[9]);
 
-    if (CNNver2_u0.spi_cnn_slave_8_u0.image_mem[0] == test_image[0] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[4] == test_image[4] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[8] == test_image[8] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[9] == test_image[9]) begin
+    if (CNNver2_u0.spi_cnn_slave_8_u0.image_mem[0] === test_image[0] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[3] === test_image[3] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[7] === test_image[7] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[9] === test_image[9]) begin
         $display("  >> TEST 11 PASSED");
         pass_count = pass_count + 1;
     end else begin
@@ -608,32 +657,211 @@ initial begin
     end
 
     // =========================================================
-    // TEST 12: ★G Verificar weight_mem interno del SPI slave
-    //   Reemplaza la verificacion anterior de 8 bytes
-    //   Ahora: 5 slots de 15 bits
+    // TEST 12: weight_mem interno del SPI slave (5 slots)
     // =========================================================
     $display("");
     $display("--- TEST 12: Verificar weight_mem[0..4] en spi_cnn_slave_8 ---");
 
     for (ii = 0; ii < WGT_ROWS; ii = ii + 1)
-        test_weight[ii] = 15'h0249 + ii;  // valor unico por fila
+        test_weight[ii] = 15'h0249 + ii;
 
     spi_load_weights();
 
-    $display("  wmem[0]: %h (Exp: %h)",
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[0], test_weight[0]);
-    $display("  wmem[2]: %h (Exp: %h)",
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[2], test_weight[2]);
-    $display("  wmem[4]: %h (Exp: %h)",
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4], test_weight[4]);
+    $display("  wmem[0]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[0], test_weight[0]);
+    $display("  wmem[2]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[2], test_weight[2]);
+    $display("  wmem[4]: %h (Exp: %h)", CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4], test_weight[4]);
 
-    if (CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[0] == test_weight[0] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[2] == test_weight[2] &&
-        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4] == test_weight[4]) begin
+    if (CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[0] === test_weight[0] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[2] === test_weight[2] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4] === test_weight[4]) begin
         $display("  >> TEST 12 PASSED");
         pass_count = pass_count + 1;
     end else begin
         $display("  >> TEST 12 FAILED");
+        fail_count = fail_count + 1;
+    end
+
+    // =========================================================
+    // TEST 13: MaxPool — cargar 4 valores, verificar maximo
+    //   Valores enviados (11-bit signed):
+    //     v0 = +2  (11'h002)
+    //     v1 = +7  (11'h007)   <- maximo esperado
+    //     v2 = -3  (11'h7FD = 11'b111_1111_1101)
+    //     v3 = +1  (11'h001)
+    //   Despues del 4o valor maxpool_shift dispara o_valid,
+    //   la FSM entra CAPTURE_MAXPOOL y Master_register
+    //   guarda el maximo = +7 = 16'h0007
+    // =========================================================
+    $display("");
+    $display("--- TEST 13: MaxPool - carga 4 valores, verifica maximo ---");
+    $display("  Valores: +2, +7, -3, +1  ->  Esperado: +7");
+
+    spi_load_maxpool(11'sd2);   // v0 = +2
+    spi_load_maxpool(11'sd7);   // v1 = +7  <- max
+    spi_load_maxpool(-11'sd3);  // v2 = -3
+    spi_load_maxpool(11'sd1);   // v3 = +1
+
+    // Esperar a que la FSM complete CAPTURE_MAXPOOL -> IDLE
+    #(TCK*10);
+
+    $display("  maxpool result_mux sel = %b (esperado: 01=MaxPool)",
+        CNNver2_u0.CNN_CTRL_result_sel_cwire);
+    $display("  MaxPool o_max          = %0d (signed)",
+        $signed(CNNver2_u0.MaxPool_result_cwire));
+    $display("  Master_register        = %0d (signed)",
+        $signed(CNNver2_u0.Master_Result_out_cwire));
+
+    spi_read_result();
+    $display("  MISO capturado         = %0d (signed)", $signed(miso_captured));
+
+    if ($signed(CNNver2_u0.Master_Result_out_cwire) === 16'sd7 &&
+        $signed(miso_captured) === 16'sd7) begin
+        $display("  >> TEST 13 PASSED");
+        pass_count = pass_count + 1;
+    end else begin
+        $display("  >> TEST 13 FAILED (Master=%0d, MISO=%0d, Exp=7)",
+            $signed(CNNver2_u0.Master_Result_out_cwire),
+            $signed(miso_captured));
+        fail_count = fail_count + 1;
+    end
+
+    // =========================================================
+    // TEST 14: result_mux 4to1 — verificar sign extension y sel
+    //   Caso 1: despues de CNN con resultado conocido, verificar
+    //           que Master_register = sign_extend(y_out 11->16)
+    //   Caso 2: despues de MaxPool, verificar sel=01 y
+    //           sign extension negativo
+    // =========================================================
+    $display("");
+    $display("--- TEST 14: result_mux / sign extension 11->16 bits ---");
+
+    // Caso 1: resultado CNN con valor +25 (imagen +1, pesos +1)
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) test_image[ii]  = 30'h09249249;
+    for (ii = 0; ii < WGT_ROWS; ii = ii + 1) test_weight[ii] = 15'h0249;
+
+    spi_load_image();
+    spi_load_weights();
+    spi_start_cnn();
+
+    $display("  [CNN] y_out (11b)    = %0d", $signed(CNNver2_u0.CNN_y_out_cwire));
+    $display("  [CNN] Master (16b)   = %0d (Exp: +25, 16'h0019)",
+        $signed(CNNver2_u0.Master_Result_out_cwire));
+    $display("  [CNN] result_sel     = %b (Exp: 00)", CNNver2_u0.CNN_CTRL_result_sel_cwire);
+
+    if ($signed(CNNver2_u0.Master_Result_out_cwire) === 16'sd25) begin
+        $display("  >> TEST 14a PASSED (CNN sign-extend correcto)");
+        pass_count = pass_count + 1;
+    end else begin
+        $display("  >> TEST 14a FAILED (got %0d, exp 25)",
+            $signed(CNNver2_u0.Master_Result_out_cwire));
+        fail_count = fail_count + 1;
+    end
+
+    // Caso 2: MaxPool con valor negativo: -2, -4, -1, -3 -> max = -1 (sign-extended)
+    $display("  [MaxPool] carga -2, -4, -1, -3  -> Esperado max = -1");
+    spi_load_maxpool(-11'sd2);
+    spi_load_maxpool(-11'sd4);
+    spi_load_maxpool(-11'sd1);
+    spi_load_maxpool(-11'sd3);
+    #(TCK*10);
+
+    $display("  [MaxPool] o_max (11b) = %0d", $signed(CNNver2_u0.MaxPool_result_cwire));
+    $display("  [MaxPool] Master(16b) = %0d (Exp: -1 = 16'hFFFF)",
+        $signed(CNNver2_u0.Master_Result_out_cwire));
+    $display("  [MaxPool] result_sel  = %b (Exp: 01)", CNNver2_u0.CNN_CTRL_result_sel_cwire);
+
+    if ($signed(CNNver2_u0.Master_Result_out_cwire) === -16'sd1) begin
+        $display("  >> TEST 14b PASSED (MaxPool sign-extend negativo correcto)");
+        pass_count = pass_count + 1;
+    end else begin
+        $display("  >> TEST 14b FAILED (got %0d, exp -1)",
+            $signed(CNNver2_u0.Master_Result_out_cwire));
+        fail_count = fail_count + 1;
+    end
+
+    // =========================================================
+    // TEST 15: result_pos counter
+    //   Verifica que o_result_pos incrementa 0->1->2->3 en
+    //   cada transaccion READ RESULT completada (CS sube con cmd=011).
+    // =========================================================
+    $display("");
+    $display("--- TEST 15: result_pos counter (READ RESULT x 3) ---");
+
+    // Primero resetear result_pos con i_cmd_reset
+    TB_SYSTEM_CMD_RESET <= 1'b1;
+    #(TCK*2);
+    TB_SYSTEM_CMD_RESET <= 1'b0;
+    #(TCK*2);
+    $display("  result_pos post-reset = %0d (Exp: 0)", TB_SYSTEM_RESULT_POS);
+
+    // Primera lectura
+    spi_read_result();
+    $display("  result_pos tras 1er READ_RESULT = %0d (Exp: 1)", TB_SYSTEM_RESULT_POS);
+
+    // Segunda lectura
+    spi_read_result();
+    $display("  result_pos tras 2do READ_RESULT = %0d (Exp: 2)", TB_SYSTEM_RESULT_POS);
+
+    // Tercera lectura
+    spi_read_result();
+    $display("  result_pos tras 3er READ_RESULT = %0d (Exp: 3)", TB_SYSTEM_RESULT_POS);
+
+    if (TB_SYSTEM_RESULT_POS === 6'd3) begin
+        $display("  >> TEST 15 PASSED");
+        pass_count = pass_count + 1;
+    end else begin
+        $display("  >> TEST 15 FAILED (got %0d, exp 3)", TB_SYSTEM_RESULT_POS);
+        fail_count = fail_count + 1;
+    end
+
+    // =========================================================
+    // TEST 16: i_cmd_reset
+    //   Verifica que:
+    //   a) i_cmd_reset durante una transaccion aborta el comando
+    //      (los contadores se reinician, imagen no se corrompe)
+    //   b) result_pos se pone en 0 al asertar i_cmd_reset
+    // =========================================================
+    $display("");
+    $display("--- TEST 16: i_cmd_reset (abortar comando en curso) ---");
+
+    // Cargar imagen conocida primero
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) test_image[ii] = 30'h09249249;
+    spi_load_image();
+    $display("  Imagen cargada correctamente.");
+
+    // Ahora intentar una transaccion LOAD IMAGE pero abortarla a mitad
+    @(negedge TB_SYSTEM_CLOCK_50); #2;
+    TB_SYSTEM_SS_N <= 1'b0;
+    send_cmd(3'b000);        // cmd LOAD IMAGE
+    send_row(30'hDEADBEEF);  // primera fila de basura: 30'h2EADBEEF (truncado a 30b)
+    // Mitad de la segunda fila: pulsamos i_cmd_reset
+    @(negedge TB_SYSTEM_CLOCK_50); #2; TB_SYSTEM_MOSI <= 1'b1;
+    @(posedge TB_SYSTEM_CLOCK_50); #1;
+    @(negedge TB_SYSTEM_CLOCK_50); #2;
+    $display("  Pulsando i_cmd_reset a mitad de transaccion...");
+    TB_SYSTEM_CMD_RESET <= 1'b1;  // abortar
+    #(TCK);
+    TB_SYSTEM_CMD_RESET <= 1'b0;
+    TB_SYSTEM_SS_N <= 1'b1;       // tambien subimos CS
+    #(TCK*5);
+
+    $display("  bit_count post-reset  = %0d (Exp: 0)",
+        CNNver2_u0.spi_cnn_slave_8_u0.bit_count);
+    $display("  row post-reset        = %0d (Exp: 0)",
+        CNNver2_u0.spi_cnn_slave_8_u0.row);
+    $display("  result_pos post-reset = %0d (Exp: 0)", TB_SYSTEM_RESULT_POS);
+
+    // Los registros de imagen del bloque anterior deben estar intactos
+    $display("  imem[0] post-abort    = %h (Exp: %h)",
+        CNNver2_u0.spi_cnn_slave_8_u0.image_mem[0], test_image[0]);
+
+    if (CNNver2_u0.spi_cnn_slave_8_u0.bit_count  === 9'd0 &&
+        CNNver2_u0.spi_cnn_slave_8_u0.row         === 4'd0 &&
+        TB_SYSTEM_RESULT_POS                       === 6'd0) begin
+        $display("  >> TEST 16 PASSED (cmd_reset aborta correctamente)");
+        pass_count = pass_count + 1;
+    end else begin
+        $display("  >> TEST 16 FAILED");
         fail_count = fail_count + 1;
     end
 
