@@ -1,18 +1,25 @@
 BEGIN 1:SC_STATEMACHINE_CNN_CTRL:fast:work
     STATE_Register :  1:TB_SYSTEM:fast:work
-END 
-BEGIN 1:spi_cnn_slave_8:fast:work
-    weight_mem :  1:TB_SYSTEM:fast:work
-    image_mem :  1:TB_SYSTEM:fast:work
-END 
-BEGIN 1:Register_Weight:fast:work
-    Register_Weight_DataOutBUS :  1:TB_SYSTEM:fast:work
+    o_result_load :  1:TB_SYSTEM:fast:work
+    o_result_sel :  1:TB_SYSTEM:fast:work
+    o_cnn_rst :  1:TB_SYSTEM:fast:work
 END 
 BEGIN 1:Register_Imag:fast:work
     Register_Imag_DataOutBUS :  1:TB_SYSTEM:fast:work
 END 
+BEGIN 1:spi_cnn_slave_8:fast:work
+    bit_count :  1:TB_SYSTEM:fast:work
+    image_mem :  1:TB_SYSTEM:fast:work
+    weight_mem :  1:TB_SYSTEM:fast:work
+    row :  1:TB_SYSTEM:fast:work
+END 
+BEGIN 1:Register_Weight:fast:work
+    Register_Weight_DataOutBUS :  1:TB_SYSTEM:fast:work
+END 
 BEGIN 1:CNNver2:fast:work
-    CNN_Result_out_cwire :  1:TB_SYSTEM:fast:work
+    Master_Result_out_cwire :  1:TB_SYSTEM:fast:work
     CNN_y_out_cwire :  1:TB_SYSTEM:fast:work
     CNN_ready_cwire :  1:TB_SYSTEM:fast:work
+    MaxPool_result_cwire :  1:TB_SYSTEM:fast:work
+    CNN_CTRL_result_sel_cwire :  1:TB_SYSTEM:fast:work
 END 

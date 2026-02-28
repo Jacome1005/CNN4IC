@@ -1,5 +1,5 @@
 Analysis & Synthesis report for CNNver2
-Fri Feb 27 00:54:30 2026
+Sat Feb 28 13:49:44 2026
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -18,60 +18,63 @@ Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
  10. State Machine - |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm|STATE_Register
  11. Registers Removed During Synthesis
  12. General Register Statistics
- 13. Multiplexer Restructuring Statistics (Restructuring Performed)
- 14. Source assignments for cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut
- 15. Parameter Settings for User Entity Instance: spi_cnn_slave_8:spi_cnn_slave_8_u0
- 16. Parameter Settings for User Entity Instance: spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm
- 17. Parameter Settings for User Entity Instance: spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm
- 18. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u0
- 19. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u1
- 20. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u2
- 21. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u3
- 22. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u4
- 23. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u5
- 24. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u6
- 25. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u7
- 26. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u8
- 27. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u9
- 28. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u0
- 29. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u1
- 30. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u2
- 31. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u3
- 32. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u4
- 33. Parameter Settings for User Entity Instance: cnn_conv_v2:cnn_conv_v2_u0
- 34. Parameter Settings for User Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut
- 35. Parameter Settings for User Entity Instance: Register:result_register_u0
- 36. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult24
- 37. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult5
- 38. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult4
- 39. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult3
- 40. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult23
- 41. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult22
- 42. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult21
- 43. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult20
- 44. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult19
- 45. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult18
- 46. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult17
- 47. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult16
- 48. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult15
- 49. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult14
- 50. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult13
- 51. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult12
- 52. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult11
- 53. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult10
- 54. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult9
- 55. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult8
- 56. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult7
- 57. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult6
- 58. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult2
- 59. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult1
- 60. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult0
- 61. lpm_mult Parameter Settings by Entity Instance
- 62. Port Connectivity Checks: "cnn_conv_v2:cnn_conv_v2_u0"
- 63. Port Connectivity Checks: "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm"
- 64. Post-Synthesis Netlist Statistics for Top Partition
- 65. Elapsed Time Per Partition
- 66. Analysis & Synthesis Messages
+ 13. Inverted Register Statistics
+ 14. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 15. Source assignments for cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut
+ 16. Parameter Settings for User Entity Instance: spi_cnn_slave_8:spi_cnn_slave_8_u0
+ 17. Parameter Settings for User Entity Instance: spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm
+ 18. Parameter Settings for User Entity Instance: spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm
+ 19. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u0
+ 20. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u1
+ 21. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u2
+ 22. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u3
+ 23. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u4
+ 24. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u5
+ 25. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u6
+ 26. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u7
+ 27. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u8
+ 28. Parameter Settings for User Entity Instance: Register_Imag:register_imag_u9
+ 29. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u0
+ 30. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u1
+ 31. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u2
+ 32. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u3
+ 33. Parameter Settings for User Entity Instance: Register_Weight:weight_register_u4
+ 34. Parameter Settings for User Entity Instance: cnn_conv_v2:cnn_conv_v2_u0
+ 35. Parameter Settings for User Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut
+ 36. Parameter Settings for User Entity Instance: Master_register:master_reg_u0
+ 37. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult24
+ 38. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult5
+ 39. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult4
+ 40. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult3
+ 41. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult23
+ 42. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult22
+ 43. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult21
+ 44. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult20
+ 45. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult19
+ 46. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult18
+ 47. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult17
+ 48. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult16
+ 49. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult15
+ 50. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult14
+ 51. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult13
+ 52. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult12
+ 53. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult11
+ 54. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult10
+ 55. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult9
+ 56. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult8
+ 57. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult7
+ 58. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult6
+ 59. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult2
+ 60. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult1
+ 61. Parameter Settings for Inferred Entity Instance: cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult0
+ 62. lpm_mult Parameter Settings by Entity Instance
+ 63. Port Connectivity Checks: "result_mux_4to1:result_mux_u0"
+ 64. Port Connectivity Checks: "maxpool_shift:maxpool_shift_u0"
+ 65. Port Connectivity Checks: "cnn_conv_v2:cnn_conv_v2_u0"
+ 66. Port Connectivity Checks: "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm"
+ 67. Post-Synthesis Netlist Statistics for Top Partition
+ 68. Elapsed Time Per Partition
+ 69. Analysis & Synthesis Messages
 
 
 
@@ -98,14 +101,14 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Fri Feb 27 00:54:30 2026           ;
+; Analysis & Synthesis Status     ; Successful - Sat Feb 28 13:49:44 2026           ;
 ; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                   ; CNNver2                                         ;
 ; Top-level Entity Name           ; CNNver2                                         ;
 ; Family                          ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 540                                             ;
-; Total pins                      ; 5                                               ;
+; Total registers                 ; 623                                             ;
+; Total pins                      ; 12                                              ;
 ; Total virtual pins              ; 0                                               ;
 ; Total block memory bits         ; 0                                               ;
 ; Total DSP Blocks                ; 0                                               ;
@@ -234,12 +237,14 @@ on the Quartus Prime software download page.
 +-------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path    ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                        ; Library ;
 +-------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------+---------+
-; rtl/Register.v                      ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register.v                      ;         ;
+; rtl/SC_STATEMACHINE_IMAGE_LOADER.v  ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_IMAGE_LOADER.v  ;         ;
+; rtl/result_mux_4to1.v               ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/result_mux_4to1.v               ;         ;
+; rtl/maxpool_shift.v                 ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/maxpool_shift.v                 ;         ;
+; rtl/Master_register.v               ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Master_register.v               ;         ;
 ; rtl/SC_STATEMACHINE_WEIGHT_LOADER.v ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v ;         ;
 ; rtl/Register_Weight.v               ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Weight.v               ;         ;
 ; rtl/Register_Imag.v                 ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Imag.v                 ;         ;
 ; CNNver2.v                           ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v                           ;         ;
-; rtl/STATEMACHINE_IMAGE_LOADER.v     ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v     ;         ;
 ; rtl/spi_cnn_slave_8.v               ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v               ;         ;
 ; rtl/SC_STATEMACHINE_CNN_CTRL.v      ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v      ;         ;
 ; rtl/cnn_v2.v                        ; yes             ; User Verilog HDL File        ; C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v                        ;         ;
@@ -275,25 +280,25 @@ on the Quartus Prime software download page.
 +---------------------------------------------+---------------------------+
 ; Resource                                    ; Usage                     ;
 +---------------------------------------------+---------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 383                       ;
+; Estimate of Logic utilization (ALMs needed) ; 448                       ;
 ;                                             ;                           ;
-; Combinational ALUT usage for logic          ; 459                       ;
-;     -- 7 input functions                    ; 1                         ;
-;     -- 6 input functions                    ; 27                        ;
-;     -- 5 input functions                    ; 116                       ;
-;     -- 4 input functions                    ; 80                        ;
-;     -- <=3 input functions                  ; 235                       ;
+; Combinational ALUT usage for logic          ; 550                       ;
+;     -- 7 input functions                    ; 2                         ;
+;     -- 6 input functions                    ; 57                        ;
+;     -- 5 input functions                    ; 143                       ;
+;     -- 4 input functions                    ; 77                        ;
+;     -- <=3 input functions                  ; 271                       ;
 ;                                             ;                           ;
-; Dedicated logic registers                   ; 540                       ;
+; Dedicated logic registers                   ; 623                       ;
 ;                                             ;                           ;
-; I/O pins                                    ; 5                         ;
+; I/O pins                                    ; 12                        ;
 ;                                             ;                           ;
 ; Total DSP Blocks                            ; 0                         ;
 ;                                             ;                           ;
 ; Maximum fan-out node                        ; CNNver2_SPICLOCK_50~input ;
-; Maximum fan-out                             ; 540                       ;
-; Total fan-out                               ; 3771                      ;
-; Average fan-out                             ; 3.74                      ;
+; Maximum fan-out                             ; 617                       ;
+; Total fan-out                               ; 4532                      ;
+; Average fan-out                             ; 3.79                      ;
 +---------------------------------------------+---------------------------+
 
 
@@ -302,8 +307,8 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+--------------+
 ; Compilation Hierarchy Node                             ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                               ; Entity Name                   ; Library Name ;
 +--------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+--------------+
-; |CNNver2                                               ; 459 (0)             ; 540 (0)                   ; 0                 ; 0          ; 5    ; 0            ; |CNNver2                                                                                                                                          ; CNNver2                       ; work         ;
-;    |Register:result_register_u0|                       ; 1 (1)               ; 11 (11)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Register:result_register_u0                                                                                                              ; Register                      ; work         ;
+; |CNNver2                                               ; 550 (0)             ; 623 (0)                   ; 0                 ; 0          ; 12   ; 0            ; |CNNver2                                                                                                                                          ; CNNver2                       ; work         ;
+;    |Master_register:master_reg_u0|                     ; 13 (13)             ; 11 (11)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Master_register:master_reg_u0                                                                                                            ; Master_register               ; work         ;
 ;    |Register_Imag:register_imag_u0|                    ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Register_Imag:register_imag_u0                                                                                                           ; Register_Imag                 ; work         ;
 ;    |Register_Imag:register_imag_u1|                    ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Register_Imag:register_imag_u1                                                                                                           ; Register_Imag                 ; work         ;
 ;    |Register_Imag:register_imag_u2|                    ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Register_Imag:register_imag_u2                                                                                                           ; Register_Imag                 ; work         ;
@@ -314,9 +319,9 @@ on the Quartus Prime software download page.
 ;    |Register_Weight:weight_register_u2|                ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Register_Weight:weight_register_u2                                                                                                       ; Register_Weight               ; work         ;
 ;    |Register_Weight:weight_register_u3|                ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Register_Weight:weight_register_u3                                                                                                       ; Register_Weight               ; work         ;
 ;    |Register_Weight:weight_register_u4|                ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|Register_Weight:weight_register_u4                                                                                                       ; Register_Weight               ; work         ;
-;    |SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|              ; 4 (4)               ; 6 (6)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm                                                                                                     ; SC_STATEMACHINE_CNN_CTRL      ; work         ;
-;    |cnn_conv_v2:cnn_conv_v2_u0|                        ; 377 (0)             ; 161 (0)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0                                                                                                               ; cnn_conv_v2                   ; work         ;
-;       |cnn_v2:uut|                                     ; 377 (102)           ; 161 (161)                 ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut                                                                                                    ; cnn_v2                        ; work         ;
+;    |SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|              ; 8 (8)               ; 8 (8)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm                                                                                                     ; SC_STATEMACHINE_CNN_CTRL      ; work         ;
+;    |cnn_conv_v2:cnn_conv_v2_u0|                        ; 378 (0)             ; 162 (0)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0                                                                                                               ; cnn_conv_v2                   ; work         ;
+;       |cnn_v2:uut|                                     ; 378 (103)           ; 162 (162)                 ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut                                                                                                    ; cnn_v2                        ; work         ;
 ;          |lpm_mult:Mult0|                              ; 11 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult0                                                                                     ; lpm_mult                      ; work         ;
 ;             |multcore:mult_core|                       ; 11 (0)              ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult0|multcore:mult_core                                                                  ; multcore                      ; work         ;
 ;                |mpar_add:padder|                       ; 7 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder                                                  ; mpar_add                      ; work         ;
@@ -492,25 +497,27 @@ on the Quartus Prime software download page.
 ;                      |add_sub_4tg:auto_generated|      ; 6 (6)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult9|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]|add_sub_4tg:auto_generated  ; add_sub_4tg                   ; work         ;
 ;                |mul_lfrg:$00033|                       ; 1 (1)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult9|multcore:mult_core|mul_lfrg:$00033                                                  ; mul_lfrg                      ; work         ;
 ;                |mul_lfrg:mul_lfrg_first_mod|           ; 3 (3)               ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|lpm_mult:Mult9|multcore:mult_core|mul_lfrg:mul_lfrg_first_mod                                      ; mul_lfrg                      ; work         ;
-;    |spi_cnn_slave_8:spi_cnn_slave_8_u0|                ; 67 (65)             ; 212 (210)                 ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0                                                                                                       ; spi_cnn_slave_8               ; work         ;
+;    |maxpool_shift:maxpool_shift_u0|                    ; 52 (52)             ; 47 (47)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|maxpool_shift:maxpool_shift_u0                                                                                                           ; maxpool_shift                 ; work         ;
+;    |spi_cnn_slave_8:spi_cnn_slave_8_u0|                ; 89 (86)             ; 245 (243)                 ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0                                                                                                       ; spi_cnn_slave_8               ; work         ;
 ;       |SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm|   ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm                                                          ; SC_STATEMACHINE_IMAGE_LOADER  ; work         ;
-;       |SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm| ; 1 (1)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm                                                        ; SC_STATEMACHINE_WEIGHT_LOADER ; work         ;
+;       |SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm| ; 2 (2)               ; 1 (1)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm                                                        ; SC_STATEMACHINE_WEIGHT_LOADER ; work         ;
 +--------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
 Encoding Type:  One-Hot
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |CNNver2|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|STATE_Register                                                                                                  ;
-+------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+------------------------------+
-; Name                         ; STATE_Register.STATE_PIPE2 ; STATE_Register.STATE_PIPE1 ; STATE_Register.STATE_LOAD ; STATE_Register.STATE_IDLE ; STATE_Register.STATE_CAPTURE ;
-+------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+------------------------------+
-; STATE_Register.STATE_IDLE    ; 0                          ; 0                          ; 0                         ; 0                         ; 0                            ;
-; STATE_Register.STATE_LOAD    ; 0                          ; 0                          ; 1                         ; 1                         ; 0                            ;
-; STATE_Register.STATE_PIPE1   ; 0                          ; 1                          ; 0                         ; 1                         ; 0                            ;
-; STATE_Register.STATE_PIPE2   ; 1                          ; 0                          ; 0                         ; 1                         ; 0                            ;
-; STATE_Register.STATE_CAPTURE ; 0                          ; 0                          ; 0                         ; 1                         ; 1                            ;
-+------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |CNNver2|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|STATE_Register                                                                                                                                                     ;
++--------------------------------------+--------------------------------------+----------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Name                                 ; STATE_Register.STATE_CAPTURE_MAXPOOL ; STATE_Register.STATE_CAPTURE_CNN ; STATE_Register.STATE_PIPE2 ; STATE_Register.STATE_PIPE1 ; STATE_Register.STATE_LOAD ; STATE_Register.STATE_IDLE ;
++--------------------------------------+--------------------------------------+----------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; STATE_Register.STATE_IDLE            ; 0                                    ; 0                                ; 0                          ; 0                          ; 0                         ; 0                         ;
+; STATE_Register.STATE_LOAD            ; 0                                    ; 0                                ; 0                          ; 0                          ; 1                         ; 1                         ;
+; STATE_Register.STATE_PIPE1           ; 0                                    ; 0                                ; 0                          ; 1                          ; 0                         ; 1                         ;
+; STATE_Register.STATE_PIPE2           ; 0                                    ; 0                                ; 1                          ; 0                          ; 0                         ; 1                         ;
+; STATE_Register.STATE_CAPTURE_CNN     ; 0                                    ; 1                                ; 0                          ; 0                          ; 0                         ; 1                         ;
+; STATE_Register.STATE_CAPTURE_MAXPOOL ; 1                                    ; 0                                ; 0                          ; 0                          ; 0                         ; 1                         ;
++--------------------------------------+--------------------------------------+----------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
 
 
 Encoding Type:  One-Hot
@@ -535,18 +542,19 @@ Encoding Type:  One-Hot
 +-------------------------------+-----------------------------------------------------------------------------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                                                      ;
-+----------------------------------------------------------------------------------------------------+--------------------+
-; Register name                                                                                      ; Reason for Removal ;
-+----------------------------------------------------------------------------------------------------+--------------------+
-; SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|STATE_Register~4                                              ; Lost fanout        ;
-; SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|STATE_Register~5                                              ; Lost fanout        ;
-; spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm|STATE_Register~5 ; Lost fanout        ;
-; spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm|STATE_Register~5   ; Lost fanout        ;
-; spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm|STATE_Register~6   ; Lost fanout        ;
-; Total Number of Removed Registers = 5                                                              ;                    ;
-+----------------------------------------------------------------------------------------------------+--------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                       ;
++----------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+; Register name                                                                                      ; Reason for Removal                                  ;
++----------------------------------------------------------------------------------------------------+-----------------------------------------------------+
+; Master_register:master_reg_u0|Datos[11..15]                                                        ; Merged with Master_register:master_reg_u0|Datos[10] ;
+; SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|STATE_Register~4                                              ; Lost fanout                                         ;
+; SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|STATE_Register~5                                              ; Lost fanout                                         ;
+; SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm|STATE_Register~6                                              ; Lost fanout                                         ;
+; spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm|STATE_Register~5 ; Lost fanout                                         ;
+; spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm|STATE_Register~5   ; Lost fanout                                         ;
+; Total Number of Removed Registers = 10                                                             ;                                                     ;
++----------------------------------------------------------------------------------------------------+-----------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -554,14 +562,26 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 540   ;
-; Number of registers using Synchronous Clear  ; 329   ;
+; Total registers                              ; 623   ;
+; Number of registers using Synchronous Clear  ; 375   ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 40    ;
+; Number of registers using Asynchronous Clear ; 103   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 355   ;
+; Number of registers using Clock Enable       ; 429   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++-------------------------------------------------------------------+
+; Inverted Register Statistics                                      ;
++---------------------------------------------------------+---------+
+; Inverted Register                                       ; Fan out ;
++---------------------------------------------------------+---------+
+; spi_cnn_slave_8:spi_cnn_slave_8_u0|cmd_latch_for_pos[2] ; 2       ;
+; spi_cnn_slave_8:spi_cnn_slave_8_u0|cmd_latch_for_pos[1] ; 2       ;
+; spi_cnn_slave_8:spi_cnn_slave_8_u0|cmd_latch_for_pos[0] ; 2       ;
+; Total number of inverted registers = 3                  ;         ;
++---------------------------------------------------------+---------+
 
 
 +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -569,18 +589,20 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
-; 3:1                ; 11 bits   ; 22 LEs        ; 0 LEs                ; 22 LEs                 ; Yes        ; |CNNver2|Register:result_register_u0|Datos[2]             ;
-; 3:1                ; 7 bits    ; 14 LEs        ; 14 LEs               ; 0 LEs                  ; Yes        ; |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0|data_count[5] ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u4|Datos[8]          ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u4|Datos[10]     ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u1|Datos[14]         ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u1|Datos[1]      ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u0|Datos[9]          ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u0|Datos[14]     ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u3|Datos[7]          ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u3|Datos[14]     ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u2|Datos[1]          ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u2|Datos[3]      ;
+; 3:1                ; 44 bits   ; 88 LEs        ; 0 LEs                ; 88 LEs                 ; Yes        ; |CNNver2|maxpool_shift:maxpool_shift_u0|reg1[10]          ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u4|Datos[6]          ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u4|Datos[14]     ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u1|Datos[1]          ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u1|Datos[3]      ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u0|Datos[1]          ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u0|Datos[13]     ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u3|Datos[0]          ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u3|Datos[2]      ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Imag:register_imag_u2|Datos[0]          ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver2|Register_Weight:weight_register_u2|Datos[11]     ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |CNNver2|maxpool_shift:maxpool_shift_u0|count[0]          ;
+; 5:1                ; 10 bits   ; 30 LEs        ; 20 LEs               ; 10 LEs                 ; Yes        ; |CNNver2|Master_register:master_reg_u0|Datos[6]           ;
+; 12:1               ; 7 bits    ; 56 LEs        ; 14 LEs               ; 42 LEs                 ; Yes        ; |CNNver2|spi_cnn_slave_8:spi_cnn_slave_8_u0|data_count[4] ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------+
 
 
@@ -859,13 +881,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+--------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: Register:result_register_u0 ;
-+----------------+-------+-------------------------------------------------+
-; Parameter Name ; Value ; Type                                            ;
-+----------------+-------+-------------------------------------------------+
-; DATAWIDTH_BUS  ; 11    ; Signed Integer                                  ;
-+----------------+-------+-------------------------------------------------+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Master_register:master_reg_u0 ;
++----------------+-------+---------------------------------------------------+
+; Parameter Name ; Value ; Type                                              ;
++----------------+-------+---------------------------------------------------+
+; DATAWIDTH_BUS  ; 16    ; Signed Integer                                    ;
++----------------+-------+---------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -2028,6 +2050,25 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------------------------------+-------------------------------------------------------+
 
 
++-----------------------------------------------------------+
+; Port Connectivity Checks: "result_mux_4to1:result_mux_u0" ;
++----------------+-------+----------+-----------------------+
+; Port           ; Type  ; Severity ; Details               ;
++----------------+-------+----------+-----------------------+
+; i_accum_result ; Input ; Info     ; Stuck at GND          ;
+; i_comp_result  ; Input ; Info     ; Stuck at GND          ;
++----------------+-------+----------+-----------------------+
+
+
++------------------------------------------------------------+
+; Port Connectivity Checks: "maxpool_shift:maxpool_shift_u0" ;
++----------------+-------+----------+------------------------+
+; Port           ; Type  ; Severity ; Details                ;
++----------------+-------+----------+------------------------+
+; i_data[15..11] ; Input ; Info     ; Stuck at GND           ;
++----------------+-------+----------+------------------------+
+
+
 +---------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "cnn_conv_v2:cnn_conv_v2_u0"                                                                    ;
 +-----------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -2037,18 +2078,17 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; additional_in_1 ; Input  ; Info     ; Stuck at GND                                                                        ;
 ; additional_in_2 ; Input  ; Info     ; Stuck at GND                                                                        ;
 ; additional_in_3 ; Input  ; Info     ; Stuck at GND                                                                        ;
-; ready           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 ; additional_out  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
 +-----------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
-+------------------------------------------------------------------+
-; Port Connectivity Checks: "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm" ;
-+---------------+--------+----------+------------------------------+
-; Port          ; Type   ; Severity ; Details                      ;
-+---------------+--------+----------+------------------------------+
-; o_weight_load ; Output ; Info     ; Explicitly unconnected       ;
-+---------------+--------+----------+------------------------------+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm"                                                        ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                             ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; o_weight_load ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -2056,36 +2096,37 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 540                         ;
-;     CLR               ; 24                          ;
-;     ENA               ; 178                         ;
-;     ENA CLR           ; 9                           ;
+; arriav_ff             ; 623                         ;
+;     CLR               ; 30                          ;
+;     ENA               ; 151                         ;
+;     ENA CLR           ; 66                          ;
 ;     ENA CLR SCLR      ; 7                           ;
-;     ENA SCLR          ; 161                         ;
-;     SCLR              ; 161                         ;
+;     ENA SCLR          ; 205                         ;
+;     SCLR              ; 163                         ;
+;     plain             ; 1                           ;
 ; arriav_io_obuf        ; 1                           ;
-; arriav_lcell_comb     ; 459                         ;
+; arriav_lcell_comb     ; 550                         ;
 ;     arith             ; 165                         ;
 ;         1 data inputs ; 14                          ;
 ;         2 data inputs ; 1                           ;
 ;         3 data inputs ; 25                          ;
 ;         4 data inputs ; 25                          ;
 ;         5 data inputs ; 100                         ;
-;     extend            ; 1                           ;
-;         7 data inputs ; 1                           ;
-;     normal            ; 191                         ;
-;         1 data inputs ; 1                           ;
-;         2 data inputs ; 10                          ;
-;         3 data inputs ; 82                          ;
-;         4 data inputs ; 55                          ;
-;         5 data inputs ; 16                          ;
-;         6 data inputs ; 27                          ;
+;     extend            ; 2                           ;
+;         7 data inputs ; 2                           ;
+;     normal            ; 281                         ;
+;         1 data inputs ; 6                           ;
+;         2 data inputs ; 19                          ;
+;         3 data inputs ; 104                         ;
+;         4 data inputs ; 52                          ;
+;         5 data inputs ; 43                          ;
+;         6 data inputs ; 57                          ;
 ;     shared            ; 102                         ;
 ;         3 data inputs ; 102                         ;
-; boundary_port         ; 5                           ;
+; boundary_port         ; 12                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.80                        ;
-; Average LUT depth     ; 3.72                        ;
+; Max LUT depth         ; 8.00                        ;
+; Average LUT depth     ; 3.98                        ;
 +-----------------------+-----------------------------+
 
 
@@ -2094,7 +2135,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:01     ;
+; Top            ; 00:00:02     ;
 +----------------+--------------+
 
 
@@ -2104,44 +2145,50 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Fri Feb 27 00:54:19 2026
+    Info: Processing started: Sat Feb 28 13:49:31 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off CNNver2 -c CNNver2
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/sc_statemachine_image_loader.v
+    Info (12023): Found entity 1: SC_STATEMACHINE_IMAGE_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_IMAGE_LOADER.v Line: 14
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/result_mux_4to1.v
+    Info (12023): Found entity 1: result_mux_4to1 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/result_mux_4to1.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/maxpool_shift.v
+    Info (12023): Found entity 1: maxpool_shift File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/maxpool_shift.v Line: 32
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/master_register.v
+    Info (12023): Found entity 1: Master_register File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Master_register.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/register.v
     Info (12023): Found entity 1: Register File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/sc_statemachine_weight_loader.v
-    Info (12023): Found entity 1: SC_STATEMACHINE_WEIGHT_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 16
+    Info (12023): Found entity 1: SC_STATEMACHINE_WEIGHT_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 14
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/register_weight.v
     Info (12023): Found entity 1: Register_Weight File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Weight.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/register_imag.v
     Info (12023): Found entity 1: Register_Imag File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/Register_Imag.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file cnnver2.v
-    Info (12023): Found entity 1: CNNver2 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 13
-Info (12021): Found 1 design units, including 1 entities, in source file rtl/statemachine_image_loader.v
-    Info (12023): Found entity 1: SC_STATEMACHINE_IMAGE_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v Line: 10
+    Info (12023): Found entity 1: CNNver2 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 5
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/spi_cnn_slave_8.v
-    Info (12023): Found entity 1: spi_cnn_slave_8 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 32
+    Info (12023): Found entity 1: spi_cnn_slave_8 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 35
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/sc_statemachine_cnn_ctrl.v
-    Info (12023): Found entity 1: SC_STATEMACHINE_CNN_CTRL File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v Line: 28
+    Info (12023): Found entity 1: SC_STATEMACHINE_CNN_CTRL File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_CNN_CTRL.v Line: 31
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/cnn_v2.v
     Info (12023): Found entity 1: cnn_v2 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v Line: 31
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/cnn_conv_v2.v
     Info (12023): Found entity 1: cnn_conv_v2 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_conv_v2.v Line: 10
 Info (12127): Elaborating entity "CNNver2" for the top level hierarchy
-Info (12128): Elaborating entity "spi_cnn_slave_8" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 143
-Warning (10230): Verilog HDL assignment warning at spi_cnn_slave_8.v(111): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 111
-Warning (10230): Verilog HDL assignment warning at spi_cnn_slave_8.v(112): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 112
-Info (12128): Elaborating entity "SC_STATEMACHINE_IMAGE_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 127
-Warning (10230): Verilog HDL assignment warning at STATEMACHINE_IMAGE_LOADER.v(35): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/STATEMACHINE_IMAGE_LOADER.v Line: 35
-Info (12128): Elaborating entity "SC_STATEMACHINE_WEIGHT_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 140
-Warning (10230): Verilog HDL assignment warning at SC_STATEMACHINE_WEIGHT_LOADER.v(34): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 34
-Info (12128): Elaborating entity "Register_Imag" for hierarchy "Register_Imag:register_imag_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 151
-Info (12128): Elaborating entity "Register_Weight" for hierarchy "Register_Weight:weight_register_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 197
-Info (12128): Elaborating entity "SC_STATEMACHINE_CNN_CTRL" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 226
-Info (12128): Elaborating entity "cnn_conv_v2" for hierarchy "cnn_conv_v2:cnn_conv_v2_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 246
+Info (12128): Elaborating entity "spi_cnn_slave_8" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 166
+Info (12128): Elaborating entity "SC_STATEMACHINE_IMAGE_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 145
+Warning (10230): Verilog HDL assignment warning at SC_STATEMACHINE_IMAGE_LOADER.v(33): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_IMAGE_LOADER.v Line: 33
+Info (12128): Elaborating entity "SC_STATEMACHINE_WEIGHT_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/spi_cnn_slave_8.v Line: 158
+Warning (10230): Verilog HDL assignment warning at SC_STATEMACHINE_WEIGHT_LOADER.v(31): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 31
+Info (12128): Elaborating entity "Register_Imag" for hierarchy "Register_Imag:register_imag_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 174
+Info (12128): Elaborating entity "Register_Weight" for hierarchy "Register_Weight:weight_register_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 220
+Info (12128): Elaborating entity "SC_STATEMACHINE_CNN_CTRL" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 252
+Info (12128): Elaborating entity "cnn_conv_v2" for hierarchy "cnn_conv_v2:cnn_conv_v2_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 272
 Info (12128): Elaborating entity "cnn_v2" for hierarchy "cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_conv_v2.v Line: 68
-Info (12128): Elaborating entity "Register" for hierarchy "Register:result_register_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 257
+Info (12128): Elaborating entity "maxpool_shift" for hierarchy "maxpool_shift:maxpool_shift_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 286
+Info (12128): Elaborating entity "result_mux_4to1" for hierarchy "result_mux_4to1:result_mux_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 302
+Info (12128): Elaborating entity "Master_register" for hierarchy "Master_register:master_reg_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/CNNver2.v Line: 316
 Info (278001): Inferred 25 megafunctions from design logic
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|Mult24" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v Line: 101
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "cnn_conv_v2:cnn_conv_v2_u0|cnn_v2:uut|Mult5" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/cnn_v2.v Line: 101
@@ -2196,14 +2243,14 @@ Info (286030): Timing-Driven Synthesis is running
 Info (17049): 5 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 957 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 4 input pins
-    Info (21059): Implemented 1 output pins
-    Info (21061): Implemented 952 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 4914 megabytes
-    Info: Processing ended: Fri Feb 27 00:54:30 2026
-    Info: Elapsed time: 00:00:11
-    Info: Total CPU time (on all processors): 00:00:28
+Info (21057): Implemented 1109 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 5 input pins
+    Info (21059): Implemented 7 output pins
+    Info (21061): Implemented 1097 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4950 megabytes
+    Info: Processing ended: Sat Feb 28 13:49:44 2026
+    Info: Elapsed time: 00:00:13
+    Info: Total CPU time (on all processors): 00:00:27
 
 
