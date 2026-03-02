@@ -5,6 +5,7 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/accum_maxpool.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/SC_STATEMACHINE_IMAGE_LOADER.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/result_mux_4to1.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver2/rtl/maxpool_shift.v}

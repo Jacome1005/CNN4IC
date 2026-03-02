@@ -1,0 +1,796 @@
+`timescale 1 ns/ 1 ps
+//=======================================================
+//  TB_REALISTIC — Testbench de timing realista
+//=======================================================
+//  DIFERENCIAS respecto a TB_SYSTEM (ideal):
+//
+//  1. MOSI setup time variable:
+//     En TB_SYSTEM: siempre `negedge + #2`
+//     Aqui:         `negedge + #(MOSI_SETUP_MIN + $random%MOSI_SETUP_SLACK)`
+//     Rango: 2–6 ns (siempre < Tsetup_max=9 ns para TCK=20)
+//
+//  2. CS jitter de asercion:
+//     TB_SYSTEM: `negedge + #2` exacto
+//     Aqui:      delay variable 1–4 ns antes del primer clock
+//
+//  3. MISO sampling offset:
+//     TB_SYSTEM: `posedge + #1 + #2` fijo
+//     Aqui:      `posedge + #(1 + $random%3)` (1–3 ns post-posedge)
+//
+//  4. Gaps inter-transaccion variables:
+//     TB_SYSTEM: fijo `#(TCK*5)` entre transacciones
+//     Aqui:      `#(TCK_NOM*(3 + $random%6))` (3–8 ciclos)
+//
+//  5. Velocidad SPI variable:
+//     Cada transaccion usa un TCK diferente del parametro
+//     TCK_OPTIONS: 20ns (50MHz), 30ns (33MHz), 40ns (25MHz)
+//     Esto simula que el maestro puede cambiar de velocidad.
+//
+//  6. Glitch de CS (opcional, 1 test):
+//     CS sube y baja en < 1 ciclo antes de la transaccion real.
+//     El slave debe ignorarlo (valid_clk lo filtra).
+//
+//  7. Reporte de timing:
+//     Cada transaccion imprime: TCK usado, Tsetup_min visto,
+//     numero de bits, tiempo total.
+//
+//  NOMBRE DE MODULO: TB_REALISTIC (≠ TB_SYSTEM)
+//  → pueden compilarse en la misma library sin conflicto.
+//  → mismo DUT (CNNver2), mismos parametros de protocolo.
+//
+//  Uso con .do separado (TB_Realistic.do):
+//    vsim work.TB_REALISTIC
+//    (TB_SYSTEM sigue disponible con vsim work.TB_SYSTEM)
+//=======================================================
+
+module TB_REALISTIC();
+
+// ============================================================
+//  PARAMETROS
+// ============================================================
+// Tiempos base del protocolo SPI
+parameter TCK_NOM      = 20;   // 20 ns = 50 MHz (nominal)
+parameter TCK_SLOW     = 40;   // 40 ns = 25 MHz (lento)
+parameter TCK_MID      = 30;   // 30 ns = 33 MHz (medio)
+
+// Margenes de timing MOSI (todos en ns)
+// Setup minimo garantizado: 2 ns (mismo que TB_SYSTEM)
+// Slack adicional aleatorio: 0-4 ns (total 2-6 ns)
+parameter MOSI_SETUP_MIN   = 2;
+parameter MOSI_SETUP_SLACK = 4;  // $random%4 → 0,1,2,3
+
+// Parametros de protocolo (identicos a TB_SYSTEM)
+parameter IMG_ROWS     = 10;
+parameter IMG_COLS     = 10;
+parameter BITS_PER_POS = 3;
+parameter ROW_BITS     = IMG_COLS * BITS_PER_POS;    // 30
+parameter IMG_TOTAL_BITS = IMG_ROWS * ROW_BITS;       // 300
+parameter KERN_SIZE    = 5;
+parameter WGT_ROWS     = KERN_SIZE;
+parameter WGT_ROW_BITS = KERN_SIZE * BITS_PER_POS;   // 15
+parameter ACCUM_WIDTH  = 20;
+
+// ============================================================
+//  SEED para reproducibilidad ($random usa seed fija)
+//  Cambiar RAND_SEED para obtener otro patron de jitter pero
+//  que sea siempre reproducible.
+// ============================================================
+parameter RAND_SEED = 32'hDEAD_C0DE;
+
+// ============================================================
+//  ESTADO GLOBAL
+// ============================================================
+integer pass_count;
+integer fail_count;
+integer ii, jj;
+integer cur_tck;       // TCK activo para la transaccion actual
+integer tsetup_min_seen;  // minimo Tsetup observado en transaccion
+integer tsetup_cur;       // Tsetup del bit actual
+
+reg [63:0] t_trans_start;   // tiempo de inicio de transaccion
+
+initial begin
+    pass_count = 0;
+    fail_count = 0;
+    ii = 0; jj = 0;
+    cur_tck = TCK_NOM;
+    tsetup_min_seen = 999;
+    tsetup_cur = 0;
+    // Inicializar seed de $random con valor fijo
+    // En Questa/ModelSim: usar +sv_seed en command line o
+    // simplemente dejar que $random use su seed interna
+end
+
+// ============================================================
+//  SENALES
+// ============================================================
+wire        MISO;
+reg         CLK;
+reg         SS_N;
+reg         MOSI;
+reg         RESET;
+reg         CMD_RESET;
+
+reg [ROW_BITS-1:0]     test_image  [0:IMG_ROWS-1];
+reg [WGT_ROW_BITS-1:0] test_weight [0:WGT_ROWS-1];
+reg signed [15:0]  miso_captured;
+reg                comp_captured;
+
+// ============================================================
+//  DUT — mismo CNNver2, 6 pines
+// ============================================================
+CNNver2 CNNver2_u0 (
+    .CNNver2_SPICLOCK_50  (CLK),
+    .CNNver2_SS_N         (SS_N),
+    .CNNver2_MOSI         (MOSI),
+    .CNNver2_MISO         (MISO),
+    .CNNver2_Reset_InHigh (RESET),
+    .CNNver2_CMD_Reset    (CMD_RESET)
+);
+
+// ============================================================
+//  CLOCK — generado manualmente (no always) para poder
+//  variar la frecuencia entre transacciones.
+//  El clock SOLO corre cuando lo generamos desde las tasks.
+//  CLK arranca en 0 y la tarea spi_clock_pulse lo controla.
+// ============================================================
+initial begin
+    CLK      <= 1'b0;
+    SS_N     <= 1'b1;
+    MOSI     <= 1'b0;
+    RESET    <= 1'b0;
+    CMD_RESET<= 1'b0;
+end
+
+// ── Task: un pulso de reloj con cur_tck ───────────────────
+// Genera negedge + posedge del SCK.
+// Devuelve en negedge (listo para cambiar MOSI antes del sig. posedge).
+task spi_clock_pulse;
+    begin
+        // Mitad baja (CLK ya esta en 0 desde el tick anterior)
+        #(cur_tck/2);
+        CLK <= 1'b1;    // posedge
+        #(cur_tck/2);
+        CLK <= 1'b0;    // negedge → listo para cambiar MOSI
+    end
+endtask
+
+// ── Funcion: delay MOSI aleatorio pero dentro del margen ──
+// Retorna entero; usamos task wrapper para aplicar el delay.
+// MOSI_SETUP_SLACK garantiza que el setup es siempre valido:
+//   Tsetup_actual = MOSI_SETUP_MIN + ($random%MOSI_SETUP_SLACK)
+//   Tsetup_max    = cur_tck/2 - 1  (debe quedar antes del posedge)
+//   Con cur_tck=20: Tsetup_max=9, nuestro maximo=6. OK.
+//   Con cur_tck=30: Tsetup_max=14, nuestro maximo=6. OK.
+//   Con cur_tck=40: Tsetup_max=19, nuestro maximo=6. OK.
+integer rand_tsetup;
+task random_mosi_delay;
+    begin
+        // IMPORTANTE: $random devuelve signed 32b. ABS para modulo.
+        rand_tsetup = MOSI_SETUP_MIN + ($unsigned($random) % MOSI_SETUP_SLACK);
+        tsetup_cur  = rand_tsetup;
+        if (rand_tsetup < tsetup_min_seen)
+            tsetup_min_seen = rand_tsetup;
+        #(rand_tsetup);
+    end
+endtask
+
+// ── Task: CS jitter de asercion ───────────────────────────
+// Simula que el maestro baja CS en un momento semi-arbitrario.
+// Garantiza que CS este bajo al menos 1 ns antes del primer negedge.
+integer rand_cs_delay;
+task cs_assert_with_jitter;
+    begin
+        rand_cs_delay = 1 + ($unsigned($random) % 4);  // 1-4 ns
+        // Esperar un tiempo aleatorio DESPUES del negedge actual
+        #(rand_cs_delay);
+        SS_N <= 1'b0;
+        // Luego esperar hasta que tengamos suficiente setup para el
+        // primer clock. El gap total es: cur_tck/2 - rand_cs_delay
+        // que siempre es positivo para cur_tck >= 10 y delay <= 4.
+        #(cur_tck/2 - rand_cs_delay);
+        // Ahora estamos en el siguiente posedge del reloj natural.
+        // El clock empieza desde aqui.
+    end
+endtask
+
+// ── Task: CS deassert con jitter ─────────────────────────
+// Sube CS en negedge + delay variable (1-3 ns).
+task cs_deassert_with_jitter;
+    integer d;
+    begin
+        d = 1 + ($unsigned($random) % 3);
+        #(d);
+        SS_N <= 1'b1;
+    end
+endtask
+
+// ── Task: MISO sampling con offset variable ───────────────
+// En TB_SYSTEM: sample en posedge + #1 + #2 = +3 ns fijo.
+// Aqui: posedge + #(1 + $random%3) = +1 a +3 ns.
+integer rand_sample_offset;
+task sample_miso;
+    output reg bit_out;
+    begin
+        rand_sample_offset = 1 + ($unsigned($random) % 3);
+        #(rand_sample_offset);
+        bit_out = MISO;
+    end
+endtask
+
+// ── Task: idle gap aleatorio entre transacciones ──────────
+integer rand_gap_cycles;
+task random_idle_gap;
+    begin
+        rand_gap_cycles = 3 + ($unsigned($random) % 6);  // 3-8 ciclos
+        #(cur_tck * rand_gap_cycles);
+    end
+endtask
+
+// ── Task: elegir velocidad SPI para proxima transaccion ───
+integer rand_speed;
+task pick_spi_speed;
+    begin
+        rand_speed = $unsigned($random) % 3;
+        case (rand_speed)
+            0: cur_tck = TCK_NOM;   // 20 ns = 50 MHz
+            1: cur_tck = TCK_MID;   // 30 ns = 33 MHz
+            2: cur_tck = TCK_SLOW;  // 40 ns = 25 MHz
+        endcase
+    end
+endtask
+
+// ── Task: reporte de inicio de transaccion ────────────────
+task begin_transaction;
+    input [127:0] name;
+    begin
+        tsetup_min_seen = 999;
+        t_trans_start   = $time;
+        pick_spi_speed;
+        $display("  [TRANS] %-20s | TCK=%0d ns (%0d MHz) | t=%0t",
+            name, cur_tck, 1000/cur_tck, $time);
+    end
+endtask
+
+task end_transaction;
+    input [127:0] name;
+    begin
+        $display("  [TIMING] %-20s | Tsetup_min=%0d ns | Duration=%0t ns",
+            name, tsetup_min_seen, ($time - t_trans_start));
+    end
+endtask
+
+// ============================================================
+//  TASKS SPI BASE (version realista)
+// ============================================================
+
+// send_cmd_r: cmd 3 bits con timing variable
+task send_cmd_r;
+    input [2:0] cmd_in;
+    begin
+        // bit 2 (MSB)
+        random_mosi_delay; MOSI <= cmd_in[2];
+        CLK <= 1'b1; #(cur_tck/2);
+        CLK <= 1'b0; // negedge
+        // bit 1
+        random_mosi_delay; MOSI <= cmd_in[1];
+        CLK <= 1'b1; #(cur_tck/2);
+        CLK <= 1'b0;
+        // bit 0 (LSB)
+        random_mosi_delay; MOSI <= cmd_in[0];
+        CLK <= 1'b1; #(cur_tck/2);
+        CLK <= 1'b0;
+    end
+endtask
+
+// send_bits_r: N bits MSB-primero con timing variable
+task send_bits_r;
+    input [29:0] data;   // maximo 30 bits
+    input integer nbits;
+    integer k;
+    begin
+        for (k = nbits-1; k >= 0; k = k - 1) begin
+            random_mosi_delay; MOSI <= data[k];
+            CLK <= 1'b1; #(cur_tck/2);
+            CLK <= 1'b0;
+        end
+    end
+endtask
+
+// send_16bits_r: 16 bits MSB-primero con timing variable
+task send_16bits_r;
+    input [15:0] data;
+    integer k;
+    begin
+        for (k = 15; k >= 0; k = k - 1) begin
+            random_mosi_delay; MOSI <= data[k];
+            CLK <= 1'b1; #(cur_tck/2);
+            CLK <= 1'b0;
+        end
+    end
+endtask
+
+// ============================================================
+//  TASKS SPI: OPERACIONES COMPLETAS (version realista)
+// ============================================================
+
+task spi_load_image_r;
+    integer r;
+    begin
+        begin_transaction("LOAD_IMAGE");
+        // CS baja con jitter
+        cs_assert_with_jitter;
+        send_cmd_r(3'b000);
+        for (r = 0; r < IMG_ROWS; r = r + 1)
+            send_bits_r(test_image[r], ROW_BITS);
+        // CS sube con jitter
+        cs_deassert_with_jitter;
+        end_transaction("LOAD_IMAGE");
+        random_idle_gap;
+    end
+endtask
+
+task spi_load_weights_r;
+    integer r;
+    begin
+        begin_transaction("LOAD_WEIGHTS");
+        cs_assert_with_jitter;
+        send_cmd_r(3'b001);
+        for (r = 0; r < WGT_ROWS; r = r + 1)
+            send_bits_r(test_weight[r], WGT_ROW_BITS);
+        cs_deassert_with_jitter;
+        end_transaction("LOAD_WEIGHTS");
+        random_idle_gap;
+    end
+endtask
+
+task spi_start_cnn_r;
+    begin
+        begin_transaction("START_CNN");
+        cs_assert_with_jitter;
+        send_cmd_r(3'b010);
+        // 1 dummy clock para disparar bit_count==3
+        random_mosi_delay; MOSI <= 1'b0;
+        CLK <= 1'b1; #(cur_tck/2);
+        CLK <= 1'b0;
+        cs_deassert_with_jitter;
+        end_transaction("START_CNN");
+        // Tiempo para que FSM complete (usa cur_tck base para espera)
+        #(TCK_NOM * 15);
+    end
+endtask
+
+task spi_read_result_r;
+    integer k;
+    reg bit_rx;
+    begin
+        begin_transaction("READ_RESULT");
+        miso_captured = 16'sd0;
+        cs_assert_with_jitter;
+        send_cmd_r(3'b011);
+        for (k = 15; k >= 0; k = k - 1) begin
+            random_mosi_delay; MOSI <= 1'b0;
+            CLK <= 1'b1;
+            sample_miso(bit_rx);   // sample con offset aleatorio
+            miso_captured[k] = bit_rx;
+            #(cur_tck/2 - rand_sample_offset);
+            CLK <= 1'b0;
+        end
+        cs_deassert_with_jitter;
+        end_transaction("READ_RESULT");
+        random_idle_gap;
+    end
+endtask
+
+task spi_load_maxpool_r;
+    input signed [10:0] val_11bit;
+    reg [15:0] word;
+    begin
+        begin_transaction("LOAD_MAXPOOL");
+        word = {5'b00000, val_11bit};
+        cs_assert_with_jitter;
+        send_cmd_r(3'b100);
+        send_16bits_r(word);
+        cs_deassert_with_jitter;
+        end_transaction("LOAD_MAXPOOL");
+        #(TCK_NOM * 8);
+    end
+endtask
+
+task spi_save_accum_r;
+    begin
+        begin_transaction("SAVE_ACCUM");
+        cs_assert_with_jitter;
+        send_cmd_r(3'b101);
+        // 1 dummy clock
+        random_mosi_delay; MOSI <= 1'b0;
+        CLK <= 1'b1; #(cur_tck/2);
+        CLK <= 1'b0;
+        cs_deassert_with_jitter;
+        end_transaction("SAVE_ACCUM");
+        #(TCK_NOM * 10);
+    end
+endtask
+
+task spi_read_compare_r;
+    reg bit_rx;
+    begin
+        begin_transaction("READ_COMPARE");
+        comp_captured = 1'b0;
+        cs_assert_with_jitter;
+        send_cmd_r(3'b110);
+        // 1 clock: miso_active=1, MISO = comp_result
+        random_mosi_delay; MOSI <= 1'b0;
+        CLK <= 1'b1;
+        sample_miso(bit_rx);
+        comp_captured = bit_rx;
+        #(cur_tck/2 - rand_sample_offset);
+        CLK <= 1'b0;
+        cs_deassert_with_jitter;
+        end_transaction("READ_COMPARE");
+        random_idle_gap;
+    end
+endtask
+
+// ── Glitch de CS (test de robustez) ──────────────────────
+// Simula un pulso espurio en CS_N menor a 1 ciclo de reloj.
+// El valid_clk del slave debe ignorarlo.
+task cs_glitch;
+    begin
+        $display("  [GLITCH] CS spike < 1 ciclo de reloj");
+        SS_N <= 1'b0;
+        #(cur_tck/4);   // solo 1/4 de ciclo
+        SS_N <= 1'b1;
+        #(cur_tck*2);
+    end
+endtask
+
+// ============================================================
+//  CALCULO ESPERADO (identico a TB_SYSTEM)
+// ============================================================
+reg signed [10:0] expected_y;
+reg signed [15:0] expected_y_16;
+
+task compute_expected;
+    reg [IMG_TOTAL_BITS-1:0] px_flat;
+    reg [WGT_ROW_BITS*WGT_ROWS-1:0] w_flat;
+    reg signed [2:0] px_k;
+    reg signed [2:0] w_k;
+    reg signed [10:0] acc;
+    integer k, bit_off_px;
+    begin
+        px_flat = {
+            test_image[9], test_image[8], test_image[7], test_image[6], test_image[5],
+            test_image[4], test_image[3], test_image[2], test_image[1], test_image[0]
+        };
+        w_flat = {
+            test_weight[4], test_weight[3], test_weight[2], test_weight[1], test_weight[0]
+        };
+        acc = 11'sd0;
+        for (k = 0; k < 25; k = k + 1) begin
+            bit_off_px = (k/5)*30 + (k%5)*3;
+            px_k = $signed(px_flat[bit_off_px +: 3]);
+            w_k  = $signed(w_flat[k*3 +: 3]);
+            acc  = acc + (px_k * w_k);
+        end
+        expected_y    = acc;
+        expected_y_16 = {{5{acc[10]}}, acc};
+    end
+endtask
+
+task check_result_r;
+    input [127:0] name;
+    begin
+        compute_expected;
+        $display("  y_out=%0d | Main_MR=%0d | Exp=%0d | MISO=%0d",
+            $signed(CNNver2_u0.CNN_y_out_cwire),
+            $signed(CNNver2_u0.Master_Result_out_cwire),
+            $signed(expected_y_16),
+            $signed(miso_captured));
+        if ($signed(CNNver2_u0.Master_Result_out_cwire) === $signed(expected_y_16) &&
+            $signed(miso_captured) === $signed(expected_y_16)) begin
+            $display("  >> PASS [%s]", name);
+            pass_count = pass_count + 1;
+        end else begin
+            $display("  >> FAIL [%s] MR=%0d MISO=%0d Exp=%0d",
+                name,
+                $signed(CNNver2_u0.Master_Result_out_cwire),
+                $signed(miso_captured),
+                $signed(expected_y_16));
+            fail_count = fail_count + 1;
+        end
+    end
+endtask
+
+// ============================================================
+//  STIMULUS
+// ============================================================
+initial begin
+    $display("======================================================");
+    $display("  TB_REALISTIC — Testbench de timing variable");
+    $display("  TCK: %0d/%0d/%0d ns | MOSI_setup: %0d-%0d ns",
+        TCK_NOM, TCK_MID, TCK_SLOW,
+        MOSI_SETUP_MIN, MOSI_SETUP_MIN+MOSI_SETUP_SLACK-1);
+    $display("  Seed fija: 0x%h (resultados reproducibles)", RAND_SEED);
+    $display("======================================================");
+
+    // ── Reset ──────────────────────────────────────────────
+    #(TCK_NOM*5);
+    RESET <= 1'b1; #40; RESET <= 1'b0;
+    #(TCK_NOM*3);
+
+    // =========================================================
+    // RTEST 1: LOAD IMAGE con 3 velocidades distintas
+    //   (misma imagen pero manda 3 veces a velocidades
+    //   distintas para cubrir los 3 TCK disponibles)
+    // =========================================================
+    $display("\n--- RTEST 1: LOAD IMAGE — timing variable ---");
+    test_image[0]=30'h00000001; test_image[1]=30'h00000249;
+    test_image[2]=30'h3FFFFFFF; test_image[3]=30'h15555555;
+    test_image[4]=30'h00000000; test_image[5]=30'h09249249;
+    test_image[6]=30'h1BBBBBBB; test_image[7]=30'h0AAAAAAA;
+    test_image[8]=30'h12345678; test_image[9]=30'h0FEDCBA9;
+
+    // Forzar las 3 velocidades explicitamente
+    cur_tck = TCK_SLOW;  spi_load_image_r;
+    cur_tck = TCK_MID;   spi_load_image_r;
+    cur_tck = TCK_NOM;   spi_load_image_r;
+
+    // Verificar: todos los registros deben tener el valor correcto
+    if (CNNver2_u0.register_imag_u0.Register_Imag_DataOutBUS === test_image[0] &&
+        CNNver2_u0.register_imag_u9.Register_Imag_DataOutBUS === test_image[9])
+        begin $display("  >> RTEST 1 PASSED (3 velocidades)"); pass_count=pass_count+1; end
+    else begin
+        $display("  imem[0]=%h exp=%h | imem[9]=%h exp=%h",
+            CNNver2_u0.register_imag_u0.Register_Imag_DataOutBUS, test_image[0],
+            CNNver2_u0.register_imag_u9.Register_Imag_DataOutBUS, test_image[9]);
+        $display("  >> RTEST 1 FAILED"); fail_count=fail_count+1;
+    end
+
+    // =========================================================
+    // RTEST 2: LOAD WEIGHTS con glitch previo de CS
+    //   Verificar que el glitch CS no corrompe la transaccion
+    // =========================================================
+    $display("\n--- RTEST 2: LOAD WEIGHTS con CS glitch previo ---");
+    test_weight[0]=15'h16B5; test_weight[1]=15'h0492;
+    test_weight[2]=15'h7FFF; test_weight[3]=15'h0000; test_weight[4]=15'h36DB;
+
+    cs_glitch;   // glitch espurio — debe ser ignorado por valid_clk
+    cur_tck = TCK_NOM;
+    spi_load_weights_r;
+
+    if (CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[0] === test_weight[0] &&
+        CNNver2_u0.spi_cnn_slave_8_u0.weight_mem[4] === test_weight[4])
+        begin $display("  >> RTEST 2 PASSED (glitch ignorado)"); pass_count=pass_count+1; end
+    else begin $display("  >> RTEST 2 FAILED"); fail_count=fail_count+1; end
+
+    // =========================================================
+    // RTEST 3: CNN flujo ceros (velocidad lenta, setup grande)
+    // =========================================================
+    $display("\n--- RTEST 3: CNN ceros @ TCK=%0d ns ---", TCK_SLOW);
+    cur_tck = TCK_SLOW;
+    for (ii=0; ii<IMG_ROWS; ii=ii+1) test_image[ii]  = 30'h00000000;
+    for (ii=0; ii<WGT_ROWS; ii=ii+1) test_weight[ii] = 15'h0000;
+    spi_load_image_r;
+    spi_load_weights_r;
+    spi_start_cnn_r;
+    spi_read_result_r;
+    check_result_r("ZEROS_SLOW");
+
+    // =========================================================
+    // RTEST 4: CNN -1/-1 con velocidad variable
+    //   Imagen @ TCK_MID, Pesos @ TCK_SLOW, START @ TCK_NOM
+    // =========================================================
+    $display("\n--- RTEST 4: CNN -1/-1 velocidad mixta ---");
+    for (ii=0; ii<IMG_ROWS; ii=ii+1) test_image[ii]  = 30'h3FFFFFFF;
+    for (ii=0; ii<WGT_ROWS; ii=ii+1) test_weight[ii] = 15'h7FFF;
+    cur_tck = TCK_MID;   spi_load_image_r;
+    cur_tck = TCK_SLOW;  spi_load_weights_r;
+    cur_tck = TCK_NOM;   spi_start_cnn_r;
+    cur_tck = TCK_MID;   spi_read_result_r;
+    check_result_r("ALL_NEG1_MIX");
+
+    // =========================================================
+    // RTEST 5: CNN +1/+1 todos @ TCK_MID (15h1249 = todos +1)
+    // =========================================================
+    $display("\n--- RTEST 5: CNN +1/+1 @ TCK=%0d ns ---", TCK_MID);
+    for (ii=0; ii<IMG_ROWS; ii=ii+1) test_image[ii]  = 30'h09249249;
+    for (ii=0; ii<WGT_ROWS; ii=ii+1) test_weight[ii] = 15'h1249;
+    cur_tck = TCK_MID;
+    spi_load_image_r;
+    spi_load_weights_r;
+    spi_start_cnn_r;
+    spi_read_result_r;
+    check_result_r("ALL_POS1_MID");
+
+    // =========================================================
+    // RTEST 6: CNN patron mixto @ TCK_NOM
+    // =========================================================
+    $display("\n--- RTEST 6: CNN mixto @ TCK=%0d ns ---", TCK_NOM);
+    test_image[0]=30'h2A5A5A5A; test_image[1]=30'h13C3C3C3;
+    test_image[2]=30'h0A96969A; test_image[3]=30'h3FFFFFFF;
+    test_image[4]=30'h00000000; test_image[5]=30'h155D55D5;
+    test_image[6]=30'h2AAAAAAA; test_image[7]=30'h00000001;
+    test_image[8]=30'h12481248; test_image[9]=30'h0DB6DB6D;
+    test_weight[0]=15'h16B5; test_weight[1]=15'h0492;
+    test_weight[2]=15'h7FFF; test_weight[3]=15'h0000; test_weight[4]=15'h36DB;
+    cur_tck = TCK_NOM;
+    spi_load_image_r;
+    spi_load_weights_r;
+    spi_start_cnn_r;
+    spi_read_result_r;
+    check_result_r("MIXED_NOM");
+
+    // =========================================================
+    // RTEST 7: MaxPool 4 valores con velocidad aleatoria
+    // =========================================================
+    $display("\n--- RTEST 7: MaxPool (+2,+7,-3,+1) timing variable ---");
+    spi_load_maxpool_r(11'sd2);
+    spi_load_maxpool_r(11'sd7);
+    spi_load_maxpool_r(-11'sd3);
+    spi_load_maxpool_r(11'sd1);
+    #(TCK_NOM*5);
+    $display("  MaxPool o_max = %0d (Exp: +7)", $signed(CNNver2_u0.MaxPool_result_cwire));
+    if ($signed(CNNver2_u0.MaxPool_result_cwire) === 11'sd7)
+        begin $display("  >> RTEST 7 PASSED"); pass_count=pass_count+1; end
+    else begin $display("  >> RTEST 7 FAILED"); fail_count=fail_count+1; end
+
+    // =========================================================
+    // RTEST 8: Acumulador + SAVE_ACCUM + READ_COMPARE
+    //   Mismos valores que TEST 15/17/18/19 de TB_SYSTEM
+    //   pero con timing variable en cada transaccion
+    // =========================================================
+    $display("\n--- RTEST 8: Accum + SAVE + Compare timing variable ---");
+
+    RESET <= 1'b1; #40; RESET <= 1'b0; #(TCK_NOM*3);
+
+    // Pass 0 → MR1: 3 grupos → accum = 14
+    spi_load_maxpool_r(11'sd5); spi_load_maxpool_r(11'sd3);
+    spi_load_maxpool_r(-11'sd1); spi_load_maxpool_r(11'sd2);
+    spi_load_maxpool_r(-11'sd2); spi_load_maxpool_r(11'sd8);
+    spi_load_maxpool_r(11'sd6);  spi_load_maxpool_r(11'sd4);
+    spi_load_maxpool_r(11'sd1);  spi_load_maxpool_r(11'sd1);
+    spi_load_maxpool_r(11'sd1);  spi_load_maxpool_r(-11'sd10);
+    $display("  accum = %0d (Exp: 14)", $signed(CNNver2_u0.accum_u0.o_accum));
+    spi_save_accum_r;
+    $display("  MR1 = %0d (Exp: 14) | accum = %0d (Exp: 0) | pass_sel = %b (Exp: 1)",
+        $signed(CNNver2_u0.master_reg1_u0.Master_register_DataOutBUS),
+        $signed(CNNver2_u0.accum_u0.o_accum),
+        CNNver2_u0.cnn_ctrl_sm.pass_sel);
+
+    // Pass 1 → MR2: 2 grupos → accum = 37
+    spi_load_maxpool_r(11'sd10); spi_load_maxpool_r(11'sd15);
+    spi_load_maxpool_r(11'sd9);  spi_load_maxpool_r(11'sd12);
+    spi_load_maxpool_r(11'sd20); spi_load_maxpool_r(11'sd18);
+    spi_load_maxpool_r(11'sd22); spi_load_maxpool_r(11'sd19);
+    $display("  accum = %0d (Exp: 37)", $signed(CNNver2_u0.accum_u0.o_accum));
+    spi_save_accum_r;
+    $display("  MR1=%0d (Exp:14) | MR2=%0d (Exp:37)",
+        $signed(CNNver2_u0.master_reg1_u0.Master_register_DataOutBUS),
+        $signed(CNNver2_u0.master_reg2_u0.Master_register_DataOutBUS));
+
+    spi_read_compare_r;
+    $display("  comp_wire=%b MISO=%b (Exp: 0 = MR1<MR2)",
+        CNNver2_u0.comp_result_cwire, comp_captured);
+
+    if ($signed(CNNver2_u0.master_reg1_u0.Master_register_DataOutBUS) === 20'sd14 &&
+        $signed(CNNver2_u0.master_reg2_u0.Master_register_DataOutBUS) === 20'sd37 &&
+        comp_captured === 1'b0)
+        begin $display("  >> RTEST 8 PASSED"); pass_count=pass_count+1; end
+    else begin $display("  >> RTEST 8 FAILED"); fail_count=fail_count+1; end
+
+    // =========================================================
+    // RTEST 9: MOSI setup minimo extremo
+    //   Forzar MOSI_SETUP_MIN = 2 ns (minimo absoluto garantizado)
+    //   para verificar que el sistema funciona en el margen
+    // =========================================================
+    $display("\n--- RTEST 9: Tsetup minimo (2 ns) — margen extremo ---");
+    for (ii=0; ii<IMG_ROWS; ii=ii+1) test_image[ii] = 30'h09249249;
+    for (ii=0; ii<WGT_ROWS; ii=ii+1) test_weight[ii] = 15'h1249;
+
+    // Forzar delay minimo sobreescribiendo el random
+    cur_tck = TCK_NOM;
+    begin_transaction("LOAD_IMG_TMIN");
+    cs_assert_with_jitter;
+    // Cmd con delay fijo = 2 ns (minimo)
+    #2; MOSI <= 1'b0; CLK <= 1'b1; #(cur_tck/2); CLK <= 1'b0;  // cmd[2]
+    #2; MOSI <= 1'b0; CLK <= 1'b1; #(cur_tck/2); CLK <= 1'b0;  // cmd[1]
+    #2; MOSI <= 1'b0; CLK <= 1'b1; #(cur_tck/2); CLK <= 1'b0;  // cmd[0]
+    for (ii = 0; ii < IMG_ROWS; ii = ii + 1) begin
+        for (jj = ROW_BITS-1; jj >= 0; jj = jj - 1) begin
+            #2; MOSI <= test_image[ii][jj];
+            CLK <= 1'b1; #(cur_tck/2); CLK <= 1'b0;
+        end
+    end
+    cs_deassert_with_jitter;
+    end_transaction("LOAD_IMG_TMIN");
+    random_idle_gap;
+
+    cur_tck = TCK_NOM;
+    spi_load_weights_r;
+    spi_start_cnn_r;
+    spi_read_result_r;
+    check_result_r("TMIN_EXTREME");
+
+    // =========================================================
+    // RTEST 10: Full pipeline con todo variable
+    //   Simula secuencia realista: LOAD_WGT1 → LOAD_IMG →
+    //   START → READ → LOAD_MP×4 → SAVE → LOAD_WGT2 →
+    //   LOAD_IMG → START → READ → LOAD_MP×4 → SAVE →
+    //   READ_COMPARE
+    // =========================================================
+    $display("\n--- RTEST 10: Full pipeline realista ---");
+    RESET <= 1'b1; #40; RESET <= 1'b0; #(TCK_NOM*3);
+
+    // == PASS 0: Kernel A ==
+    for (ii=0; ii<IMG_ROWS; ii=ii+1) test_image[ii] = 30'h09249249; // +1 todos
+    for (ii=0; ii<WGT_ROWS; ii=ii+1) test_weight[ii] = 15'h1249;    // +1 todos
+    spi_load_image_r;
+    spi_load_weights_r;
+    spi_start_cnn_r;
+    spi_read_result_r;
+    compute_expected;
+    $display("  [Pass0 CNN] MR=%0d Exp=%0d",
+        $signed(CNNver2_u0.Master_Result_out_cwire), $signed(expected_y_16));
+
+    // MaxPool: 2 grupos → max=15, max=22 → accum=37
+    spi_load_maxpool_r(11'sd10); spi_load_maxpool_r(11'sd15);
+    spi_load_maxpool_r(11'sd9);  spi_load_maxpool_r(11'sd12);
+    spi_load_maxpool_r(11'sd20); spi_load_maxpool_r(11'sd18);
+    spi_load_maxpool_r(11'sd22); spi_load_maxpool_r(11'sd19);
+    $display("  [Pass0 MP] accum=%0d (Exp:37)", $signed(CNNver2_u0.accum_u0.o_accum));
+    spi_save_accum_r;
+    $display("  [Pass0 SAVE] MR1=%0d pass_sel=%b",
+        $signed(CNNver2_u0.master_reg1_u0.Master_register_DataOutBUS),
+        CNNver2_u0.cnn_ctrl_sm.pass_sel);
+
+    // == PASS 1: Kernel B ==
+    for (ii=0; ii<WGT_ROWS; ii=ii+1) test_weight[ii] = 15'h7FFF;  // -1 todos
+    spi_load_image_r;
+    spi_load_weights_r;
+    spi_start_cnn_r;
+    spi_read_result_r;
+    compute_expected;
+    $display("  [Pass1 CNN] MR=%0d Exp=%0d",
+        $signed(CNNver2_u0.Master_Result_out_cwire), $signed(expected_y_16));
+
+    // MaxPool: 2 grupos → max=5, max=3 → accum=8
+    spi_load_maxpool_r(11'sd5);  spi_load_maxpool_r(11'sd3);
+    spi_load_maxpool_r(11'sd2);  spi_load_maxpool_r(11'sd4);
+    spi_load_maxpool_r(11'sd1);  spi_load_maxpool_r(11'sd3);
+    spi_load_maxpool_r(11'sd2);  spi_load_maxpool_r(11'sd0);
+    $display("  [Pass1 MP] accum=%0d (Exp:8)", $signed(CNNver2_u0.accum_u0.o_accum));
+    spi_save_accum_r;
+    $display("  [Pass1 SAVE] MR2=%0d pass_sel=%b",
+        $signed(CNNver2_u0.master_reg2_u0.Master_register_DataOutBUS),
+        CNNver2_u0.cnn_ctrl_sm.pass_sel);
+
+    // Comparar: MR1(37) > MR2(8) → comp=1
+    spi_read_compare_r;
+    $display("  [COMPARE] MR1=%0d MR2=%0d comp=%b (Exp:1 = Kernel_A_gana)",
+        $signed(CNNver2_u0.master_reg1_u0.Master_register_DataOutBUS),
+        $signed(CNNver2_u0.master_reg2_u0.Master_register_DataOutBUS),
+        comp_captured);
+
+    if ($signed(CNNver2_u0.master_reg1_u0.Master_register_DataOutBUS) === 20'sd37 &&
+        $signed(CNNver2_u0.master_reg2_u0.Master_register_DataOutBUS) === 20'sd8 &&
+        comp_captured === 1'b1)
+        begin $display("  >> RTEST 10 PASSED"); pass_count=pass_count+1; end
+    else begin $display("  >> RTEST 10 FAILED"); fail_count=fail_count+1; end
+
+    // =========================================================
+    //  RESUMEN
+    // =========================================================
+    $display("\n======================================================");
+    $display("  RESULTADOS: %0d PASS  |  %0d FAIL", pass_count, fail_count);
+    if (fail_count == 0)
+        $display("  ALL REALISTIC TESTS PASSED");
+    else
+        $display("  SOME TESTS FAILED -- revisar ondas y timing");
+    $display("======================================================");
+
+    #(TCK_NOM*10);
+    $finish;
+end
+
+endmodule

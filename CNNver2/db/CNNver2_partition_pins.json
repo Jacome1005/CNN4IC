@@ -8,27 +8,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "CNNver2_result_pos[0]",
+					"name" : "CNNver2_MOSI",
 					"strict" : false
 				},
 				{
-					"name" : "CNNver2_result_pos[1]",
-					"strict" : false
-				},
-				{
-					"name" : "CNNver2_result_pos[2]",
-					"strict" : false
-				},
-				{
-					"name" : "CNNver2_result_pos[3]",
-					"strict" : false
-				},
-				{
-					"name" : "CNNver2_result_pos[4]",
-					"strict" : false
-				},
-				{
-					"name" : "CNNver2_result_pos[5]",
+					"name" : "CNNver2_SPICLOCK_50",
 					"strict" : false
 				},
 				{
@@ -40,15 +24,7 @@
 					"strict" : false
 				},
 				{
-					"name" : "CNNver2_SPICLOCK_50",
-					"strict" : false
-				},
-				{
 					"name" : "CNNver2_Reset_InHigh",
-					"strict" : false
-				},
-				{
-					"name" : "CNNver2_MOSI",
 					"strict" : false
 				}
 			]
