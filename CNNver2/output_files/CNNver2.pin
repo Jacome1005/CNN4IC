@@ -335,7 +335,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : C8        :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : C9        :        :                   :         : 7D        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C10       :        :                   :         : 7D        :                
 GND                          : C11       : gnd    :                   :         :           :                
-CNNver2_CMD_Reset            : C12       : input  : 3.3-V LVTTL       :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : C12       :        :                   :         : 8A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C13       :        :                   :         : 7C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C14       :        :                   :         : 7B        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : C15       :        :                   :         : 7B        :                
@@ -362,8 +362,8 @@ VCCBAT                       : D7        : power  :                   : 1.2V    
 CNNver2_SS_N                 : D8        : input  : 3.3-V LVTTL       :         : 8A        : Y              
 VREFB8AN0                    : D9        : power  :                   :         : 8A        :                
 GND                          : D10       : gnd    :                   :         :           :                
-CNNver2_result_pos[1]        : D11       : output : 3.3-V LVTTL       :         : 8A        : N              
-CNNver2_result_pos[0]        : D12       : output : 3.3-V LVTTL       :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : D11       :        :                   :         : 8A        :                
+CNNver2_CMD_Reset            : D12       : input  : 3.3-V LVTTL       :         : 8A        : N              
 GND                          : D13       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : D14       :        :                   :         : 7C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : D15       :        :                   :         : 7B        :                
@@ -390,7 +390,7 @@ VCCIO8A                      : E7        : power  :                   : 3.3V    
 CNNver2_MISO                 : E8        : output : 3.3-V LVTTL       :         : 8A        : Y              
 GND                          : E9        : gnd    :                   :         :           :                
 VCCPD8A                      : E10       : power  :                   : 3.3V    : 8A        :                
-CNNver2_result_pos[4]        : E11       : output : 3.3-V LVTTL       :         : 8A        : N              
+CNNver2_Reset_InHigh         : E11       : input  : 3.3-V LVTTL       :         : 8A        : N              
 DNU                          : E12       :        :                   :         :           :                
 VCCPD7D_HPS                  : E13       : power  :                   : 3.3V    : 7D        :                
 VCCPD7C_HPS                  : E14       : power  :                   : 3.3V    : 7C        :                
@@ -440,8 +440,8 @@ DNU                          : H1        :        :                   :         
 DNU                          : H2        :        :                   :         :           :                
 GND                          : H3        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : H4        :        :                   :         : 8A        :                
-CNNver2_result_pos[2]        : H5        : output : 3.3-V LVTTL       :         : 8A        : N              
-CNNver2_result_pos[3]        : H6        : output : 3.3-V LVTTL       :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : H5        :        :                   :         : 8A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : H6        :        :                   :         : 8A        :                
 nSTATUS                      : H8        :        :                   :         : 9A        :                
 MSEL1                        : H9        :        :                   :         : 9A        :                
 VCCPGM                       : H10       : power  :                   : 1.8V/2.5V/3.0V/3.3V :           :                
@@ -515,9 +515,9 @@ GND                          : L2        : gnd    :                   :         
 GND                          : L3        : gnd    :                   :         :           :                
 VCC                          : L4        : power  :                   : 1.1V    :           :                
 GND                          : L5        : gnd    :                   :         :           :                
-CNNver2_result_pos[5]        : L8        : output : 3.3-V LVTTL       :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L8        :        :                   :         : 8A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L9        :        :                   :         : 8A        :                
-CNNver2_Reset_InHigh         : L10       : input  : 3.3-V LVTTL       :         : 8A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : L10       :        :                   :         : 8A        :                
 VCC                          : L11       : power  :                   : 1.1V    :           :                
 VCC                          : L12       : power  :                   : 1.1V    :           :                
 GND                          : L13       : gnd    :                   :         :           :                
