@@ -1,0 +1,17 @@
+Analysis & Synthesis Status : Successful - Tue Mar  3 00:44:37 2026
+Quartus Prime Version : 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+Revision Name : CNNver3
+Top-level Entity Name : CNNver3
+Family : Cyclone V
+Logic utilization (in ALMs) : N/A
+Total registers : 1050
+Total pins : 8
+Total virtual pins : 0
+Total block memory bits : 0
+Total DSP Blocks : 24
+Total HSSI RX PCSs : 0
+Total HSSI PMA RX Deserializers : 0
+Total HSSI TX PCSs : 0
+Total HSSI PMA TX Serializers : 0
+Total PLLs : 0
+Total DLLs : 0
