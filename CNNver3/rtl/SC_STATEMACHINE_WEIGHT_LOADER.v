@@ -16,6 +16,11 @@
 //    weight_latch captura i_WROW al transicionar IDLE→LOAD_ROW.
 //    Outputs usan weight_latch (sin -1).
 //    Usa i_RESET global → sobrevive a subida de CS.
+//
+//  Nota de comando:
+//    El comando SPI para LOAD WEIGHTS es ahora 3'b010
+//    (antes era 3'b001). Actualizado en la condicion de
+//    transicion IDLE→LOAD_ROW.
 //=======================================================
 
 module SC_STATEMACHINE_WEIGHT_LOADER #(
@@ -43,7 +48,7 @@ reg STATE_Signal;
 always @(*) begin
     case (STATE_Register)
         STATE_IDLE:
-            if (i_CMD == 3'b001 && i_DATA_COUNT == LAST_BIT)
+            if (i_CMD == 3'b010 && i_DATA_COUNT == LAST_BIT)
                 STATE_Signal = STATE_LOAD_ROW;
             else
                 STATE_Signal = STATE_IDLE;

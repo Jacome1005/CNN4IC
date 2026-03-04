@@ -24,6 +24,11 @@
 //  Filas 0-8: funcionaban antes (CS no sube entre su
 //    posedge-T y posedge-T+1). Siguen funcionando igual
 //    porque row_latch captura el mismo valor que antes.
+//
+//  Nota de comando:
+//    El comando SPI para LOAD IMAGE es ahora 3'b001
+//    (antes era 3'b000). Actualizado en la condicion de
+//    transicion IDLE→LOAD_ROW.
 //=======================================================
 
 module SC_STATEMACHINE_IMAGE_LOADER #(
@@ -53,7 +58,7 @@ reg STATE_Signal;
 always @(*) begin
     case (STATE_Register)
         STATE_IDLE:
-            if (i_CMD == 3'b000 && i_DATA_COUNT == LAST_BIT)
+            if (i_CMD == 3'b001 && i_DATA_COUNT == LAST_BIT)
                 STATE_Signal = STATE_LOAD_ROW;
             else
                 STATE_Signal = STATE_IDLE;

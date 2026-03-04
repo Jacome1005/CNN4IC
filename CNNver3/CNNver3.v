@@ -11,16 +11,7 @@
 //    CNNver3_MR1_Load     — DEBUG: pulso activo bajo al cargar acc0 en MR1
 //    CNNver3_MR2_Load     — DEBUG: pulso activo bajo al cargar acc1 en MR2
 //
-//  Flujo de uso desde MCU:
-//    cmd 000 → carga imagen 10x10
-//    cmd 001 → carga kernel0
-//    cmd 010 → START → chip procesa 9 frags con kernel0 → acc0 → MR1
-//               ↑ CNNver3_MR1_Load baja un ciclo al terminar
-//    cmd 001 → carga kernel1
-//    cmd 010 → START → chip procesa 9 frags con kernel1 → acc1 → MR2
-//               ↑ CNNver3_MR2_Load baja un ciclo al terminar
-//    cmd 110 → lee 1 bit comparador (MR1 > MR2) → clasificación
-//
+
 //  Jerarquía:
 //    CNNver3
 //     ├── spi_cnn_slave_8
@@ -121,7 +112,7 @@ assign CNNver3_MR2_Load = CNN_CTRL_mr2_load_cwire;
 // ═══════════════════════════════════════════
 assign comp_result_cwire = ($signed(MR1_out_cwire) > $signed(MR2_out_cwire)) ? 1'b1 : 1'b0;
 
-// ═══════════════════════x════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════
 // 1. SPI Slave
 // ═══════════════════════════════════════════════════════════════
 spi_cnn_slave_8 #(
@@ -137,7 +128,6 @@ spi_cnn_slave_8 #(
     .i_RESET     (CNNver3_Reset_InHigh),
     .i_cmd_reset (CNNver3_CMD_Reset),
     .o_start_cnn (SPI_2_CNN_Start_cwire),
-    .o_save_accum(),        // no utilizado en esta versión
     // Imagen
     .o_row00(SPI_2_row00_cwire), .o_row01(SPI_2_row01_cwire),
     .o_row02(SPI_2_row02_cwire), .o_row03(SPI_2_row03_cwire),
