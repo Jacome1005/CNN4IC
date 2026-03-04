@@ -2,14 +2,14 @@
 //  CNNver3 — Top Level
 //=======================================================
 //  Puertos externos (8):
-//    CNNver2_MISO         — resultado final al exterior (SPI)
-//    CNNver2_SPICLOCK_50  — reloj SPI
-//    CNNver2_SS_N         — Chip Select (activo bajo)
-//    CNNver2_MOSI         — datos/comandos del master
-//    CNNver2_Reset_InHigh — reset global (activo alto)
-//    CNNver2_CMD_Reset    — aborta comando SPI en curso
-//    CNNver2_MR1_Load     — DEBUG: pulso activo bajo al cargar acc0 en MR1
-//    CNNver2_MR2_Load     — DEBUG: pulso activo bajo al cargar acc1 en MR2
+//    CNNver3_MISO         — resultado final al exterior (SPI)
+//    CNNver3_SPICLOCK_50  — reloj SPI
+//    CNNver3_SS_N         — Chip Select (activo bajo)
+//    CNNver3_MOSI         — datos/comandos del master
+//    CNNver3_Reset_InHigh — reset global (activo alto)
+//    CNNver3_CMD_Reset    — aborta comando SPI en curso
+//    CNNver3_MR1_Load     — DEBUG: pulso activo bajo al cargar acc0 en MR1
+//    CNNver3_MR2_Load     — DEBUG: pulso activo bajo al cargar acc1 en MR2
 //
 
 //  Jerarquía:
@@ -29,14 +29,14 @@
 //=======================================================
 
 module CNNver3 (
-    output       CNNver2_MISO,
-    input        CNNver2_SPICLOCK_50,
-    input        CNNver2_SS_N,
-    input        CNNver2_MOSI,
-    input        CNNver2_Reset_InHigh,
-    input        CNNver2_CMD_Reset,
-    output       CNNver2_MR1_Load,     // DEBUG: activo bajo, pulso al cargar MR1
-    output       CNNver2_MR2_Load      // DEBUG: activo bajo, pulso al cargar MR2
+    output       CNNver3_MISO,
+    input        CNNver3_SPICLOCK_50,
+    input        CNNver3_SS_N,
+    input        CNNver3_MOSI,
+    input        CNNver3_Reset_InHigh,
+    input        CNNver3_CMD_Reset,
+    output       CNNver3_MR1_Load,     // DEBUG: activo bajo, pulso al cargar MR1
+    output       CNNver3_MR2_Load      // DEBUG: activo bajo, pulso al cargar MR2
 );
 
 // ═══════════════════════════════════════════
@@ -102,8 +102,8 @@ wire        comp_result_cwire;
 //  Los loads se exponen directamente como pines
 //  de salida para observación con osciloscopio
 // ═══════════════════════════════════════════
-assign CNNver2_MR1_Load = CNN_CTRL_mr1_load_cwire;
-assign CNNver2_MR2_Load = CNN_CTRL_mr2_load_cwire;
+assign CNNver3_MR1_Load = CNN_CTRL_mr1_load_cwire;
+assign CNNver3_MR2_Load = CNN_CTRL_mr2_load_cwire;
 
 // ═══════════════════════════════════════════
 //  COMPARADOR (combinacional, signed 16 bits)
@@ -121,12 +121,12 @@ spi_cnn_slave_8 #(
     .DATAWIDTH_BUS_WEIGHT(DATAWIDTH_BUS_WEIGHT),
     .BITS_PER_POS        (BITS_PER_POS)
 ) spi_cnn_slave_8_u0 (
-    .i_SPI_Clk   (CNNver2_SPICLOCK_50),
-    .i_SPI_CS_n  (CNNver2_SS_N),
-    .i_SPI_MOSI  (CNNver2_MOSI),
-    .o_SPI_MISO  (CNNver2_MISO),
-    .i_RESET     (CNNver2_Reset_InHigh),
-    .i_cmd_reset (CNNver2_CMD_Reset),
+    .i_SPI_Clk   (CNNver3_SPICLOCK_50),
+    .i_SPI_CS_n  (CNNver3_SS_N),
+    .i_SPI_MOSI  (CNNver3_MOSI),
+    .o_SPI_MISO  (CNNver3_MISO),
+    .i_RESET     (CNNver3_Reset_InHigh),
+    .i_cmd_reset (CNNver3_CMD_Reset),
     .o_start_cnn (SPI_2_CNN_Start_cwire),
     // Imagen
     .o_row00(SPI_2_row00_cwire), .o_row01(SPI_2_row01_cwire),
@@ -158,76 +158,76 @@ spi_cnn_slave_8 #(
 // 2. Registros de Imagen (10 × Register_Imag — 30 bits)
 // ═══════════════════════════════════════════════════════════════
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u0 (
-    .Register_Imag_DataInBUS(SPI_2_row00_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u0),
+    .Register_Imag_DataInBUS(SPI_2_row00_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u0),
     .Register_Imag_DataOutBUS(RegImag_u0_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u1 (
-    .Register_Imag_DataInBUS(SPI_2_row01_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u1),
+    .Register_Imag_DataInBUS(SPI_2_row01_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u1),
     .Register_Imag_DataOutBUS(RegImag_u1_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u2 (
-    .Register_Imag_DataInBUS(SPI_2_row02_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u2),
+    .Register_Imag_DataInBUS(SPI_2_row02_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u2),
     .Register_Imag_DataOutBUS(RegImag_u2_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u3 (
-    .Register_Imag_DataInBUS(SPI_2_row03_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u3),
+    .Register_Imag_DataInBUS(SPI_2_row03_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u3),
     .Register_Imag_DataOutBUS(RegImag_u3_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u4 (
-    .Register_Imag_DataInBUS(SPI_2_row04_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u4),
+    .Register_Imag_DataInBUS(SPI_2_row04_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u4),
     .Register_Imag_DataOutBUS(RegImag_u4_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u5 (
-    .Register_Imag_DataInBUS(SPI_2_row05_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u5),
+    .Register_Imag_DataInBUS(SPI_2_row05_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u5),
     .Register_Imag_DataOutBUS(RegImag_u5_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u6 (
-    .Register_Imag_DataInBUS(SPI_2_row06_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u6),
+    .Register_Imag_DataInBUS(SPI_2_row06_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u6),
     .Register_Imag_DataOutBUS(RegImag_u6_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u7 (
-    .Register_Imag_DataInBUS(SPI_2_row07_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u7),
+    .Register_Imag_DataInBUS(SPI_2_row07_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u7),
     .Register_Imag_DataOutBUS(RegImag_u7_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u8 (
-    .Register_Imag_DataInBUS(SPI_2_row08_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u8),
+    .Register_Imag_DataInBUS(SPI_2_row08_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u8),
     .Register_Imag_DataOutBUS(RegImag_u8_out));
 Register_Imag #(.DATAWIDTH_BUS_IMAGE(DATAWIDTH_BUS_IMAGE),.BITS_PER_POS(BITS_PER_POS)) register_imag_u9 (
-    .Register_Imag_DataInBUS(SPI_2_row09_cwire), .Register_Imag_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Imag_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u9),
+    .Register_Imag_DataInBUS(SPI_2_row09_cwire), .Register_Imag_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Imag_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Imag_Load_InLow(load_img_u9),
     .Register_Imag_DataOutBUS(RegImag_u9_out));
 
 // ═══════════════════════════════════════════════════════════════
 // 3. Registros de Pesos (5 × Register_Weight — 15 bits)
 // ═══════════════════════════════════════════════════════════════
 Register_Weight #(.DATAWIDTH_BUS_WEIGHT(DATAWIDTH_BUS_WEIGHT),.BITS_PER_POS(BITS_PER_POS)) weight_register_u0 (
-    .Register_Weight_DataInBUS(SPI_2_wrow00_cwire), .Register_Weight_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Weight_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Weight_Load_InLow(wload_u0),
+    .Register_Weight_DataInBUS(SPI_2_wrow00_cwire), .Register_Weight_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Weight_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Weight_Load_InLow(wload_u0),
     .Register_Weight_DataOutBUS(RegWgt_u0_out));
 Register_Weight #(.DATAWIDTH_BUS_WEIGHT(DATAWIDTH_BUS_WEIGHT),.BITS_PER_POS(BITS_PER_POS)) weight_register_u1 (
-    .Register_Weight_DataInBUS(SPI_2_wrow01_cwire), .Register_Weight_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Weight_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Weight_Load_InLow(wload_u1),
+    .Register_Weight_DataInBUS(SPI_2_wrow01_cwire), .Register_Weight_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Weight_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Weight_Load_InLow(wload_u1),
     .Register_Weight_DataOutBUS(RegWgt_u1_out));
 Register_Weight #(.DATAWIDTH_BUS_WEIGHT(DATAWIDTH_BUS_WEIGHT),.BITS_PER_POS(BITS_PER_POS)) weight_register_u2 (
-    .Register_Weight_DataInBUS(SPI_2_wrow02_cwire), .Register_Weight_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Weight_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Weight_Load_InLow(wload_u2),
+    .Register_Weight_DataInBUS(SPI_2_wrow02_cwire), .Register_Weight_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Weight_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Weight_Load_InLow(wload_u2),
     .Register_Weight_DataOutBUS(RegWgt_u2_out));
 Register_Weight #(.DATAWIDTH_BUS_WEIGHT(DATAWIDTH_BUS_WEIGHT),.BITS_PER_POS(BITS_PER_POS)) weight_register_u3 (
-    .Register_Weight_DataInBUS(SPI_2_wrow03_cwire), .Register_Weight_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Weight_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Weight_Load_InLow(wload_u3),
+    .Register_Weight_DataInBUS(SPI_2_wrow03_cwire), .Register_Weight_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Weight_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Weight_Load_InLow(wload_u3),
     .Register_Weight_DataOutBUS(RegWgt_u3_out));
 Register_Weight #(.DATAWIDTH_BUS_WEIGHT(DATAWIDTH_BUS_WEIGHT),.BITS_PER_POS(BITS_PER_POS)) weight_register_u4 (
-    .Register_Weight_DataInBUS(SPI_2_wrow04_cwire), .Register_Weight_CLOCK(CNNver2_SPICLOCK_50),
-    .Register_Weight_Reset_InHigh(CNNver2_Reset_InHigh), .Register_Weight_Load_InLow(wload_u4),
+    .Register_Weight_DataInBUS(SPI_2_wrow04_cwire), .Register_Weight_CLOCK(CNNver3_SPICLOCK_50),
+    .Register_Weight_Reset_InHigh(CNNver3_Reset_InHigh), .Register_Weight_Load_InLow(wload_u4),
     .Register_Weight_DataOutBUS(RegWgt_u4_out));
 
 // ═══════════════════════════════════════════════════════════════
 // 4. Controlador CNN
 // ═══════════════════════════════════════════════════════════════
 SC_STATEMACHINE_CNN_CTRL cnn_ctrl_u0 (
-    .i_CLOCK    (CNNver2_SPICLOCK_50),
-    .i_RESET    (CNNver2_Reset_InHigh),
+    .i_CLOCK    (CNNver3_SPICLOCK_50),
+    .i_RESET    (CNNver3_Reset_InHigh),
     .i_START_CNN(SPI_2_CNN_Start_cwire),
     // Imagen
     .i_row00(RegImag_u0_out), .i_row01(RegImag_u1_out),
@@ -252,8 +252,8 @@ SC_STATEMACHINE_CNN_CTRL cnn_ctrl_u0 (
 // ═══════════════════════════════════════════════════════════════
 Master_register #(.DATAWIDTH_BUS(16)) master_reg1_u0 (
     .Master_register_DataInBUS   (CNN_CTRL_acc0_cwire),
-    .Master_register_CLOCK       (CNNver2_SPICLOCK_50),
-    .Master_register_Reset_InHigh(CNNver2_Reset_InHigh),
+    .Master_register_CLOCK       (CNNver3_SPICLOCK_50),
+    .Master_register_Reset_InHigh(CNNver3_Reset_InHigh),
     .Master_register_Load_InLow  (CNN_CTRL_mr1_load_cwire),
     .Master_register_DataOutBUS  (MR1_out_cwire)
 );
@@ -263,8 +263,8 @@ Master_register #(.DATAWIDTH_BUS(16)) master_reg1_u0 (
 // ═══════════════════════════════════════════════════════════════
 Master_register #(.DATAWIDTH_BUS(16)) master_reg2_u0 (
     .Master_register_DataInBUS   (CNN_CTRL_acc1_cwire),
-    .Master_register_CLOCK       (CNNver2_SPICLOCK_50),
-    .Master_register_Reset_InHigh(CNNver2_Reset_InHigh),
+    .Master_register_CLOCK       (CNNver3_SPICLOCK_50),
+    .Master_register_Reset_InHigh(CNNver3_Reset_InHigh),
     .Master_register_Load_InLow  (CNN_CTRL_mr2_load_cwire),
     .Master_register_DataOutBUS  (MR2_out_cwire)
 );
