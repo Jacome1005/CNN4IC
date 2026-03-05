@@ -24,15 +24,15 @@
 					"strict" : false
 				},
 				{
+					"name" : "CNNver3_MOSI",
+					"strict" : false
+				},
+				{
 					"name" : "CNNver3_SS_N",
 					"strict" : false
 				},
 				{
 					"name" : "CNNver3_CMD_Reset",
-					"strict" : false
-				},
-				{
-					"name" : "CNNver3_MOSI",
 					"strict" : false
 				}
 			]

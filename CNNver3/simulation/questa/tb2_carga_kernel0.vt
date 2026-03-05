@@ -1,0 +1,137 @@
+// tb2_carga_kernel0.v
+// Anidado sobre TB1: hereda reset + imagen, agrega carga de kernel0
+// cmd 010 = LOAD WEIGHTS: 5 filas x 15 bits
+`timescale 1ns/1ps
+
+module tb2_carga_kernel0;
+
+    reg  clk, ss_n, mosi, rst, cmd_reset;
+    wire miso, mr1_load, mr2_load;
+
+    CNNver3 dut (
+        .CNNver2_MISO         (miso),
+        .CNNver2_SPICLOCK_50  (clk),
+        .CNNver2_SS_N         (ss_n),
+        .CNNver2_MOSI         (mosi),
+        .CNNver2_Reset_InHigh (rst),
+        .CNNver2_CMD_Reset    (cmd_reset),
+        .CNNver2_MR1_Load     (mr1_load),
+        .CNNver2_MR2_Load     (mr2_load)
+    );
+
+    initial clk = 0;
+    always #10 clk = ~clk;
+
+    task spi_bit;
+        input b;
+        begin mosi = b; @(posedge clk); #2; end
+    endtask
+
+    // --- Reutilizacion de TB1: imagen ---
+    reg [29:0] img_data [0:9];
+
+    task cargar_imagen;
+        integer f, b;
+        begin
+            ss_n = 0; #5;
+            spi_bit(0); spi_bit(0); spi_bit(1);
+            for (f = 0; f < 10; f = f + 1)
+                for (b = 29; b >= 0; b = b - 1)
+                    spi_bit(img_data[f][b]);
+            #5; ss_n = 1; #60;
+        end
+    endtask
+
+    // --- Nuevo en TB2: pesos ---
+    // Kernel 5x5, cada fila = 5 pesos x 3 bits = 15 bits
+    // Kernel de deteccion de bordes simples: valores -1, 0, +1
+    // En 3 bits signed: -1=3'b111, 0=3'b000, +1=3'b001
+    reg [14:0] k0_data [0:4];
+
+    task cargar_kernel0;
+        integer f, b;
+        begin
+            ss_n = 0; #5;
+            spi_bit(0); spi_bit(1); spi_bit(0); // CMD 010
+            for (f = 0; f < 5; f = f + 1)
+                for (b = 14; b >= 0; b = b - 1)
+                    spi_bit(k0_data[f][b]);
+            #5; ss_n = 1; #60;
+        end
+    endtask
+
+    initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars(0, tb2_carga_kernel0);
+
+        rst=1; ss_n=1; mosi=0; cmd_reset=0;
+
+        // Imagen (igual que TB1)
+        img_data[0] = 30'b001_001_001_001_001_001_001_001_001_001;
+        img_data[1] = 30'b010_010_010_010_010_010_010_010_010_010;
+        img_data[2] = 30'b011_011_011_011_011_011_011_011_011_011;
+        img_data[3] = 30'b001_010_011_001_010_011_001_010_011_001;
+        img_data[4] = 30'b010_011_001_010_011_001_010_011_001_010;
+        img_data[5] = 30'b011_001_010_011_001_010_011_001_010_011;
+        img_data[6] = 30'b001_001_010_010_011_011_001_001_010_010;
+        img_data[7] = 30'b010_010_011_011_001_001_010_010_011_011;
+        img_data[8] = 30'b011_011_001_001_010_010_011_011_001_001;
+        img_data[9] = 30'b001_010_011_010_001_011_001_010_011_010;
+
+        // Kernel 0: identidad diagonal (solo diagonal principal = 1, resto = 0)
+        // Fila: peso4 peso3 peso2 peso1 peso0 (MSB primero al enviar)
+        k0_data[0] = 15'b001_000_000_000_000; // fila 0: [1,0,0,0,0]
+        k0_data[1] = 15'b000_001_000_000_000; // fila 1: [0,1,0,0,0]
+        k0_data[2] = 15'b000_000_001_000_000; // fila 2: [0,0,1,0,0]
+        k0_data[3] = 15'b000_000_000_001_000; // fila 3: [0,0,0,1,0]
+        k0_data[4] = 15'b000_000_000_000_001; // fila 4: [0,0,0,0,1]
+
+        // FASE 1: Reset (TB1)
+        $display("[TB2] FASE 1: Reset");
+        repeat(5) @(posedge clk);
+        rst = 0; #20;
+
+        // FASE 2: Imagen (TB1)
+        $display("[TB2] FASE 2: Carga imagen (cmd 001)");
+        cargar_imagen;
+
+        // FASE 3: Kernel 0 (nuevo en TB2)
+        $display("[TB2] FASE 3: Carga kernel0 (cmd 010)");
+        cargar_kernel0;
+        $display("[TB2] t=%0t Kernel0 enviado (78 bits SPI)", $time);
+
+        // FASE 4: Verificacion de registros de pesos
+        #20;
+        $display("[TB2] FASE 4: Verificacion registros de pesos");
+        $display("  wgt0=%b  esp=%b  %s", dut.RegWgt_u0_out, k0_data[0],
+                 dut.RegWgt_u0_out===k0_data[0]?"OK":"FAIL");
+        $display("  wgt1=%b  esp=%b  %s", dut.RegWgt_u1_out, k0_data[1],
+                 dut.RegWgt_u1_out===k0_data[1]?"OK":"FAIL");
+        $display("  wgt2=%b  esp=%b  %s", dut.RegWgt_u2_out, k0_data[2],
+                 dut.RegWgt_u2_out===k0_data[2]?"OK":"FAIL");
+        $display("  wgt3=%b  esp=%b  %s", dut.RegWgt_u3_out, k0_data[3],
+                 dut.RegWgt_u3_out===k0_data[3]?"OK":"FAIL");
+        $display("  wgt4=%b  esp=%b  %s", dut.RegWgt_u4_out, k0_data[4],
+                 dut.RegWgt_u4_out===k0_data[4]?"OK":"FAIL");
+
+        // Tambien verificar que la imagen sigue intacta
+        $display("[TB2] Verificacion cruzada: imagen no alterada");
+        $display("  reg0=%b  OK=%s", dut.RegImag_u0_out,
+                 dut.RegImag_u0_out===img_data[0]?"SI":"NO");
+        $display("  reg9=%b  OK=%s", dut.RegImag_u9_out,
+                 dut.RegImag_u9_out===img_data[9]?"SI":"NO");
+
+        if (dut.RegWgt_u0_out===k0_data[0] &&
+            dut.RegWgt_u1_out===k0_data[1] &&
+            dut.RegWgt_u2_out===k0_data[2] &&
+            dut.RegWgt_u3_out===k0_data[3] &&
+            dut.RegWgt_u4_out===k0_data[4])
+            $display("[TB2] PASS");
+        else
+            $display("[TB2] FAIL");
+
+        $display("[TB2] FIN -- continuar con TB3 (START CNN)");
+        $finish;
+    end
+
+endmodule

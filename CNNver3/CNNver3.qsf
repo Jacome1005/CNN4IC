@@ -38,7 +38,7 @@
 
 
 set_global_assignment -name FAMILY "Cyclone V"
-set_global_assignment -name DEVICE 5CGXFC7C7F23C8
+set_global_assignment -name DEVICE 5CSEMA4U23C6
 set_global_assignment -name TOP_LEVEL_ENTITY CNNver3
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 24.1STD.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "08:43:25  MARCH 02, 2026"
@@ -57,6 +57,11 @@ set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
 set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name VERILOG_FILE rtl/window_mux_6x6_5x5.v
 set_global_assignment -name VERILOG_FILE rtl/spi_cnn_slave_8.v
 set_global_assignment -name VERILOG_FILE rtl/SC_STATEMACHINE_WEIGHT_LOADER.v
@@ -72,9 +77,19 @@ set_global_assignment -name VERILOG_FILE rtl/mac_parallel.v
 set_global_assignment -name VERILOG_FILE rtl/fragment_mux_10x10_6x6.v
 set_global_assignment -name VERILOG_FILE rtl/cnn_top.v
 set_global_assignment -name VERILOG_FILE CNNver3.v
-set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
-set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
+set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+
+set_location_assignment PIN_V12 -to CNNver3_MISO
+set_location_assignment PIN_AF7 -to CNNver3_MOSI
+set_location_assignment PIN_W12 -to CNNver3_SPICLOCK_50
+set_location_assignment PIN_AF8 -to CNNver3_SS_N
+set_location_assignment PIN_Y8 -to CNNver3_Reset_InHigh
+set_location_assignment PIN_AB4 -to CNNver3_CMD_Reset
+set_location_assignment PIN_W8 -to CNNver3_MR1_Load
+set_location_assignment PIN_Y4 -to CNNver3_MR2_Load
+
+# No olvides configurar el estándar de voltaje (3.3-V LVTTL)
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CNNver3_*
+set_global_assignment -name BOARD "Atlas-SoC (DE0-Nano-SoC)"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

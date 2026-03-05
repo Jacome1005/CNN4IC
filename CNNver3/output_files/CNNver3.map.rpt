@@ -1,5 +1,5 @@
 Analysis & Synthesis report for CNNver3
-Tue Mar  3 00:44:37 2026
+Thu Mar  5 00:27:18 2026
 Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 
 
@@ -73,7 +73,7 @@ on the Quartus Prime software download page.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue Mar  3 00:44:37 2026           ;
+; Analysis & Synthesis Status     ; Successful - Thu Mar  5 00:27:18 2026           ;
 ; Quartus Prime Version           ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
 ; Revision Name                   ; CNNver3                                         ;
 ; Top-level Entity Name           ; CNNver3                                         ;
@@ -98,9 +98,10 @@ on the Quartus Prime software download page.
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
-; Device                                                                          ; 5CGXFC7C7F23C8     ;                    ;
+; Device                                                                          ; 5CSEMA4U23C6       ;                    ;
 ; Top-level entity name                                                           ; CNNver3            ; CNNver3            ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
+; Maximum processors allowed for parallel compilation                             ; All                ;                    ;
 ; Use smart compilation                                                           ; Off                ; Off                ;
 ; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
 ; Enable compact report table                                                     ; Off                ; Off                ;
@@ -231,14 +232,14 @@ on the Quartus Prime software download page.
 +---------------------------------------------+---------------------------+
 ; Resource                                    ; Usage                     ;
 +---------------------------------------------+---------------------------+
-; Estimate of Logic utilization (ALMs needed) ; 819                       ;
+; Estimate of Logic utilization (ALMs needed) ; 3956                      ;
 ;                                             ;                           ;
-; Combinational ALUT usage for logic          ; 711                       ;
-;     -- 7 input functions                    ; 36                        ;
-;     -- 6 input functions                    ; 384                       ;
-;     -- 5 input functions                    ; 111                       ;
-;     -- 4 input functions                    ; 97                        ;
-;     -- <=3 input functions                  ; 83                        ;
+; Combinational ALUT usage for logic          ; 4533                      ;
+;     -- 7 input functions                    ; 309                       ;
+;     -- 6 input functions                    ; 2961                      ;
+;     -- 5 input functions                    ; 331                       ;
+;     -- 4 input functions                    ; 121                       ;
+;     -- <=3 input functions                  ; 811                       ;
 ;                                             ;                           ;
 ; Dedicated logic registers                   ; 1050                      ;
 ;                                             ;                           ;
@@ -248,8 +249,8 @@ on the Quartus Prime software download page.
 ;                                             ;                           ;
 ; Maximum fan-out node                        ; CNNver3_SPICLOCK_50~input ;
 ; Maximum fan-out                             ; 1050                      ;
-; Total fan-out                               ; 7659                      ;
-; Average fan-out                             ; 4.25                      ;
+; Total fan-out                               ; 28426                     ;
+; Average fan-out                             ; 5.06                      ;
 +---------------------------------------------+---------------------------+
 
 
@@ -258,7 +259,7 @@ on the Quartus Prime software download page.
 +--------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------+-------------------------------+--------------+
 ; Compilation Hierarchy Node                             ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                           ; Entity Name                   ; Library Name ;
 +--------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------+-------------------------------+--------------+
-; |CNNver3                                               ; 711 (11)            ; 1050 (0)                  ; 0                 ; 24         ; 8    ; 0            ; |CNNver3                                                                                                      ; CNNver3                       ; work         ;
+; |CNNver3                                               ; 4533 (10)           ; 1050 (0)                  ; 0                 ; 24         ; 8    ; 0            ; |CNNver3                                                                                                      ; CNNver3                       ; work         ;
 ;    |Master_register:master_reg1_u0|                    ; 1 (1)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|Master_register:master_reg1_u0                                                                       ; Master_register               ; work         ;
 ;    |Master_register:master_reg2_u0|                    ; 1 (1)               ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|Master_register:master_reg2_u0                                                                       ; Master_register               ; work         ;
 ;    |Register_Imag:register_imag_u0|                    ; 1 (1)               ; 30 (30)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|Register_Imag:register_imag_u0                                                                       ; Register_Imag                 ; work         ;
@@ -276,16 +277,16 @@ on the Quartus Prime software download page.
 ;    |Register_Weight:weight_register_u2|                ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|Register_Weight:weight_register_u2                                                                   ; Register_Weight               ; work         ;
 ;    |Register_Weight:weight_register_u3|                ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|Register_Weight:weight_register_u3                                                                   ; Register_Weight               ; work         ;
 ;    |Register_Weight:weight_register_u4|                ; 1 (1)               ; 15 (15)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|Register_Weight:weight_register_u4                                                                   ; Register_Weight               ; work         ;
-;    |SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|              ; 602 (11)            ; 182 (123)                 ; 0                 ; 24         ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0                                                                 ; SC_STATEMACHINE_CNN_CTRL      ; work         ;
-;       |cnn_top:cnn_inst|                               ; 591 (30)            ; 59 (29)                   ; 0                 ; 24         ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst                                                ; cnn_top                       ; work         ;
-;          |fragment_mux_10x10_6x6:frag_mux|             ; 424 (424)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux                ; fragment_mux_10x10_6x6        ; work         ;
-;          |mux_cnn:cnn_inst|                            ; 137 (5)             ; 30 (14)                   ; 0                 ; 24         ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst                               ; mux_cnn                       ; work         ;
+;    |SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|              ; 4420 (11)           ; 182 (123)                 ; 0                 ; 24         ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0                                                                 ; SC_STATEMACHINE_CNN_CTRL      ; work         ;
+;       |cnn_top:cnn_inst|                               ; 4409 (30)           ; 59 (29)                   ; 0                 ; 24         ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst                                                ; cnn_top                       ; work         ;
+;          |fragment_mux_10x10_6x6:frag_mux|             ; 4106 (4106)         ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux                ; fragment_mux_10x10_6x6        ; work         ;
+;          |mux_cnn:cnn_inst|                            ; 273 (5)             ; 30 (14)                   ; 0                 ; 24         ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst                               ; mux_cnn                       ; work         ;
 ;             |mac_parallel:mac_inst|                    ; 0 (0)               ; 0 (0)                     ; 0                 ; 24         ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|mac_parallel:mac_inst         ; mac_parallel                  ; work         ;
-;             |progressive_maxpool:pool_inst|            ; 15 (15)             ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|progressive_maxpool:pool_inst ; progressive_maxpool           ; work         ;
-;             |window_mux_6x6_5x5:win_mux|               ; 117 (117)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux    ; window_mux_6x6_5x5            ; work         ;
-;    |spi_cnn_slave_8:spi_cnn_slave_8_u0|                ; 81 (77)             ; 461 (452)                 ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0                                                                   ; spi_cnn_slave_8               ; work         ;
-;       |SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm|   ; 2 (2)               ; 5 (5)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm                      ; SC_STATEMACHINE_IMAGE_LOADER  ; work         ;
-;       |SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm| ; 2 (2)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm                    ; SC_STATEMACHINE_WEIGHT_LOADER ; work         ;
+;             |progressive_maxpool:pool_inst|            ; 11 (11)             ; 16 (16)                   ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|progressive_maxpool:pool_inst ; progressive_maxpool           ; work         ;
+;             |window_mux_6x6_5x5:win_mux|               ; 257 (257)           ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux    ; window_mux_6x6_5x5            ; work         ;
+;    |spi_cnn_slave_8:spi_cnn_slave_8_u0|                ; 86 (84)             ; 461 (452)                 ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0                                                                   ; spi_cnn_slave_8               ; work         ;
+;       |SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm|   ; 1 (1)               ; 5 (5)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm                      ; SC_STATEMACHINE_IMAGE_LOADER  ; work         ;
+;       |SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm| ; 1 (1)               ; 4 (4)                     ; 0                 ; 0          ; 0    ; 0            ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm                    ; SC_STATEMACHINE_WEIGHT_LOADER ; work         ;
 +--------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------------------------------------------------------------------------+-------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -414,42 +415,120 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |CNNver3|Master_register:master_reg1_u0|Datos[14]                                                                ;
-; 3:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |CNNver3|Master_register:master_reg2_u0|Datos[5]                                                                 ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u4|Datos[28]                                                                ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u8|Datos[28]                                                                ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u6|Datos[2]                                                                 ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u5|Datos[26]                                                                ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u9|Datos[12]                                                                ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u7|Datos[6]                                                                 ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u4|Datos[1]                                                             ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u3|Datos[3]                                                                 ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u3|Datos[7]                                                             ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u2|Datos[16]                                                                ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u2|Datos[9]                                                             ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u1|Datos[2]                                                                 ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u1|Datos[11]                                                            ;
-; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u0|Datos[0]                                                                 ;
-; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u0|Datos[10]                                                            ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|acc[7]                                            ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |CNNver3|Master_register:master_reg1_u0|Datos[3]                                                                 ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |CNNver3|Master_register:master_reg2_u0|Datos[7]                                                                 ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u0|Datos[27]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u1|Datos[23]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u2|Datos[28]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u3|Datos[13]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u4|Datos[18]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u5|Datos[14]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u6|Datos[29]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u7|Datos[11]                                                                ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u8|Datos[1]                                                                 ;
+; 3:1                ; 30 bits   ; 60 LEs        ; 0 LEs                ; 60 LEs                 ; Yes        ; |CNNver3|Register_Imag:register_imag_u9|Datos[20]                                                                ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u4|Datos[5]                                                             ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u3|Datos[13]                                                            ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u2|Datos[4]                                                             ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u1|Datos[9]                                                             ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 0 LEs                ; 30 LEs                 ; Yes        ; |CNNver3|Register_Weight:weight_register_u0|Datos[9]                                                             ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 0 LEs                ; 32 LEs                 ; Yes        ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|acc[2]                                            ;
+; 7:1                ; 5 bits    ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0|miso_count[0]                                                        ;
 ; 5:1                ; 4 bits    ; 12 LEs        ; 4 LEs                ; 8 LEs                  ; Yes        ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|frag_sel[3]                                       ;
-; 12:1               ; 7 bits    ; 56 LEs        ; 14 LEs               ; 42 LEs                 ; Yes        ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0|data_count[5]                                                        ;
-; 3:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux0              ;
-; 3:1                ; 36 bits   ; 72 LEs        ; 72 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux23             ;
-; 4:1                ; 48 bits   ; 96 LEs        ; 96 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux0              ;
-; 4:1                ; 63 bits   ; 126 LEs       ; 126 LEs              ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux54 ;
-; 7:1                ; 36 bits   ; 144 LEs       ; 144 LEs              ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux53             ;
+; 11:1               ; 7 bits    ; 49 LEs        ; 14 LEs               ; 35 LEs                 ; Yes        ; |CNNver3|spi_cnn_slave_8:spi_cnn_slave_8_u0|data_count[0]                                                        ;
+; 4:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux10 ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux61 ;
+; 4:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux61 ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux87             ;
+; 4:1                ; 40 bits   ; 80 LEs        ; 80 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux57 ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux68             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux69             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux101            ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux102            ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux105            ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux81             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux75             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux67 ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux58 ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux65             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux93             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux90             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux98             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux17             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux35             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux30             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux9              ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux24             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux39             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux57             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux54             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux5              ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux21             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux20             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux53             ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux27             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux45             ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux60             ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux54 ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux33 ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux24 ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 6 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux3  ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux6  ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux45 ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux15 ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 16 LEs               ; 4 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux2  ;
 ; 6:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|Selector25                                        ;
-; 10:1               ; 21 bits   ; 126 LEs       ; 126 LEs              ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux102            ;
-; 10:1               ; 9 bits    ; 54 LEs        ; 54 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux35             ;
-; 10:1               ; 21 bits   ; 126 LEs       ; 126 LEs              ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux55             ;
+; 10:1               ; 2 bits    ; 12 LEs        ; 10 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux1  ;
+; 64:1               ; 3 bits    ; 126 LEs       ; 126 LEs              ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux1              ;
+; 64:1               ; 3 bits    ; 126 LEs       ; 126 LEs              ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux6              ;
+; 64:1               ; 3 bits    ; 126 LEs       ; 126 LEs              ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux13             ;
+; 128:1              ; 3 bits    ; 255 LEs       ; 156 LEs              ; 99 LEs                 ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux86             ;
+; 12:1               ; 4 bits    ; 32 LEs        ; 20 LEs               ; 12 LEs                 ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux21 ;
+; 128:1              ; 3 bits    ; 255 LEs       ; 156 LEs              ; 99 LEs                 ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux74             ;
+; 128:1              ; 3 bits    ; 255 LEs       ; 156 LEs              ; 99 LEs                 ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux80             ;
+; 12:1               ; 2 bits    ; 16 LEs        ; 10 LEs               ; 6 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux68 ;
+; 128:1              ; 3 bits    ; 255 LEs       ; 156 LEs              ; 99 LEs                 ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux48             ;
+; 128:1              ; 3 bits    ; 255 LEs       ; 156 LEs              ; 99 LEs                 ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux36             ;
+; 128:1              ; 3 bits    ; 255 LEs       ; 156 LEs              ; 99 LEs                 ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux42             ;
 ; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|Selector7                                                          ;
 ; 7:1                ; 2 bits    ; 8 LEs         ; 6 LEs                ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|Selector11                                                         ;
-; 11:1               ; 9 bits    ; 63 LEs        ; 63 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux74             ;
-; 13:1               ; 3 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux72 ;
-; 13:1               ; 3 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux13 ;
-; 13:1               ; 3 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux0  ;
-; 14:1               ; 3 bits    ; 27 LEs        ; 27 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux60 ;
+; 11:1               ; 2 bits    ; 14 LEs        ; 12 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux32 ;
+; 12:1               ; 2 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux12 ;
+; 12:1               ; 2 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux57 ;
+; 16:1               ; 2 bits    ; 20 LEs        ; 12 LEs               ; 8 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux22 ;
+; 14:1               ; 2 bits    ; 18 LEs        ; 12 LEs               ; 6 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux74 ;
+; 16:1               ; 2 bits    ; 20 LEs        ; 16 LEs               ; 4 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux27 ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux17             ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux35             ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux30             ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux9              ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux24             ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux5              ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux21             ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux20             ;
+; 16:1               ; 3 bits    ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux27             ;
+; 16:1               ; 2 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux54 ;
+; 16:1               ; 2 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux33 ;
+; 16:1               ; 2 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux53 ;
+; 16:1               ; 2 bits    ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux|Mux36 ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux87             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux68             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux69             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux101            ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux102            ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux105            ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux81             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux75             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux65             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux93             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux90             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux98             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux39             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux57             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux54             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux53             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux45             ;
+; 42:1               ; 2 bits    ; 56 LEs        ; 54 LEs               ; 2 LEs                  ; No         ; |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux|Mux60             ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------------------------+
 
 
@@ -697,15 +776,15 @@ Note: In order to hide this table in the UI and the text report file, please set
 +--------+--------+----------+-------------------------------------+
 
 
-+----------------------------------------------------------------+
-; Port Connectivity Checks: "spi_cnn_slave_8:spi_cnn_slave_8_u0" ;
-+--------------+--------+----------+-----------------------------+
-; Port         ; Type   ; Severity ; Details                     ;
-+--------------+--------+----------+-----------------------------+
-; o_save_accum ; Output ; Info     ; Explicitly unconnected      ;
-; o_mp_data    ; Output ; Info     ; Explicitly unconnected      ;
-; o_mp_load    ; Output ; Info     ; Explicitly unconnected      ;
-+--------------+--------+----------+-----------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "spi_cnn_slave_8:spi_cnn_slave_8_u0"                                                                                                                   ;
++---------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                                                                                      ;
++---------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; i_cnn_result2 ; Input  ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
+; o_mp_data     ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
+; o_mp_load     ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                     ;
++---------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -720,24 +799,28 @@ Note: In order to hide this table in the UI and the text report file, please set
 ;     ENA CLR SCLR      ; 23                          ;
 ;     ENA SCLR          ; 407                         ;
 ; arriav_io_obuf        ; 1                           ;
-; arriav_lcell_comb     ; 713                         ;
-;     arith             ; 31                          ;
-;         1 data inputs ; 14                          ;
-;         2 data inputs ; 17                          ;
-;     extend            ; 36                          ;
-;         7 data inputs ; 36                          ;
-;     normal            ; 646                         ;
+; arriav_lcell_comb     ; 4535                        ;
+;     arith             ; 165                         ;
+;         0 data inputs ; 15                          ;
+;         1 data inputs ; 16                          ;
+;         2 data inputs ; 37                          ;
+;         3 data inputs ; 31                          ;
+;         4 data inputs ; 37                          ;
+;         5 data inputs ; 29                          ;
+;     extend            ; 309                         ;
+;         7 data inputs ; 309                         ;
+;     normal            ; 4061                        ;
 ;         1 data inputs ; 4                           ;
-;         2 data inputs ; 24                          ;
-;         3 data inputs ; 26                          ;
-;         4 data inputs ; 97                          ;
-;         5 data inputs ; 111                         ;
-;         6 data inputs ; 384                         ;
+;         2 data inputs ; 41                          ;
+;         3 data inputs ; 669                         ;
+;         4 data inputs ; 84                          ;
+;         5 data inputs ; 302                         ;
+;         6 data inputs ; 2961                        ;
 ; arriav_mac            ; 24                          ;
 ; boundary_port         ; 8                           ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.00                        ;
-; Average LUT depth     ; 1.65                        ;
+; Max LUT depth         ; 11.40                       ;
+; Average LUT depth     ; 7.39                        ;
 +-----------------------+-----------------------------+
 
 
@@ -746,7 +829,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:08     ;
+; Top            ; 00:00:15     ;
 +----------------+--------------+
 
 
@@ -756,18 +839,17 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
-    Info: Processing started: Tue Mar  3 00:43:36 2026
+    Info: Processing started: Thu Mar  5 00:26:51 2026
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off CNNver3 -c CNNver3
-Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/window_mux_6x6_5x5.v
     Info (12023): Found entity 1: window_mux_6x6_5x5 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/window_mux_6x6_5x5.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/spi_cnn_slave_8.v
-    Info (12023): Found entity 1: spi_cnn_slave_8 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/spi_cnn_slave_8.v Line: 24
+    Info (12023): Found entity 1: spi_cnn_slave_8 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/spi_cnn_slave_8.v Line: 28
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/sc_statemachine_weight_loader.v
-    Info (12023): Found entity 1: SC_STATEMACHINE_WEIGHT_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 21
+    Info (12023): Found entity 1: SC_STATEMACHINE_WEIGHT_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 26
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/sc_statemachine_image_loader.v
-    Info (12023): Found entity 1: SC_STATEMACHINE_IMAGE_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_IMAGE_LOADER.v Line: 29
+    Info (12023): Found entity 1: SC_STATEMACHINE_IMAGE_LOADER File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_IMAGE_LOADER.v Line: 34
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/sc_statemachine_cnn_ctrl.v
     Info (12023): Found entity 1: SC_STATEMACHINE_CNN_CTRL File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_CNN_CTRL.v Line: 39
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/register_weight.v
@@ -789,38 +871,39 @@ Info (12021): Found 1 design units, including 1 entities, in source file rtl/fra
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/cnn_top.v
     Info (12023): Found entity 1: cnn_top File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/cnn_top.v Line: 27
 Info (12021): Found 1 design units, including 1 entities, in source file cnnver3.v
-    Info (12023): Found entity 1: CNNver3 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 40
+    Info (12023): Found entity 1: CNNver3 File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 31
 Info (12127): Elaborating entity "CNNver3" for the top level hierarchy
-Info (12128): Elaborating entity "spi_cnn_slave_8" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 165
-Info (12128): Elaborating entity "SC_STATEMACHINE_IMAGE_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/spi_cnn_slave_8.v Line: 111
-Warning (10230): Verilog HDL assignment warning at SC_STATEMACHINE_IMAGE_LOADER.v(47): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_IMAGE_LOADER.v Line: 47
-Info (12128): Elaborating entity "SC_STATEMACHINE_WEIGHT_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/spi_cnn_slave_8.v Line: 123
-Warning (10230): Verilog HDL assignment warning at SC_STATEMACHINE_WEIGHT_LOADER.v(37): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 37
-Info (12128): Elaborating entity "Register_Imag" for hierarchy "Register_Imag:register_imag_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 173
-Info (12128): Elaborating entity "Register_Weight" for hierarchy "Register_Weight:weight_register_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 217
-Info (12128): Elaborating entity "SC_STATEMACHINE_CNN_CTRL" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 258
+Info (12128): Elaborating entity "spi_cnn_slave_8" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 152
+Info (12128): Elaborating entity "SC_STATEMACHINE_IMAGE_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_IMAGE_LOADER:loader_image_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/spi_cnn_slave_8.v Line: 116
+Warning (10230): Verilog HDL assignment warning at SC_STATEMACHINE_IMAGE_LOADER.v(52): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_IMAGE_LOADER.v Line: 52
+Info (12128): Elaborating entity "SC_STATEMACHINE_WEIGHT_LOADER" for hierarchy "spi_cnn_slave_8:spi_cnn_slave_8_u0|SC_STATEMACHINE_WEIGHT_LOADER:loader_weight_sm" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/spi_cnn_slave_8.v Line: 128
+Warning (10230): Verilog HDL assignment warning at SC_STATEMACHINE_WEIGHT_LOADER.v(42): truncated value with size 32 to match size of target (7) File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_WEIGHT_LOADER.v Line: 42
+Info (12128): Elaborating entity "Register_Imag" for hierarchy "Register_Imag:register_imag_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 160
+Info (12128): Elaborating entity "Register_Weight" for hierarchy "Register_Weight:weight_register_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 204
+Info (12128): Elaborating entity "SC_STATEMACHINE_CNN_CTRL" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 245
 Info (12128): Elaborating entity "cnn_top" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/SC_STATEMACHINE_CNN_CTRL.v Line: 101
 Info (12128): Elaborating entity "fragment_mux_10x10_6x6" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|fragment_mux_10x10_6x6:frag_mux" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/cnn_top.v Line: 61
 Info (12128): Elaborating entity "mux_cnn" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/cnn_top.v Line: 72
 Info (12128): Elaborating entity "window_mux_6x6_5x5" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|window_mux_6x6_5x5:win_mux" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/mux_cnn.v Line: 65
 Info (12128): Elaborating entity "mac_parallel" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|mac_parallel:mac_inst" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/mux_cnn.v Line: 71
 Info (12128): Elaborating entity "progressive_maxpool" for hierarchy "SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|progressive_maxpool:pool_inst" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/mux_cnn.v Line: 80
-Info (12128): Elaborating entity "Master_register" for hierarchy "Master_register:master_reg1_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 269
+Info (12128): Elaborating entity "Master_register" for hierarchy "Master_register:master_reg1_u0" File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v Line: 256
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 11 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/output_files/CNNver3.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 1721 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 5543 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
     Info (21059): Implemented 3 output pins
-    Info (21061): Implemented 1689 logic cells
+    Info (21061): Implemented 5511 logic cells
     Info (21062): Implemented 24 DSP elements
 Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 4972 megabytes
-    Info: Processing ended: Tue Mar  3 00:44:38 2026
-    Info: Elapsed time: 00:01:02
-    Info: Total CPU time (on all processors): 00:01:02
+    Info: Peak virtual memory: 4973 megabytes
+    Info: Processing ended: Thu Mar  5 00:27:18 2026
+    Info: Elapsed time: 00:00:27
+    Info: Total CPU time (on all processors): 00:00:47
 
 
 +------------------------------------------+

@@ -24,7 +24,7 @@
 //=======================================================
 
 module SC_STATEMACHINE_WEIGHT_LOADER #(
-    parameter ROW_BITS = 15
+    parameter ROW_BITS = 7'd15
 )(
     output reg o_wload00, output reg o_wload01,
     output reg o_wload02, output reg o_wload03,
@@ -39,7 +39,7 @@ module SC_STATEMACHINE_WEIGHT_LOADER #(
 
 localparam STATE_IDLE     = 1'b0;
 localparam STATE_LOAD_ROW = 1'b1;
-localparam [6:0] LAST_BIT = ROW_BITS - 1;  // 14
+localparam [6:0] LAST_BIT = ROW_BITS - 7'd1;  // 14
 
 reg STATE_Register;
 reg STATE_Signal;

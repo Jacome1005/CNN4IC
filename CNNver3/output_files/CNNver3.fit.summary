@@ -1,20 +1,20 @@
-Fitter Status : Successful - Tue Mar  3 00:58:45 2026
+Fitter Status : Successful - Thu Mar  5 00:49:46 2026
 Quartus Prime Version : 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 Revision Name : CNNver3
 Top-level Entity Name : CNNver3
 Family : Cyclone V
-Device : 5CGXFC7C7F23C8
+Device : 5CSEMA4U23C6
 Timing Models : Final
-Logic utilization (in ALMs) : 615 / 56,480 ( 1 % )
-Total registers : 1012
-Total pins : 8 / 268 ( 3 % )
+Logic utilization (in ALMs) : 3,543 / 15,880 ( 22 % )
+Total registers : 1007
+Total pins : 8 / 314 ( 3 % )
 Total virtual pins : 0
-Total block memory bits : 0 / 7,024,640 ( 0 % )
-Total RAM Blocks : 0 / 686 ( 0 % )
-Total DSP Blocks : 24 / 156 ( 15 % )
-Total HSSI RX PCSs : 0 / 6 ( 0 % )
-Total HSSI PMA RX Deserializers : 0 / 6 ( 0 % )
-Total HSSI TX PCSs : 0 / 6 ( 0 % )
-Total HSSI PMA TX Serializers : 0 / 6 ( 0 % )
-Total PLLs : 0 / 13 ( 0 % )
+Total block memory bits : 0 / 2,764,800 ( 0 % )
+Total RAM Blocks : 0 / 270 ( 0 % )
+Total DSP Blocks : 24 / 84 ( 29 % )
+Total HSSI RX PCSs : 0
+Total HSSI PMA RX Deserializers : 0
+Total HSSI TX PCSs : 0
+Total HSSI PMA TX Serializers : 0
+Total PLLs : 0 / 5 ( 0 % )
 Total DLLs : 0 / 4 ( 0 % )

@@ -2,84 +2,84 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1100mV 85C Model Setup 'CNNver3_SPICLOCK_50'
-Slack : -115.089
-TNS   : -7142.042
+Type  : Slow 1100mV 85C Model Setup 'clk_50'
+Slack : -73.852
+TNS   : -1477.028
 
-Type  : Slow 1100mV 85C Model Hold 'CNNver3_SPICLOCK_50'
-Slack : 0.371
+Type  : Slow 1100mV 85C Model Hold 'clk_50'
+Slack : 0.269
 TNS   : 0.000
 
-Type  : Slow 1100mV 85C Model Recovery 'CNNver3_SPICLOCK_50'
-Slack : -1.615
-TNS   : -98.472
-
-Type  : Slow 1100mV 85C Model Removal 'CNNver3_SPICLOCK_50'
-Slack : 1.212
+Type  : Slow 1100mV 85C Model Recovery 'clk_50'
+Slack : 16.163
 TNS   : 0.000
 
-Type  : Slow 1100mV 85C Model Minimum Pulse Width 'CNNver3_SPICLOCK_50'
-Slack : -3.545
-TNS   : -2808.870
-
-Type  : Slow 1100mV 0C Model Setup 'CNNver3_SPICLOCK_50'
-Slack : -116.650
-TNS   : -6934.014
-
-Type  : Slow 1100mV 0C Model Hold 'CNNver3_SPICLOCK_50'
-Slack : 0.213
+Type  : Slow 1100mV 85C Model Removal 'clk_50'
+Slack : 0.863
 TNS   : 0.000
 
-Type  : Slow 1100mV 0C Model Recovery 'CNNver3_SPICLOCK_50'
-Slack : -1.481
-TNS   : -90.682
-
-Type  : Slow 1100mV 0C Model Removal 'CNNver3_SPICLOCK_50'
-Slack : 1.135
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clk_50'
+Slack : 9.186
 TNS   : 0.000
 
-Type  : Slow 1100mV 0C Model Minimum Pulse Width 'CNNver3_SPICLOCK_50'
-Slack : -3.545
-TNS   : -2808.210
+Type  : Slow 1100mV 0C Model Setup 'clk_50'
+Slack : -74.099
+TNS   : -1481.916
 
-Type  : Fast 1100mV 85C Model Setup 'CNNver3_SPICLOCK_50'
-Slack : -46.676
-TNS   : -2481.709
-
-Type  : Fast 1100mV 85C Model Hold 'CNNver3_SPICLOCK_50'
-Slack : 0.181
+Type  : Slow 1100mV 0C Model Hold 'clk_50'
+Slack : 0.124
 TNS   : 0.000
 
-Type  : Fast 1100mV 85C Model Recovery 'CNNver3_SPICLOCK_50'
-Slack : -0.239
-TNS   : -8.262
-
-Type  : Fast 1100mV 85C Model Removal 'CNNver3_SPICLOCK_50'
-Slack : 0.479
+Type  : Slow 1100mV 0C Model Recovery 'clk_50'
+Slack : 16.385
 TNS   : 0.000
 
-Type  : Fast 1100mV 85C Model Minimum Pulse Width 'CNNver3_SPICLOCK_50'
-Slack : -1.702
-TNS   : -891.680
-
-Type  : Fast 1100mV 0C Model Setup 'CNNver3_SPICLOCK_50'
-Slack : -43.294
-TNS   : -2110.809
-
-Type  : Fast 1100mV 0C Model Hold 'CNNver3_SPICLOCK_50'
-Slack : 0.113
+Type  : Slow 1100mV 0C Model Removal 'clk_50'
+Slack : 0.816
 TNS   : 0.000
 
-Type  : Fast 1100mV 0C Model Recovery 'CNNver3_SPICLOCK_50'
-Slack : -0.111
-TNS   : -2.150
-
-Type  : Fast 1100mV 0C Model Removal 'CNNver3_SPICLOCK_50'
-Slack : 0.430
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clk_50'
+Slack : 9.257
 TNS   : 0.000
 
-Type  : Fast 1100mV 0C Model Minimum Pulse Width 'CNNver3_SPICLOCK_50'
-Slack : -1.702
-TNS   : -892.067
+Type  : Fast 1100mV 85C Model Setup 'clk_50'
+Slack : -33.554
+TNS   : -671.068
+
+Type  : Fast 1100mV 85C Model Hold 'clk_50'
+Slack : 0.180
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Recovery 'clk_50'
+Slack : 17.343
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Removal 'clk_50'
+Slack : 0.482
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clk_50'
+Slack : 9.073
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Setup 'clk_50'
+Slack : -29.577
+TNS   : -591.527
+
+Type  : Fast 1100mV 0C Model Hold 'clk_50'
+Slack : 0.117
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Recovery 'clk_50'
+Slack : 17.673
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Removal 'clk_50'
+Slack : 0.433
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clk_50'
+Slack : 9.038
+TNS   : 0.000
 
 ------------------------------------------------------------
