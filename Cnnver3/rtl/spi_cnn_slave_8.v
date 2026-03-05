@@ -92,7 +92,6 @@ module spi_cnn_slave_8 #(
     reg [DATAWIDTH_WGT_FULL-1:0]  weight_shift;
     reg [4:0]  miso_count;
     reg        miso_active;
-    reg [15:0] mp_shift;
     reg        valid_clk;
 
     // internal_reset: SOLO para contadores/shifts internos del SPI.
@@ -172,6 +171,7 @@ module spi_cnn_slave_8 #(
             o_mp_data <= 11'd0;
         end else begin
             o_mp_load <= 1'b0;
+				o_mp_data <= 11'd0;
             // Sin comando LOAD MAXPOOL en nuevo mapa — o_mp_load permanece 0
         end
     end
@@ -191,7 +191,6 @@ module spi_cnn_slave_8 #(
             cmd          <= 3'b000;
             image_shift  <= {DATAWIDTH_IMG_FULL{1'b0}};
             weight_shift <= {DATAWIDTH_WGT_FULL{1'b0}};
-            mp_shift     <= 16'd0;
         end
         else if (valid_clk) begin
             bit_count <= bit_count + 9'd1;

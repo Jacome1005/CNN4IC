@@ -1,0 +1,108 @@
+// tb1_reset_imagen.v
+// carga imagen 10x10 via SPI cmd 001
+`timescale 1ns/1ps
+
+module tb1_reset_imagen;
+
+    reg  clk, ss_n, mosi, rst, cmd_reset;
+    wire miso, mr1_load, mr2_load;
+
+    CNNver3 dut (
+        .CNNver2_MISO         (miso),
+        .CNNver2_SPICLOCK_50  (clk),
+        .CNNver2_SS_N         (ss_n),
+        .CNNver2_MOSI         (mosi),
+        .CNNver2_Reset_InHigh (rst),
+        .CNNver2_CMD_Reset    (cmd_reset),
+        .CNNver2_MR1_Load     (mr1_load),
+        .CNNver2_MR2_Load     (mr2_load)
+    );
+
+    initial clk = 0;
+    always #10 clk = ~clk;
+
+    // Enviar un bit MOSI antes del posedge (SPI modo 0)
+    task spi_bit;
+        input b;
+        begin mosi = b; @(posedge clk); #2; end
+    endtask
+
+    reg [29:0] img_data [0:9];
+
+    // Cargar imagen: cmd 001 + 10 filas x 30 bits en una transaccion
+    task cargar_imagen;
+        integer f, b;
+        begin
+            ss_n = 0; #5;
+            spi_bit(0); spi_bit(0); spi_bit(1); // CMD 001
+            for (f = 0; f < 10; f = f + 1)
+                for (b = 29; b >= 0; b = b - 1)
+                    spi_bit(img_data[f][b]);
+            #5; ss_n = 1; #60;
+        end
+    endtask
+
+    integer k;
+    initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars(0, tb1_reset_imagen);
+
+        rst=1; ss_n=1; mosi=0; cmd_reset=0;
+
+        // Patron: fila i tiene pixels con valor (i mod 7)+1 en 3 bits
+        img_data[0] = 30'b001_001_001_001_001_001_001_001_001_001;
+        img_data[1] = 30'b010_010_010_010_010_010_010_010_010_010;
+        img_data[2] = 30'b011_011_011_011_011_011_011_011_011_011;
+        img_data[3] = 30'b001_010_011_001_010_011_001_010_011_001;
+        img_data[4] = 30'b010_011_001_010_011_001_010_011_001_010;
+        img_data[5] = 30'b011_001_010_011_001_010_011_001_010_011;
+        img_data[6] = 30'b001_001_010_010_011_011_001_001_010_010;
+        img_data[7] = 30'b010_010_011_011_001_001_010_010_011_011;
+        img_data[8] = 30'b011_011_001_001_010_010_011_011_001_001;
+        img_data[9] = 30'b001_010_011_010_001_011_001_010_011_010;
+
+        // FASE 1: Reset
+        $display("[TB1] FASE 1: Reset activo");
+        repeat(5) @(posedge clk);
+        rst = 0; #20;
+        $display("[TB1] t=%0t Reset OFF", $time);
+
+        // FASE 2: Cargar imagen
+        $display("[TB1] FASE 2: Carga imagen cmd 001");
+        cargar_imagen;
+        $display("[TB1] t=%0t Imagen enviada (303 bits SPI)", $time);
+
+        // FASE 3: Verificacion
+        #20;
+        $display("[TB1] FASE 3: Verificacion de registros de imagen");
+        $display("  reg0=%b  esp=%b  %s", dut.RegImag_u0_out, img_data[0],
+                 dut.RegImag_u0_out===img_data[0]?"OK":"FAIL");
+        $display("  reg1=%b  esp=%b  %s", dut.RegImag_u1_out, img_data[1],
+                 dut.RegImag_u1_out===img_data[1]?"OK":"FAIL");
+        $display("  reg2=%b  esp=%b  %s", dut.RegImag_u2_out, img_data[2],
+                 dut.RegImag_u2_out===img_data[2]?"OK":"FAIL");
+        $display("  reg3=%b  esp=%b  %s", dut.RegImag_u3_out, img_data[3],
+                 dut.RegImag_u3_out===img_data[3]?"OK":"FAIL");
+        $display("  reg4=%b  esp=%b  %s", dut.RegImag_u4_out, img_data[4],
+                 dut.RegImag_u4_out===img_data[4]?"OK":"FAIL");
+        $display("  reg5=%b  esp=%b  %s", dut.RegImag_u5_out, img_data[5],
+                 dut.RegImag_u5_out===img_data[5]?"OK":"FAIL");
+        $display("  reg6=%b  esp=%b  %s", dut.RegImag_u6_out, img_data[6],
+                 dut.RegImag_u6_out===img_data[6]?"OK":"FAIL");
+        $display("  reg7=%b  esp=%b  %s", dut.RegImag_u7_out, img_data[7],
+                 dut.RegImag_u7_out===img_data[7]?"OK":"FAIL");
+        $display("  reg8=%b  esp=%b  %s", dut.RegImag_u8_out, img_data[8],
+                 dut.RegImag_u8_out===img_data[8]?"OK":"FAIL");
+        $display("  reg9=%b  esp=%b  %s", dut.RegImag_u9_out, img_data[9],
+                 dut.RegImag_u9_out===img_data[9]?"OK":"FAIL");
+
+        if (dut.RegImag_u0_out===img_data[0] && dut.RegImag_u9_out===img_data[9])
+            $display("[TB1] PASS");
+        else
+            $display("[TB1] FAIL");
+
+        $display("[TB1] FIN -- usar mismos img_data en TB2");
+        $finish;
+    end
+
+endmodule

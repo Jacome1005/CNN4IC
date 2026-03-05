@@ -32,7 +32,7 @@
 //=======================================================
 
 module SC_STATEMACHINE_IMAGE_LOADER #(
-    parameter ROW_BITS = 30
+    parameter ROW_BITS = 7'd30
 )(
     output reg o_load00, output reg o_load01,
     output reg o_load02, output reg o_load03,
@@ -49,7 +49,7 @@ module SC_STATEMACHINE_IMAGE_LOADER #(
 
 localparam STATE_IDLE     = 1'b0;
 localparam STATE_LOAD_ROW = 1'b1;
-localparam [6:0] LAST_BIT = ROW_BITS - 1;  // 29
+localparam [6:0] LAST_BIT = ROW_BITS - 7'd1;  // 29
 
 reg STATE_Register;
 reg STATE_Signal;

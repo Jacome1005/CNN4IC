@@ -1,0 +1,41 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "CNNver3_MISO",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver3_MR1_Load",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver3_MR2_Load",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver3_SPICLOCK_50",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver3_Reset_InHigh",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver3_MOSI",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver3_SS_N",
+					"strict" : false
+				},
+				{
+					"name" : "CNNver3_CMD_Reset",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

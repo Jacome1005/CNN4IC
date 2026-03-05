@@ -148,10 +148,7 @@ spi_cnn_slave_8 #(
     .o_wload04(wload_u4),
     // MISO sources
     .i_cnn_result (MR1_out_cwire),     // cmd 011 → MR1 (acc0)
-    .i_comp_result(comp_result_cwire),  // cmd 110 → clasificación
-    // MaxPool (no utilizado en esta versión)
-    .o_mp_data(),
-    .o_mp_load()
+    .i_comp_result(comp_result_cwire)  // cmd 110 → clasificación
 );
 
 // ═══════════════════════════════════════════════════════════════

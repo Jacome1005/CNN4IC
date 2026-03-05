@@ -1,0 +1,38 @@
+
+State Machine - |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|state
+Name state.FINISH state.SAVE_K1 state.CNN_WAIT1 state.CNN_START1 state.CNN_RESET1 state.LATCH_K1 state.WAIT_K1 state.SAVE_K0 state.CNN_WAIT0 state.CNN_START0 state.CNN_RESET0 state.LATCH_K0 state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.LATCH_K0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.CNN_RESET0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.CNN_START0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.CNN_WAIT0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.SAVE_K0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.WAIT_K1 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.LATCH_K1 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.CNN_RESET1 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.CNN_START1 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.CNN_WAIT1 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.SAVE_K1 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.FINISH 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|state
+Name state.FINISH state.ACC state.WAIT state.START state.FRAG state.IDLE 
+state.IDLE 0 0 0 0 0 0 
+state.FRAG 0 0 0 0 1 1 
+state.START 0 0 0 1 0 1 
+state.WAIT 0 0 1 0 0 1 
+state.ACC 0 1 0 0 0 1 
+state.FINISH 1 0 0 0 0 1 
+
+State Machine - |CNNver3|SC_STATEMACHINE_CNN_CTRL:cnn_ctrl_u0|cnn_top:cnn_inst|mux_cnn:cnn_inst|state
+Name state.FINISH state.CONV3 state.PRE_CONV3 state.CONV2 state.PRE_CONV2 state.CONV1 state.PRE_CONV1 state.CONV0 state.PRE_CONV0 state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 
+state.PRE_CONV0 0 0 0 0 0 0 0 0 1 1 
+state.CONV0 0 0 0 0 0 0 0 1 0 1 
+state.PRE_CONV1 0 0 0 0 0 0 1 0 0 1 
+state.CONV1 0 0 0 0 0 1 0 0 0 1 
+state.PRE_CONV2 0 0 0 0 1 0 0 0 0 1 
+state.CONV2 0 0 0 1 0 0 0 0 0 1 
+state.PRE_CONV3 0 0 1 0 0 0 0 0 0 1 
+state.CONV3 0 1 0 0 0 0 0 0 0 1 
+state.FINISH 1 0 0 0 0 0 0 0 0 1 

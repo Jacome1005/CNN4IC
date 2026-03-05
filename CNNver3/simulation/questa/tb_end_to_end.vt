@@ -1,0 +1,304 @@
+// tb_end_to_end.v
+// Flujo: reset -> carga imagen 10x10 via SPI cmd 001
+// En EDA Playground: agregar todos los .v del proyecto, top = tb1_reset_imagen
+`timescale 1ns/1ps
+
+`include "Register.v"
+`include "Register_Imag.v"
+`include "Register_Weight.v"
+`include "Master_register.v"
+
+// --- 2. Módulos de Procesamiento Matemático y Selección ---
+`include "mac_parallel.v"
+`include "progressive_maxpool.v"
+`include "window_mux_6x6_5x5.v"
+`include "fragment_mux_10x10_6x6.v"
+
+// --- 3. Máquinas de Estado de Carga (Loaders) ---
+`include "SC_STATEMACHINE_IMAGE_LOADER.v"
+`include "SC_STATEMACHINE_WEIGHT_LOADER.v"
+
+// --- 4. Bloques de Control y Comunicación ---
+`include "mux_cnn.v"
+`include "spi_cnn_slave_8.v"
+`include "cnn_top.v"
+`include "SC_STATEMACHINE_CNN_CTRL.v"
+
+// --- 5. Top Level del Diseño ---
+`include "Cnnver3.v"
+//
+// Imagen: todos los pixels = +1 (3'b001)
+//
+// Kernel 0
+//   Todos los pesos = +1 (3'b001)
+//   MAC por ventana = 25 x (1x1) = 25
+//   Maxpool por fragmento = 25
+//   acc0 = 9 x 25 = 225  -> MR1 = 225
+//
+// Kernel 1 
+//   todos los pesos = -1 = 3'b111
+//   MAC por ventana = 25 x (1 x -1) = -25
+//   Maxpool por fragmento = max(-25,-25,-25,-25) = -25
+//   acc1 = 9 x (-25) = -225 -> MR2 = -225
+//
+// =========================================
+
+`timescale 1ns/1ps
+
+module tb_end_to_end;
+
+    reg  clk, ss_n, mosi, rst, cmd_reset;
+    wire miso, mr1_load, mr2_load;
+
+    CNNver3 dut (
+        .CNNver2_MISO         (miso),
+        .CNNver2_SPICLOCK_50  (clk),
+        .CNNver2_SS_N         (ss_n),
+        .CNNver2_MOSI         (mosi),
+        .CNNver2_Reset_InHigh (rst),
+        .CNNver2_CMD_Reset    (cmd_reset),
+        .CNNver2_MR1_Load     (mr1_load),
+        .CNNver2_MR2_Load     (mr2_load)
+    );
+
+    initial clk = 0;
+    always #10 clk = ~clk;
+
+    task spi_bit;
+        input b;
+        begin
+            mosi = b;
+            @(posedge clk);
+            #2;
+        end
+    endtask
+
+    // Imagen uniforme +1
+    task cargar_imagen_uniforme;
+        integer f, b;
+        reg [29:0] fila;
+        begin
+            fila = 30'b001_001_001_001_001_001_001_001_001_001;
+            ss_n = 0; #5;
+            spi_bit(0); spi_bit(0); spi_bit(1); // CMD 001
+            for (f = 0; f < 10; f = f + 1)
+                for (b = 29; b >= 0; b = b - 1)
+                    spi_bit(fila[b]);
+            #5; ss_n = 1; #60;
+        end
+    endtask
+
+
+    reg [2:0] peso_actual;
+    task cargar_kernel_uniforme;
+        input [2:0] peso;
+        integer f, b;
+        reg [14:0] fila;
+        begin
+            // Construir fila con 5 pesos iguales al valor recibido
+            fila = {peso, peso, peso, peso, peso};
+            ss_n = 0; #5;
+            spi_bit(0); spi_bit(1); spi_bit(0); // CMD 010
+            for (f = 0; f < 5; f = f + 1)
+                for (b = 14; b >= 0; b = b - 1)
+                    spi_bit(fila[b]);
+            #5; ss_n = 1; #60;
+        end
+    endtask
+
+    task start_cnn;
+        begin
+            ss_n = 0; #5;
+            spi_bit(0); spi_bit(1); spi_bit(1); // CMD 011
+            @(posedge clk); #2;
+            #5; ss_n = 1; #60;
+        end
+    endtask
+
+    // Esperar mr1_load bajo (fin de kernel0)
+    task esperar_mr1_load;
+        integer n;
+        begin
+            n = 0;
+            $display("[TB4] Esperando mr1_load bajo...");
+            while (mr1_load === 1'b1 && n < 5000) begin
+                @(posedge clk); n = n + 1;
+            end
+            if (n >= 5000)
+                $display("[TB4] TIMEOUT esperando mr1_load");
+            else
+                $display("[TB4] mr1_load bajo en ciclo %0d", n);
+        end
+    endtask
+
+    // Esperar mr2_load bajo (fin de kernel1)
+    task esperar_mr2_load;
+        integer n;
+        begin
+            n = 0;
+            $display("[TB4] Esperando mr2_load bajo...");
+            while (mr2_load === 1'b1 && n < 5000) begin
+                @(posedge clk); n = n + 1;
+            end
+            if (n >= 5000)
+                $display("[TB4] TIMEOUT esperando mr2_load");
+            else
+                $display("[TB4] mr2_load bajo en ciclo %0d", n);
+        end
+    endtask
+
+    // Leer 1 bit del comparador via MISO usando cmd 100
+    // El SPI slave pone i_comp_result en MISO en el primer
+    // posedge despues de los 3 bits de comando
+    reg miso_leido;
+    task leer_comparador_spi;
+        begin
+            ss_n = 0; #5;
+            spi_bit(1); spi_bit(0); spi_bit(0); // CMD 100
+            // Un ciclo extra para que miso_active se active
+            // y MISO refleje i_comp_result
+            mosi = 0;
+            @(posedge clk); #1;
+            miso_leido = miso;
+            #5; ss_n = 1; #60;
+        end
+    endtask
+
+    // Valores esperados
+    localparam signed [15:0] ESPERADO_MR1 =  16'sd225;
+    localparam signed [15:0] ESPERADO_MR2 = -16'sd225;
+    localparam               ESPERADO_COMP = 1'b1; // MR1 > MR2
+
+    integer errores;
+
+    initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars(0, tb4_kernel1_comparador);
+
+        rst=1; ss_n=1; mosi=0; cmd_reset=0;
+        errores = 0;
+
+        $display("[TB4] ============================================");
+        $display("[TB4] TB4: kernel1 + comparador");
+        $display("[TB4] Imagen  : todos +1");
+        $display("[TB4] Kernel0 : todos +1  -> acc0 esperado = +225 -> MR1");
+        $display("[TB4] Kernel1 : todos -1  -> acc1 esperado = -225 -> MR2");
+        $display("[TB4] Comparador esperado : 1 (MR1 > MR2)");
+        $display("[TB4] ============================================");
+
+        // FASE 1: Reset
+        $display("[TB4] FASE 1: Reset");
+        repeat(5) @(posedge clk);
+        rst = 0; #20;
+
+        // FASE 2: Imagen (igual que testbench controlado)
+        $display("[TB4] FASE 2: Carga imagen uniforme +1");
+        cargar_imagen_uniforme;
+
+        // FASE 3: Kernel 0 con pesos +1 (igual que testbench controlado)
+        $display("[TB4] FASE 3: Carga kernel0 (pesos +1 = 3b001)");
+        cargar_kernel_uniforme(3'b001);
+
+        // FASE 4: Primer START -> procesa kernel0 -> acc0 -> MR1
+        $display("[TB4] FASE 4: START CNN kernel0");
+        start_cnn;
+        esperar_mr1_load;
+        #20;
+
+        $display("[TB4] MR1 obtenido  = %0d", $signed(dut.MR1_out_cwire));
+        $display("[TB4] MR1 esperado  = %0d", ESPERADO_MR1);
+        if ($signed(dut.MR1_out_cwire) === ESPERADO_MR1)
+            $display("[TB4] CHECK MR1: OK");
+        else begin
+            $display("[TB4] CHECK MR1: FAIL (diferencia = %0d)",
+                     $signed(dut.MR1_out_cwire) - ESPERADO_MR1);
+            errores = errores + 1;
+        end
+
+        // FASE 5: Kernel 1 con pesos -1 = 3'b111 en signed 3 bits
+        // En 3 bits signed: 3'b111 = -1
+        $display("[TB4] FASE 5: Carga kernel1 (pesos -1 = 3b111)");
+        cargar_kernel_uniforme(3'b111);
+
+        // Verificar que los registros de peso cambiaron
+        if (dut.RegWgt_u0_out === 15'b111_111_111_111_111)
+            $display("[TB4] CHECK wgt0 post-kernel1: OK (%b)", dut.RegWgt_u0_out);
+        else begin
+            $display("[TB4] CHECK wgt0 post-kernel1: FAIL (%b)", dut.RegWgt_u0_out);
+            errores = errores + 1;
+        end
+
+        // FASE 6: Segundo START -> procesa kernel1 -> acc1 -> MR2
+        // Este START transita por WAIT_K1 -> LATCH_K1 en la FSM,
+        // camino que el testbench controlado no ejercita
+        $display("[TB4] FASE 6: START CNN kernel1 (segundo START)");
+        $display("[TB4] FSM state antes del START = %0d (esperado WAIT_K1=6)",
+                 dut.cnn_ctrl_u0.state);
+        start_cnn;
+        esperar_mr2_load;
+        #20;
+
+        $display("[TB4] MR2 obtenido  = %0d", $signed(dut.MR2_out_cwire));
+        $display("[TB4] MR2 esperado  = %0d", ESPERADO_MR2);
+        if ($signed(dut.MR2_out_cwire) === ESPERADO_MR2)
+            $display("[TB4] CHECK MR2: OK");
+        else begin
+            $display("[TB4] CHECK MR2: FAIL (diferencia = %0d)",
+                     $signed(dut.MR2_out_cwire) - ESPERADO_MR2);
+            errores = errores + 1;
+        end
+
+        // FASE 7: Verificacion del comparador interno
+        $display("[TB4] FASE 7: Comparador interno");
+        $display("[TB4] comp_result_cwire = %b", dut.comp_result_cwire);
+        $display("[TB4] MR1=%0d  MR2=%0d  MR1>MR2 esperado=1",
+                 $signed(dut.MR1_out_cwire), $signed(dut.MR2_out_cwire));
+        if (dut.comp_result_cwire === ESPERADO_COMP)
+            $display("[TB4] CHECK comparador interno: OK");
+        else begin
+            $display("[TB4] CHECK comparador interno: FAIL");
+            errores = errores + 1;
+        end
+
+        // FASE 8: Lectura del comparador via MISO (cmd 100)
+        $display("[TB4] FASE 8: Lectura MISO comparador (cmd 100)");
+        leer_comparador_spi;
+        $display("[TB4] MISO leido = %b, esperado = %b", miso_leido, ESPERADO_COMP);
+        if (miso_leido === ESPERADO_COMP)
+            $display("[TB4] CHECK MISO: OK");
+        else begin
+            $display("[TB4] CHECK MISO: FAIL");
+            errores = errores + 1;
+        end
+
+        // Resumen final
+        $display("[TB4] ============================================");
+        if (errores === 0)
+            $display("[TB4] TODOS LOS CHECKS PASARON (0 errores)");
+        else
+            $display("[TB4] FALLO: %0d check(s) fallaron", errores);
+        $display("[TB4] ============================================");
+
+        #50;
+        $finish;
+    end
+
+    // Monitor de eventos clave
+    always @(negedge mr1_load)
+        $display("[MON] t=%0t mr1_load bajo: acc0=%0d guardado en MR1",
+                 $time, $signed(dut.cnn_ctrl_u0.o_acc0));
+
+    always @(negedge mr2_load)
+        $display("[MON] t=%0t mr2_load bajo: acc1=%0d guardado en MR2",
+                 $time, $signed(dut.cnn_ctrl_u0.o_acc1));
+
+    always @(posedge dut.SPI_2_CNN_Start_cwire)
+        $display("[MON] t=%0t START_CNN recibido, FSM state=%0d",
+                 $time, dut.cnn_ctrl_u0.state);
+
+    always @(posedge dut.cnn_ctrl_u0.cnn_inst.done)
+        $display("[MON] t=%0t cnn_top done, acc parcial=%0d, frag=%0d",
+                 $time, $signed(dut.cnn_ctrl_u0.cnn_inst.acc),
+                 dut.cnn_ctrl_u0.cnn_inst.frag_sel);
+
+endmodule
