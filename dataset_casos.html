@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CNNver2 — Casos del Dataset</title>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;600;700&family=Familjen+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #07080d;
+  --surface: #0c0e15;
+  --border:  #181c28;
+  --border2: #232840;
+  --X:       #38bdf8;
+  --Cruz:    #fb923c;
+  --good:    #34d399;
+  --warn:    #fbbf24;
+  --bad:     #f87171;
+  --dim:     #374151;
+  --muted:   #6b7280;
+  --text:    #d1d5db;
+  --mono:    'Martian Mono', monospace;
+  --sans:    'Familjen Grotesk', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  min-height: 100vh;
+}
+
+/* ── HEADER ─────────────────────────────────── */
+.header {
+  padding: 36px 48px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-end; justify-content: space-between;
+}
+.header-left h1 {
+  font-family: var(--sans);
+  font-size: 26px; font-weight: 700;
+  color: var(--X);
+  letter-spacing: -0.5px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.header-left p { color: var(--muted); font-size: 11px; line-height: 1.6; }
+.header-stats {
+  display: flex; gap: 28px;
+}
+.stat { text-align: right; }
+.stat-num {
+  font-family: var(--sans);
+  font-size: 22px; font-weight: 700;
+}
+.stat-lbl { color: var(--muted); font-size: 10px; margin-top: 2px; }
+
+/* ── NAV ─────────────────────────────────────── */
+.nav {
+  display: flex; gap: 0;
+  padding: 0 48px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.nav-btn {
+  padding: 14px 20px;
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--X); border-bottom-color: var(--X); }
+.nav-btn.active.cruz-tab { color: var(--Cruz); border-bottom-color: var(--Cruz); }
+
+/* ── PANELS ──────────────────────────────────── */
+.panel { display: none; padding: 36px 48px; }
+.panel.active { display: block; }
+
+/* ── SECTION LABEL ───────────────────────────── */
+.section-label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: var(--border);
+}
+
+/* ── CASO CARD ───────────────────────────────── */
+.casos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.caso-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color .2s, transform .15s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.caso-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+}
+.caso-card.selected { border-color: var(--X); }
+.caso-card.selected.cruz { border-color: var(--Cruz); }
+
+/* Ribbon indicador de dificultad */
+.ribbon {
+  position: absolute; top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+}
+.ribbon-inner {
+  position: absolute; top: 6px; right: 5px;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: .06em;
+  transform: rotate(0deg);
+}
+
+.caso-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 14px;
+}
+.caso-title {
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 700;
+  line-height: 1.3;
+}
+.caso-badge {
+  font-size: 9px; font-weight: 700;
+  padding: 3px 8px; border-radius: 3px;
+  letter-spacing: .06em; white-space: nowrap;
+  margin-left: 8px; flex-shrink: 0;
+}
+.badge-X    { background: #38bdf811; border: 1px solid #38bdf844; color: var(--X); }
+.badge-Cruz { background: #fb923c11; border: 1px solid #fb923c44; color: var(--Cruz); }
+
+/* ── PIXEL GRID ──────────────────────────────── */
+.pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 1.5px;
+  margin-bottom: 14px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.px {
+  aspect-ratio: 1;
+  border-radius: 1px;
+  transition: background .2s;
+}
+.px-0    { background: #0c0e15; }
+.px-X    { background: var(--X); }
+.px-Cruz { background: var(--Cruz); }
+.px-N    { background: #7c3aed88; }   /* ruido */
+
+/* ── METER DE MARGEN ─────────────────────────── */
+.meter-wrap { margin-top: 6px; }
+.meter-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 5px;
+}
+.meter-lbl { width: 36px; font-size: 10px; color: var(--muted); flex-shrink: 0; }
+.meter-track {
+  flex: 1; height: 6px;
+  background: var(--border);
+  border-radius: 3px; overflow: hidden;
+}
+.meter-fill { height: 100%; border-radius: 3px; transition: width .4s; }
+.meter-val { width: 34px; text-align: right; font-size: 10px; color: var(--text); flex-shrink: 0; }
+.margin-tag {
+  margin-top: 8px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.margin-num {
+  font-family: var(--sans);
+  font-size: 20px; font-weight: 700;
+}
+.comp-chip {
+  font-size: 9px; font-weight: 700;
+  padding: 3px 10px; border-radius: 12px;
+  letter-spacing: .06em;
+}
+.chip-ok  { background: #34d39918; border: 1px solid #34d39944; color: var(--good); }
+.chip-bad { background: #f8717118; border: 1px solid #f8717144; color: var(--bad); }
+
+/* ── PARAMS ROW ──────────────────────────────── */
+.params-row {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;
+}
+.param-tag {
+  font-size: 9px; padding: 2px 7px;
+  background: var(--border); border-radius: 3px;
+  color: var(--muted);
+}
+
+/* ── PANEL UMBRAL (tab 0) ────────────────────── */
+.umbral-explainer {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  margin-bottom: 32px;
+}
+.expl-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 24px;
+}
+.expl-box h3 {
+  font-family: var(--sans);
+  font-size: 14px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.expl-box p {
+  font-size: 11px; line-height: 1.8; color: var(--muted);
+}
+.expl-box p strong { color: var(--text); }
+.expl-box code {
+  background: var(--border);
+  padding: 1px 5px; border-radius: 3px;
+  font-size: 11px; color: var(--good);
+}
+
+/* ── TIMELINE DE MÁRGENES ────────────────────── */
+.timeline-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px;
+  margin-bottom: 32px;
+}
+.timeline-title {
+  font-size: 10px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 20px;
+}
+.timeline-axis {
+  position: relative;
+  height: 80px;
+  border-radius: 6px;
+  overflow: visible;
+}
+.axis-track {
+  position: absolute; top: 50%; left: 0; right: 0;
+  height: 2px; background: var(--border2);
+  transform: translateY(-50%);
+}
+.axis-zero {
+  position: absolute; top: 0; bottom: 0;
+  left: 50%;
+  width: 2px; background: var(--bad);
+  opacity: .7;
+}
+.axis-zero-lbl {
+  position: absolute; left: 50%; top: -18px;
+  transform: translateX(-50%);
+  font-size: 9px; color: var(--bad); font-weight: 700;
+  white-space: nowrap;
+}
+.axis-zone-bad {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 50%;
+  background: #f871710a;
+  border-radius: 6px 0 0 6px;
+}
+.dot {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%; cursor: pointer;
+  transition: transform .15s;
+  border: 2px solid transparent;
+}
+.dot:hover { transform: translate(-50%, -50%) scale(1.6); z-index:10; }
+.dot.dot-X    { background: var(--X); }
+.dot.dot-Cruz { background: var(--Cruz); }
+.axis-labels {
+  display: flex; justify-content: space-between;
+  margin-top: 10px; font-size: 10px; color: var(--muted);
+}
+
+/* ── HISTOGRAMA ──────────────────────────────── */
+.hist-wrap {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  margin-bottom: 32px;
+}
+.hist-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px;
+}
+.hist-title {
+  font-size: 10px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 14px;
+}
+.hist-bars { display: flex; align-items: flex-end; gap: 4px; height: 80px; }
+.hist-bar {
+  flex: 1; border-radius: 3px 3px 0 0;
+  transition: height .3s;
+  min-width: 8px;
+  display: flex; align-items: flex-start; justify-content: center;
+}
+.hist-bar-lbl { font-size: 8px; color: var(--muted); writing-mode: vertical-rl; padding-top: 3px; }
+.hist-xlabels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 9px; color: var(--muted); }
+
+/* ── INSIGHT BOX ─────────────────────────────── */
+.insight {
+  background: var(--surface);
+  border-left: 3px solid;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  font-size: 11px; line-height: 1.8;
+  color: var(--muted); margin-bottom: 20px;
+}
+.insight strong { color: var(--text); }
+.insight.X-ins    { border-color: var(--X); }
+.insight.Cruz-ins { border-color: var(--Cruz); }
+.insight.warn-ins { border-color: var(--warn); }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<div class="header">
+  <div class="header-left">
+    <h1>Dataset — Casos Clave</h1>
+    <p>CNNver2 · clasificación X vs Cruz · 180 imágenes · kernels optimizados por GA<br>
+       Imagen 10×10 · pixel signed 3-bit · variaciones: grosor, desplazamiento ±1, ruido 2px</p>
+  </div>
+  <div class="header-stats">
+    <div class="stat">
+      <div class="stat-num" style="color:var(--X)">90</div>
+      <div class="stat-lbl">imágenes X</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--Cruz)">90</div>
+      <div class="stat-lbl">imágenes Cruz</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--good)">100%</div>
+      <div class="stat-lbl">accuracy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:var(--warn)">4</div>
+      <div class="stat-lbl">margen mín.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<div class="nav">
+  <button class="nav-btn active" onclick="showTab(0,this)">El umbral</button>
+  <button class="nav-btn"        onclick="showTab(1,this)">Casos X</button>
+  <button class="nav-btn cruz-tab" onclick="showTab(2,this)">Casos Cruz</button>
+  <button class="nav-btn"        onclick="showTab(3,this)">Histogramas</button>
+</div>
+
+<!-- ═══════════════════ TAB 0: UMBRAL ═══════════════════ -->
+<div class="panel active" id="tab0">
+
+  <div class="umbral-explainer">
+    <div class="expl-box" style="border-color:#38bdf822">
+      <h3 style="color:var(--X)">¿Qué es el margen?</h3>
+      <p>
+        El chip calcula <strong>acc0</strong> (respuesta al kernel X) y <strong>acc1</strong> (respuesta al kernel Cruz) 
+        para cada imagen. El comparador hace:<br><br>
+        <code>comp = acc0 &gt; acc1</code><br><br>
+        El <strong>margen</strong> es la distancia al umbral:<br>
+        — Para X: <strong>margin = acc0 − acc1</strong> (quiero &gt; 0)<br>
+        — Para Cruz: <strong>margin = acc1 − acc0</strong> (quiero &gt; 0)<br><br>
+        Un margen de <strong>0</strong> significa clasificación en el filo — cualquier 
+        perturbación podría causar un error. Un margen grande es robusto.
+      </p>
+    </div>
+    <div class="expl-box" style="border-color:#fb923c22">
+      <h3 style="color:var(--Cruz)">¿Por qué el mínimo importa más que el promedio?</h3>
+      <p>
+        El promedio para X es <strong>36.5</strong> — suena bien. Pero hay 3 imágenes X 
+        con margen <strong>4, 5, 5</strong>. Esas son X con trazo grueso + desplazamiento + ruido.<br><br>
+        Si el margen mínimo fuera ≤ 0, habría al menos una imagen mal clasificada.<br><br>
+        El GA optimizó justamente para <strong>maximizar el mínimo margen</strong> — no el promedio. 
+        Eso garantiza que <em>todas</em> las imágenes pasan, incluso las más difíciles.
+      </p>
+    </div>
+  </div>
+
+  <div class="timeline-wrap">
+    <div class="timeline-title">Distribución de márgenes — todas las 180 muestras</div>
+    <div class="timeline-axis" id="timeline">
+      <div class="axis-zone-bad"></div>
+      <div class="axis-track"></div>
+      <div class="axis-zero">
+        <div class="axis-zero-lbl">UMBRAL = 0 → error</div>
+      </div>
+      <!-- dots generados por JS -->
+    </div>
+    <div class="axis-labels">
+      <span style="color:var(--bad)">← error (margen &lt; 0)</span>
+      <span>margen mínimo X = <strong style="color:var(--warn)">4</strong></span>
+      <span>margen mínimo Cruz = <strong style="color:var(--Cruz)">36</strong></span>
+      <span style="color:var(--good)">robusto →</span>
+    </div>
+  </div>
+
+  <div class="insight warn-ins">
+    <strong>Caso más frágil:</strong> X con grosor=2, desplazada (+1,+1) y 2px de ruido → margen=<strong>4</strong>. 
+    Con trazo grueso las diagonales llenan más espacio horizontal/vertical, 
+    haciendo que algunos fragmentos respondan de forma similar al kernel Cruz. 
+    Aun así, <strong>acc0=1 > acc1=−3</strong> — el chip clasifica correctamente.
+  </div>
+
+  <div class="insight Cruz-ins">
+    <strong>Cruz vs X — asimetría de dificultad:</strong> la Cruz tiene margen mínimo de <strong>36</strong> 
+    frente a <strong>4</strong> de la X. Las barras horizontales/verticales son geométricamente más 
+    distintas a lo que activa el kernel X que viceversa. 
+    La X con ruido puede confundirse parcialmente con una Cruz; la Cruz rara vez se confunde con una X.
+  </div>
+
+</div>
+
+<!-- ═══════════════════ TAB 1: CASOS X ═══════════════════ -->
+<div class="panel" id="tab1">
+  <div class="section-label">6 casos representativos — clase X</div>
+  <div class="casos-grid" id="grid-X"></div>
+
+  <div class="insight X-ins">
+    <strong>Por qué la X perfecta tiene menos margen que la X con ruido óptima:</strong> 
+    el margen depende de cuánto activa cada kernel, no solo de que la forma sea clara. 
+    Una X limpia con desplazamiento −1 puede quedar mejor alineada con los fragmentos 
+    que una X centrada — el stride=2 de los fragmentos crea zonas de mayor cobertura.
+  </div>
+</div>
+
+<!-- ═══════════════════ TAB 2: CASOS CRUZ ═══════════════════ -->
+<div class="panel" id="tab2">
+  <div class="section-label">6 casos representativos — clase Cruz</div>
+  <div class="casos-grid" id="grid-C"></div>
+
+  <div class="insight Cruz-ins">
+    <strong>Cruz peor (margen=36) vs Cruz mejor (margen=76):</strong> 
+    la Cruz con grosor=2 desplazada sin ruido es la más difícil porque sus barras 
+    anchas ocupan columnas donde el kernel X también tiene pesos altos. 
+    Paradójicamente, la Cruz con <em>ruido</em> puede tener margen más alto 
+    si los píxeles aleatorios caen en zonas que el kernel X suprime.
+  </div>
+</div>
+
+<!-- ═══════════════════ TAB 3: HISTOGRAMAS ═══════════════════ -->
+<div class="panel" id="tab3">
+  <div class="section-label">Distribución de márgenes por clase</div>
+  <div class="hist-wrap">
+    <div class="hist-box" style="border-color:#38bdf822">
+      <div class="hist-title" style="color:var(--X)">Clase X — 90 muestras</div>
+      <div class="hist-bars" id="hist-X"></div>
+      <div class="hist-xlabels"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span><span>60+</span></div>
+      <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+        min=<strong style="color:var(--warn)">4</strong> · 
+        media=<strong style="color:var(--text)">36.5</strong> · 
+        max=<strong style="color:var(--good)">60</strong>
+      </div>
+    </div>
+    <div class="hist-box" style="border-color:#fb923c22">
+      <div class="hist-title" style="color:var(--Cruz)">Clase Cruz — 90 muestras</div>
+      <div class="hist-bars" id="hist-C"></div>
+      <div class="hist-xlabels"><span>30</span><span>40</span><span>50</span><span>60</span><span>70</span><span>80</span></div>
+      <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+        min=<strong style="color:var(--good)">36</strong> · 
+        media=<strong style="color:var(--text)">56.8</strong> · 
+        max=<strong style="color:var(--good)">76</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight warn-ins">
+    <strong>Observación clave:</strong> la distribución de Cruz está completamente 
+    desplazada a la derecha. <strong>Ninguna Cruz tiene margen menor a 36</strong>, 
+    mientras que las X tienen una cola izquierda que llega hasta 4. 
+    Esto refleja que la X es la clase "difícil" — más variabilidad geométrica por las diagonales.
+    Para un sistema más robusto habría que aumentar el margen mínimo de X, 
+    lo que requeriría más generaciones del GA o un dataset con más variaciones extremas.
+  </div>
+
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-top:8px;">
+    <div class="hist-title" style="color:var(--muted)">Tabla de variaciones del dataset</div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:10px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:6px 10px;border-bottom:1px solid var(--border);color:var(--muted);font-weight:600">Variación</th>
+          <th style="padding:6px 10px;border-bottom:1px solid var(--border);color:var(--muted);font-weight:600">Cantidad</th>
+          <th style="padding:6px 10px;border-bottom:1px solid var(--border);color:var(--muted);font-weight:600">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid #0f1215">Limpia (sin ruido)</td><td style="padding:6px 10px;text-align:center;color:var(--X);border-bottom:1px solid #0f1215">18+18</td><td style="padding:6px 10px;color:var(--muted);border-bottom:1px solid #0f1215">3 despl × 2 grosores × sin ruido</td></tr>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid #0f1215">Con ruido (2px)</td><td style="padding:6px 10px;text-align:center;color:var(--Cruz);border-bottom:1px solid #0f1215">72+72</td><td style="padding:6px 10px;color:var(--muted);border-bottom:1px solid #0f1215">3 despl × 2 grosores × 4 variantes ruido</td></tr>
+        <tr><td style="padding:6px 10px;border-bottom:1px solid #0f1215">Desplazamiento</td><td style="padding:6px 10px;text-align:center;color:var(--good);border-bottom:1px solid #0f1215">±1px</td><td style="padding:6px 10px;color:var(--muted);border-bottom:1px solid #0f1215">sr,sc ∈ {−1, 0, +1} → 9 combinaciones</td></tr>
+        <tr><td style="padding:6px 10px">Grosor</td><td style="padding:6px 10px;text-align:center;color:var(--warn)">1 o 2px</td><td style="padding:6px 10px;color:var(--muted)">trazo fino o doble — el grueso es más difícil de distinguir</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATOS
+// ═══════════════════════════════════════════════════
+const CASOS = [
+  // X cases
+  {
+    cls:'X', title:'X — ideal', sub:'limpia · sin variaciones',
+    img:[1,0,0,0,0,0,0,0,0,1, 0,1,0,0,0,0,0,0,1,0, 0,0,1,0,0,0,0,1,0,0, 0,0,0,1,0,0,1,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,1,0,0,1,0,0,0, 0,0,1,0,0,0,0,1,0,0, 0,1,0,0,0,0,0,0,1,0, 1,0,0,0,0,0,0,0,0,1],
+    acc0:44, acc1:-14, margen:58, params:{sr:0,sc:0,thick:1,noise:0}
+  },
+  {
+    cls:'X', title:'X — grosor 2px', sub:'trazo doble · sin ruido',
+    img:[1,1,0,0,0,0,0,0,1,1, 0,1,1,0,0,0,0,1,1,0, 0,0,1,1,0,0,1,1,0,0, 0,0,0,1,1,1,1,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,1,1,1,1,0,0,0, 0,0,1,1,0,0,1,1,0,0, 0,1,1,0,0,0,0,1,1,0, 1,1,0,0,0,0,0,0,1,1],
+    acc0:22, acc1:-28, margen:50, params:{sr:0,sc:0,thick:2,noise:0}
+  },
+  {
+    cls:'X', title:'X — desplazada (+1,+1)', sub:'shift fila+1 col+1 · limpia',
+    img:[0,0,0,0,0,0,0,0,0,0, 0,1,0,0,0,0,0,0,0,1, 0,0,1,0,0,0,0,0,1,0, 0,0,0,1,0,0,0,1,0,0, 0,0,0,0,1,0,1,0,0,0, 0,0,0,0,0,1,1,0,0,0, 0,0,0,0,1,0,1,0,0,0, 0,0,0,1,0,0,0,1,0,0, 0,0,1,0,0,0,0,0,1,0, 0,1,0,0,0,0,0,0,0,1],
+    acc0:36, acc1:-14, margen:50, params:{sr:1,sc:1,thick:1,noise:0}
+  },
+  {
+    cls:'X', title:'X — con ruido (2px)', sub:'ruido aleatorio · caso típico',
+    img:[1,0,0,0,0,0,0,0,0,1, 0,1,0,0,0,0,0,0,1,0, 0,0,1,0,0,0,0,1,0,0, 0,0,0,1,0,0,1,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,1,0,0,1,0,0,0, 0,0,1,0,0,0,0,1,1,0, 0,1,0,0,0,0,0,0,1,0, 1,0,0,0,0,0,0,0,0,1],
+    acc0:39, acc1:0, margen:39, params:{sr:0,sc:0,thick:1,noise:2}
+  },
+  {
+    cls:'X', title:'X — MEJOR (margen=60)', sub:'despl(-1,+1) · ruido · margen máximo',
+    img:[0,1,0,0,0,0,0,0,0,0, 0,0,1,0,0,0,0,0,1,0, 0,0,0,1,0,0,0,1,0,0, 0,0,0,0,1,0,1,0,0,0, 0,0,0,0,0,1,1,0,0,0, 0,0,0,0,1,0,0,1,0,0, 0,0,0,1,0,0,0,0,1,0, 0,0,1,0,0,0,0,0,0,1, 0,1,0,0,0,0,0,0,0,0, 1,0,0,0,0,0,0,0,0,0],
+    acc0:47, acc1:-13, margen:60, params:{sr:-1,sc:1,thick:1,noise:2}
+  },
+  {
+    cls:'X', title:'X — PEOR (margen=4)', sub:'thick=2 + shift + ruido · caso más frágil',
+    img:[0,0,0,0,0,0,0,0,0,0, 0,1,0,0,0,0,0,0,0,1, 0,1,1,0,0,0,0,0,0,1, 0,0,1,1,0,0,0,0,1,1, 0,0,0,1,1,0,0,1,1,0, 0,0,0,0,1,1,1,1,0,0, 0,0,0,0,0,1,1,0,0,0, 0,0,0,0,1,1,1,1,0,0, 1,0,0,1,1,0,0,1,1,0, 0,1,1,1,0,0,0,0,1,1],
+    acc0:1, acc1:-3, margen:4, params:{sr:1,sc:1,thick:2,noise:2}
+  },
+  // Cruz cases
+  {
+    cls:'C', title:'Cruz — ideal', sub:'limpia · sin variaciones',
+    img:[0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 1,1,1,1,1,1,1,1,1,1, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+    acc0:-44, acc1:24, margen:68, params:{sr:0,sc:0,thick:1,noise:0}
+  },
+  {
+    cls:'C', title:'Cruz — grosor 2px', sub:'trazo doble · sin ruido',
+    img:[0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0],
+    acc0:-61, acc1:-4, margen:57, params:{sr:0,sc:0,thick:2,noise:0}
+  },
+  {
+    cls:'C', title:'Cruz — desplazada (-1,-1)', sub:'shift fila-1 col-1 · limpia',
+    img:[1,1,1,1,1,1,1,1,1,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,1,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+    acc0:-34, acc1:36, margen:70, params:{sr:-1,sc:-1,thick:1,noise:0}
+  },
+  {
+    cls:'C', title:'Cruz — con ruido (2px)', sub:'ruido aleatorio · caso típico',
+    img:[0,0,0,0,1,0,0,0,1,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 1,1,1,1,1,1,1,1,1,0, 0,0,0,0,1,0,0,0,0,1, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,1,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+    acc0:-33, acc1:27, margen:60, params:{sr:0,sc:0,thick:1,noise:2}
+  },
+  {
+    cls:'C', title:'Cruz — MEJOR (margen=76)', sub:'thick=2 + ruido · separación máxima',
+    img:[0,1,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,1,0,0,1,1,0,0,0,0, 1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,1,1,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+    acc0:-67, acc1:9, margen:76, params:{sr:-1,sc:0,thick:2,noise:2}
+  },
+  {
+    cls:'C', title:'Cruz — PEOR (margen=36)', sub:'thick=2 + shift(-1) · caso más frágil',
+    img:[0,0,0,1,1,0,0,0,0,0, 0,0,0,1,1,0,0,0,0,0, 0,0,0,1,1,0,0,0,0,0, 0,0,0,1,1,0,0,0,0,0, 1,1,1,1,1,1,1,1,1,0, 1,1,1,1,1,1,1,1,1,0, 0,0,0,1,1,0,0,0,0,0, 0,0,0,1,1,0,0,0,0,0, 0,0,0,1,1,0,0,0,0,0, 0,0,0,1,1,0,0,0,0,0],
+    acc0:-58, acc1:-22, margen:36, params:{sr:0,sc:-1,thick:2,noise:0}
+  },
+];
+
+// ═══════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════
+
+function margenColor(m, cls) {
+  if (m >= 50) return 'var(--good)';
+  if (m >= 20) return 'var(--warn)';
+  return 'var(--bad)';
+}
+
+function makeCasoCard(c) {
+  const isX    = c.cls === 'X';
+  const accent = isX ? 'var(--X)' : 'var(--Cruz)';
+  const comp   = c.acc0 > c.acc1 ? 1 : 0;
+  const ok     = (isX && comp===1) || (!isX && comp===0);
+  const mc     = margenColor(c.margen, c.cls);
+
+  // Pixel grid HTML
+  const pixels = c.img.map((v,i) => {
+    // Detect noise pixels: value 1 but in a position that shouldn't have a trazo
+    // We mark as noise the last 2 if params.noise > 0 — simplified: no special marking here
+    const cls2 = v===0 ? 'px-0' : isX ? 'px-X' : 'px-Cruz';
+    return `<div class="px ${cls2}"></div>`;
+  }).join('');
+
+  const maxAcc = 80;
+  const a0pct  = Math.max(0, Math.min(100, (c.acc0 + maxAcc) / (2*maxAcc) * 100));
+  const a1pct  = Math.max(0, Math.min(100, (c.acc1 + maxAcc) / (2*maxAcc) * 100));
+
+  const dificultad = c.margen >= 50 ? 'fácil' : c.margen >= 20 ? 'medio' : 'difícil';
+  const difColor   = c.margen >= 50 ? 'var(--good)' : c.margen >= 20 ? 'var(--warn)' : 'var(--bad)';
+
+  const paramTags = [
+    `shift(${c.params.sr<0?c.params.sr:'+'+c.params.sr},${c.params.sc<0?c.params.sc:'+'+c.params.sc})`,
+    `grosor=${c.params.thick}px`,
+    c.params.noise > 0 ? `ruido=${c.params.noise}px` : 'sin ruido',
+  ].map(t => `<span class="param-tag">${t}</span>`).join('');
+
+  return `
+  <div class="caso-card ${isX?'':'cruz'}" style="border-color:${accent}1a">
+    <div class="caso-header">
+      <div class="caso-title" style="color:${accent}">${c.title}</div>
+      <span class="caso-badge ${isX?'badge-X':'badge-Cruz'}">${c.cls}</span>
+    </div>
+
+    <div class="pixel-grid">${pixels}</div>
+
+    <div class="meter-wrap">
+      <div class="meter-row">
+        <div class="meter-lbl">acc0</div>
+        <div class="meter-track">
+          <div class="meter-fill" style="width:${a0pct}%;background:var(--X)"></div>
+        </div>
+        <div class="meter-val" style="color:var(--X)">${c.acc0}</div>
+      </div>
+      <div class="meter-row">
+        <div class="meter-lbl">acc1</div>
+        <div class="meter-track">
+          <div class="meter-fill" style="width:${a1pct}%;background:var(--Cruz)"></div>
+        </div>
+        <div class="meter-val" style="color:var(--Cruz)">${c.acc1}</div>
+      </div>
+    </div>
+
+    <div class="margin-tag">
+      <div>
+        <div style="font-size:9px;color:var(--muted);margin-bottom:2px">margen mínimo</div>
+        <div class="margin-num" style="color:${mc}">${c.margen}</div>
+      </div>
+      <div>
+        <div class="comp-chip ${ok?'chip-ok':'chip-bad'}">comp=${comp} ${ok?'✓':'✗'}</div>
+        <div style="font-size:9px;color:${difColor};text-align:right;margin-top:4px">${dificultad}</div>
+      </div>
+    </div>
+
+    <div class="params-row">${paramTags}</div>
+    <div style="margin-top:6px;font-size:10px;color:var(--muted)">${c.sub}</div>
+  </div>`;
+}
+
+// Render X cases
+document.getElementById('grid-X').innerHTML =
+  CASOS.filter(c=>c.cls==='X').map(makeCasoCard).join('');
+
+// Render Cruz cases
+document.getElementById('grid-C').innerHTML =
+  CASOS.filter(c=>c.cls==='C').map(makeCasoCard).join('');
+
+// ═══════════════════════════════════════════════════
+// TIMELINE
+// ═══════════════════════════════════════════════════
+// Margins X: range 4..60 → place right of center
+// Margins C: range 36..76 → place left of center (negative scale)
+const histX = [3,7,16,20,31,12,1];   // bins [0,10,20,30,40,50,60]
+const histC = [6,20,26,24,14];        // bins [30,40,50,60,70]
+
+const tl = document.getElementById('timeline');
+// Sample dots for X (positive side)
+[4,5,5,8,10,15,20,25,30,35,39,40,45,50,55,60].forEach(m => {
+  const d = document.createElement('div');
+  d.className = 'dot dot-X';
+  // 50% = 0, each unit = 0.6px in a 500px wide track
+  const pct = 50 + m * 0.45;
+  d.style.left = pct + '%';
+  d.style.top  = '35%';
+  d.title = `X: margen=${m}`;
+  tl.appendChild(d);
+});
+// Sample dots for Cruz (shown as positive offset on same scale)
+[36,40,45,50,55,57,60,65,70,76].forEach(m => {
+  const d = document.createElement('div');
+  d.className = 'dot dot-Cruz';
+  const pct = 50 - m * 0.45;
+  d.style.left = Math.max(1,pct) + '%';
+  d.style.top  = '65%';
+  d.title = `Cruz: margen=${m}`;
+  tl.appendChild(d);
+});
+
+// ═══════════════════════════════════════════════════
+// HISTOGRAMS
+// ═══════════════════════════════════════════════════
+function renderHist(containerId, data, color) {
+  const el = document.getElementById(containerId);
+  const max = Math.max(...data);
+  el.innerHTML = data.map((v,i) => {
+    const h = (v/max*72);
+    return `<div class="hist-bar" style="height:${h}px;background:${color}${v===max?'':'66'}">
+      <div class="hist-bar-lbl">${v}</div>
+    </div>`;
+  }).join('');
+}
+renderHist('hist-X', histX, 'var(--X)');
+renderHist('hist-C', histC, 'var(--Cruz)');
+
+// ═══════════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════════
+function showTab(idx, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab'+idx).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

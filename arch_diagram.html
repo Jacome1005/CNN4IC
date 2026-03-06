@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CNNver2 — Arquitectura cnn_proc_top</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0a0c10;
+    --panel:    #0f1318;
+    --border:   #1e2530;
+    --accent1:  #00e5ff;   /* cyan  — datos */
+    --accent2:  #ff6b35;   /* naranja — control */
+    --accent3:  #a8ff78;   /* verde  — resultado */
+    --accent4:  #c77dff;   /* morado — FSM */
+    --accent5:  #ffd60a;   /* amarillo — cuantitativo */
+    --text:     #cdd6f4;
+    --muted:    #6b7280;
+    --dim:      #1e2a38;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 32px 48px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: baseline; gap: 24px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px; font-weight: 800;
+    color: var(--accent1);
+    letter-spacing: -1px;
+  }
+  header span {
+    color: var(--muted); font-size: 12px;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex; gap: 0;
+    padding: 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab {
+    padding: 14px 24px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent1); border-bottom-color: var(--accent1); }
+
+  /* ── Content panels ── */
+  .panel { display: none; padding: 40px 48px; }
+  .panel.active { display: block; }
+
+  /* ── Grid layout helpers ── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+  }
+  .card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: .15em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .card.cyan  h3 { color: var(--accent1); border-bottom: 1px solid #00e5ff22; padding-bottom: 10px; }
+  .card.orange h3 { color: var(--accent2); border-bottom: 1px solid #ff6b3522; padding-bottom: 10px; }
+  .card.green  h3 { color: var(--accent3); border-bottom: 1px solid #a8ff7822; padding-bottom: 10px; }
+  .card.purple h3 { color: var(--accent4); border-bottom: 1px solid #c77dff22; padding-bottom: 10px; }
+  .card.yellow h3 { color: var(--accent5); border-bottom: 1px solid #ffd60a22; padding-bottom: 10px; }
+
+  .kv { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; border-bottom: 1px solid var(--dim); }
+  .kv:last-child { border-bottom: none; }
+  .kv .k { color: var(--muted); font-size: 11px; }
+  .kv .v { color: var(--text); font-weight: 600; text-align: right; }
+  .kv .v.hi { color: var(--accent5); }
+  .kv .v.cyan { color: var(--accent1); }
+  .kv .v.green { color: var(--accent3); }
+  .kv .v.orange { color: var(--accent2); }
+
+  /* ── SVG diagram ── */
+  .svg-wrap {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    overflow: auto;
+  }
+
+  /* ── Pipeline blocks ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 8px 0 16px;
+  }
+  .pipe-block {
+    flex-shrink: 0;
+    background: var(--dim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    text-align: center;
+    min-width: 110px;
+  }
+  .pipe-block .pb-title { font-size: 11px; font-weight: 700; margin-bottom: 4px; }
+  .pipe-block .pb-sub { font-size: 10px; color: var(--muted); }
+  .pipe-arrow {
+    flex-shrink: 0;
+    color: var(--muted);
+    padding: 0 8px;
+    font-size: 18px;
+  }
+
+  /* ── Coverage heatmap ── */
+  .heatmap {
+    display: inline-grid;
+    grid-template-columns: repeat(10, 28px);
+    grid-template-rows: repeat(10, 28px);
+    gap: 2px;
+  }
+  .hm-cell {
+    width: 28px; height: 28px;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s;
+  }
+  .hm-cell:hover { transform: scale(1.2); z-index: 10; }
+
+  /* ── FSM diagram ── */
+  .fsm-wrap {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .fsm-state {
+    background: var(--dim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    position: relative;
+  }
+  .fsm-state.active-state {
+    border-color: var(--accent4);
+    box-shadow: 0 0 12px #c77dff22;
+  }
+  .fsm-state h4 {
+    color: var(--accent4);
+    font-size: 11px; font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .fsm-state p { font-size: 10px; color: var(--muted); line-height: 1.5; }
+  .fsm-arrow {
+    font-size: 10px; color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* ── Section title ── */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin: 28px 0 14px;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ── Bit range visual ── */
+  .bit-range {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--dim);
+  }
+  .bit-range:last-child { border: none; }
+  .bit-bar {
+    height: 20px; border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #000;
+    min-width: 40px;
+  }
+  .bit-label { font-size: 11px; color: var(--muted); flex: 1; }
+  .bit-range-val { font-size: 11px; color: var(--text); text-align: right; }
+
+  /* ── Fragment grid visual ── */
+  .frag-grid {
+    display: inline-grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 6px;
+  }
+  .frag-cell {
+    height: 60px;
+    background: var(--dim);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 10px; cursor: pointer;
+    transition: all .2s;
+  }
+  .frag-cell:hover {
+    border-color: var(--accent1);
+    background: #00e5ff11;
+  }
+  .frag-cell .fc-id { color: var(--accent1); font-weight: 700; font-size: 11px; }
+  .frag-cell .fc-pos { color: var(--muted); font-size: 9px; }
+
+  /* ── Tooltip ── */
+  #tooltip {
+    position: fixed;
+    background: #1a1f2e;
+    border: 1px solid var(--accent1);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 11px;
+    pointer-events: none;
+    display: none;
+    z-index: 1000;
+    max-width: 220px;
+    line-height: 1.6;
+  }
+  #tooltip .tt-title { color: var(--accent1); font-weight: 700; margin-bottom: 4px; }
+
+  /* ── Signal flow ── */
+  .signal-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--dim);
+  }
+  .signal-row:last-child { border: none; }
+  .sig-name { color: var(--accent1); font-size: 11px; font-weight: 600; width: 140px; flex-shrink: 0; }
+  .sig-bits { color: var(--accent5); font-size: 10px; width: 60px; flex-shrink: 0; }
+  .sig-dir { color: var(--muted); font-size: 10px; width: 40px; flex-shrink: 0; }
+  .sig-desc { color: var(--muted); font-size: 11px; }
+  .sig-from { color: var(--accent2); font-size: 10px; width: 120px; flex-shrink: 0; }
+
+</style>
+</head>
+<body>
+
+<div id="tooltip"></div>
+
+<header>
+  <h1>CNNver2 — cnn_proc_top</h1>
+  <span>Descripción arquitectural completa · Lógica de procesamiento CNN</span>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('overview')">Resumen</div>
+  <div class="tab" onclick="showTab('pipeline')">Pipeline</div>
+  <div class="tab" onclick="showTab('fragmentacion')">Fragmentación</div>
+  <div class="tab" onclick="showTab('aritmetica')">Aritmética</div>
+  <div class="tab" onclick="showTab('fsm')">FSM Control</div>
+  <div class="tab" onclick="showTab('señales')">Señales</div>
+  <div class="tab" onclick="showTab('cobertura')">Cobertura px</div>
+</style>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: RESUMEN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="panel active" id="tab-overview">
+
+  <div class="grid4" style="margin-bottom:20px">
+    <div class="card cyan">
+      <h3>Entrada</h3>
+      <div class="kv"><span class="k">Imagen</span><span class="v cyan">10 × 10 px</span></div>
+      <div class="kv"><span class="k">Profundidad</span><span class="v">3 bits/px signed</span></div>
+      <div class="kv"><span class="k">Rango px</span><span class="v">[-4, 3]</span></div>
+      <div class="kv"><span class="k">Total bits</span><span class="v">300 bits</span></div>
+      <div class="kv"><span class="k">Kernels</span><span class="v">2 × 5×5 × 3b</span></div>
+    </div>
+    <div class="card orange">
+      <h3>Operación</h3>
+      <div class="kv"><span class="k">Fragmentos</span><span class="v orange">9 (3×3, stride 2)</span></div>
+      <div class="kv"><span class="k">Ventanas/frag</span><span class="v">4 (2×2, stride 1)</span></div>
+      <div class="kv"><span class="k">Tamaño ventana</span><span class="v">5 × 5 px</span></div>
+      <div class="kv"><span class="k">MAC/ventana</span><span class="v">25 productos</span></div>
+      <div class="kv"><span class="k">Maxpool/frag</span><span class="v">max de 4 MACs</span></div>
+    </div>
+    <div class="card green">
+      <h3>Salida</h3>
+      <div class="kv"><span class="k">acc0, acc1</span><span class="v green">16 bits signed</span></div>
+      <div class="kv"><span class="k">Rango acc</span><span class="v">[-900, 675]</span></div>
+      <div class="kv"><span class="k">comp</span><span class="v">acc0 &gt; acc1</span></div>
+      <div class="kv"><span class="k">Clasificación</span><span class="v">binaria</span></div>
+      <div class="kv"><span class="k">mr1_load / mr2_load</span><span class="v">activo bajo</span></div>
+    </div>
+    <div class="card yellow">
+      <h3>Computación</h3>
+      <div class="kv"><span class="k">Mults totales</span><span class="v hi">1800/clasificación</span></div>
+      <div class="kv"><span class="k">Latencia CNN</span><span class="v">~216 ciclos × 2</span></div>
+      <div class="kv"><span class="k">Clock</span><span class="v">50 MHz (SPI)</span></div>
+      <div class="kv"><span class="k">Latencia total</span><span class="v">≈ 400–500 ciclos</span></div>
+      <div class="kv"><span class="k">Tiempo total</span><span class="v hi">≈ 8–10 μs</span></div>
+    </div>
+  </div>
+
+  <p class="section-title">Jerarquía de módulos</p>
+  <div class="card cyan" style="margin-bottom:20px">
+    <h3>cnn_proc_top — Árbol de instancias</h3>
+    <pre style="color:var(--text);line-height:1.8;font-size:12px">
+<span style="color:var(--accent1)">cnn_proc_top</span>
+├── <span style="color:var(--accent4)">SC_STATEMACHINE_CNN_CTRL</span>   <span style="color:var(--muted)">← FSM: orquesta 2 corridas CNN secuenciales</span>
+│   └── <span style="color:var(--accent2)">cnn_top</span>                <span style="color:var(--muted)">← itera 9 fragmentos, acumula maxpools</span>
+│       ├── <span style="color:var(--accent1)">fragment_mux_10x10_6x6</span> <span style="color:var(--muted)">← combinacional: selecciona fragmento 6×6</span>
+│       └── <span style="color:var(--accent2)">mux_cnn</span>            <span style="color:var(--muted)">← itera 4 ventanas por fragmento</span>
+│           ├── <span style="color:var(--accent1)">window_mux_6x6_5x5</span>  <span style="color:var(--muted)">← combinacional: selecciona ventana 5×5</span>
+│           ├── <span style="color:var(--accent5)">mac_parallel</span>         <span style="color:var(--muted)">← combinacional: 25 productos signed</span>
+│           └── <span style="color:var(--accent3)">progressive_maxpool</span>  <span style="color:var(--muted)">← secuencial: max progresivo de 4 ventanas</span>
+└── <span style="color:var(--accent3)">Comparador combinacional</span>   <span style="color:var(--muted)">← o_comp_result = (acc0 &gt; acc1) signed</span></pre>
+  </div>
+
+  <div class="grid2">
+    <div class="card purple">
+      <h3>Interfaces externas</h3>
+      <div class="kv"><span class="k">i_img_row00..09</span><span class="v cyan">10 × 30 bits (imagen)</span></div>
+      <div class="kv"><span class="k">i_wgt_row00..04</span><span class="v cyan">5 × 15 bits (pesos)</span></div>
+      <div class="kv"><span class="k">i_start_cnn</span><span class="v orange">pulso 1 ciclo (desde SPI)</span></div>
+      <div class="kv"><span class="k">o_acc0 / o_acc1</span><span class="v green">16 bits signed</span></div>
+      <div class="kv"><span class="k">o_mr1_load / o_mr2_load</span><span class="v orange">activo bajo</span></div>
+      <div class="kv"><span class="k">o_comp_result</span><span class="v green">1 bit: acc0 &gt; acc1</span></div>
+      <div class="kv"><span class="k">o_done</span><span class="v green">pulso fin de clasificación</span></div>
+    </div>
+    <div class="card yellow">
+      <h3>Constraints de representación</h3>
+      <div class="bit-range">
+        <div class="bit-bar" style="background:var(--accent1);width:60px">3 bits</div>
+        <span class="bit-label">Pixel / Peso (signed)</span>
+        <span class="bit-range-val">[-4, 3]</span>
+      </div>
+      <div class="bit-range">
+        <div class="bit-bar" style="background:var(--accent2);width:100px">16 bits</div>
+        <span class="bit-label">MAC resultado por ventana</span>
+        <span class="bit-range-val">[-100, 75]</span>
+      </div>
+      <div class="bit-range">
+        <div class="bit-bar" style="background:var(--accent3);width:100px">16 bits</div>
+        <span class="bit-label">acc (9 maxpools sumados)</span>
+        <span class="bit-range-val">[-900, 675]</span>
+      </div>
+      <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+        ⚠ El maxpool usa <strong style="color:var(--text)">first_en</strong> en iter 0: carga directa sin comparar.<br>
+        Iter 1–3: actualiza solo si conv_in &gt; max_out.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: PIPELINE -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="panel" id="tab-pipeline">
+  <p class="section-title">Flujo de datos completo — una clasificación</p>
+
+  <div class="card cyan" style="margin-bottom:24px">
+    <h3>Pipeline de procesamiento (kernel único)</h3>
+    <div class="pipeline">
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent1)">Imagen</div>
+        <div class="pb-sub">10×10 × 3b<br>300 bits</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent2)">fragment_mux</div>
+        <div class="pb-sub">sel frag 0..8<br>combinacional</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent1)">Fragmento 6×6</div>
+        <div class="pb-sub">108 bits<br>36 píxeles</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent2)">window_mux</div>
+        <div class="pb-sub">sel win 0..3<br>combinacional</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent1)">Ventana 5×5</div>
+        <div class="pb-sub">75 bits<br>25 píxeles</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent5)">mac_parallel</div>
+        <div class="pb-sub">25 mults 3b×3b<br>combinacional</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent5)">MAC [15:0]</div>
+        <div class="pb-sub">signed 16b<br>[-100, 75]</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent3)">prog_maxpool</div>
+        <div class="pb-sub">4 iters<br>secuencial</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent3)">max_out</div>
+        <div class="pb-sub">mejor de 4<br>signed 16b</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent2)">acc +=</div>
+        <div class="pb-sub">suma de 9<br>maxpools</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-block">
+        <div class="pb-title" style="color:var(--accent3)">acc [15:0]</div>
+        <div class="pb-sub">resultado<br>kernel</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Ciclos por etapa (mux_cnn FSM)</p>
+  <div class="grid2">
+    <div class="card orange">
+      <h3>mux_cnn — estados por ventana</h3>
+      <div class="kv"><span class="k">IDLE</span><span class="v">espera start</span></div>
+      <div class="kv"><span class="k">CONV_WIN_0</span><span class="v">ventana 0: mac + first_en</span></div>
+      <div class="kv"><span class="k">CONV_WIN_1</span><span class="v">ventana 1: mac + compare</span></div>
+      <div class="kv"><span class="k">CONV_WIN_2</span><span class="v">ventana 2: mac + compare</span></div>
+      <div class="kv"><span class="k">CONV_WIN_3</span><span class="v">ventana 3: mac + compare</span></div>
+      <div class="kv"><span class="k">DONE</span><span class="v orange">pulsa done 1 ciclo</span></div>
+      <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+        Total: ~6 ciclos por fragmento + overhead FSM ≈ 12 ciclos/frag
+      </div>
+    </div>
+    <div class="card yellow">
+      <h3>cnn_top — iteración de fragmentos</h3>
+      <div class="kv"><span class="k">IDLE</span><span class="v">espera start</span></div>
+      <div class="kv"><span class="k">FRAG (×9)</span><span class="v orange">cnn_rst=1, 1 ciclo</span></div>
+      <div class="kv"><span class="k">START (×9)</span><span class="v orange">cnn_start=1, 1 ciclo</span></div>
+      <div class="kv"><span class="k">WAIT (×9)</span><span class="v">espera cnn_done (~10 ciclos)</span></div>
+      <div class="kv"><span class="k">ACC (×9)</span><span class="v green">acc += cnn_out</span></div>
+      <div class="kv"><span class="k">FINISH</span><span class="v green">done=1</span></div>
+      <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+        Total: 9 × ~12 ciclos ≈ <strong style="color:var(--accent5)">108 ciclos</strong> por kernel
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Flujo completo de clasificación (2 kernels)</p>
+  <div class="card purple">
+    <h3>SC_STATEMACHINE_CNN_CTRL — secuencia de estados</h3>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+      <div style="background:#1a1f2e;border:1px solid var(--accent4);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent4);font-weight:700">IDLE</div>
+        <div style="color:var(--muted)">espera i_START_CNN</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid #4a4;border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:#4a4;font-weight:700">LATCH_K0</div>
+        <div style="color:var(--muted)">captura kernel0<br>de registros SPI</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent2);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent2);font-weight:700">CNN_RESET0</div>
+        <div style="color:var(--muted)">cnn_rst=1</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent2);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent2);font-weight:700">CNN_START0</div>
+        <div style="color:var(--muted)">cnn_start=1</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent1);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent1);font-weight:700">CNN_WAIT0</div>
+        <div style="color:var(--muted)">~108 ciclos<br>espera done</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent3);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent3);font-weight:700">SAVE_K0</div>
+        <div style="color:var(--muted)">o_acc0=cnn_acc<br>mr1_load=0</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent4);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent4);font-weight:700">WAIT_K1</div>
+        <div style="color:var(--muted)">2do i_START_CNN</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+      <div style="color:var(--muted);font-size:11px;padding:8px 0">↓ (2do START)</div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <div style="background:#1a1f2e;border:1px solid #4a4;border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:#4a4;font-weight:700">LATCH_K1</div>
+        <div style="color:var(--muted)">captura kernel1</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent2);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent2);font-weight:700">CNN_RESET1</div>
+        <div style="color:var(--muted)">cnn_rst=1</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent2);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent2);font-weight:700">CNN_START1</div>
+        <div style="color:var(--muted)">cnn_start=1</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent1);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent1);font-weight:700">CNN_WAIT1</div>
+        <div style="color:var(--muted)">~108 ciclos</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent3);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent3);font-weight:700">SAVE_K1</div>
+        <div style="color:var(--muted)">o_acc1=cnn_acc<br>mr2_load=0</div>
+      </div>
+      <div style="color:var(--muted);align-self:center">→</div>
+      <div style="background:#1a1f2e;border:1px solid var(--accent3);border-radius:4px;padding:8px 12px;font-size:11px">
+        <div style="color:var(--accent3);font-weight:700">FINISH</div>
+        <div style="color:var(--muted)">o_done=1<br>→ IDLE</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: FRAGMENTACIÓN -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="panel" id="tab-fragmentacion">
+  <p class="section-title">Los 9 fragmentos sobre la imagen 10×10</p>
+  <div class="grid2">
+    <div>
+      <div class="card cyan" style="margin-bottom:16px">
+        <h3>Grid de fragmentos (stride=2)</h3>
+        <div class="frag-grid" id="frag-grid">
+          <!-- generado por JS -->
+        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+          Haz clic en un fragmento para ver su posición y ventanas
+        </div>
+      </div>
+      <div class="card orange" id="frag-detail">
+        <h3>Detalle de fragmento</h3>
+        <div style="color:var(--muted);font-size:11px">Selecciona un fragmento arriba</div>
+      </div>
+    </div>
+    <div class="card yellow">
+      <h3>Ventanas 5×5 dentro de un fragmento 6×6</h3>
+      <div style="margin-bottom:12px;font-size:11px;color:var(--muted)">
+        4 ventanas con stride=1. Solapamiento: 4 de 5 filas y 4 de 5 cols.
+      </div>
+      <svg width="300" height="300" style="display:block">
+        <!-- Fragmento 6x6 -->
+        <rect x="10" y="10" width="240" height="240" fill="#1e2a38" stroke="#2a3548" stroke-width="1"/>
+        <!-- Cuadrícula 6x6 -->
+        <script>
+          // dibujado por JS
+        </script>
+        <!-- Win 0: (0,0)→5×5 -->
+        <rect x="10" y="10" width="200" height="200" fill="#00e5ff14" stroke="#00e5ff" stroke-width="2" stroke-dasharray="6,3"/>
+        <text x="14" y="24" fill="#00e5ff" font-size="10" font-family="JetBrains Mono">win0 (0,0)</text>
+        <!-- Win 1: (0,1)→5×5 -->
+        <rect x="50" y="10" width="200" height="200" fill="#ff6b3514" stroke="#ff6b35" stroke-width="2" stroke-dasharray="6,3"/>
+        <text x="54" y="36" fill="#ff6b35" font-size="10" font-family="JetBrains Mono">win1 (0,1)</text>
+        <!-- Win 2: (1,0)→5×5 -->
+        <rect x="10" y="50" width="200" height="200" fill="#a8ff7814" stroke="#a8ff78" stroke-width="2" stroke-dasharray="6,3"/>
+        <text x="14" y="70" fill="#a8ff78" font-size="10" font-family="JetBrains Mono">win2 (1,0)</text>
+        <!-- Win 3: (1,1)→5×5 -->
+        <rect x="50" y="50" width="200" height="200" fill="#c77dff14" stroke="#c77dff" stroke-width="2" stroke-dasharray="6,3"/>
+        <text x="54" y="80" fill="#c77dff" font-size="10" font-family="JetBrains Mono">win3 (1,1)</text>
+        <!-- Líneas de cuadrícula -->
+        <line x1="50"  y1="10"  x2="50"  y2="250" stroke="#2a3548" stroke-width="1"/>
+        <line x1="90"  y1="10"  x2="90"  y2="250" stroke="#2a3548" stroke-width="1"/>
+        <line x1="130" y1="10"  x2="130" y2="250" stroke="#2a3548" stroke-width="1"/>
+        <line x1="170" y1="10"  x2="170" y2="250" stroke="#2a3548" stroke-width="1"/>
+        <line x1="210" y1="10"  x2="210" y2="250" stroke="#2a3548" stroke-width="1"/>
+        <line x1="10"  y1="50"  x2="250" y2="50"  stroke="#2a3548" stroke-width="1"/>
+        <line x1="10"  y1="90"  x2="250" y2="90"  stroke="#2a3548" stroke-width="1"/>
+        <line x1="10"  y1="130" x2="250" y2="130" stroke="#2a3548" stroke-width="1"/>
+        <line x1="10"  y1="170" x2="250" y2="170" stroke="#2a3548" stroke-width="1"/>
+        <line x1="10"  y1="210" x2="250" y2="210" stroke="#2a3548" stroke-width="1"/>
+        <!-- Labels columna extra -->
+        <text x="220" y="30"  fill="#6b7280" font-size="10" font-family="JetBrains Mono">col5</text>
+        <text x="14"  y="244" fill="#6b7280" font-size="10" font-family="JetBrains Mono">row5</text>
+      </svg>
+      <div style="margin-top:8px;font-size:11px;color:var(--muted)">
+        La col5 y row5 del fragmento solo están en win1, win2 y win3 respectivamente.<br>
+        El maxpool captura la ventana con mayor activación.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: ARITMÉTICA -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="panel" id="tab-aritmetica">
+  <div class="grid2">
+    <div class="card yellow">
+      <h3>mac_parallel — operación</h3>
+      <pre style="font-size:11px;line-height:1.7;color:var(--text)">
+result = Σ px[i] × w[i]   i = 0..24
+         (signed 3-bit)   (signed 3-bit)
+         ↓
+         signed 16-bit result
+
+Rango por producto:  [-4×3, 3×3] = [-12, 9]
+Rango total (25px):  [-300, 225]
+<span style="color:var(--accent2)">⚠ Implementado como sum directa de 25 mults</span>
+<span style="color:var(--accent2)">  No hay truncamiento intermedio</span>
+<span style="color:var(--accent3)">  Resultado cabe en 16 bits signed ✓</span>
+      </pre>
+      <div style="margin-top:12px">
+        <div class="kv"><span class="k">Bits por operando</span><span class="v hi">3b signed</span></div>
+        <div class="kv"><span class="k">Bits resultado</span><span class="v">16b signed</span></div>
+        <div class="kv"><span class="k">Términos</span><span class="v">25 productos</span></div>
+        <div class="kv"><span class="k">Rango MAC</span><span class="v orange">[-300, 225]</span></div>
+        <div class="kv"><span class="k">Overflow posible</span><span class="v green">No (16b suficiente)</span></div>
+      </div>
+    </div>
+    <div class="card green">
+      <h3>progressive_maxpool — lógica</h3>
+      <pre style="font-size:11px;line-height:1.7;color:var(--text)">
+iter 0 (first_en=1):
+  max_out ← conv_in        <span style="color:var(--accent1)"># carga directa</span>
+
+iter 1..3 (first_en=0):
+  if conv_in > max_out:
+    max_out ← conv_in     <span style="color:var(--accent3)"># actualiza</span>
+  else:
+    max_out ← max_out     <span style="color:var(--muted)"># mantiene</span>
+
+<span style="color:var(--accent5)">Resultado: max de las 4 MACs del fragmento</span>
+      </pre>
+      <div style="margin-top:12px">
+        <div class="kv"><span class="k">Comparaciones</span><span class="v">3 por fragmento</span></div>
+        <div class="kv"><span class="k">Ciclos</span><span class="v">4 (una por ventana)</span></div>
+        <div class="kv"><span class="k">Reset</span><span class="v orange">síncrono con cnn_rst</span></div>
+        <div class="kv"><span class="k">Tipo comparación</span><span class="v cyan">signed 16b</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Acumulador — cnn_top</p>
+  <div class="card cyan">
+    <h3>Suma de 9 maxpools → acc</h3>
+    <div class="grid2">
+      <div>
+        <pre style="font-size:11px;line-height:1.7;color:var(--text)">
+Estado ACC:
+  acc ← acc + cnn_out
+
+Donde cnn_out = max de 4 ventanas del fragmento actual.
+Se ejecuta una vez por fragmento (9 veces total).
+acc se inicializa a 0 en estado IDLE.
+
+Rango máximo teórico:
+  Por ventana (todos 3×3): 25 × 9 = 225
+  Por fragmento (maxpool):           225
+  Acumulado (9 frags):         9×225 = 2025 → cabe en 16b signed ✓
+
+Rango mínimo teórico:
+  Por ventana (img=-4, ker=3): 25×(-12) = -300
+  Maxpool de negativos:        -300
+  Acumulado:               9×(-300) = -2700
+  <span style="color:var(--accent2)">⚠ -2700 no cabe en 16b signed (min = -32768 ✓ sí cabe)</span>
+        </pre>
+      </div>
+      <div>
+        <div class="kv"><span class="k">Rango acc teórico máx</span><span class="v green">+2025</span></div>
+        <div class="kv"><span class="k">Rango acc teórico mín</span><span class="v orange">-2700</span></div>
+        <div class="kv"><span class="k">16b signed cubre</span><span class="v green">[-32768, 32767] ✓</span></div>
+        <div class="kv"><span class="k">Inicialización</span><span class="v">acc=0 en IDLE</span></div>
+        <div class="kv"><span class="k">Registrado en</span><span class="v cyan">posedge i_CLOCK</span></div>
+        <div style="margin-top:16px;font-size:11px;color:var(--muted)">
+          <strong style="color:var(--accent5)">Punto clave:</strong> el maxpool actúa como ReLU parcial — si todas las ventanas 
+          dan MAC negativo, el maxpool todavía puede ser negativo. No hay 
+          truncamiento a cero. Esto es relevante al diseñar kernels.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-title">Comparador final</p>
+  <div class="card orange">
+    <h3>o_comp_result — clasificación binaria</h3>
+    <pre style="font-size:11px;line-height:1.7;color:var(--text)">
+assign o_comp_result = ($signed(ctrl_acc0) > $signed(ctrl_acc1)) ? 1'b1 : 1'b0;
+
+<span style="color:var(--accent3)">comp=1</span>: acc0 > acc1  → Kernel0 "gana" → clase 0 (ej: X)
+<span style="color:var(--accent2)">comp=0</span>: acc0 ≤ acc1 → Kernel1 "gana" → clase 1 (ej: Cruz)
+
+Comparación ESTRICTA: acc0 == acc1 → comp=0 (kernel1 gana por defecto)
+    </pre>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: FSM -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="panel" id="tab-fsm">
+  <p class="section-title">SC_STATEMACHINE_CNN_CTRL — 13 estados</p>
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="card purple">
+      <h3>Estados y transiciones</h3>
+      <div style="font-size:11px;line-height:2">
+        <div><span style="color:var(--accent4);font-weight:700">0 IDLE</span> <span style="color:var(--muted)">→ LATCH_K0 si i_START_CNN</span></div>
+        <div><span style="color:#4a4;font-weight:700">1 LATCH_K0</span> <span style="color:var(--muted)">→ CNN_RESET0 (captura pesos actuales)</span></div>
+        <div><span style="color:var(--accent2);font-weight:700">2 CNN_RESET0</span> <span style="color:var(--muted)">→ CNN_START0 (cnn_rst=1)</span></div>
+        <div><span style="color:var(--accent2);font-weight:700">3 CNN_START0</span> <span style="color:var(--muted)">→ CNN_WAIT0 (cnn_start=1)</span></div>
+        <div><span style="color:var(--accent1);font-weight:700">4 CNN_WAIT0</span> <span style="color:var(--muted)">→ SAVE_K0 si cnn_done</span></div>
+        <div><span style="color:var(--accent3);font-weight:700">5 SAVE_K0</span> <span style="color:var(--muted)">→ WAIT_K1 (o_acc0=cnn_acc, mr1_load=0)</span></div>
+        <div><span style="color:var(--accent4);font-weight:700">6 WAIT_K1</span> <span style="color:var(--muted)">→ LATCH_K1 si i_START_CNN</span></div>
+        <div><span style="color:#4a4;font-weight:700">7 LATCH_K1</span> <span style="color:var(--muted)">→ CNN_RESET1</span></div>
+        <div><span style="color:var(--accent2);font-weight:700">8 CNN_RESET1</span> <span style="color:var(--muted)">→ CNN_START1</span></div>
+        <div><span style="color:var(--accent2);font-weight:700">9 CNN_START1</span> <span style="color:var(--muted)">→ CNN_WAIT1</span></div>
+        <div><span style="color:var(--accent1);font-weight:700">10 CNN_WAIT1</span> <span style="color:var(--muted)">→ SAVE_K1 si cnn_done</span></div>
+        <div><span style="color:var(--accent3);font-weight:700">11 SAVE_K1</span> <span style="color:var(--muted)">→ FINISH (o_acc1=cnn_acc, mr2_load=0)</span></div>
+        <div><span style="color:var(--accent3);font-weight:700">12 FINISH</span> <span style="color:var(--muted)">→ IDLE (o_done=1)</span></div>
+      </div>
+    </div>
+    <div class="card yellow">
+      <h3>Señales de salida por estado</h3>
+      <div style="font-size:11px">
+        <div class="kv"><span class="k">cnn_rst default</span><span class="v orange">0 (activo solo en RESET0/1 e IDLE)</span></div>
+        <div class="kv"><span class="k">cnn_start default</span><span class="v">0 (pulso de 1 ciclo)</span></div>
+        <div class="kv"><span class="k">mr1_load default</span><span class="v">1 (inactivo alto)</span></div>
+        <div class="kv"><span class="k">mr2_load default</span><span class="v">1 (inactivo alto)</span></div>
+        <div class="kv"><span class="k">o_done default</span><span class="v">0 (pulso en FINISH)</span></div>
+        <div style="margin-top:12px;border-top:1px solid var(--dim);padding-top:12px">
+          <div class="kv"><span class="k">En IDLE</span><span class="v orange">cnn_rst=1 mantenido</span></div>
+          <div class="kv"><span class="k">En LATCH_K0/1</span><span class="v cyan">kernel_reg ← {w4..w0}</span></div>
+          <div class="kv"><span class="k">En SAVE_K0</span><span class="v green">mr1_load=0, acc0=cnn_acc</span></div>
+          <div class="kv"><span class="k">En SAVE_K1</span><span class="v green">mr2_load=0, acc1=cnn_acc</span></div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-size:11px;color:var(--muted)">
+        <strong style="color:var(--accent5)">Importante:</strong> kernel_reg se captura en LATCH_K0/K1 para aislar 
+        el procesamiento de posibles cambios en los registros SPI durante la corrida CNN.
+      </div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h3>cnn_top FSM — estados internos</h3>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;font-size:11px">
+      <div><span style="color:var(--accent4);font-weight:700">IDLE(0)</span> <span style="color:var(--muted)">espera start, cnn_rst=1</span></div>
+      <div>→</div>
+      <div><span style="color:var(--accent2);font-weight:700">FRAG(1)</span> <span style="color:var(--muted)">cnn_rst=1 para mux_cnn</span></div>
+      <div>→</div>
+      <div><span style="color:var(--accent2);font-weight:700">START(2)</span> <span style="color:var(--muted)">cnn_start=1</span></div>
+      <div>→</div>
+      <div><span style="color:var(--accent1);font-weight:700">WAIT(3)</span> <span style="color:var(--muted)">espera cnn_done</span></div>
+      <div>→</div>
+      <div><span style="color:var(--accent3);font-weight:700">ACC(4)</span> <span style="color:var(--muted)">acc+=cnn_out, frag_sel++</span></div>
+      <div>→</div>
+      <div><span style="color:var(--accent3);font-weight:700">FINISH(5)</span> <span style="color:var(--muted)">done=1</span></div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted)">
+      ACC→FRAG se repite 8 veces (frags 0..7), ACC→FINISH en frag 8.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: SEÑALES -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="panel" id="tab-señales">
+  <p class="section-title">Interfaz de cnn_proc_top</p>
+  <div class="card cyan" style="margin-bottom:20px">
+    <h3>Señales de entrada</h3>
+    <div class="signal-row">
+      <span class="sig-name">i_CLOCK</span>
+      <span class="sig-bits">1b</span>
+      <span class="sig-dir">← IN</span>
+      <span class="sig-from">CNNver2_SPICLOCK_50</span>
+      <span class="sig-desc">Clock compartido con SPI (50 MHz). Todo el procesamiento CNN corre a esta frecuencia.</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">i_RESET</span>
+      <span class="sig-bits">1b</span>
+      <span class="sig-dir">← IN</span>
+      <span class="sig-from">CNNver2_Reset_InHigh</span>
+      <span class="sig-desc">Reset global activo alto. Lleva todos los registros y FSMs a estado inicial.</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">i_start_cnn</span>
+      <span class="sig-bits">1b</span>
+      <span class="sig-dir">← IN</span>
+      <span class="sig-from">spi_cnn_slave_8</span>
+      <span class="sig-desc">Pulso de 1 ciclo SPI. Generado por cmd 011. Necesita 2 pulsos totales (uno por kernel).</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">i_img_row00..09</span>
+      <span class="sig-bits">10×30b</span>
+      <span class="sig-dir">← IN</span>
+      <span class="sig-from">Register_Imag ×10</span>
+      <span class="sig-desc">Imagen 10×10 en 10 filas de 30 bits. Cada fila: {pix9[2:0],...,pix0[2:0]}. Pixel signed 3b.</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">i_wgt_row00..04</span>
+      <span class="sig-bits">5×15b</span>
+      <span class="sig-dir">← IN</span>
+      <span class="sig-from">Register_Weight ×5</span>
+      <span class="sig-desc">Kernel activo en 5 filas de 15 bits. {w4[2:0],...,w0[2:0]}. Capturado en LATCH_K0/K1.</span>
+    </div>
+  </div>
+  <div class="card green">
+    <h3>Señales de salida</h3>
+    <div class="signal-row">
+      <span class="sig-name">o_acc0</span>
+      <span class="sig-bits">16b</span>
+      <span class="sig-dir">→ OUT</span>
+      <span class="sig-from">→ Master_register MR1</span>
+      <span class="sig-desc">Acumulador kernel0. Signed. Válido cuando o_mr1_load pulsa (activo bajo).</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">o_acc1</span>
+      <span class="sig-bits">16b</span>
+      <span class="sig-dir">→ OUT</span>
+      <span class="sig-from">→ Master_register MR2</span>
+      <span class="sig-desc">Acumulador kernel1. Signed. Válido cuando o_mr2_load pulsa (activo bajo).</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">o_mr1_load</span>
+      <span class="sig-bits">1b</span>
+      <span class="sig-dir">→ OUT</span>
+      <span class="sig-from">→ MR1, CNNver2_MR1_Load</span>
+      <span class="sig-desc">Activo bajo. Pulso de 1 ciclo en estado SAVE_K0. Carga acc0 en Master Register 1.</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">o_mr2_load</span>
+      <span class="sig-bits">1b</span>
+      <span class="sig-dir">→ OUT</span>
+      <span class="sig-from">→ MR2, CNNver2_MR2_Load</span>
+      <span class="sig-desc">Activo bajo. Pulso de 1 ciclo en estado SAVE_K1. Carga acc1 en Master Register 2.</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">o_comp_result</span>
+      <span class="sig-bits">1b</span>
+      <span class="sig-dir">→ OUT</span>
+      <span class="sig-from">→ spi_cnn_slave_8</span>
+      <span class="sig-desc">Combinacional. 1 si $signed(acc0) > $signed(acc1). Actualiza inmediatamente al cambiar acc0/acc1.</span>
+    </div>
+    <div class="signal-row">
+      <span class="sig-name">o_done</span>
+      <span class="sig-bits">1b</span>
+      <span class="sig-dir">→ OUT</span>
+      <span class="sig-from">(sin conectar en top)</span>
+      <span class="sig-desc">Pulso de 1 ciclo en estado FINISH. Indica que ambos kernels terminaron.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TAB: COBERTURA -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="panel" id="tab-cobertura">
+  <p class="section-title">Cobertura de píxeles — cuántas ventanas incluye cada posición</p>
+  <div class="grid2">
+    <div>
+      <div class="card cyan" style="margin-bottom:16px">
+        <h3>Mapa de cobertura (click para detalle)</h3>
+        <div class="heatmap" id="heatmap"></div>
+        <div style="margin-top:12px;display:flex;gap:16px;font-size:11px">
+          <span>Min: <strong style="color:#1a3a5c">1</strong></span>
+          <span>Max: <strong style="color:#00e5ff">25</strong></span>
+          <span>Total: <strong>900</strong> = 9×4×25</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card yellow" style="margin-bottom:16px">
+        <h3>Interpretación</h3>
+        <div class="kv"><span class="k">Esquinas (0,0)…</span><span class="v orange">1 ventana</span></div>
+        <div class="kv"><span class="k">Bordes laterales</span><span class="v">2–4 ventanas</span></div>
+        <div class="kv"><span class="k">Centro (4,4)–(5,5)</span><span class="v cyan">25 ventanas (máx)</span></div>
+        <div style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.7">
+          <strong style="color:var(--accent5)">Implicación para clasificación:</strong><br>
+          Los píxeles del centro tienen 25× más influencia que los de las esquinas. 
+          Un kernel que activa la región central pesará mucho más en el acc final 
+          que uno que activa solo las esquinas.<br><br>
+          <strong style="color:var(--accent2)">Para X vs Cruz:</strong> ambas formas tienen 
+          píxeles en el centro → ambas tienen alta cobertura → el contraste 
+          entre kernels debe ser suficientemente grande en la zona central.
+        </div>
+      </div>
+      <div class="card orange" id="coverage-detail">
+        <h3>Detalle de pixel</h3>
+        <div style="color:var(--muted);font-size:11px">Haz clic en un pixel del mapa</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Tab switching ─────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ── Coverage data ─────────────────────────────────────
+const coverage = [
+  [1,2,3,4,5,5,4,3,2,1],
+  [2,4,6,8,10,10,8,6,4,2],
+  [3,6,9,12,15,15,12,9,6,3],
+  [4,8,12,16,20,20,16,12,8,4],
+  [5,10,15,20,25,25,20,15,10,5],
+  [5,10,15,20,25,25,20,15,10,5],
+  [4,8,12,16,20,20,16,12,8,4],
+  [3,6,9,12,15,15,12,9,6,3],
+  [2,4,6,8,10,10,8,6,4,2],
+  [1,2,3,4,5,5,4,3,2,1]
+];
+
+// Build heatmap
+const hm = document.getElementById('heatmap');
+for (let r = 0; r < 10; r++) {
+  for (let c = 0; c < 10; c++) {
+    const v = coverage[r][c];
+    const t = v / 25;
+    const cell = document.createElement('div');
+    cell.className = 'hm-cell';
+    // color: dark blue → cyan
+    const R = Math.round(0 + t * 0);
+    const G = Math.round(100 + t * 129);
+    const B = Math.round(120 + t * 135);
+    cell.style.background = `rgb(${Math.round(t*20)},${Math.round(t*150)},${Math.round(80+t*175)})`;
+    cell.style.color = t > 0.5 ? '#000' : '#aaa';
+    cell.textContent = v;
+    cell.title = `(${r},${c}) → ${v} ventanas`;
+    cell.onclick = () => showCoverageDetail(r, c, v);
+    hm.appendChild(cell);
+  }
+}
+
+function showCoverageDetail(r, c, v) {
+  const fragOrigins = [[0,0],[0,2],[0,4],[2,0],[2,2],[2,4],[4,0],[4,2],[4,4]];
+  const winOrigins  = [[0,0],[0,1],[1,0],[1,1]];
+  let frags = [];
+  for (let f = 0; f < 9; f++) {
+    const [fr, fc] = fragOrigins[f];
+    if (r >= fr && r < fr+6 && c >= fc && c < fc+6) {
+      let wins = [];
+      for (let w = 0; w < 4; w++) {
+        const [wr, wc] = winOrigins[w];
+        const lr = r - fr - wr, lc = c - fc - wc;
+        if (lr >= 0 && lr < 5 && lc >= 0 && lc < 5)
+          wins.push(`win${w}[${lr},${lc}]`);
+      }
+      frags.push(`frag${f}(${fr},${fc}): ${wins.join(', ')}`);
+    }
+  }
+  const det = document.getElementById('coverage-detail');
+  det.innerHTML = `<h3>Pixel (${r}, ${c}) — ${v} ventanas</h3>` +
+    frags.map(f => `<div style="font-size:10px;color:var(--text);padding:3px 0;border-bottom:1px solid var(--dim)">${f}</div>`).join('');
+}
+
+// ── Fragment grid ─────────────────────────────────────
+const fragOrigins = [[0,0],[0,2],[0,4],[2,0],[2,2],[2,4],[4,0],[4,2],[4,4]];
+const fg = document.getElementById('frag-grid');
+fragOrigins.forEach(([r, c], i) => {
+  const cell = document.createElement('div');
+  cell.className = 'frag-cell';
+  cell.innerHTML = `<span class="fc-id">frag${i}</span><span class="fc-pos">(${r},${c})→(${r+5},${c+5})</span>`;
+  cell.onclick = () => showFragDetail(i, r, c);
+  fg.appendChild(cell);
+});
+
+function showFragDetail(i, r, c) {
+  const det = document.getElementById('frag-detail');
+  det.innerHTML = `
+    <h3>Fragmento ${i} — seleccionado</h3>
+    <div class="kv"><span class="k">Origen imagen</span><span class="v cyan">(${r}, ${c})</span></div>
+    <div class="kv"><span class="k">Región</span><span class="v">filas ${r}..${r+5}, cols ${c}..${c+5}</span></div>
+    <div class="kv"><span class="k">frag_sel</span><span class="v">${i}</span></div>
+    <div class="kv"><span class="k">Win0 origen img</span><span class="v">(${r},${c})</span></div>
+    <div class="kv"><span class="k">Win1 origen img</span><span class="v">(${r},${c+1})</span></div>
+    <div class="kv"><span class="k">Win2 origen img</span><span class="v">(${r+1},${c})</span></div>
+    <div class="kv"><span class="k">Win3 origen img</span><span class="v">(${r+1},${c+1})</span></div>
+  `;
+}
+
+// ── Tooltip ───────────────────────────────────────────
+const tt = document.getElementById('tooltip');
+document.addEventListener('mousemove', e => {
+  tt.style.left = (e.clientX + 14) + 'px';
+  tt.style.top  = (e.clientY + 14) + 'px';
+});
+</script>
+</body>
+</html>
