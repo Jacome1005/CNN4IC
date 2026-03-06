@@ -1,13 +1,13 @@
-Fitter Status : Successful - Fri Mar  6 01:00:17 2026
+Fitter Status : Successful - Fri Mar  6 15:15:17 2026
 Quartus Prime Version : 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
 Revision Name : CNNver3
 Top-level Entity Name : CNNver3
 Family : Cyclone V
 Device : 5CSEMA4U23C6
 Timing Models : Final
-Logic utilization (in ALMs) : 3,514 / 15,880 ( 22 % )
-Total registers : 1005
-Total pins : 7 / 314 ( 2 % )
+Logic utilization (in ALMs) : 3,509 / 15,880 ( 22 % )
+Total registers : 1004
+Total pins : 8 / 314 ( 3 % )
 Total virtual pins : 0
 Total block memory bits : 0 / 2,764,800 ( 0 % )
 Total RAM Blocks : 0 / 270 ( 0 % )

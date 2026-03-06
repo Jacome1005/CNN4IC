@@ -1,0 +1,33 @@
+// DESCRIPTION: Verilator output: Waivers generated with --waiver-output
+
+`verilator_config
+
+// Below are suggested waivers. You have three options:
+//   1. Fix the reason for the linter warning in the Verilog sources
+//   2. Keep the waiver permanently if you are sure it is okay
+//   3. Keep the waiver temporarily to suppress the output
+
+// lint_off -rule PINCONNECTEMPTY -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/CNNver2_top.v" -match "Instance pin connected by name with empty reference: 'o_done'*"
+
+// lint_off -rule PINCONNECTEMPTY -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/comm_mem_top.v" -match "Instance pin connected by name with empty reference: 'o_mp_data'*"
+
+// lint_off -rule PINCONNECTEMPTY -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/comm_mem_top.v" -match "Instance pin connected by name with empty reference: 'o_mp_load'*"
+
+// lint_off -rule WIDTHEXPAND -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v" -match "Operator SUB expects 32 bits on the RHS, but RHS's CONST '7'h1' generates 7 bits.*"
+
+// lint_off -rule WIDTHTRUNC -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v" -match "Operator VAR 'LAST_BIT' expects 7 bits on the Initial value, but Initial value's SUB generates 32 bits.*"
+
+// lint_off -rule WIDTHEXPAND -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v" -match "Operator SUB expects 32 bits on the RHS, but RHS's CONST '7'h1' generates 7 bits.*"
+
+// lint_off -rule WIDTHTRUNC -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v" -match "Operator VAR 'LAST_BIT' expects 7 bits on the Initial value, but Initial value's SUB generates 32 bits.*"
+
+// lint_off -rule UNUSEDPARAM -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v" -match "Parameter is not used: 'DATAWIDTH_BUS'*"
+
+// lint_off -rule UNUSEDSIGNAL -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v" -match "Bits of signal are not used: 'image_shift'[29]*"
+
+// lint_off -rule UNUSEDSIGNAL -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v" -match "Bits of signal are not used: 'weight_shift'[14]*"
+
+// lint_off -rule UNUSEDSIGNAL -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v" -match "Bits of signal are not used: 'flat_idx'[31:9]*"
+
+// lint_off -rule SYNCASYNCNET -file "*/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/CNNver2_top.v" -match "Signal flopped as both synchronous and async: 'CNNver2_Reset_InHigh'*"
+

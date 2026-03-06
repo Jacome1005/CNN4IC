@@ -3,39 +3,39 @@ Timing Analyzer Summary
 ------------------------------------------------------------
 
 Type  : Slow 1100mV 85C Model Setup 'clk_50'
-Slack : -71.597
-TNS   : -1288.746
+Slack : -70.531
+TNS   : -1410.606
 
 Type  : Slow 1100mV 85C Model Hold 'clk_50'
-Slack : 0.297
+Slack : 0.313
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Recovery 'clk_50'
-Slack : 15.840
+Slack : 16.746
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Removal 'clk_50'
-Slack : 0.884
+Slack : 0.595
 TNS   : 0.000
 
 Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clk_50'
-Slack : 9.180
+Slack : 9.186
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Setup 'clk_50'
-Slack : -71.699
-TNS   : -1290.550
+Slack : -70.652
+TNS   : -1413.020
 
 Type  : Slow 1100mV 0C Model Hold 'clk_50'
-Slack : 0.162
+Slack : 0.220
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Recovery 'clk_50'
-Slack : 16.027
+Slack : 16.820
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Removal 'clk_50'
-Slack : 0.831
+Slack : 0.551
 TNS   : 0.000
 
 Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clk_50'
@@ -43,39 +43,39 @@ Slack : 9.257
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Setup 'clk_50'
-Slack : -32.234
-TNS   : -580.204
+Slack : -31.359
+TNS   : -627.172
 
 Type  : Fast 1100mV 85C Model Hold 'clk_50'
 Slack : 0.181
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Recovery 'clk_50'
-Slack : 17.114
+Slack : 17.891
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Removal 'clk_50'
-Slack : 0.508
+Slack : 0.316
 TNS   : 0.000
 
 Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clk_50'
-Slack : 9.073
+Slack : 9.074
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Setup 'clk_50'
-Slack : -28.331
-TNS   : -509.958
+Slack : -27.573
+TNS   : -551.446
 
 Type  : Fast 1100mV 0C Model Hold 'clk_50'
-Slack : 0.131
+Slack : 0.147
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Recovery 'clk_50'
-Slack : 17.468
+Slack : 18.104
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Removal 'clk_50'
-Slack : 0.460
+Slack : 0.284
 TNS   : 0.000
 
 Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clk_50'

@@ -1,30 +1,10 @@
-BEGIN 1:CNNver3:fast:work
-    CNN_CTRL_mr2_load_cwire :  1:TB_CNNver3:fast:work
-    CNN_CTRL_mr1_load_cwire :  1:TB_CNNver3:fast:work
-    MR1_out_cwire :  1:TB_CNNver3:fast:work
-    comp_result_cwire :  1:TB_CNNver3:fast:work
-    MR2_out_cwire :  1:TB_CNNver3:fast:work
-    SPI_2_CNN_Start_cwire :  1:TB_CNNver3:fast:work
-END 
-BEGIN 1:cnn_top:fast:work
-    done :  1:TB_CNNver3:fast:work
-    frag_sel :  1:TB_CNNver3:fast:work
-    acc :  1:TB_CNNver3:fast:work
-END 
-BEGIN 1:Register_Imag:fast:work
-    Register_Imag_DataOutBUS :  1:TB_CNNver3:fast:work
-END 
 BEGIN 1:SC_STATEMACHINE_CNN_CTRL:fast:work
     state :  1:TB_CNNver3:fast:work
-    o_acc1 :  1:TB_CNNver3:fast:work
-    o_acc0 :  1:TB_CNNver3:fast:work
 END 
-BEGIN 1:spi_cnn_slave_8:fast:work
-    row :  1:TB_CNNver3:fast:work
-    weight_mem :  1:TB_CNNver3:fast:work
-    bit_count :  1:TB_CNNver3:fast:work
-    image_mem :  1:TB_CNNver3:fast:work
+BEGIN 1:CNNver3:fast:work
+    acc0 :  1:TB_CNNver3:fast:work
+    acc1 :  1:TB_CNNver3:fast:work
 END 
-BEGIN 1:Register_Weight:fast:work
-    Register_Weight_DataOutBUS :  1:TB_CNNver3:fast:work
+BEGIN 1:cnn_proc_top:fast:work
+    o_done :  1:TB_CNNver3:fast:work
 END 

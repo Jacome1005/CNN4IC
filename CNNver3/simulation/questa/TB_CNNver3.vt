@@ -1,0 +1,423 @@
+//=======================================================
+//  TB_CNNver3 — Testbench de robustez HW
+//=======================================================
+//  Todos los golden outputs calculados analíticamente
+//  en Python (sign extension 3-bit, mac, maxpool, acc).
+//
+//  Encodificación de datos:
+//    Pixel/peso = 3 bits signed (rango -4..3)
+//      valor +1 = 3'b001   valor +2 = 3'b010   valor +3 = 3'b011
+//      valor -1 = 3'b111   valor -4 = 3'b100   valor  0 = 3'b000
+//    Fila imagen 30b: {pix9[2:0],...,pix0[2:0]}  (pix0 en LSBs)
+//    Fila kernel 15b: {w4[2:0],...,w0[2:0]}
+//
+//  Tests:
+//    T01 — Baseline (del TB anterior): img=1s, ker0=1s→225, ker1=ctr→9, comp=1
+//    T02 — Baseline inverso: ker0=ctr→9, ker1=1s→225, comp=0
+//    T03 — Imagen = todo 2s, kernels iguales → comp=0 (450==450, no >)
+//    T04 — Checkerboard (0,1 alternado): acc=117 vs 9, comp=1
+//    T05 — Solo fila 0 activa: acc=15 vs 0, comp=1
+//    T06 — Valores negativos img=-1, ker=+1 → acc=0xFF1F (-225 signed)
+//           comp=0 porque acc0=-225 < acc1=+225
+//    T07 — Imagen en cuadrantes: TL=2, BR=1, resto=0
+//           acc(ker_ones)=213  acc(ker_ctr)=11  comp=1
+//    T08 — Píxel único en (0,0)=3: acc(ker_ones)=3, acc(ker_ctr)=0, comp=1
+//    T09 — CMD Reset a mitad de transacción SPI → sistema sigue operativo
+//    T10 — Reset global a mitad de CNN → recuperación correcta
+//    T11 — Tres clasificaciones consecutivas sin reset → alternancia comp 1,0,1
+//=======================================================
+`timescale 1ns/1ps
+
+module TB_CNNver3;
+
+    wire        MISO;
+    reg         SPI_CLK;
+    reg         SS_N;
+    reg         MOSI;
+    reg         RESET;
+    reg         CMD_RESET;
+    wire        MR1_Load;
+    wire        MR2_Load;
+
+    CNNver3 dut (
+        .CNNver3_MISO         (MISO),
+        .CNNver3_SPICLOCK_50  (SPI_CLK),
+        .CNNver3_SS_N         (SS_N),
+        .CNNver3_MOSI         (MOSI),
+        .CNNver3_Reset_InHigh (RESET),
+        .CNNver3_CMD_Reset    (CMD_RESET),
+        .CNNver3_MR1_Load     (MR1_Load),
+        .CNNver3_MR2_Load     (MR2_Load)
+    );
+
+    parameter CLK_HALF = 10;
+    integer pass_count, fail_count;
+
+    wire [15:0] w_acc0  = dut.acc0;
+    wire [15:0] w_acc1  = dut.acc1;
+    wire        w_done  = dut.proc_u0.o_done;
+    wire [3:0]  w_state = dut.proc_u0.cnn_ctrl_u0.state;
+
+    // ═══════════════════════════════════════════════════
+    // Encodings de filas y kernels
+    // ═══════════════════════════════════════════════════
+
+    // Imagen todo +1s  (3'b001 × 10 = 30'h09249249)
+    localparam [29:0] ROW_ONES     = 30'h09249249;
+    // Imagen todo +2s  (3'b010 × 10 = 30'h12492492)
+    localparam [29:0] ROW_TWOS     = 30'h12492492;
+    // Imagen todo 0s
+    localparam [29:0] ROW_ZEROS    = 30'h00000000;
+    // Imagen todo -1s  (3'b111 × 10 = 30'h3FFFFFFF)
+    localparam [29:0] ROW_NEGS     = 30'h3FFFFFFF;
+    // Checkerboard fila par   (0,1,0,1,0,1,0,1,0,1) = 30'h08208208
+    localparam [29:0] ROW_CHK_EVEN = 30'h08208208;
+    // Checkerboard fila impar (1,0,1,0,1,0,1,0,1,0) = 30'h01041041
+    localparam [29:0] ROW_CHK_ODD  = 30'h01041041;
+    // Cuadrante top (cols 0-4 = 2, cols 5-9 = 0) = 30'h00002492
+    localparam [29:0] ROW_QUAD_TOP = 30'h00002492;
+    // Cuadrante bot (cols 0-4 = 0, cols 5-9 = 1) = 30'h09248000
+    localparam [29:0] ROW_QUAD_BOT = 30'h09248000;
+
+    // Kernel todo +1s (3'b001 × 5 = 15'h1249)
+    localparam [14:0] KW_ONES  = 15'h1249;
+    // Kernel todo -1s (3'b111 × 5 = 15'h7FFF)
+    localparam [14:0] KW_NEGS  = 15'h7FFF;
+    // Kernel todo 0s
+    localparam [14:0] KW_ZEROS = 15'h0000;
+    // Kernel solo centro [2][2]=1 → fila2=15'h0040, resto=0
+    localparam [14:0] KW_CTR   = 15'h0040;
+
+    // ═══════════════════════════════════════════════════
+    // Check task
+    // ═══════════════════════════════════════════════════
+    task check;
+        input [255:0] name;
+        input [31:0]  got;
+        input [31:0]  expected;
+        begin
+            if (got === expected) begin
+                $display("    PASS  %0s = 0x%0h", name, got);
+                pass_count = pass_count + 1;
+            end else begin
+                $display("    FAIL  %0s : got=0x%0h (%0d)  expected=0x%0h (%0d)",
+                    name, got, $signed(got[15:0]), expected, $signed(expected[15:0]));
+                fail_count = fail_count + 1;
+            end
+        end
+    endtask
+
+    // ═══════════════════════════════════════════════════
+    // Main
+    // ═══════════════════════════════════════════════════
+    initial begin
+        SPI_CLK=0; SS_N=1; MOSI=0; RESET=1; CMD_RESET=0;
+        pass_count=0; fail_count=0;
+        repeat(6) spi_clk_pulse();
+        RESET=0; #(CLK_HALF*4);
+
+        $display("=========================================");
+        $display(" TB_CNNver3 — Robustez HW");
+        $display("=========================================");
+
+        // ── T01: Baseline comp=1 ──────────────────────
+        $display("\n--- T01: Baseline img=1s | ker0=1s→225 | ker1=ctr→9 | comp=1 ---");
+        run_classify(
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        verify_results("T01", 16'h00E1, 16'h0009, 1'b1);
+
+        // ── T02: Baseline comp=0 ──────────────────────
+        $display("\n--- T02: Baseline img=1s | ker0=ctr→9 | ker1=1s→225 | comp=0 ---");
+        run_classify(
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES
+        );
+        verify_results("T02", 16'h0009, 16'h00E1, 1'b0);
+
+        // ── T03: acc0 == acc1, comp=0 ─────────────────
+        $display("\n--- T03: img=2s, ker0=ker1=1s | acc0=acc1=450 | comp=0 ---");
+        run_classify(
+            ROW_TWOS,ROW_TWOS,ROW_TWOS,ROW_TWOS,ROW_TWOS,
+            ROW_TWOS,ROW_TWOS,ROW_TWOS,ROW_TWOS,ROW_TWOS,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES
+        );
+        verify_results("T03", 16'h01C2, 16'h01C2, 1'b0);
+
+        // ── T04: Checkerboard ─────────────────────────
+        // acc(checker,ker_ones)=117, acc(checker,ker_ctr)=9, comp=1
+        $display("\n--- T04: Checkerboard | acc0=117 | acc1=9 | comp=1 ---");
+        run_classify(
+            ROW_CHK_EVEN,ROW_CHK_ODD, ROW_CHK_EVEN,ROW_CHK_ODD, ROW_CHK_EVEN,
+            ROW_CHK_ODD, ROW_CHK_EVEN,ROW_CHK_ODD, ROW_CHK_EVEN,ROW_CHK_ODD,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        verify_results("T04", 16'h0075, 16'h0009, 1'b1);
+
+        // ── T05: Solo fila 0 activa ───────────────────
+        // acc(ker_ones)=15, acc(ker_ctr)=0, comp=1
+        $display("\n--- T05: Solo fila0=1s, resto=0 | acc0=15 | acc1=0 | comp=1 ---");
+        run_classify(
+            ROW_ONES, ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,
+            ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        verify_results("T05", 16'h000F, 16'h0000, 1'b1);
+
+        // ── T06: Valores negativos ────────────────────
+        $display("\n--- T06: img=-1s | ker0=+1→-225 | ker1=-1→+225 | comp=0 ---");
+        run_classify(
+            ROW_NEGS,ROW_NEGS,ROW_NEGS,ROW_NEGS,ROW_NEGS,
+            ROW_NEGS,ROW_NEGS,ROW_NEGS,ROW_NEGS,ROW_NEGS,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_NEGS,KW_NEGS,KW_NEGS,KW_NEGS,KW_NEGS
+        );
+        verify_results("T06", 16'hFF1F, 16'h00E1, 1'b0);
+
+        // ── T07: Imagen en cuadrantes ─────────────────
+        $display("\n--- T07: Cuadrantes TL=2 BR=1 | acc0=213 | acc1=11 | comp=1 ---");
+        run_classify(
+            ROW_QUAD_TOP,ROW_QUAD_TOP,ROW_QUAD_TOP,ROW_QUAD_TOP,ROW_QUAD_TOP,
+            ROW_QUAD_BOT,ROW_QUAD_BOT,ROW_QUAD_BOT,ROW_QUAD_BOT,ROW_QUAD_BOT,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        verify_results("T07", 16'h00D5, 16'h000B, 1'b1);
+
+        // ── T08: Píxel aislado en (0,0)=+3 ──────────
+        $display("\n--- T08: Pixel(0,0)=3, resto=0 | acc0=3 | acc1=0 | comp=1 ---");
+        begin : t08_img
+            reg [29:0] row0_single;
+            row0_single = 30'h00000003;
+            run_classify(
+                row0_single, ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,
+                ROW_ZEROS,  ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,ROW_ZEROS,
+                KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+                KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+            );
+        end
+        verify_results("T08", 16'h0003, 16'h0000, 1'b1);
+
+        // ── T09: CMD Reset a mitad de transacción SPI ─
+        $display("\n--- T09: CMD Reset durante transaccion SPI ---");
+        SS_N=0; MOSI=0; #1;
+        spi_send_bits(2, 2'b01);      // CMD incompleto (solo 2 bits)
+        CMD_RESET=1; #(CLK_HALF*2); CMD_RESET=0;
+        SS_N=1; #(CLK_HALF*4);
+        // Clasificar normalmente — debe funcionar igual que T01
+        run_classify(
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        verify_results("T09", 16'h00E1, 16'h0009, 1'b1);
+
+        // ── T10: Reset global durante CNN ─────────────
+        $display("\n--- T10: Reset global durante CNN, recuperacion ---");
+        spi_load_image(ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+                       ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES);
+        spi_load_weights(KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES);
+        spi_start_cnn();
+        #(CLK_HALF*30);
+        RESET=1; repeat(6) spi_clk_pulse(); RESET=0; #(CLK_HALF*4);
+        run_classify(
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        verify_results("T10", 16'h00E1, 16'h0009, 1'b1);
+
+        // ── T11: Tres clasificaciones consecutivas ─────
+        $display("\n--- T11: Tres clasificaciones consecutivas, comp=1,0,1 ---");
+        // Clasificación 1: comp=1
+        run_classify(
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        begin : t11a
+            reg comp; spi_read_1bit(3'b100, comp);
+            $display("    [1ra] comp=%0b", comp);
+            check("T11a comp=1", comp, 1'b1);
+        end
+        // Clasificación 2: comp=0
+        run_classify(
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES
+        );
+        begin : t11b
+            reg comp; spi_read_1bit(3'b100, comp);
+            $display("    [2da] comp=%0b", comp);
+            check("T11b comp=0", comp, 1'b0);
+        end
+        // Clasificación 3: comp=1 (igual a la 1ra)
+        run_classify(
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,ROW_ONES,
+            KW_ONES,KW_ONES,KW_ONES,KW_ONES,KW_ONES,
+            KW_ZEROS,KW_ZEROS,KW_CTR,KW_ZEROS,KW_ZEROS
+        );
+        begin : t11c
+            reg comp; spi_read_1bit(3'b100, comp);
+            $display("    [3ra] comp=%0b", comp);
+            check("T11c comp=1", comp, 1'b1);
+        end
+
+        // ── Resumen ───────────────────────────────────
+        $display("\n=========================================");
+        $display(" RESULTADOS: %0d PASS / %0d FAIL", pass_count, fail_count);
+        if (fail_count == 0) $display(" *** TODOS LOS TESTS PASARON ***");
+        $display("=========================================\n");
+        $finish;
+    end
+
+    // ═════════════════════════════════════════════════
+    // Task: run_classify — imagen + 2 kernels → done
+    // ═════════════════════════════════════════════════
+    task run_classify;
+        input [29:0] r0,r1,r2,r3,r4,r5,r6,r7,r8,r9;
+        input [14:0] k0w0,k0w1,k0w2,k0w3,k0w4;
+        input [14:0] k1w0,k1w1,k1w2,k1w3,k1w4;
+        begin
+            spi_load_image(r0,r1,r2,r3,r4,r5,r6,r7,r8,r9);
+            spi_load_weights(k0w0,k0w1,k0w2,k0w3,k0w4);
+            spi_start_cnn();
+            wait_done();
+            spi_load_weights(k1w0,k1w1,k1w2,k1w3,k1w4);
+            spi_start_cnn();
+            wait_done();
+        end
+    endtask
+
+    // ═════════════════════════════════════════════════
+    // Task: verify_results — lee MR1, MR2, comp por SPI
+    // ═════════════════════════════════════════════════
+    task verify_results;
+        input [255:0] tag;
+        input [15:0]  exp_acc0, exp_acc1;
+        input         exp_comp;
+        reg [15:0] mr1, mr2;
+        reg        comp;
+        begin
+            spi_read_16(3'b101, mr1);
+            spi_read_16(3'b110, mr2);
+            spi_read_1bit(3'b100, comp);
+            $display("  acc0=%0d acc1=%0d comp=%0b",
+                     $signed(mr1), $signed(mr2), comp);
+            check({tag, " acc0"}, mr1,  exp_acc0);
+            check({tag, " acc1"}, mr2,  exp_acc1);
+            check({tag, " comp"}, comp, exp_comp);
+        end
+    endtask
+
+    // ═════════════════════════════════════════════════
+    // Task: wait_done — corre clock hasta o_done
+    // ═════════════════════════════════════════════════
+    task wait_done;
+        integer timeout;
+        begin
+            timeout = 0;
+            while (!w_done && timeout < 15000) begin
+                spi_clk_pulse();
+                timeout = timeout + 1;
+            end
+            if (timeout >= 15000)
+                $display("    TIMEOUT esperando done!");
+            else
+                repeat(4) spi_clk_pulse();
+        end
+    endtask
+
+    // ═════════════════════════════════════════════════
+    // Tasks SPI
+    // ═════════════════════════════════════════════════
+
+    task spi_clk_pulse;
+        begin #CLK_HALF; SPI_CLK=1; #CLK_HALF; SPI_CLK=0; end
+    endtask
+
+    task spi_send_bits;
+        input integer n; input [31:0] data; integer k;
+        begin
+            for (k=n-1; k>=0; k=k-1) begin MOSI=data[k]; spi_clk_pulse(); end
+        end
+    endtask
+
+    task spi_load_image;
+        input [29:0] r0,r1,r2,r3,r4,r5,r6,r7,r8,r9;
+        integer f; reg [29:0] rows[0:9];
+        begin
+            rows[0]=r0;rows[1]=r1;rows[2]=r2;rows[3]=r3;rows[4]=r4;
+            rows[5]=r5;rows[6]=r6;rows[7]=r7;rows[8]=r8;rows[9]=r9;
+            SS_N=0; MOSI=0; #1;
+            spi_send_bits(3, 3'b001);
+            for (f=0; f<9; f=f+1) spi_send_bits(30, {2'b0, rows[f]});
+            spi_send_bits(30, {2'b0, rows[9]});
+            MOSI=0; spi_clk_pulse();
+            SS_N=1; #(CLK_HALF*4);
+        end
+    endtask
+
+    task spi_load_weights;
+        input [14:0] w0,w1,w2,w3,w4;
+        integer f; reg [14:0] wts[0:4];
+        begin
+            wts[0]=w0;wts[1]=w1;wts[2]=w2;wts[3]=w3;wts[4]=w4;
+            SS_N=0; MOSI=0; #1;
+            spi_send_bits(3, 3'b010);
+            for (f=0; f<4; f=f+1) spi_send_bits(15, {17'b0, wts[f]});
+            spi_send_bits(15, {17'b0, wts[4]});
+            MOSI=0; spi_clk_pulse();
+            SS_N=1; #(CLK_HALF*4);
+        end
+    endtask
+
+    task spi_start_cnn;
+        begin
+            SS_N=0; MOSI=0; #1;
+            spi_send_bits(3, 3'b011);
+            MOSI=0; spi_clk_pulse();
+            SS_N=1; #(CLK_HALF*2);
+        end
+    endtask
+
+    task spi_read_16;
+        input [2:0] cmd_bits; output [15:0] rx_data; integer k;
+        begin
+            rx_data=0; SS_N=0; MOSI=0; #1;
+            spi_send_bits(3, {29'b0, cmd_bits});
+            for (k=15; k>=0; k=k-1) begin
+                rx_data[k]=MISO;
+                #CLK_HALF; SPI_CLK=1; #CLK_HALF; SPI_CLK=0;
+            end
+            SS_N=1; #(CLK_HALF*2);
+        end
+    endtask
+
+    task spi_read_1bit;
+        input [2:0] cmd_bits; output rx_bit;
+        begin
+            SS_N=0; MOSI=0; #1;
+            spi_send_bits(3, cmd_bits);
+            rx_bit=MISO;
+            #CLK_HALF; SPI_CLK=1; #CLK_HALF; SPI_CLK=0;
+            SS_N=1; #(CLK_HALF*2);
+        end
+    endtask
+
+    initial begin #200_000_000; $display("TIMEOUT GLOBAL"); $finish; end
+
+endmodule

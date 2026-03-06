@@ -1,0 +1,14 @@
+%Warning-PINCONNECTEMPTY: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/CNNver2_top.v:140:10: Instance pin connected by name with empty reference: 'o_done'
+  140 |         .o_done()
+      |          ^~~~~~
+                          ... For warning description see https://verilator.org/warn/PINCONNECTEMPTY?v=5.042
+                          ... Use "/* verilator lint_off PINCONNECTEMPTY */" and lint_on around source to disable this message.
+%Warning-PINCONNECTEMPTY: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/comm_mem_top.v:124:10: Instance pin connected by name with empty reference: 'o_mp_data'
+  124 |         .o_mp_data(), .o_mp_load()
+      |          ^~~~~~~~~
+%Warning-PINCONNECTEMPTY: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/comm_mem_top.v:124:24: Instance pin connected by name with empty reference: 'o_mp_load'
+  124 |         .o_mp_data(), .o_mp_load()
+      |                        ^~~~~~~~~
+%Error: Specified --top-module 'CNNver2_top' was not found in design.
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.042 for more assistance.
+%Error: Exiting due to 1 error(s)

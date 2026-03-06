@@ -1,0 +1,869 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.60 (git sha1 5bafeb77dc71e054fa331ab9efa613e6fb0a1c49, clang++ 21.1.2 -fPIC -O3)
+
+1. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/tmp/7171e5fa309b47eb9e7a44168ab8289c.bb.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/tmp/7171e5fa309b47eb9e7a44168ab8289c.bb.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/tmp/7171e5fa309b47eb9e7a44168ab8289c.bb.v
+Generating RTLIL representation for module `\sg13g2_a21o_1'.
+Generating RTLIL representation for module `\sg13g2_a21o_2'.
+Generating RTLIL representation for module `\sg13g2_a21oi_1'.
+Generating RTLIL representation for module `\sg13g2_a21oi_2'.
+Generating RTLIL representation for module `\sg13g2_a221oi_1'.
+Generating RTLIL representation for module `\sg13g2_a22oi_1'.
+Generating RTLIL representation for module `\sg13g2_and2_1'.
+Generating RTLIL representation for module `\sg13g2_and2_2'.
+Generating RTLIL representation for module `\sg13g2_and3_1'.
+Generating RTLIL representation for module `\sg13g2_and3_2'.
+Generating RTLIL representation for module `\sg13g2_and4_1'.
+Generating RTLIL representation for module `\sg13g2_and4_2'.
+Generating RTLIL representation for module `\sg13g2_antennanp'.
+Generating RTLIL representation for module `\sg13g2_buf_1'.
+Generating RTLIL representation for module `\sg13g2_buf_16'.
+Generating RTLIL representation for module `\sg13g2_buf_2'.
+Generating RTLIL representation for module `\sg13g2_buf_4'.
+Generating RTLIL representation for module `\sg13g2_buf_8'.
+Generating RTLIL representation for module `\sg13g2_decap_4'.
+Generating RTLIL representation for module `\sg13g2_decap_8'.
+Generating RTLIL representation for module `\sg13g2_dfrbp_1'.
+Generating RTLIL representation for module `\sg13g2_dfrbp_2'.
+Generating RTLIL representation for module `\sg13g2_dfrbpq_1'.
+Generating RTLIL representation for module `\sg13g2_dfrbpq_2'.
+Generating RTLIL representation for module `\sg13g2_dlhq_1'.
+Generating RTLIL representation for module `\sg13g2_dlhr_1'.
+Generating RTLIL representation for module `\sg13g2_dlhrq_1'.
+Generating RTLIL representation for module `\sg13g2_dllr_1'.
+Generating RTLIL representation for module `\sg13g2_dllrq_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd1_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd2_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd3_1'.
+Generating RTLIL representation for module `\sg13g2_ebufn_2'.
+Generating RTLIL representation for module `\sg13g2_ebufn_4'.
+Generating RTLIL representation for module `\sg13g2_ebufn_8'.
+Generating RTLIL representation for module `\sg13g2_einvn_2'.
+Generating RTLIL representation for module `\sg13g2_einvn_4'.
+Generating RTLIL representation for module `\sg13g2_einvn_8'.
+Generating RTLIL representation for module `\sg13g2_fill_1'.
+Generating RTLIL representation for module `\sg13g2_fill_2'.
+Generating RTLIL representation for module `\sg13g2_fill_4'.
+Generating RTLIL representation for module `\sg13g2_fill_8'.
+Generating RTLIL representation for module `\sg13g2_inv_1'.
+Generating RTLIL representation for module `\sg13g2_inv_16'.
+Generating RTLIL representation for module `\sg13g2_inv_2'.
+Generating RTLIL representation for module `\sg13g2_inv_4'.
+Generating RTLIL representation for module `\sg13g2_inv_8'.
+Generating RTLIL representation for module `\sg13g2_lgcp_1'.
+Generating RTLIL representation for module `\sg13g2_mux2_1'.
+Generating RTLIL representation for module `\sg13g2_mux2_2'.
+Generating RTLIL representation for module `\sg13g2_mux4_1'.
+Generating RTLIL representation for module `\sg13g2_nand2_1'.
+Generating RTLIL representation for module `\sg13g2_nand2_2'.
+Generating RTLIL representation for module `\sg13g2_nand2b_1'.
+Generating RTLIL representation for module `\sg13g2_nand2b_2'.
+Generating RTLIL representation for module `\sg13g2_nand3_1'.
+Generating RTLIL representation for module `\sg13g2_nand3b_1'.
+Generating RTLIL representation for module `\sg13g2_nand4_1'.
+Generating RTLIL representation for module `\sg13g2_nor2_1'.
+Generating RTLIL representation for module `\sg13g2_nor2_2'.
+Generating RTLIL representation for module `\sg13g2_nor2b_1'.
+Generating RTLIL representation for module `\sg13g2_nor2b_2'.
+Generating RTLIL representation for module `\sg13g2_nor3_1'.
+Generating RTLIL representation for module `\sg13g2_nor3_2'.
+Generating RTLIL representation for module `\sg13g2_nor4_1'.
+Generating RTLIL representation for module `\sg13g2_nor4_2'.
+Generating RTLIL representation for module `\sg13g2_o21ai_1'.
+Generating RTLIL representation for module `\sg13g2_or2_1'.
+Generating RTLIL representation for module `\sg13g2_or2_2'.
+Generating RTLIL representation for module `\sg13g2_or3_1'.
+Generating RTLIL representation for module `\sg13g2_or3_2'.
+Generating RTLIL representation for module `\sg13g2_or4_1'.
+Generating RTLIL representation for module `\sg13g2_or4_2'.
+Generating RTLIL representation for module `\sg13g2_sdfbbp_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbp_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbp_2'.
+Generating RTLIL representation for module `\sg13g2_sdfrbpq_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbpq_2'.
+Generating RTLIL representation for module `\sg13g2_sighold'.
+Generating RTLIL representation for module `\sg13g2_slgcp_1'.
+Generating RTLIL representation for module `\sg13g2_tiehi'.
+Generating RTLIL representation for module `\sg13g2_tielo'.
+Generating RTLIL representation for module `\sg13g2_xnor2_1'.
+Generating RTLIL representation for module `\sg13g2_xor2_1'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/tmp/67ec656bd7754c8ab435e6554efd31f4.bb.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/tmp/67ec656bd7754c8ab435e6554efd31f4.bb.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/tmp/67ec656bd7754c8ab435e6554efd31f4.bb.v
+Generating RTLIL representation for module `\sg13g2_Corner'.
+Generating RTLIL representation for module `\sg13g2_Filler1000'.
+Generating RTLIL representation for module `\sg13g2_Filler10000'.
+Generating RTLIL representation for module `\sg13g2_Filler200'.
+Generating RTLIL representation for module `\sg13g2_Filler2000'.
+Generating RTLIL representation for module `\sg13g2_Filler400'.
+Generating RTLIL representation for module `\sg13g2_Filler4000'.
+Generating RTLIL representation for module `\sg13g2_IOPadAnalog'.
+Generating RTLIL representation for module `\sg13g2_IOPadIOVdd'.
+Generating RTLIL representation for module `\sg13g2_IOPadIOVss'.
+Generating RTLIL representation for module `\sg13g2_IOPadIn'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadVdd'.
+Generating RTLIL representation for module `\sg13g2_IOPadVss'.
+Successfully finished Verilog frontend.
+wtaf
+
+3. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/CNNver2_top.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/CNNver2_top.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/CNNver2_top.v
+Storing AST representation for module `$abstract\CNNver2'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/comm_mem_top.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/comm_mem_top.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/comm_mem_top.v
+Storing AST representation for module `$abstract\comm_mem_top'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v
+/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:138: Warning: Yosys has only limited support for tri-state logic at the moment.
+Storing AST representation for module `$abstract\spi_cnn_slave_8'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v
+Storing AST representation for module `$abstract\SC_STATEMACHINE_IMAGE_LOADER'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v
+Storing AST representation for module `$abstract\SC_STATEMACHINE_WEIGHT_LOADER'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v
+Storing AST representation for module `$abstract\Register_Imag'.
+Successfully finished Verilog frontend.
+
+9. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v
+Storing AST representation for module `$abstract\Register_Weight'.
+Successfully finished Verilog frontend.
+
+10. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v
+Storing AST representation for module `$abstract\Master_register'.
+Successfully finished Verilog frontend.
+
+11. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_proc_top.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_proc_top.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_proc_top.v
+Storing AST representation for module `$abstract\cnn_proc_top'.
+Successfully finished Verilog frontend.
+
+12. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v
+Storing AST representation for module `$abstract\SC_STATEMACHINE_CNN_CTRL'.
+Successfully finished Verilog frontend.
+
+13. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v
+Storing AST representation for module `$abstract\cnn_top'.
+Successfully finished Verilog frontend.
+
+14. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v
+Storing AST representation for module `$abstract\fragment_mux_10x10_6x6'.
+Successfully finished Verilog frontend.
+
+15. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v
+Storing AST representation for module `$abstract\mux_cnn'.
+Successfully finished Verilog frontend.
+
+16. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v
+Storing AST representation for module `$abstract\window_mux_6x6_5x5'.
+Successfully finished Verilog frontend.
+
+17. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mac_parallel.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mac_parallel.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mac_parallel.v
+Storing AST representation for module `$abstract\mac_parallel'.
+Successfully finished Verilog frontend.
+
+18. Executing Verilog-2005 frontend: /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v
+Parsing SystemVerilog input from `/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v' to AST representation.
+verilog frontend filename /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v
+Storing AST representation for module `$abstract\progressive_maxpool'.
+Successfully finished Verilog frontend.
+
+19. Executing HIERARCHY pass (managing design hierarchy).
+
+20. Executing AST frontend in derive mode using pre-parsed AST for module `\CNNver2'.
+Generating RTLIL representation for module `\CNNver2'.
+
+20.1. Analyzing design hierarchy..
+Top module:  \CNNver2
+
+20.2. Executing AST frontend in derive mode using pre-parsed AST for module `\cnn_proc_top'.
+Generating RTLIL representation for module `\cnn_proc_top'.
+Parameter \DATAWIDTH_BUS = 8
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+
+20.3. Executing AST frontend in derive mode using pre-parsed AST for module `\comm_mem_top'.
+Parameter \DATAWIDTH_BUS = 8
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+Generating RTLIL representation for module `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top'.
+
+20.4. Analyzing design hierarchy..
+Top module:  \CNNver2
+Used module:     \cnn_proc_top
+Used module:     $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top
+
+20.5. Executing AST frontend in derive mode using pre-parsed AST for module `\SC_STATEMACHINE_CNN_CTRL'.
+Generating RTLIL representation for module `\SC_STATEMACHINE_CNN_CTRL'.
+Parameter \DATAWIDTH_BUS = 16
+
+20.6. Executing AST frontend in derive mode using pre-parsed AST for module `\Master_register'.
+Parameter \DATAWIDTH_BUS = 16
+Generating RTLIL representation for module `$paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000'.
+Parameter \DATAWIDTH_BUS = 16
+Found cached RTLIL representation for module `$paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000'.
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+
+20.7. Executing AST frontend in derive mode using pre-parsed AST for module `\Register_Weight'.
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+Generating RTLIL representation for module `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight'.
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight'.
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight'.
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight'.
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+
+20.8. Executing AST frontend in derive mode using pre-parsed AST for module `\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Generating RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \BITS_PER_POS = 3
+Found cached RTLIL representation for module `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag'.
+Parameter \DATAWIDTH_BUS = 8
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+
+20.9. Executing AST frontend in derive mode using pre-parsed AST for module `\spi_cnn_slave_8'.
+Parameter \DATAWIDTH_BUS = 8
+Parameter \DATAWIDTH_BUS_IMAGE = 10
+Parameter \DATAWIDTH_BUS_WEIGHT = 5
+Parameter \BITS_PER_POS = 3
+Generating RTLIL representation for module `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8'.
+Warning: Replacing memory \weight_mem with list of registers. See /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231
+Warning: Replacing memory \image_mem with list of registers. See /home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221
+
+20.10. Analyzing design hierarchy..
+Top module:  \CNNver2
+Used module:     \cnn_proc_top
+Used module:         \SC_STATEMACHINE_CNN_CTRL
+Used module:     $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top
+Used module:         $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000
+Used module:         $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight
+Used module:         $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag
+Used module:         $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8
+
+20.11. Executing AST frontend in derive mode using pre-parsed AST for module `\cnn_top'.
+Generating RTLIL representation for module `\cnn_top'.
+Parameter \ROW_BITS = 15
+
+20.12. Executing AST frontend in derive mode using pre-parsed AST for module `\SC_STATEMACHINE_WEIGHT_LOADER'.
+Parameter \ROW_BITS = 15
+Generating RTLIL representation for module `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111'.
+Parameter \ROW_BITS = 30
+
+20.13. Executing AST frontend in derive mode using pre-parsed AST for module `\SC_STATEMACHINE_IMAGE_LOADER'.
+Parameter \ROW_BITS = 30
+Generating RTLIL representation for module `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110'.
+
+20.14. Analyzing design hierarchy..
+Top module:  \CNNver2
+Used module:     \cnn_proc_top
+Used module:         \SC_STATEMACHINE_CNN_CTRL
+Used module:             \cnn_top
+Used module:     $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top
+Used module:         $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000
+Used module:         $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight
+Used module:         $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag
+Used module:         $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8
+Used module:             $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111
+Used module:             $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110
+
+20.15. Executing AST frontend in derive mode using pre-parsed AST for module `\mux_cnn'.
+Generating RTLIL representation for module `\mux_cnn'.
+
+20.16. Executing AST frontend in derive mode using pre-parsed AST for module `\fragment_mux_10x10_6x6'.
+Generating RTLIL representation for module `\fragment_mux_10x10_6x6'.
+
+20.17. Analyzing design hierarchy..
+Top module:  \CNNver2
+Used module:     \cnn_proc_top
+Used module:         \SC_STATEMACHINE_CNN_CTRL
+Used module:             \cnn_top
+Used module:                 \mux_cnn
+Used module:                 \fragment_mux_10x10_6x6
+Used module:     $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top
+Used module:         $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000
+Used module:         $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight
+Used module:         $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag
+Used module:         $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8
+Used module:             $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111
+Used module:             $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110
+
+20.18. Executing AST frontend in derive mode using pre-parsed AST for module `\progressive_maxpool'.
+Generating RTLIL representation for module `\progressive_maxpool'.
+
+20.19. Executing AST frontend in derive mode using pre-parsed AST for module `\mac_parallel'.
+Generating RTLIL representation for module `\mac_parallel'.
+
+20.20. Executing AST frontend in derive mode using pre-parsed AST for module `\window_mux_6x6_5x5'.
+Generating RTLIL representation for module `\window_mux_6x6_5x5'.
+
+20.21. Analyzing design hierarchy..
+Top module:  \CNNver2
+Used module:     \cnn_proc_top
+Used module:         \SC_STATEMACHINE_CNN_CTRL
+Used module:             \cnn_top
+Used module:                 \mux_cnn
+Used module:                     \progressive_maxpool
+Used module:                     \mac_parallel
+Used module:                     \window_mux_6x6_5x5
+Used module:                 \fragment_mux_10x10_6x6
+Used module:     $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top
+Used module:         $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000
+Used module:         $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight
+Used module:         $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag
+Used module:         $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8
+Used module:             $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111
+Used module:             $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110
+
+20.22. Analyzing design hierarchy..
+Top module:  \CNNver2
+Used module:     \cnn_proc_top
+Used module:         \SC_STATEMACHINE_CNN_CTRL
+Used module:             \cnn_top
+Used module:                 \mux_cnn
+Used module:                     \progressive_maxpool
+Used module:                     \mac_parallel
+Used module:                     \window_mux_6x6_5x5
+Used module:                 \fragment_mux_10x10_6x6
+Used module:     $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top
+Used module:         $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000
+Used module:         $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight
+Used module:         $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag
+Used module:         $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8
+Used module:             $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111
+Used module:             $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110
+Removing unused module `$abstract\progressive_maxpool'.
+Removing unused module `$abstract\mac_parallel'.
+Removing unused module `$abstract\window_mux_6x6_5x5'.
+Removing unused module `$abstract\mux_cnn'.
+Removing unused module `$abstract\fragment_mux_10x10_6x6'.
+Removing unused module `$abstract\cnn_top'.
+Removing unused module `$abstract\SC_STATEMACHINE_CNN_CTRL'.
+Removing unused module `$abstract\cnn_proc_top'.
+Removing unused module `$abstract\Master_register'.
+Removing unused module `$abstract\Register_Weight'.
+Removing unused module `$abstract\Register_Imag'.
+Removing unused module `$abstract\SC_STATEMACHINE_WEIGHT_LOADER'.
+Removing unused module `$abstract\SC_STATEMACHINE_IMAGE_LOADER'.
+Removing unused module `$abstract\spi_cnn_slave_8'.
+Removing unused module `$abstract\comm_mem_top'.
+Removing unused module `$abstract\CNNver2'.
+Removed 16 unused modules.
+Renaming module CNNver2 to CNNver2.
+
+21. Executing PROC pass (convert processes to netlists).
+
+21.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+21.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v:9$365 in module progressive_maxpool.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112 in module fragment_mux_10x10_6x6.
+Marked 2 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111 in module mux_cnn.
+Marked 2 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109 in module $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:86$105 in module $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:73$104 in module $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.
+Removed 1 dead cases from process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:58$100 in module $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.
+Marked 2 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:58$100 in module $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.
+Marked 2 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98 in module $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:75$94 in module $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:63$93 in module $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.
+Removed 1 dead cases from process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:48$89 in module $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.
+Marked 2 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:48$89 in module $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.
+Marked 3 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85 in module cnn_top.
+Removed 1 dead cases from process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36 in module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.
+Marked 6 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36 in module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:163$34 in module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:147$30 in module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v:16$14 in module $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v:16$11 in module $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v:14$8 in module $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.
+Marked 2 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7 in module SC_STATEMACHINE_CNN_CTRL.
+Removed 1 dead cases from process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416 in module window_mux_6x6_5x5.
+Marked 1 switch rules as full_case in process $proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416 in module window_mux_6x6_5x5.
+Removed a total of 4 dead cases.
+
+21.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 18 redundant assignments.
+Promoted 93 assignments to connections.
+
+21.4. Executing PROC_INIT pass (extract init attributes).
+
+21.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst in `\progressive_maxpool.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v:9$365'.
+Found async reset \rst in `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+Found async reset \i_RESET in `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:86$105'.
+Found async reset \i_RESET in `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:73$104'.
+Found async reset \i_RESET in `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:75$94'.
+Found async reset \i_RESET in `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:63$93'.
+Found async reset \rst in `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+Found async reset \internal_reset in `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+Found async reset \i_RESET in `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:163$34'.
+Found async reset \i_RESET in `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:147$30'.
+Found async reset \i_RESET in `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+
+21.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 2 switches.
+<suppressed ~42 debug messages>
+
+21.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\progressive_maxpool.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v:9$365'.
+     1/1: $0\max_out[15:0]
+Creating decoders for process `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+     1/1: { $1\base_col[31:0] $1\base_row[31:0] }
+Creating decoders for process `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+     1/5: $0\done[0:0]
+     2/5: $0\first_en[0:0]
+     3/5: $0\en_maxpool[0:0]
+     4/5: $0\window_sel[1:0]
+     5/5: $0\state[3:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+     1/11: { $2\o_load00[0:0] $2\o_load09[0:0] $2\o_load08[0:0] $2\o_load07[0:0] $2\o_load06[0:0] $2\o_load05[0:0] $2\o_load04[0:0] $2\o_load03[0:0] $2\o_load02[0:0] $2\o_load01[0:0] }
+     2/11: $1\o_load09[0:0]
+     3/11: $1\o_load08[0:0]
+     4/11: $1\o_load07[0:0]
+     5/11: $1\o_load06[0:0]
+     6/11: $1\o_load05[0:0]
+     7/11: $1\o_load04[0:0]
+     8/11: $1\o_load03[0:0]
+     9/11: $1\o_load02[0:0]
+    10/11: $1\o_load01[0:0]
+    11/11: $1\o_load00[0:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:86$105'.
+     1/1: $0\row_latch[3:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:73$104'.
+     1/1: $0\STATE_Register[0:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:58$100'.
+     1/2: $2\STATE_Signal[0:0]
+     2/2: $1\STATE_Signal[0:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+     1/10: $2\o_wload00[0:0]
+     2/10: $2\o_wload04[0:0]
+     3/10: $2\o_wload03[0:0]
+     4/10: $2\o_wload02[0:0]
+     5/10: $2\o_wload01[0:0]
+     6/10: $1\o_wload04[0:0]
+     7/10: $1\o_wload03[0:0]
+     8/10: $1\o_wload02[0:0]
+     9/10: $1\o_wload01[0:0]
+    10/10: $1\o_wload00[0:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:75$94'.
+     1/1: $0\weight_latch[2:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:63$93'.
+     1/1: $0\STATE_Register[0:0]
+Creating decoders for process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:48$89'.
+     1/2: $2\STATE_Signal[0:0]
+     2/2: $1\STATE_Signal[0:0]
+Creating decoders for process `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+     1/6: $0\done[0:0]
+     2/6: $0\cnn_rst[0:0]
+     3/6: $0\cnn_start[0:0]
+     4/6: $0\frag_sel[3:0]
+     5/6: $0\acc[15:0]
+     6/6: $0\state[2:0]
+Creating decoders for process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+     1/43: $4$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_ADDR[2:0]$76
+     2/43: $4$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_DATA[14:0]$77
+     3/43: $4$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_ADDR[3:0]$72
+     4/43: $4$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_DATA[29:0]$73
+     5/43: $3$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_DATA[14:0]$70
+     6/43: $3$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_ADDR[2:0]$69
+     7/43: $3$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_DATA[29:0]$68
+     8/43: $3$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_ADDR[3:0]$67
+     9/43: $0\data_count[6:0]
+    10/43: $2$lookahead\cmd$35[2:0]$56
+    11/43: $2$bitselwrite$pos$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:195$17[31:0]$51
+    12/43: $2$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_DATA[14:0]$55
+    13/43: $2$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_ADDR[2:0]$54
+    14/43: $2$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_DATA[29:0]$53
+    15/43: $2$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_ADDR[3:0]$52
+    16/43: $1$lookahead\cmd$35[2:0]$48
+    17/43: $1$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_DATA[14:0]$47
+    18/43: $1$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_ADDR[2:0]$46
+    19/43: $1$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_DATA[29:0]$45
+    20/43: $1$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_ADDR[3:0]$44
+    21/43: $1$bitselwrite$pos$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:195$17[31:0]$43
+    22/43: $0\bit_count[8:0]
+    23/43: $0\weight_mem[4][14:0]
+    24/43: $0\weight_mem[3][14:0]
+    25/43: $0\weight_mem[2][14:0]
+    26/43: $0\weight_mem[1][14:0]
+    27/43: $0\weight_mem[0][14:0]
+    28/43: $0\image_mem[9][29:0]
+    29/43: $0\image_mem[8][29:0]
+    30/43: $0\image_mem[7][29:0]
+    31/43: $0\image_mem[6][29:0]
+    32/43: $0\image_mem[5][29:0]
+    33/43: $0\image_mem[4][29:0]
+    34/43: $0\image_mem[3][29:0]
+    35/43: $0\image_mem[2][29:0]
+    36/43: $0\image_mem[1][29:0]
+    37/43: $0\image_mem[0][29:0]
+    38/43: $0\miso_active[0:0]
+    39/43: $0\miso_count[4:0]
+    40/43: $0\weight_shift[14:0]
+    41/43: $0\image_shift[29:0]
+    42/43: $0\weight_count[2:0]
+    43/43: $0\row[3:0]
+Creating decoders for process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:163$34'.
+     1/2: $0\o_mp_data[10:0]
+     2/2: $0\o_mp_load[0:0]
+Creating decoders for process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:147$30'.
+     1/1: $0\o_start_cnn[0:0]
+Creating decoders for process `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v:16$14'.
+     1/1: $0\Datos[29:0]
+Creating decoders for process `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v:16$11'.
+     1/1: $0\Datos[14:0]
+Creating decoders for process `$paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v:14$8'.
+     1/1: $0\Datos[15:0]
+Creating decoders for process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+     1/9: $0\o_done[0:0]
+     2/9: $0\o_mr2_load[0:0]
+     3/9: $0\o_mr1_load[0:0]
+     4/9: $0\cnn_start[0:0]
+     5/9: $0\cnn_rst[0:0]
+     6/9: $0\kernel_reg[74:0]
+     7/9: $0\state[3:0]
+     8/9: $0\o_acc1[15:0]
+     9/9: $0\o_acc0[15:0]
+Creating decoders for process `\window_mux_6x6_5x5.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416'.
+     1/1: $1\base_idx[31:0]
+
+21.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\fragment_mux_10x10_6x6.\c' from process `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+No latch inferred for signal `\fragment_mux_10x10_6x6.\fragment_flat' from process `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+No latch inferred for signal `\fragment_mux_10x10_6x6.\r' from process `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+No latch inferred for signal `\fragment_mux_10x10_6x6.\base_row' from process `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+No latch inferred for signal `\fragment_mux_10x10_6x6.\base_col' from process `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+No latch inferred for signal `\fragment_mux_10x10_6x6.\flat_idx' from process `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load00' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load01' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load02' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load03' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load04' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load05' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load06' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load07' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load08' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\o_load09' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\STATE_Signal' from process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:58$100'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\o_wload00' from process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\o_wload01' from process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\o_wload02' from process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\o_wload03' from process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\o_wload04' from process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+No latch inferred for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\STATE_Signal' from process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:48$89'.
+No latch inferred for signal `\window_mux_6x6_5x5.\c' from process `\window_mux_6x6_5x5.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416'.
+No latch inferred for signal `\window_mux_6x6_5x5.\window_flat' from process `\window_mux_6x6_5x5.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416'.
+No latch inferred for signal `\window_mux_6x6_5x5.\r' from process `\window_mux_6x6_5x5.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416'.
+No latch inferred for signal `\window_mux_6x6_5x5.\base_idx' from process `\window_mux_6x6_5x5.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416'.
+
+21.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\progressive_maxpool.\max_out' using process `\progressive_maxpool.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v:9$365'.
+  created $adff cell `$procdff$1358' with positive edge clock and positive level reset.
+Creating register for signal `\mux_cnn.\state' using process `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+  created $adff cell `$procdff$1361' with positive edge clock and positive level reset.
+Creating register for signal `\mux_cnn.\done' using process `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+  created $adff cell `$procdff$1364' with positive edge clock and positive level reset.
+Creating register for signal `\mux_cnn.\window_sel' using process `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+  created $adff cell `$procdff$1367' with positive edge clock and positive level reset.
+Creating register for signal `\mux_cnn.\en_maxpool' using process `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+  created $adff cell `$procdff$1370' with positive edge clock and positive level reset.
+Creating register for signal `\mux_cnn.\first_en' using process `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+  created $adff cell `$procdff$1373' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\row_latch' using process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:86$105'.
+  created $adff cell `$procdff$1376' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.\STATE_Register' using process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:73$104'.
+  created $adff cell `$procdff$1379' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\weight_latch' using process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:75$94'.
+  created $adff cell `$procdff$1382' with positive edge clock and positive level reset.
+Creating register for signal `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.\STATE_Register' using process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:63$93'.
+  created $adff cell `$procdff$1385' with positive edge clock and positive level reset.
+Creating register for signal `\cnn_top.\state' using process `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+  created $adff cell `$procdff$1388' with positive edge clock and positive level reset.
+Creating register for signal `\cnn_top.\cnn_rst' using process `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+  created $adff cell `$procdff$1391' with positive edge clock and positive level reset.
+Creating register for signal `\cnn_top.\cnn_start' using process `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+  created $adff cell `$procdff$1394' with positive edge clock and positive level reset.
+Creating register for signal `\cnn_top.\done' using process `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+  created $adff cell `$procdff$1397' with positive edge clock and positive level reset.
+Creating register for signal `\cnn_top.\acc' using process `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+  created $adff cell `$procdff$1400' with positive edge clock and positive level reset.
+Creating register for signal `\cnn_top.\frag_sel' using process `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+  created $adff cell `$procdff$1403' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\cmd' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1406' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\bit_count' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1409' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\data_count' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1412' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\row' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1415' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\weight_count' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1418' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_shift' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1421' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\weight_shift' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1424' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\miso_count' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1427' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\miso_active' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1430' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$bitselwrite$pos$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:195$17' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1433' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[0]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1438' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[1]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1443' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[2]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1448' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[3]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1453' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[4]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1458' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[5]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1463' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[6]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1468' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[7]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1473' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[8]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1478' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\image_mem[9]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1483' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\weight_mem[0]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1488' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\weight_mem[1]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1493' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\weight_mem[2]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1498' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\weight_mem[3]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1503' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\weight_mem[4]' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $dff cell `$procdff$1508' with positive edge clock.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_ADDR' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1511' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$mem2reg_wr$\image_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:221$18_DATA' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1514' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_ADDR' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1517' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$mem2reg_wr$\weight_mem$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:231$19_DATA' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1520' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$lookahead\cmd$35' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+  created $adff cell `$procdff$1523' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\o_mp_data' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:163$34'.
+  created $adff cell `$procdff$1526' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\o_mp_load' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:163$34'.
+  created $adff cell `$procdff$1529' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.\o_start_cnn' using process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:147$30'.
+  created $adff cell `$procdff$1532' with positive edge clock and positive level reset.
+Creating register for signal `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.\Datos' using process `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v:16$14'.
+  created $dff cell `$procdff$1533' with positive edge clock.
+Creating register for signal `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.\Datos' using process `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v:16$11'.
+  created $dff cell `$procdff$1534' with positive edge clock.
+Creating register for signal `$paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.\Datos' using process `$paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v:14$8'.
+  created $dff cell `$procdff$1535' with positive edge clock.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\o_acc0' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1538' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\o_mr1_load' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1541' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\o_acc1' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1544' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\o_mr2_load' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1547' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\o_done' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1550' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\state' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1553' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\kernel_reg' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1556' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\cnn_rst' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1559' with positive edge clock and positive level reset.
+Creating register for signal `\SC_STATEMACHINE_CNN_CTRL.\cnn_start' using process `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+  created $adff cell `$procdff$1562' with positive edge clock and positive level reset.
+
+21.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+21.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 3 empty switches in `\progressive_maxpool.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v:9$365'.
+Removing empty process `progressive_maxpool.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/progressive_maxpool.v:9$365'.
+Found and cleaned up 1 empty switch in `\fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+Removing empty process `fragment_mux_10x10_6x6.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/fragment_mux_10x10_6x6.v:9$112'.
+Found and cleaned up 2 empty switches in `\mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+Removing empty process `mux_cnn.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/mux_cnn.v:83$111'.
+Found and cleaned up 2 empty switches in `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+Removing empty process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:98$109'.
+Found and cleaned up 1 empty switch in `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:86$105'.
+Removing empty process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:86$105'.
+Removing empty process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:73$104'.
+Found and cleaned up 2 empty switches in `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:58$100'.
+Removing empty process `$paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_IMAGE_LOADER.v:58$100'.
+Found and cleaned up 2 empty switches in `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+Removing empty process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:86$98'.
+Found and cleaned up 1 empty switch in `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:75$94'.
+Removing empty process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:75$94'.
+Removing empty process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:63$93'.
+Found and cleaned up 2 empty switches in `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:48$89'.
+Removing empty process `$paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_WEIGHT_LOADER.v:48$89'.
+Found and cleaned up 4 empty switches in `\cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+Removing empty process `cnn_top.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/cnn_top.v:75$85'.
+Found and cleaned up 11 empty switches in `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+Removing empty process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:178$36'.
+Removing empty process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:163$34'.
+Found and cleaned up 1 empty switch in `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:147$30'.
+Removing empty process `$paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/spi_cnn_slave_8.v:147$30'.
+Found and cleaned up 2 empty switches in `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v:16$14'.
+Removing empty process `$paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Imag.v:16$14'.
+Found and cleaned up 2 empty switches in `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v:16$11'.
+Removing empty process `$paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Register_Weight.v:16$11'.
+Found and cleaned up 2 empty switches in `$paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v:14$8'.
+Removing empty process `$paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/Master_register.v:14$8'.
+Found and cleaned up 5 empty switches in `\SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+Removing empty process `SC_STATEMACHINE_CNN_CTRL.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/SC_STATEMACHINE_CNN_CTRL.v:104$7'.
+Found and cleaned up 1 empty switch in `\window_mux_6x6_5x5.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416'.
+Removing empty process `window_mux_6x6_5x5.$proc$/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/src/window_mux_6x6_5x5.v:12$416'.
+Cleaned up 44 empty switches.
+
+21.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module CNNver2.
+Optimizing module mac_parallel.
+Optimizing module progressive_maxpool.
+<suppressed ~1 debug messages>
+Optimizing module fragment_mux_10x10_6x6.
+Optimizing module mux_cnn.
+<suppressed ~6 debug messages>
+Optimizing module $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.
+<suppressed ~8 debug messages>
+Optimizing module $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.
+<suppressed ~9 debug messages>
+Optimizing module cnn_top.
+<suppressed ~9 debug messages>
+Optimizing module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.
+<suppressed ~39 debug messages>
+Optimizing module $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.
+<suppressed ~3 debug messages>
+Optimizing module $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.
+<suppressed ~3 debug messages>
+Optimizing module $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.
+<suppressed ~3 debug messages>
+Optimizing module SC_STATEMACHINE_CNN_CTRL.
+<suppressed ~11 debug messages>
+Optimizing module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top.
+Optimizing module cnn_proc_top.
+Optimizing module window_mux_6x6_5x5.
+<suppressed ~1 debug messages>
+
+22. Executing FLATTEN pass (flatten design).
+Deleting now unused module mac_parallel.
+Deleting now unused module progressive_maxpool.
+Deleting now unused module fragment_mux_10x10_6x6.
+Deleting now unused module mux_cnn.
+Deleting now unused module $paramod\SC_STATEMACHINE_IMAGE_LOADER\ROW_BITS=s32'00000000000000000000000000011110.
+Deleting now unused module $paramod\SC_STATEMACHINE_WEIGHT_LOADER\ROW_BITS=s32'00000000000000000000000000001111.
+Deleting now unused module cnn_top.
+Deleting now unused module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\spi_cnn_slave_8.
+Deleting now unused module $paramod$4d5b70701c3a06d0547d4fc6c7074752cfb562f3\Register_Imag.
+Deleting now unused module $paramod$bd1c2789ccb130c79648e20f8a400f4afa158968\Register_Weight.
+Deleting now unused module $paramod\Master_register\DATAWIDTH_BUS=s32'00000000000000000000000000010000.
+Deleting now unused module SC_STATEMACHINE_CNN_CTRL.
+Deleting now unused module $paramod$86f1445bf7eb9dcf6388f28001a39bf4edaa90f5\comm_mem_top.
+Deleting now unused module cnn_proc_top.
+Deleting now unused module window_mux_6x6_5x5.
+<suppressed ~29 debug messages>
+
+23. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \CNNver2..
+Removed 120 unused cells and 842 unused wires.
+<suppressed ~422 debug messages>

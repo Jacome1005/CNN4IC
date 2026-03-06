@@ -32,7 +32,7 @@
 //=======================================================
 
 module SC_STATEMACHINE_IMAGE_LOADER #(
-    parameter ROW_BITS = 7'd30
+    parameter [6:0] ROW_BITS = 7'd30
 )(
     output reg o_load00, output reg o_load01,
     output reg o_load02, output reg o_load03,
@@ -49,7 +49,7 @@ module SC_STATEMACHINE_IMAGE_LOADER #(
 
 localparam STATE_IDLE     = 1'b0;
 localparam STATE_LOAD_ROW = 1'b1;
-localparam [6:0] LAST_BIT = ROW_BITS - 7'd1;  // 29
+localparam [6:0] LAST_BIT = ROW_BITS - 7'd1;  // 29 — ambos operandos [6:0], sin truncamiento
 
 reg STATE_Register;
 reg STATE_Signal;
@@ -92,7 +92,9 @@ always @(posedge i_CLOCK or posedge i_RESET) begin
 end
 
 // ── Outputs combinacionales — activo bajo ─────────────
-// Usa row_latch directamente (NO i_ROW - 1).
+// Usa STATE_Register (registrado) y row_latch.
+// El posedge T34 (clock extra en el SPI master) da el flanco con
+// STATE_Register=LOAD_ROW e image_mem ya actualizado → Register_Imag captura.
 always @(*) begin
     o_load00 = 1'b1; o_load01 = 1'b1; o_load02 = 1'b1; o_load03 = 1'b1;
     o_load04 = 1'b1; o_load05 = 1'b1; o_load06 = 1'b1; o_load07 = 1'b1;
