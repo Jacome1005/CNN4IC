@@ -1,0 +1,49 @@
+153. Printing statistics.
+
+=== CNNver2 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    21514 wires
+    22560 wire bits
+       91 public wires
+     1095 public wire bits
+        8 ports
+        8 port bits
+    22522 cells
+     2605   $_ANDNOT_
+      100   $_AND_
+        3   $_DFFE_PP0N_
+      206   $_DFFE_PP0P_
+      375   $_DFFE_PP_
+       53   $_DFF_PP0_
+        7   $_DFF_PP1_
+    11925   $_MUX_
+      381   $_NAND_
+      237   $_NOR_
+      663   $_NOT_
+      744   $_ORNOT_
+     3490   $_OR_
+      407   $_SDFFE_PP0N_
+        1   $_TBUF_
+      285   $_XNOR_
+     1040   $_XOR_
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_DFFE_PP0N_ is unknown!
+   Area for cell type $_DFFE_PP0P_ is unknown!
+   Area for cell type $_DFFE_PP_ is unknown!
+   Area for cell type $_DFF_PP0_ is unknown!
+   Area for cell type $_DFF_PP1_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_SDFFE_PP0N_ is unknown!
+   Area for cell type $_TBUF_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+

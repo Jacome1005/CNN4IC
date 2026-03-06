@@ -1,0 +1,72 @@
+Reading timing models for corner nom_fast_1p32V_m40C…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/opt/pdks/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_fast_1p32V_m40C.lib'…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/opt/pdks/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_fast_1p32V_3p6V_m40C.lib'…
+Reading timing models for corner nom_slow_1p08V_125C…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/opt/pdks/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_slow_1p08V_125C.lib'…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/opt/pdks/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_slow_1p08V_3p0V_125C.lib'…
+Reading timing models for corner nom_typ_1p20V_25C…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/opt/pdks/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib'…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/opt/pdks/ciel/ihp-sg13g2/versions/c4b8b4e5e7a05f375cca3815d51b3a37721fbf5c/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_typ_1p2V_3p3V_25C.lib'…
+Reading OpenROAD database at '/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/28-openroad-globalplacement/CNNver2.odb'…
+Reading design constraints file at '/nix/store/8h87vsa3wlidvqi062p0312chxkh8ihd-python3.13-librelane-3.0.0.dev47/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[WARNING STA-0366] port 'clk' not found.
+[INFO] Using clock clk…
+[INFO] Setting output delay to: 2
+[INFO] Setting input delay to: 2
+[WARNING STA-0366] port 'clk' not found.
+[INFO] Setting load to: 0.006
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.15
+[WARNING STA-0419] transition time can not be specified for virtual clocks.
+[INFO] Setting timing derate to: 5%
+[WARNING STA-0450] virtual clock clk can not be propagated.
+[INFO RSZ-0027] Inserted 5 sg13g2_buf_1 input buffers.
+[INFO RSZ-0028] Inserted 2 sg13g2_buf_1 output buffers.
++ repair_design -verbose -max_wire_length 0 -slew_margin 20 -cap_margin 20
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |      8617
+     1000 |     +0.0% |       0 |       2 |             1 |      7617
+     2000 |     +0.0% |       0 |       2 |             1 |      6617
+     3000 |     +0.2% |       0 |      42 |             9 |      5617
+     4000 |     +0.5% |       0 |      95 |            19 |      4617
+     5000 |     +1.1% |       0 |     198 |            35 |      3617
+     6000 |     +3.7% |       0 |     652 |           111 |      2617
+     7000 |     +4.2% |       0 |     738 |           130 |      1617
+     8000 |     +6.3% |       0 |    1107 |           168 |       617
+    final |     +6.3% |       0 |    1107 |           168 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0034] Found 39 slew violations.
+[INFO RSZ-0035] Found 168 fanout violations.
+[INFO RSZ-0038] Inserted 1107 buffers in 168 nets.
+[INFO RSZ-0042] Inserted 782 tie sg13g2_tiehi instances.
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement      26754.7 u
+average displacement        2.8 u
+max displacement           11.3 u
+original HPWL          333263.8 u
+legalized HPWL         353703.8 u
+delta HPWL                    6 %
+
+[INFO DPL-0020] Mirrored 4202 instances
+[INFO DPL-0021] HPWL before          353703.8 u
+[INFO DPL-0022] HPWL after           348292.5 u
+[INFO DPL-0023] HPWL delta               -1.5 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 3792 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Buffer                                   63     457.23
+  Timing Repair Buffer                   1114    8084.97
+  Inverter                                685    3728.59
+  Sequential cell                        1051   51487.23
+  Multi-Input combinational cell         6806   71115.41
+  Total                                  9719  134873.42
+Writing OpenROAD database to '/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/32-openroad-repairdesignpostgpl/CNNver2.odb'…
+Writing netlist to '/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/32-openroad-repairdesignpostgpl/CNNver2.nl.v'…
+Writing powered netlist to '/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/32-openroad-repairdesignpostgpl/CNNver2.pnl.v'…
+Writing layout to '/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/32-openroad-repairdesignpostgpl/CNNver2.def'…
+Writing timing constraints to '/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/32-openroad-repairdesignpostgpl/CNNver2.sdc'…

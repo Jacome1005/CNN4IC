@@ -1,0 +1,21 @@
+┏━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━┓
+┃ P / R ┃ Partial ┃ Required ┃ Net                                 ┃ Pin          ┃ Layer  ┃
+┡━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━┩
+│ 1.56  │ 312.24  │ 200.00   │ net678                              │ fanout674/A  │ Metal2 │
+│ 1.48  │ 296.00  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[0\]  │ fanout804/A  │ Metal2 │
+│ 1.46  │ 291.77  │ 200.00   │ net5                                │ fanout888/A  │ Metal2 │
+│ 1.45  │ 289.65  │ 200.00   │ net1                                │ fanout1109/A │ Metal2 │
+│ 1.34  │ 268.25  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[20\] │ fanout763/A  │ Metal2 │
+│ 1.33  │ 266.93  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[24\] │ fanout756/A  │ Metal2 │
+│ 1.31  │ 261.62  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[13\] │ fanout778/A  │ Metal2 │
+│ 1.23  │ 245.56  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[4\]  │ fanout796/A  │ Metal2 │
+│ 1.20  │ 239.77  │ 200.00   │ net7                                │ output7/A    │ Metal2 │
+│ 1.17  │ 234.99  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[10\] │ fanout784/A  │ Metal2 │
+│ 1.15  │ 230.16  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[16\] │ fanout772/A  │ Metal2 │
+│ 1.10  │ 220.32  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[2\]  │ fanout800/A  │ Metal2 │
+│ 1.09  │ 218.52  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[5\]  │ fanout794/A  │ Metal2 │
+│ 1.08  │ 215.98  │ 200.00   │ net877                              │ fanout871/A  │ Metal2 │
+│ 1.06  │ 211.08  │ 200.00   │ comm_mem_u0.spi_u0.image_shift[3\]  │ fanout798/A  │ Metal2 │
+│ 1.05  │ 209.43  │ 200.00   │ net6                                │ output6/A    │ Metal2 │
+│ 0.59  │ 118.42  │ 200.00   │ net759                              │ _13701_/A1   │ Metal3 │
+└───────┴─────────┴──────────┴─────────────────────────────────────┴──────────────┴────────┘
