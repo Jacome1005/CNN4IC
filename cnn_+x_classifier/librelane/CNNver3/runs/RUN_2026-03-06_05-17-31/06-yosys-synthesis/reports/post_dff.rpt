@@ -1,0 +1,41 @@
+159. Printing statistics.
+
+=== CNNver2 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    23199        - wires
+    24245        - wire bits
+       91        - public wires
+     1095        - public wire bits
+        8        - ports
+        8        - port bits
+    24204 5.15E+04 cells
+     2605        -   $_ANDNOT_
+      100        -   $_AND_
+    13323        -   $_MUX_
+      381        -   $_NAND_
+      237        -   $_NOR_
+      947        -   $_NOT_
+      744        -   $_ORNOT_
+     3490        -   $_OR_
+      285        -   $_XNOR_
+     1040        -   $_XOR_
+     1051 5.15E+04   sg13g2_dfrbpq_1
+        1   18.144   sg13g2_ebufn_2
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
+   Chip area for module '\CNNver2': 51505.372800
+     of which used for sequential elements: 51487.228800 (99.96%)
+
