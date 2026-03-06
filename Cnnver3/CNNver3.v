@@ -1,17 +1,30 @@
 //=======================================================
 //  CNNver3 — Top Level
 //=======================================================
-//  Puertos externos (8):
+//  Puertos externos (7):
 //    CNNver3_MISO         — resultado final al exterior (SPI)
 //    CNNver3_SPICLOCK_50  — reloj SPI
 //    CNNver3_SS_N         — Chip Select (activo bajo)
 //    CNNver3_MOSI         — datos/comandos del master
 //    CNNver3_Reset_InHigh — reset global (activo alto)
-//    CNNver3_CMD_Reset    — aborta comando SPI en curso
 //    CNNver3_MR1_Load     — DEBUG: pulso activo bajo al cargar acc0 en MR1
 //    CNNver3_MR2_Load     — DEBUG: pulso activo bajo al cargar acc1 en MR2
 //
-
+//  NOTA: CNNver3_CMD_Reset eliminado.
+//    El reset de comando SPI (i_cmd_reset en spi_cnn_slave_8)
+//    se maneja directamente con i_SPI_CS_n (internal_reset = i_SPI_CS_n).
+//    i_cmd_reset se conecta a 1'b0 (nunca activo de forma externa).
+//
+//  Mapa de comandos SPI (3 bits al inicio de cada transacción):
+//    3'b000 = IDLE
+//    3'b001 = LOAD IMAGE   (10 filas × 30 bits)
+//    3'b010 = LOAD WEIGHTS ( 5 filas × 15 bits)
+//    3'b011 = START CNN    (sin payload, pulso o_start_cnn en bit_count==3)
+//    3'b100 = READ RESULT  (1 clock → MISO bit comparador)
+//    3'b101 = READ MASTER REGISTER1 (16 clocks → MISO acc0 MSB first)
+//    3'b110 = READ MASTER REGISTER2 (16 clocks → MISO acc1 MSB first)
+//    3'b111 = READ WEIGHTS (16 clocks → MISO)
+//
 //  Jerarquía:
 //    CNNver3
 //     ├── spi_cnn_slave_8
@@ -34,7 +47,6 @@ module CNNver3 (
     input        CNNver3_SS_N,
     input        CNNver3_MOSI,
     input        CNNver3_Reset_InHigh,
-    input        CNNver3_CMD_Reset,
     output       CNNver3_MR1_Load,     // DEBUG: activo bajo, pulso al cargar MR1
     output       CNNver3_MR2_Load      // DEBUG: activo bajo, pulso al cargar MR2
 );
@@ -99,8 +111,6 @@ wire        comp_result_cwire;
 
 // ═══════════════════════════════════════════
 //  PINES DE DEBUG
-//  Los loads se exponen directamente como pines
-//  de salida para observación con osciloscopio
 // ═══════════════════════════════════════════
 assign CNNver3_MR1_Load = CNN_CTRL_mr1_load_cwire;
 assign CNNver3_MR2_Load = CNN_CTRL_mr2_load_cwire;
@@ -114,6 +124,11 @@ assign comp_result_cwire = ($signed(MR1_out_cwire) > $signed(MR2_out_cwire)) ? 1
 
 // ═══════════════════════════════════════════════════════════════
 // 1. SPI Slave
+//    i_cmd_reset se conecta a 1'b0: el reset del comando SPI
+//    queda manejado exclusivamente por i_SPI_CS_n a través de
+//    internal_reset = i_SPI_CS_n | i_cmd_reset = i_SPI_CS_n | 0.
+//    Esto es equivalente al comportamiento anterior donde
+//    CNNver3_CMD_Reset era un pin externo que se dejaba en bajo.
 // ═══════════════════════════════════════════════════════════════
 spi_cnn_slave_8 #(
     .DATAWIDTH_BUS       (DATAWIDTH_BUS),
@@ -126,7 +141,9 @@ spi_cnn_slave_8 #(
     .i_SPI_MOSI  (CNNver3_MOSI),
     .o_SPI_MISO  (CNNver3_MISO),
     .i_RESET     (CNNver3_Reset_InHigh),
-    .i_cmd_reset (CNNver3_CMD_Reset),
+    .i_cmd_reset (1'b0),               // FIX: antes CNNver3_CMD_Reset (pin externo).
+                                       // Ahora fijo a 0: el reset de transacción
+                                       // lo gestiona i_SPI_CS_n vía internal_reset.
     .o_start_cnn (SPI_2_CNN_Start_cwire),
     // Imagen
     .o_row00(SPI_2_row00_cwire), .o_row01(SPI_2_row01_cwire),
@@ -147,8 +164,9 @@ spi_cnn_slave_8 #(
     .o_wload02(wload_u2), .o_wload03(wload_u3),
     .o_wload04(wload_u4),
     // MISO sources
-    .i_cnn_result (MR1_out_cwire),     // cmd 011 → MR1 (acc0)
-    .i_comp_result(comp_result_cwire)  // cmd 110 → clasificación
+    .i_cnn_result (MR1_out_cwire),     // cmd 101 → MR1 (acc0)
+    .i_cnn_result2(MR2_out_cwire),     // cmd 110 → MR2 (acc1) — FIX: faltaba esta conexión
+    .i_comp_result(comp_result_cwire)  // cmd 100 → clasificación
 );
 
 // ═══════════════════════════════════════════════════════════════

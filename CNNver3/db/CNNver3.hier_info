@@ -4,7 +4,6 @@ CNNver3_SPICLOCK_50 => CNNver3_SPICLOCK_50.IN19
 CNNver3_SS_N => CNNver3_SS_N.IN1
 CNNver3_MOSI => CNNver3_MOSI.IN1
 CNNver3_Reset_InHigh => CNNver3_Reset_InHigh.IN19
-CNNver3_CMD_Reset => CNNver3_CMD_Reset.IN1
 CNNver3_MR1_Load <= CNN_CTRL_mr1_load_cwire.DB_MAX_OUTPUT_PORT_TYPE
 CNNver3_MR2_Load <= CNN_CTRL_mr2_load_cwire.DB_MAX_OUTPUT_PORT_TYPE
 
