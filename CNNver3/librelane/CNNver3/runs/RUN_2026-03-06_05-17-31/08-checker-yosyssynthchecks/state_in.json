@@ -1,0 +1,14 @@
+{
+    "json_h": "/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/05-yosys-jsonheader/CNNver2.h.json",
+    "nl": "/home/designer/shared/CNN4IC/cnnver3_tests/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/06-yosys-synthesis/CNNver2.nl.v",
+    "metrics": {
+        "design__lint_error__count": 0,
+        "design__lint_timing_construct__count": 0,
+        "design__lint_warning__count": 12,
+        "design__inferred_latch__count": 0,
+        "design__instance__count": 8605,
+        "design__instance__area": 126783.9972,
+        "design__instance_unmapped__count": 0,
+        "synthesis__check_error__count": 0
+    }
+}

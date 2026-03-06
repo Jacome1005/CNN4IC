@@ -1,0 +1,2 @@
+Info (10281): Verilog HDL Declaration information at cnn_top.v(30): object "start" differs only in case from object "START" in the same scope File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/cnn_top.v Line: 30
+Info (10281): Verilog HDL Declaration information at cnn_top.v(35): object "acc" differs only in case from object "ACC" in the same scope File: C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/cnn_top.v Line: 35

@@ -1,0 +1,10 @@
+BEGIN 1:SC_STATEMACHINE_CNN_CTRL:fast:work
+    state :  1:TB_CNNver3:fast:work
+END 
+BEGIN 1:CNNver3:fast:work
+    acc0 :  1:TB_CNNver3:fast:work
+    acc1 :  1:TB_CNNver3:fast:work
+END 
+BEGIN 1:cnn_proc_top:fast:work
+    o_done :  1:TB_CNNver3:fast:work
+END 

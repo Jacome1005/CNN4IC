@@ -92,7 +92,6 @@ module spi_cnn_slave_8 #(
     reg [DATAWIDTH_WGT_FULL-1:0]  weight_shift;
     reg [4:0]  miso_count;
     reg        miso_active;
-    reg        valid_clk;
 
     // internal_reset: SOLO para contadores/shifts internos del SPI.
     // NO para o_start_cnn, o_mp_load ni SM loaders.
@@ -138,23 +137,19 @@ module spi_cnn_slave_8 #(
                            i_cnn_result [15 - miso_count[3:0]])
         : 1'bZ;
 
-    // ── NEGEDGE: activa valid_clk (anti-posedge-espurio) ─────────────
-    always @(negedge i_SPI_Clk or posedge internal_reset) begin
-        if (internal_reset) valid_clk <= 1'b0;
-        else                valid_clk <= 1'b1;
-    end
-
     // ─────────────────────────────────────────────────────────────────
-    // FIX-1a: o_start_cnn — bloque solo con reset GLOBAL
-    // El pulso sobrevive hasta el posedge donde la FSM lo muestrea.
-    // Disparo: bit_count==3 con cmd==011 (START CNN)
+    // FIX-1a: o_start_cnn
+    // Usa solo i_RESET global (no internal_reset).
+    // El pulso se genera en el posedge donde bit_count==3 y cmd==011.
+    // Dura hasta el SIGUIENTE posedge, donde el SM lo muestrea y el
+    // default lo limpia. CS puede subir sin afectar el pulso.
     // ─────────────────────────────────────────────────────────────────
     always @(posedge i_SPI_Clk or posedge i_RESET) begin
         if (i_RESET)
             o_start_cnn <= 1'b0;
         else begin
-            o_start_cnn <= 1'b0;  // default: limpiar
-            if (valid_clk && (bit_count == 9'd3) && (cmd == 3'b011))
+            o_start_cnn <= 1'b0;  // default: limpiar en cada posedge
+            if ((bit_count == 9'd3) && (cmd == 3'b011))
                 o_start_cnn <= 1'b1;
         end
     end
@@ -192,13 +187,24 @@ module spi_cnn_slave_8 #(
             image_shift  <= {DATAWIDTH_IMG_FULL{1'b0}};
             weight_shift <= {DATAWIDTH_WGT_FULL{1'b0}};
         end
-        else if (valid_clk) begin
+        else begin
             bit_count <= bit_count + 9'd1;
 
             // ── Primeros 3 posedges: captura cmd (3 bits, MSB primero) ──
             if (bit_count < 9'd3) begin
                 cmd[2 - bit_count[1:0]] <= i_SPI_MOSI;
                 data_count <= 7'd0;
+                // FIX-MISO: en el ultimo bit del CMD (bit_count==2), si es comando
+                // de lectura, activar miso_active para que MISO sea valido desde
+                // el primer clock del payload (bit_count==3, primer clock de datos).
+                if (bit_count == 9'd2) begin
+                    // cmd[2:1] ya capturados; cmd[0]=MOSI se aplica tras la NBA.
+                    // Evaluamos los 2 bits ya conocidos + el bit actual de MOSI.
+                    case ({cmd[2], cmd[1], i_SPI_MOSI})
+                        3'b100, 3'b101, 3'b110, 3'b111: miso_active <= 1'b1;
+                        default: miso_active <= 1'b0;
+                    endcase
+                end
             end
             else begin
                 data_count <= data_count + 7'd1;
@@ -232,50 +238,30 @@ module spi_cnn_slave_8 #(
                     3'b011: ;
 
                     // CMD 100: READ RESULT — 1 bit MISO (comparador)
-                    // Solo se necesita 1 clock: miso_active=1, MISO=i_comp_result
                     // miso_count NO avanza (no hay multiplex de bits)
+                    // miso_active ya activo desde la captura del ultimo bit CMD (bit_count==2)
                     3'b100: begin
-                        if (!miso_active)
-                            miso_active <= 1'b1;
                         // miso_count queda en 0: siempre muestra i_comp_result
                     end
 
                     // CMD 101: READ MASTER REGISTER1 — 16 bits MSB primero por MISO (acc0)
-                    // Primer clock: activa miso_active (miso_count=0 → MISO=bit[15])
-                    // Clocks 2-16: incrementa miso_count → MISO=bit[14..0]
+                    // miso_active ya activo desde bit_count==2 (ultimo bit CMD)
+                    // miso_count=0 en primer clock → bit[15], incrementa cada clock siguiente
                     3'b101: begin
-                        if (!miso_active) begin
-                            miso_active <= 1'b1;
-                        end else begin
-                            if (miso_count < 5'd15)
-                                miso_count <= miso_count + 5'd1;
-                        end
+                        if (miso_count < 5'd15)
+                            miso_count <= miso_count + 5'd1;
                     end
 
                     // CMD 110: READ MASTER REGISTER2 — 16 bits MSB primero por MISO (acc1)
-                    // Mismo patron que READ MASTER REGISTER1 pero MISO toma i_cnn_result2
-                    // Primer clock: activa miso_active (miso_count=0 → MISO=bit[15])
-                    // Clocks 2-16: incrementa miso_count → MISO=bit[14..0]
                     3'b110: begin
-                        if (!miso_active) begin
-                            miso_active <= 1'b1;
-                        end else begin
-                            if (miso_count < 5'd15)
-                                miso_count <= miso_count + 5'd1;
-                        end
+                        if (miso_count < 5'd15)
+                            miso_count <= miso_count + 5'd1;
                     end
 
                     // CMD 111: READ WEIGHTS — 16 bits MSB primero por MISO
-                    // Mismo patron que READ MASTER REGISTER1/2
-                    // Primer clock: activa miso_active (miso_count=0 → MISO=bit[15])
-                    // Clocks 2-16: incrementa miso_count → MISO=bit[14..0]
                     3'b111: begin
-                        if (!miso_active) begin
-                            miso_active <= 1'b1;
-                        end else begin
-                            if (miso_count < 5'd15)
-                                miso_count <= miso_count + 5'd1;
-                        end
+                        if (miso_count < 5'd15)
+                            miso_count <= miso_count + 5'd1;
                     end
 
                     default: ;

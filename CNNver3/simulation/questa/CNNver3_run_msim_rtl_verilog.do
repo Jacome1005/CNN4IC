@@ -17,6 +17,8 @@ vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CN
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/Master_register.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/mac_parallel.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/fragment_mux_10x10_6x6.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/comm_mem_top.v}
 vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/cnn_top.v}
-vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3 {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/CNNver3.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/rtl/cnn_proc_top.v}
+vlog -vlog01compat -work work +incdir+C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3 {C:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/cnnver3.v}
 

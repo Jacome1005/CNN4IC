@@ -1,0 +1,29 @@
+DESIGN_NAME: CNNver2
+
+VERILOG_FILES:
+  - dir::src/CNNver2_top.v
+  - dir::src/comm_mem_top.v
+  - dir::src/spi_cnn_slave_8.v
+  - dir::src/SC_STATEMACHINE_IMAGE_LOADER.v
+  - dir::src/SC_STATEMACHINE_WEIGHT_LOADER.v
+  - dir::src/Register_Imag.v
+  - dir::src/Register_Weight.v
+  - dir::src/Master_register.v
+  - dir::src/cnn_proc_top.v
+  - dir::src/SC_STATEMACHINE_CNN_CTRL.v
+  - dir::src/cnn_top.v
+  - dir::src/fragment_mux_10x10_6x6.v
+  - dir::src/mux_cnn.v
+  - dir::src/window_mux_6x6_5x5.v
+  - dir::src/mac_parallel.v
+  - dir::src/progressive_maxpool.v
+
+CLOCK_PORT: clk
+CLOCK_PERIOD: 10
+
+# Floorplan (evita errores PDN)
+DIE_AREA: [0, 0, 900, 900]
+CORE_AREA: [20, 20, 880, 880]
+
+PL_TARGET_DENSITY: 0.60
+FP_CORE_UTIL: 50
