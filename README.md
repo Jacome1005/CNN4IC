@@ -1,10 +1,8 @@
 # CNN4IC
 Convolutional Neural Network (CNN) for Image Classification
 
-_Project still in development_
 
 #### Created by:
-
 - Jacobo Morales Erazo
 - Mateo Fernandez Riveros
 - Martín Calderón
@@ -13,56 +11,54 @@ _Project still in development_
 
 **Chapter/Section:** CASS Universidad de los Andes Student Chapter / Colombia Section
 
+---
 
-# Latest design files at CNNver2
-### Project Status & Implementation Metrics - *updated 26/02/2026*
-
-- **RTL Completion:** 90 % (refining small details with SPI communication)
-    
-- **Estimated Final Area:** 70000 $\mu m^2$
-    
-- **Actual Post-Synthesis Area:** 61598 $\mu m^2$ 
-	- 614.4 $\mu m$  x 633.1 $\mu m$ 
-
-<img src="AREA_total.png" style="height: 80px">
-<img src="AREA_sides.png" style="height: 70px">
+## 🚀 Demos & Visualizations (Live via GitHub Pages)
+Explore the project details and interactive simulations:
+* [Interactive CNN Game](https://herna.github.io/CNN4IC/docs/html/cnn_game.html)
+* [Architecture Diagram](https://herna.github.io/CNN4IC/docs/html/arch_diagram.html)
+* [Dataset Cases](https://herna.github.io/CNN4IC/docs/html/dataset_casos.html)
+* [CNN Architecture Details](https://herna.github.io/CNN4IC/docs/html/cnn_arch.html)
 
 ---
 
-### Description of the Design concept: Lightweight Binary Shape Classifier
+## 🛠️ Project Status & Implementation Metrics
+**Last Update:** March 06, 2026
 
-This Integrated Circuit (IC) implements a specialized, resource-optimized Convolutional Neural Network (CNN) designed specifically for the low-power discrimination of geometric primitives (crosses and plus signs). By pivoting from generalized MNIST digit recognition (original idea) to a targeted binary classification task, the architecture achieves a significant reduction in gate count and memory requirements while maintaining high operational reliability.
+| Metric | Value |
+| :--- | :--- |
+| **RTL Completion** | 95% (Refining SPI communication) |
+| **Core Dimensions** | $\approx 503\ \mu m \times 503\ \mu m$ |
+| **Die (Chip) Dimensions** | $\approx 515\ \mu m \times 534\ \mu m$ |
+| **Logic Area** | $\approx 135,000\ \mu m^2$ |
+| **Total Chip Area** | $\approx 0.27\ mm^2$ |
 
-#### Architecture and Data Flow
+### Physical Layout & Dimensions
+<img src="docs/assets/gds_dimentions.png" width="500px" alt="GDS Dimensions">
 
-The system is **capable** of processing **3-bit** grayscale images with **8 x 8** dimensions.
+---
 
-1. **Image Input:** An image is saved into the chip via the Serial Peripheral Interface (SPI) protocol onto a **pre-established** set of registers.
-    
-2. **Convolution:** The image is processed by two concurrent kernels ($W_{+}$ and $W_x$). These kernels are quantized to signed integers, allowing the convolution to be performed using simple shift-and-add logic rather than complex floating-point multipliers.
-    
-3. **Max Pooling:** Each value of the $2\times2$ resulting matrix following the convolution is passed **through** a Max pooling layer to extract the most prominent structural features.
-    
-4. **Accumulation & Comparison:** The system calculates a "Structural Score" by summing the pooled feature maps. The final classification is determined by a simple digital comparator:
-    
+## Design Concept: Lightweight Binary Shape Classifier
+
+This Integrated Circuit (IC) implements a specialized, resource-optimized Convolutional Neural Network (CNN) designed specifically for the low-power discrimination of geometric primitives (**crosses** and **plus signs**). 
+
+### Architecture and Data Flow
+The system processes **3-bit** grayscale images with **8 x 8** dimensions.
+
+1. **Image Input:** Data is loaded via **SPI** into a pre-established set of registers.
+2. **Convolution:** Processed by two concurrent kernels ($W_{+}$ and $W_x$). Quantized to signed integers to use simple **shift-and-add** logic instead of complex multipliers.
+3. **Max Pooling:** Extracted from the $2\times2$ resulting matrix to identify prominent structural features.
+4. **Classification:** Determined by a digital comparator:
 
 $$\text{Class} = \begin{cases} 0 (+) & \text{if } \sum \text{Pool}_{+} > \sum \text{Pool}_{x} \\ 1 (\text{X}) & \text{otherwise} \end{cases}$$
 
-#### Hardware Optimization & Quantization Strategy
+### Hardware Optimization
+The core innovation lies in **Strict Bit-Width Management**:
+- **Weight Precision:** 3-bit registers for kernels.
+- **Integer Domain:** Eliminates floating-point overhead.
+- **Area Efficiency:** By streaming results externally, we significantly reduced the silicon footprint to the current $0.27\ mm^2$.
 
-The core innovation of this design lies in its **Strict Bit-Width Management**. Unlike standard CNNs that propagate high-precision values, this IC enforces hardware-level quantization at every stage:
-
-- **Weight Precision:** Kernels are stored in 3-bit registers.
-    
-- **Integer Domain:** All operations are performed in the integer domain.
-    
-- **Dynamic Range Control:** The results of the convolution operation are immediately **sent** outside the chip to be saved. In this way, **response times are yielded** to ensure a more optimal design in terms of **silicon area** used.
-    
-
-#### Serial Interface and Control
-
-Communication is handled via a 4-wire **SPI (Serial Peripheral Interface)**. A simple addressing protocol distinguishes between:
-
-- **Weight Configuration:** Allowing the kernels to be updated "in-field" for different geometric patterns.
-    
-- **Image Data/Control:** Facilitating the transfer of pixel data and triggering the inference cycle.
+### Serial Interface (SPI)
+A 4-wire protocol distinguishes between:
+- **Weight Configuration:** In-field kernel updates for different patterns.
+- **Image Data/Control:** Pixel transfer and inference cycle triggering.
