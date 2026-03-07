@@ -14,10 +14,10 @@ Convolutional Neural Network (CNN) for Image Classification
 
 ## Demos & Visualizations (Live via GitHub Pages)
 Explore the project details and interactive simulations:
-* [Interactive CNN Game](https://herna.github.io/CNN4IC/docs/html/cnn_game.html)
-* [Architecture Diagram](https://herna.github.io/CNN4IC/docs/html/arch_diagram.html)
-* [Dataset Cases](https://herna.github.io/CNN4IC/docs/html/dataset_casos.html)
-* [CNN Architecture Details](https://herna.github.io/CNN4IC/docs/html/cnn_arch.html)
+* [Interactive CNN Game](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/cnn_game.html)
+* [Architecture Diagram](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/arch_diagram.html)
+* [Dataset Cases](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/dataset_casos.html)
+* [CNN Architecture Details](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/cnn_arch.html)
 
 
 ## Project Status & Implementation Metrics
