@@ -25,7 +25,7 @@ Explore the project details and interactive simulations:
 
 | Metric | Value |
 | :--- | :--- |
-| **Core Dimensions** | $\approx 503\ \mu m \times 503\ \mu m$ |
+| **Core Dimensions** | $\approx 503\ \mu m \times 504\ \mu m$ |
 | **Die (Chip) Dimensions** | $\approx 515\ \mu m \times 534\ \mu m$ |
 | **Logic Area** | $\approx 135,000\ \mu m^2$ |
 | **Total Chip Area** | $\approx 0.27\ mm^2$ |
@@ -39,7 +39,7 @@ Explore the project details and interactive simulations:
 This Integrated Circuit (IC) implements a specialized, resource-optimized Convolutional Neural Network (CNN) designed specifically for the low-power discrimination of geometric primitives (**crosses** and **plus signs**). 
 
 ### Architecture and Data Flow
-The system processes **3-bit** grayscale images with **8 x 8** dimensions.
+The system processes **3-bit** grayscale images with **10 x 10** dimensions.
 
 1. **Image Input:** Data is loaded via **SPI** into a pre-established set of registers.
 2. **Convolution:** Processed by two concurrent kernels ($W_{+}$ and $W_x$). Quantized to signed integers to use simple **shift-and-add** logic instead of complex multipliers.
