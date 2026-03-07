@@ -69,3 +69,17 @@ A 4-wire protocol with an 8-command space distinguishes between:
 A typical inference cycle requires two START pulses: the first processes $W_{+}$ and latches $\text{acc}_0$; the second processes $W_{\times}$ and latches $\text{acc}_1$. The kernel registers are reloaded by the host MCU between the two passes.
 
 Unlike fixed logic implementations, this architecture employs a dynamic weight scheme via SPI, transforming the IC into a general-purpose classifier for 10x10 patterns. This capability allows the chip to be reprogrammed in real time for diverse low-power computer vision applications beyond the discrimination of crosses.
+
+---
+## Project Structure and Implementation
+The complete implementation flow, from digital synthesis to physical layout, is organized as follows:
+
+### Open-Source EDA Flow (LibreLane)
+The physical design results, including the final GDSII and manufacturing reports, are located in the [Final_Version/LibreLane/](./Final_Version/LibreLane/) directory.
+
+* **Final GDSII & Layout:** Can be found in: [Final_Version/LibreLane/cnn_+x_classifier/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/final/](./Final_Version/LibreLane/cnn_+x_classifier/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/final/)
+* **Synthesis & Timing Reports:** All logs for DRC, LVS, and timing violations are located in the numbered subdirectories within: [RUN_2026-03-06_05-17-31](./Final_Version/LibreLane/cnn_+x_classifier/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/)
+* **Source RTL:** The Verilog source files used for the silicon flow are in: [Final_Version/LibreLane/cnn_+x_classifier/rtl/](./Final_Version/LibreLane/cnn_+x_classifier/rtl/)
+
+### FPGA Prototyping (Quartus)
+* **Quartus Project:** The files for Intel/Altera FPGA synthesis and testing are located in: [Final_Version/Quartus/](./Final_Version/Quartus/)
