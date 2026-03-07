@@ -11,23 +11,20 @@ Convolutional Neural Network (CNN) for Image Classification
 
 **Chapter/Section:** CASS Universidad de los Andes Student Chapter / Colombia Section
 
----
 
-## 🚀 Demos & Visualizations (Live via GitHub Pages)
+## Demos & Visualizations (Live via GitHub Pages)
 Explore the project details and interactive simulations:
 * [Interactive CNN Game](https://herna.github.io/CNN4IC/docs/html/cnn_game.html)
 * [Architecture Diagram](https://herna.github.io/CNN4IC/docs/html/arch_diagram.html)
 * [Dataset Cases](https://herna.github.io/CNN4IC/docs/html/dataset_casos.html)
 * [CNN Architecture Details](https://herna.github.io/CNN4IC/docs/html/cnn_arch.html)
 
----
 
-## 🛠️ Project Status & Implementation Metrics
+## Project Status & Implementation Metrics
 **Last Update:** March 06, 2026
 
 | Metric | Value |
 | :--- | :--- |
-| **RTL Completion** | 95% (Refining SPI communication) |
 | **Core Dimensions** | $\approx 503\ \mu m \times 503\ \mu m$ |
 | **Die (Chip) Dimensions** | $\approx 515\ \mu m \times 534\ \mu m$ |
 | **Logic Area** | $\approx 135,000\ \mu m^2$ |
@@ -36,7 +33,6 @@ Explore the project details and interactive simulations:
 ### Physical Layout & Dimensions
 <img src="docs/assets/gds_dimentions.png" width="500px" alt="GDS Dimensions">
 
----
 
 ## Design Concept: Lightweight Binary Shape Classifier
 
