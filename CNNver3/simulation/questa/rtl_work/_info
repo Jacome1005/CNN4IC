@@ -11,10 +11,10 @@ Z0 !s99 nomlopt
 cModel Technology
 Z1 dC:/Users/jacob/Desktop/UNIC_CASS/CNN4IC/CNNver3/simulation/questa
 T_opt
-!s110 1772781542
-VR<GDL0zUZ6NEU>P_[=ndl2
+!s110 1772836383
+VPMOU;fYfc>6I3;eeIF?na0
 04 10 4 work TB_CNNver3 fast 0
-=1-70a8d34c8dad-69aa7fe5-3ca-17f4
+=1-70a8d34c8dad-69ab561e-a4-6dd4
 R0
 !s12f OEM100
 !s12b OEM100
@@ -26,7 +26,7 @@ n@_opt
 OL;O;2024.3;79
 vcnn_proc_top
 2../../rtl/cnn_proc_top.v
-Z3 !s110 1772781540
+Z3 !s110 1772836380
 !i10b 1
 !s100 Q4f948`@kCfTC=gB8G46e0
 IlJT^Z6I:Yn9IFHC^99n0V0
@@ -41,7 +41,7 @@ Z6 OL;L;2024.3;79
 r1
 !s85 0
 31
-Z7 !s108 1772781540.000000
+Z7 !s108 1772836380.000000
 !s107 ../../rtl/cnn_proc_top.v|
 !s90 -reportprogress|300|../../rtl/cnn_proc_top.v|
 !i113 0
@@ -49,7 +49,7 @@ Z8 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R2
 vcnn_top
 2../../rtl/cnn_top.v
-Z9 !s110 1772781539
+Z9 !s110 1772836379
 !i10b 1
 !s100 ;h4Do6ZljTZ6=M7G2lBGQ1
 IZS@8@o03DSDJbLcZ7U_=m0
@@ -64,7 +64,7 @@ R6
 r1
 !s85 0
 31
-Z10 !s108 1772781539.000000
+Z10 !s108 1772836379.000000
 !s107 ../../rtl/cnn_top.v|
 !s90 -reportprogress|300|../../rtl/cnn_top.v|
 !i113 0
@@ -96,7 +96,7 @@ R2
 n@c@n@nver3
 vcomm_mem_top
 2../../rtl/comm_mem_top.v
-R3
+R9
 !i10b 1
 !s100 SG=FDGZNAgim2O]_i@kXk3
 ILXIWU4J8bS]?h?h85OJjO2
@@ -111,7 +111,7 @@ R6
 r1
 !s85 0
 31
-R7
+R10
 !s107 ../../rtl/comm_mem_top.v|
 !s90 -reportprogress|300|../../rtl/comm_mem_top.v|
 !i113 0
@@ -119,7 +119,7 @@ R8
 R2
 vfragment_mux_10x10_6x6
 2../../rtl/fragment_mux_10x10_6x6.v
-Z11 !s110 1772781536
+Z11 !s110 1772836378
 !i10b 1
 !s100 6XDe=6b_nAAK<4^=Ol6a32
 I[oW=4JI^z;X@jDXnY:UEn2
@@ -134,7 +134,7 @@ R6
 r1
 !s85 0
 31
-Z12 !s108 1772781536.000000
+Z12 !s108 1772836378.000000
 !s107 ../../rtl/fragment_mux_10x10_6x6.v|
 !s90 -reportprogress|300|../../rtl/fragment_mux_10x10_6x6.v|
 !i113 0
@@ -142,7 +142,7 @@ R8
 R2
 vmac_parallel
 2../../rtl/mac_parallel.v
-Z13 !s110 1772781535
+Z13 !s110 1772836377
 !i10b 1
 !s100 W^>kS:[d:5OC:W2Ej0IKG3
 I^L]cncobWh1DR^jSIJAP;2
@@ -157,7 +157,7 @@ R6
 r1
 !s85 0
 31
-Z15 !s108 1772781535.000000
+Z15 !s108 1772836377.000000
 !s107 ../../rtl/mac_parallel.v|
 !s90 -reportprogress|300|../../rtl/mac_parallel.v|
 !i113 0
@@ -189,7 +189,7 @@ R2
 n@master_register
 vmux_cnn
 2../../rtl/mux_cnn.v
-Z17 !s110 1772781537
+R11
 !i10b 1
 !s100 oA31F`eDVSdfZo5PHgmH52
 I_aj1^l5P?EFC<FRJDG1G<1
@@ -204,7 +204,7 @@ R6
 r1
 !s85 0
 31
-Z18 !s108 1772781537.000000
+R12
 !s107 ../../rtl/mux_cnn.v|
 !s90 -reportprogress|300|../../rtl/mux_cnn.v|
 !i113 0
@@ -212,7 +212,7 @@ R8
 R2
 vprogressive_maxpool
 2../../rtl/progressive_maxpool.v
-R11
+R13
 !i10b 1
 !s100 AN:7JDO<hnm``<GRkIQ^m2
 Iab]bz8_ofjf1ULbNPo6dS3
@@ -227,7 +227,7 @@ R6
 r1
 !s85 0
 31
-R12
+R15
 !s107 ../../rtl/progressive_maxpool.v|
 !s90 -reportprogress|300|../../rtl/progressive_maxpool.v|
 !i113 0
@@ -235,7 +235,7 @@ R8
 R2
 vRegister
 2../../rtl/Register.v
-R13
+Z17 !s110 1772836376
 !i10b 1
 !s100 921CjT68GzA^35]dTg6GY0
 IfWJ0eZG4SnPIZo5Wj19T<0
@@ -250,7 +250,7 @@ R6
 r1
 !s85 0
 31
-R15
+Z18 !s108 1772836376.000000
 !s107 ../../rtl/Register.v|
 !s90 -reportprogress|300|../../rtl/Register.v|
 !i113 0
@@ -259,7 +259,7 @@ R2
 n@register
 vRegister_Imag
 2../../rtl/Register_Imag.v
-R13
+R17
 !i10b 1
 !s100 <K@6^LYELBaTaPlKKXhn90
 I=IK3Ol:_]5>nA:b6B:VQo2
@@ -274,7 +274,7 @@ R6
 r1
 !s85 0
 31
-R15
+R18
 !s107 ../../rtl/Register_Imag.v|
 !s90 -reportprogress|300|../../rtl/Register_Imag.v|
 !i113 0
@@ -298,7 +298,7 @@ R6
 r1
 !s85 0
 31
-R15
+R18
 !s107 ../../rtl/Register_Weight.v|
 !s90 -reportprogress|300|../../rtl/Register_Weight.v|
 !i113 0
@@ -355,7 +355,7 @@ R2
 n@s@c_@s@t@a@t@e@m@a@c@h@i@n@e_@i@m@a@g@e_@l@o@a@d@e@r
 vSC_STATEMACHINE_WEIGHT_LOADER
 2../../rtl/SC_STATEMACHINE_WEIGHT_LOADER.v
-R17
+R11
 !i10b 1
 !s100 n_F_^X4SlWm;M_6UMVG`c0
 IRciSEk_8cQJB@IZ2[HU]z1
@@ -370,7 +370,7 @@ R6
 r1
 !s85 0
 31
-R18
+R12
 !s107 ../../rtl/SC_STATEMACHINE_WEIGHT_LOADER.v|
 !s90 -reportprogress|300|../../rtl/SC_STATEMACHINE_WEIGHT_LOADER.v|
 !i113 0
@@ -379,7 +379,7 @@ R2
 n@s@c_@s@t@a@t@e@m@a@c@h@i@n@e_@w@e@i@g@h@t_@l@o@a@d@e@r
 vspi_cnn_slave_8
 2../../rtl/spi_cnn_slave_8.v
-R3
+R9
 !i10b 1
 !s100 4PY=7mAL;nWCf``LdKE3<0
 I6V2WNI2m>c]n95KoFHP?m1
@@ -394,7 +394,7 @@ R6
 r1
 !s85 0
 31
-R7
+R10
 !s107 ../../rtl/spi_cnn_slave_8.v|
 !s90 -reportprogress|300|../../rtl/spi_cnn_slave_8.v|
 !i113 0
@@ -441,7 +441,7 @@ R6
 r1
 !s85 0
 31
-R12
+R15
 !s107 ../../rtl/window_mux_6x6_5x5.v|
 !s90 -reportprogress|300|../../rtl/window_mux_6x6_5x5.v|
 !i113 0
