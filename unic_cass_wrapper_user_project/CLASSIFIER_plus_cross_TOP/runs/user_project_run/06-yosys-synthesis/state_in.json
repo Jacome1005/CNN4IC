@@ -1,0 +1,9 @@
+{
+    "json_h": "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/05-yosys-jsonheader/CLASSIFIER_plus_cross_TOP.h.json",
+    "metrics": {
+        "design__lint_error__count": 0,
+        "design__lint_timing_construct__count": 0,
+        "design__lint_warning__count": 15,
+        "design__inferred_latch__count": 0
+    }
+}

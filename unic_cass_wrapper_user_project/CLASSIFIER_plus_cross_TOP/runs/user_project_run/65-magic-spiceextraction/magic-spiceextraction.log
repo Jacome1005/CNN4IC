@@ -1,0 +1,231 @@
+
+Magic 8.3 revision 581 - Compiled on Tue Jan  6 19:09:29 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology ihp-sg13g2 ...
+2 Magic internal units = 1 Lambda
+Input style sg13g2(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    pblock sealcont difffill nemitter hvnemitter hvisodiffres sealvia1 sealvia2 sealvia3 sealvia4 sealvia5 sealvia6 pillar solder seal glass thruvia inductor 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading ihp-sg13g2 Device Generator Menu ...
+Loading "/nix/store/w99sjyq5j8hvscxr5zh2x597anf2hadx-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/magic/wrapper.tcl" from command line.
+> lef read /home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lef/sg13g2_tech.lef
+Reading LEF data from file /home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lef/sg13g2_tech.lef.
+This action cannot be undone.
+LEF read, Line 79 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 80 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 81 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 87 (Message): Unknown keyword "MINIMUMCUT" in LEF file; ignoring.
+LEF read, Line 91 (Message): Unknown keyword "ANTENNACUMAREARATIO" in LEF file; ignoring.
+LEF read, Line 92 (Message): Unknown keyword "ANTENNACUMDIFFAREARATIO" in LEF file; ignoring.
+LEF read, Line 121 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 122 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 123 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 129 (Message): Unknown keyword "MINIMUMCUT" in LEF file; ignoring.
+LEF read, Line 134 (Message): Unknown keyword "ANTENNACUMAREARATIO" in LEF file; ignoring.
+LEF read, Line 135 (Message): Unknown keyword "ANTENNACUMDIFFAREARATIO" in LEF file; ignoring.
+LEF read, Line 163 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 164 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 165 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 171 (Message): Unknown keyword "MINIMUMCUT" in LEF file; ignoring.
+LEF read, Line 176 (Message): Unknown keyword "ANTENNACUMAREARATIO" in LEF file; ignoring.
+LEF read, Line 177 (Message): Unknown keyword "ANTENNACUMDIFFAREARATIO" in LEF file; ignoring.
+LEF read, Line 205 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 206 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 207 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 213 (Message): Unknown keyword "MINIMUMCUT" in LEF file; ignoring.
+LEF read, Line 218 (Message): Unknown keyword "ANTENNACUMAREARATIO" in LEF file; ignoring.
+LEF read, Line 219 (Message): Unknown keyword "ANTENNACUMDIFFAREARATIO" in LEF file; ignoring.
+LEF read, Line 246 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 247 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 248 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 254 (Message): Unknown keyword "MINIMUMCUT" in LEF file; ignoring.
+LEF read, Line 259 (Message): Unknown keyword "ANTENNACUMAREARATIO" in LEF file; ignoring.
+LEF read, Line 260 (Message): Unknown keyword "ANTENNACUMDIFFAREARATIO" in LEF file; ignoring.
+LEF read, Line 286 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 287 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 288 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 293 (Message): Unknown keyword "ANTENNACUMAREARATIO" in LEF file; ignoring.
+LEF read, Line 294 (Message): Unknown keyword "ANTENNACUMDIFFAREARATIO" in LEF file; ignoring.
+LEF read, Line 320 (Message): Unknown keyword "MAXIMUMDENSITY" in LEF file; ignoring.
+LEF read, Line 321 (Message): Unknown keyword "DENSITYCHECKSTEP" in LEF file; ignoring.
+LEF read, Line 322 (Message): Unknown keyword "DENSITYCHECKWINDOW" in LEF file; ignoring.
+LEF read, Line 327 (Message): Unknown keyword "ANTENNACUMAREARATIO" in LEF file; ignoring.
+LEF read, Line 328 (Message): Unknown keyword "ANTENNACUMDIFFAREARATIO" in LEF file; ignoring.
+LEF read: Processed 1197 lines.
+> lef read /home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lef/sg13g2_stdcell.lef
+Reading LEF data from file /home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lef/sg13g2_stdcell.lef.
+This action cannot be undone.
+LEF read, Line 6473 (Message): Unknown keyword "ANTENNAMAXCUTCAR" in LEF file; ignoring.
+LEF read: Processed 7927 lines.
+> lef read /home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/lef/sg13g2_io.lef
+Reading LEF data from file /home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/lef/sg13g2_io.lef.
+This action cannot be undone.
+LEF read: Processed 4552 lines.
+> def read /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/53-odb-cellfrequencytables/CLASSIFIER_plus_cross_TOP.def -noblockage -labels
+Reading DEF data from file /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/53-odb-cellfrequencytables/CLASSIFIER_plus_cross_TOP.def.
+This action cannot be undone.
+  Processed 6 vias total.
+  Processed 24119 subcell instances total.
+  Processed 38 pins total.
+  Processed 2 special nets total.
+  Processed 9789 nets total.
+DEF read: Processed 192705 lines.
+Moving label "_00060_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_00192_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_00210_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_00300_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_00380_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_00786_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_01125_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_01306_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_01335_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_01507_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_01821_" from metal3 to via3 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_01835_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02066_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02178_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02197_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02254_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02268_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02288_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02303_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02488_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02519_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02610_" from metal3 to via3 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02627_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02827_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02838_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02844_" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02864_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_02971_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03082_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03140_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03152_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03165_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03169_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03171_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03194_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03282_" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03418_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03507_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03570_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03571_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03586_" from metal3 to via3 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03652_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03667_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03703_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03732_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03749_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_03821_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04013_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04032_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04106_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04167_" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04241_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04282_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04329_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04360_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04439_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04651_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04702_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04744_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04883_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_04897_" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05022_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05099_" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05123_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05127_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05138_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05153_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05344_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_05804_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_06139_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_06186_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_06403_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_06526_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_06607_" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "_06793_" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.mr1_out\[14\]" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.mr2_out\[11\]" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.o_img_row05\[3\]" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.o_img_row09\[22\]" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.o_img_row09\[23\]" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.o_img_row09\[9\]" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.o_wgt_row01\[1\]" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.reg_img_u0.Register_Imag_DataInBUS\[20\]" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.reg_img_u0.Register_Imag_DataInBUS\[28\]" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.reg_img_u4.Register_Imag_DataInBUS\[3\]" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.reg_img_u9.Register_Imag_DataInBUS\[12\]" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.reg_wgt_u4.Register_Weight_DataInBUS\[2\]" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.comm_mem_u0.spi_u0.bit_count\[4\]" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.proc_u0.cnn_ctrl_u0.cnn_acc\[13\]" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "cnn_inst.proc_u0.cnn_ctrl_u0.cnn_inst.frag_mux.frag_sel\[2\]" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net1018" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net1044" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net127" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net134" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net1348" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net1357" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net1382" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net1709" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net180" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net395" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net406" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net430" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net537" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net540" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net564" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net570" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net606" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net665" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net696" from metal3 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net904" from metal2 to via1 in cell CLASSIFIER_plus_cross_TOP.
+Moving label "net932" from metal2 to via2 in cell CLASSIFIER_plus_cross_TOP.
+Processing CLASSIFIER_plus_cross_TOP
+Extracting sg13g2_buf_1 into sg13g2_buf_1.ext:
+Extracting sg13g2_buf_4 into sg13g2_buf_4.ext:
+Extracting sg13g2_ebufn_2 into sg13g2_ebufn_2.ext:
+Extracting sg13g2_dfrbpq_1 into sg13g2_dfrbpq_1.ext:
+Extracting sg13g2_tiehi into sg13g2_tiehi.ext:
+Extracting sg13g2_nor2_1 into sg13g2_nor2_1.ext:
+Extracting sg13g2_inv_1 into sg13g2_inv_1.ext:
+Extracting sg13g2_mux2_1 into sg13g2_mux2_1.ext:
+Extracting sg13g2_and4_1 into sg13g2_and4_1.ext:
+Extracting sg13g2_a21oi_1 into sg13g2_a21oi_1.ext:
+Extracting sg13g2_nand4_1 into sg13g2_nand4_1.ext:
+Extracting sg13g2_o21ai_1 into sg13g2_o21ai_1.ext:
+Extracting sg13g2_nand2_1 into sg13g2_nand2_1.ext:
+Extracting sg13g2_nand3_1 into sg13g2_nand3_1.ext:
+Extracting sg13g2_nor3_1 into sg13g2_nor3_1.ext:
+Extracting sg13g2_nor4_1 into sg13g2_nor4_1.ext:
+Extracting sg13g2_or4_1 into sg13g2_or4_1.ext:
+Extracting sg13g2_or2_1 into sg13g2_or2_1.ext:
+Extracting sg13g2_and3_1 into sg13g2_and3_1.ext:
+Extracting sg13g2_and2_1 into sg13g2_and2_1.ext:
+Extracting sg13g2_nor2b_1 into sg13g2_nor2b_1.ext:
+Extracting sg13g2_or3_1 into sg13g2_or3_1.ext:
+Extracting sg13g2_nand3b_1 into sg13g2_nand3b_1.ext:
+Extracting sg13g2_nand2b_1 into sg13g2_nand2b_1.ext:
+Extracting sg13g2_a21o_1 into sg13g2_a21o_1.ext:
+Extracting sg13g2_a22oi_1 into sg13g2_a22oi_1.ext:
+Extracting sg13g2_a221oi_1 into sg13g2_a221oi_1.ext:
+Extracting sg13g2_mux4_1 into sg13g2_mux4_1.ext:
+Extracting sg13g2_xnor2_1 into sg13g2_xnor2_1.ext:
+Extracting sg13g2_xor2_1 into sg13g2_xor2_1.ext:
+Extracting sg13g2_fill_2 into sg13g2_fill_2.ext:
+Extracting sg13g2_decap_8 into sg13g2_decap_8.ext:
+Extracting sg13g2_fill_1 into sg13g2_fill_1.ext:
+Extracting sg13g2_decap_4 into sg13g2_decap_4.ext:
+Extracting sg13g2_tielo into sg13g2_tielo.ext:
+Extracting sg13g2_antennanp into sg13g2_antennanp.ext:
+Extracting CLASSIFIER_plus_cross_TOP into CLASSIFIER_plus_cross_TOP.ext:
+exttospice finished.

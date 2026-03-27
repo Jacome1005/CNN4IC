@@ -1,0 +1,48 @@
+169. Printing statistics.
+
+=== CLASSIFIER_plus_cross_TOP ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     8660        - wires
+     8692        - wire bits
+     1053        - public wires
+     1085        - public wire bits
+        4        - ports
+       36        - port bits
+     8673 1.32E+05 cells
+      135 1.71E+03   sg13g2_a21o_1
+     1101 9.99E+03   sg13g2_a21oi_1
+      130 1.89E+03   sg13g2_a221oi_1
+      101  1.1E+03   sg13g2_a22oi_1
+      125     1134   sg13g2_and2_1
+       16  203.213   sg13g2_and3_1
+        2    29.03   sg13g2_and4_1
+       66  479.002   sg13g2_buf_1
+     1051 5.15E+04   sg13g2_dfrbpq_1
+        1   18.144   sg13g2_ebufn_2
+      691 3.76E+03   sg13g2_inv_1
+      619 1.12E+04   sg13g2_mux2_1
+      217 8.27E+03   sg13g2_mux4_1
+      509 3.69E+03   sg13g2_nand2_1
+      193 1.75E+03   sg13g2_nand2b_1
+      106  961.632   sg13g2_nand3_1
+        5   63.504   sg13g2_nand3b_1
+       15  163.296   sg13g2_nand4_1
+      687 4.99E+03   sg13g2_nor2_1
+      143  1.3E+03   sg13g2_nor2b_1
+       92  834.624   sg13g2_nor3_1
+       20  217.728   sg13g2_nor4_1
+     1009 9.15E+03   sg13g2_o21ai_1
+       83  752.976   sg13g2_or2_1
+       23  292.118   sg13g2_or3_1
+        4   58.061   sg13g2_or4_1
+      782 5.68E+03   sg13g2_tiehi
+       14  101.606   sg13g2_tielo
+      434  6.3E+03   sg13g2_xnor2_1
+      299 4.34E+03   sg13g2_xor2_1
+
+   Chip area for module '\CLASSIFIER_plus_cross_TOP': 131939.350200
+     of which used for sequential elements: 51487.228800 (39.02%)
+

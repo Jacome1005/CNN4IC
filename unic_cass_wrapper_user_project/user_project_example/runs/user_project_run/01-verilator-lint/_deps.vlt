@@ -1,0 +1,7 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/4adb29fe2bd34f9a8d49004d4b302e71.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/4adb29fe2bd34f9a8d49004d4b302e71.bb.v"
+lint_off -rule UNDRIVEN -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/f6d3860989474d658a12992da14560cc.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/f6d3860989474d658a12992da14560cc.bb.v"

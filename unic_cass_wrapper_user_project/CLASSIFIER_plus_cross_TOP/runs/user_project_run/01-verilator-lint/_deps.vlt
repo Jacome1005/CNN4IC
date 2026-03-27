@@ -1,0 +1,7 @@
+`verilator_config
+lint_off -rule DECLFILENAME
+lint_off -rule EOFNEWLINE
+lint_off -rule UNDRIVEN -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/tmp/54afce86491f4511a3d1b16f74588d30.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/tmp/54afce86491f4511a3d1b16f74588d30.bb.v"
+lint_off -rule UNDRIVEN -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/tmp/0bb0a444e3a64af1bb708e5145305cba.bb.v"
+lint_off -rule UNUSEDSIGNAL -file "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/tmp/0bb0a444e3a64af1bb708e5145305cba.bb.v"

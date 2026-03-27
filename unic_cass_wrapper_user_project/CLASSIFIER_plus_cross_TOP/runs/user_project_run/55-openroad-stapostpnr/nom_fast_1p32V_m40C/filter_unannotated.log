@@ -1,0 +1,39 @@
+[WARNING ORD-0039] .openroad ignored with -python
+Unannotated report:
+['report_parasitic_annotation -report_unannotated\n',
+ '============================================================================\n',
+ 'Found 14 unannotated drivers.\n',
+ ' clk_i\n',
+ ' rst_ni\n',
+ ' ui_PAD2CORE[10]\n',
+ ' ui_PAD2CORE[11]\n',
+ ' ui_PAD2CORE[12]\n',
+ ' ui_PAD2CORE[13]\n',
+ ' ui_PAD2CORE[14]\n',
+ ' ui_PAD2CORE[15]\n',
+ ' ui_PAD2CORE[16]\n',
+ ' ui_PAD2CORE[5]\n',
+ ' ui_PAD2CORE[6]\n',
+ ' ui_PAD2CORE[7]\n',
+ ' ui_PAD2CORE[8]\n',
+ ' ui_PAD2CORE[9]\n',
+ 'Found 0 partially unannotated drivers.\n',
+ '\n']
+Reported nets:
+['clk_i',
+ 'rst_ni',
+ 'ui_PAD2CORE[10]',
+ 'ui_PAD2CORE[11]',
+ 'ui_PAD2CORE[12]',
+ 'ui_PAD2CORE[13]',
+ 'ui_PAD2CORE[14]',
+ 'ui_PAD2CORE[15]',
+ 'ui_PAD2CORE[16]',
+ 'ui_PAD2CORE[5]',
+ 'ui_PAD2CORE[6]',
+ 'ui_PAD2CORE[7]',
+ 'ui_PAD2CORE[8]',
+ 'ui_PAD2CORE[9]']
+Filtered nets:
+[]
+done

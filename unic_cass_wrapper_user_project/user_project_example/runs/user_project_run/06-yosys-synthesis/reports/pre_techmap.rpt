@@ -1,0 +1,27 @@
+95. Printing statistics.
+
+=== user_project_example ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      129 wires
+      161 wire bits
+       51 public wires
+       83 public wire bits
+        4 ports
+       36 port bits
+      125 cells
+       15   $_ANDNOT_
+       31   $_AND_
+       32   $_DFF_PN0_
+        1   $_OR_
+       30   $_XNOR_
+       16   $_XOR_
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_DFF_PN0_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+
