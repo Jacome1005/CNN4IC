@@ -1,0 +1,113 @@
+Reading timing models for corner nom_typ_1p20V_25C…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib'…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_typ_1p2V_3p3V_25C.lib'…
+Reading OpenROAD database at '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/21-openroad-generatepdn/CLASSIFIER_plus_cross_TOP.odb'…
+Reading design constraints file at '/nix/store/w99sjyq5j8hvscxr5zh2x597anf2hadx-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk_i…
+[INFO] Setting output delay to: 2
+[INFO] Setting input delay to: 2
+[INFO] Setting load to: 0.006
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.15
+[INFO] Setting timing derate to: 5%
++ global_placement -density 0.603427 -skip_io -pad_right 0 -pad_left 0 -init_wirelength_coef 0.25
+[INFO GPL-0005] Execute conjugate gradient initial placement.
+[INFO GPL-0002] DBU: 1000
+[INFO GPL-0003] SiteSize: (  0.480  3.780 ) um
+[INFO GPL-0004] CoreBBox: (  5.760 15.120 ) ( 519.360 525.420 ) um
+[INFO GPL-0032] Initializing region: Top-level
+[INFO GPL-0006] Number of instances:              8673
+[INFO GPL-0007] Movable instances:                8673
+[INFO GPL-0008] Fixed instances:                     0
+[INFO GPL-0009] Dummy instances:                     0
+[INFO GPL-0010] Number of nets:                   8692
+[INFO GPL-0011] Number of pins:                  29369
+[INFO GPL-0012] Die BBox:  (  0.000  0.000 ) ( 525.220 543.940 ) um
+[INFO GPL-0013] Core BBox: (  5.760 15.120 ) ( 519.360 525.420 ) um
+[INFO GPL-0016] Core area:                  262090.080 um^2
+[INFO GPL-0014] Region name: top-level.
+[INFO GPL-0015] Region area:                262090.080 um^2
+[INFO GPL-0017] Fixed instances area:            0.000 um^2
+[INFO GPL-0018] Movable instances area:     142888.780 um^2
+[INFO GPL-0019] Utilization:                    54.519 %
+[INFO GPL-0020] Standard cells area:        142888.780 um^2
+[INFO GPL-0021] Large instances area:            0.000 um^2
+[INFO GPL-0033] Initializing Nesterov region: Top-level
+[INFO GPL-0023] Placement target density:       0.6034
+[INFO GPL-0024] Movable insts average area:     16.475 um^2
+[INFO GPL-0025] Ideal bin area:                 27.303 um^2
+[INFO GPL-0026] Ideal bin count:                  9599
+[INFO GPL-0027] Total bin area:             262090.080 um^2
+[INFO GPL-0028] Bin count (X, Y):          64 ,     64
+[INFO GPL-0029] Bin size (W * H):       8.025 *  7.973 um
+[INFO GPL-0030] Number of bins:                   4096
+[INFO GPL-0007] Execute nesterov global placement.
+[INFO GPL-0031] HPWL: Half-Perimeter Wirelength
+Iteration | Overflow |     HPWL (um) |  HPWL(%) |   Penalty | Group
+---------------------------------------------------------------
+        0 |   0.9988 |  3.002012e+04 |   +0.00% |  1.25e-15 |      
+       10 |   0.9978 |  2.196362e+04 |  -26.84% |  2.03e-15 |      
+       20 |   0.9973 |  2.117348e+04 |   -3.60% |  3.31e-15 |      
+       30 |   0.9971 |  2.084682e+04 |   -1.54% |  5.39e-15 |      
+       40 |   0.9971 |  2.060949e+04 |   -1.14% |  8.78e-15 |      
+       50 |   0.9971 |  2.049662e+04 |   -0.55% |  1.43e-14 |      
+       60 |   0.9969 |  2.045581e+04 |   -0.20% |  2.33e-14 |      
+       70 |   0.9967 |  2.046346e+04 |   +0.04% |  3.80e-14 |      
+       80 |   0.9962 |  2.052755e+04 |   +0.31% |  6.18e-14 |      
+       90 |   0.9960 |  2.070871e+04 |   +0.88% |  1.01e-13 |      
+      100 |   0.9952 |  2.116916e+04 |   +2.22% |  1.64e-13 |      
+      110 |   0.9929 |  2.223749e+04 |   +5.05% |  2.67e-13 |      
+      120 |   0.9908 |  2.465601e+04 |  +10.88% |  4.35e-13 |      
+      130 |   0.9871 |  2.904672e+04 |  +17.81% |  7.08e-13 |      
+      140 |   0.9791 |  3.479174e+04 |  +19.78% |  1.15e-12 |      
+      150 |   0.9710 |  4.251303e+04 |  +22.19% |  1.88e-12 |      
+      160 |   0.9603 |  5.255713e+04 |  +23.63% |  3.05e-12 |      
+      170 |   0.9464 |  6.413876e+04 |  +22.04% |  4.97e-12 |      
+      180 |   0.9317 |  7.626112e+04 |  +18.90% |  8.08e-12 |      
+      190 |   0.9109 |  9.025056e+04 |  +18.34% |  1.31e-11 |      
+      200 |   0.8823 |  1.055752e+05 |  +16.98% |  2.14e-11 |      
+      210 |   0.8511 |  1.212955e+05 |  +14.89% |  3.48e-11 |      
+      220 |   0.8156 |  1.372549e+05 |  +13.16% |  5.65e-11 |      
+      230 |   0.7769 |  1.523836e+05 |  +11.02% |  9.19e-11 |      
+      240 |   0.7373 |  1.675135e+05 |   +9.93% |  1.49e-10 |      
+      250 |   0.6912 |  1.831588e+05 |   +9.34% |  2.43e-10 |      
+      260 |   0.6435 |  1.978424e+05 |   +8.02% |  3.95e-10 |      
+      270 |   0.5910 |  2.132954e+05 |   +7.81% |  6.43e-10 |      
+      280 |   0.5277 |  2.230916e+05 |   +4.59% |  1.05e-09 |      
+      290 |   0.4634 |  2.338832e+05 |   +4.84% |  1.70e-09 |      
+      300 |   0.4015 |  2.401500e+05 |   +2.68% |  2.77e-09 |      
+      310 |   0.3572 |  2.443510e+05 |   +1.75% |  4.51e-09 |      
+      320 |   0.3173 |  2.455686e+05 |   +0.50% |  6.85e-09 |      
+      330 |   0.2911 |  2.448937e+05 |   -0.27% |  1.01e-08 |      
+      340 |   0.2642 |  2.468845e+05 |   +0.81% |  1.49e-08 |      
+      350 |   0.2372 |  2.466625e+05 |   -0.09% |  2.19e-08 |      
+      360 |   0.2066 |  2.469044e+05 |   +0.10% |  3.22e-08 |      
+      370 |   0.1811 |  2.464867e+05 |   -0.17% |  4.75e-08 |      
+      380 |   0.1546 |  2.464008e+05 |   -0.03% |  6.99e-08 |      
+      390 |   0.1336 |  2.460994e+05 |   -0.12% |  1.03e-07 |      
+      400 |   0.1133 |  2.459035e+05 |   -0.08% |  1.52e-07 |      
+      409 |   0.0990 |  2.457583e+05 |          |  2.24e-07 |      
+---------------------------------------------------------------
+[INFO GPL-1001] Global placement finished at iteration 409
+[INFO GPL-1002] Placed Cell Area            142888.7804
+[INFO GPL-1003] Available Free Area         262090.0800
+[INFO GPL-1004] Minimum Feasible Density        0.5500 (cell_area / free_area)
+[INFO GPL-1006]   Suggested Target Densities:
+[INFO GPL-1007]     - For 90% usage of free space: 0.6058
+[INFO GPL-1008]     - For 80% usage of free space: 0.6815
+[INFO GPL-1014] Final placement area: 142888.78 (+0.00%)
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 0 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Buffer                                   66     479.00
+  Inverter                                691    3761.25
+  Sequential cell                        1051   51487.23
+  Multi-Input combinational cell         6865   76215.69
+  Total                                  8673  131943.17
+Writing OpenROAD database to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/24-openroad-globalplacementskipio/CLASSIFIER_plus_cross_TOP.odb'…
+Writing netlist to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/24-openroad-globalplacementskipio/CLASSIFIER_plus_cross_TOP.nl.v'…
+Writing powered netlist to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/24-openroad-globalplacementskipio/CLASSIFIER_plus_cross_TOP.pnl.v'…
+Writing layout to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/24-openroad-globalplacementskipio/CLASSIFIER_plus_cross_TOP.def'…
+Writing timing constraints to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/CLASSIFIER_plus_cross_TOP/runs/user_project_run/24-openroad-globalplacementskipio/CLASSIFIER_plus_cross_TOP.sdc'…

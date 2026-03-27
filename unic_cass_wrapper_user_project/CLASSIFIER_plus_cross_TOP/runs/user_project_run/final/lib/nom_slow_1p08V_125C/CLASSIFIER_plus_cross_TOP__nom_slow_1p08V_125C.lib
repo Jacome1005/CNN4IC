@@ -1,0 +1,203 @@
+library (CLASSIFIER_plus_cross_TOP) {
+  comment                        : "";
+  delay_model                    : table_lookup;
+  simulation                     : false;
+  capacitive_load_unit (1,pF);
+  leakage_power_unit             : 1pW;
+  current_unit                   : "1uA";
+  pulling_resistance_unit        : "1kohm";
+  time_unit                      : "1ns";
+  voltage_unit                   : "1v";
+  library_features(report_delay_calculation);
+
+  input_threshold_pct_rise : 50;
+  input_threshold_pct_fall : 50;
+  output_threshold_pct_rise : 50;
+  output_threshold_pct_fall : 50;
+  slew_lower_threshold_pct_rise : 20;
+  slew_lower_threshold_pct_fall : 20;
+  slew_upper_threshold_pct_rise : 80;
+  slew_upper_threshold_pct_fall : 80;
+  slew_derate_from_library : 1.0;
+
+
+  nom_process                    : 1.0;
+  nom_temperature                : 125.0;
+  nom_voltage                    : 1.08;
+
+  type ("ui_PAD2CORE") {
+    base_type : array;
+    data_type : bit;
+    bit_width : 17;
+    bit_from : 16;
+    bit_to : 0;
+  }
+  type ("uo_CORE2PAD") {
+    base_type : array;
+    data_type : bit;
+    bit_width : 17;
+    bit_from : 16;
+    bit_to : 0;
+  }
+
+  cell ("CLASSIFIER_plus_cross_TOP") {
+    area : 262070.688 
+    is_macro_cell : true;
+    pin("clk_i") {
+      direction : input;
+      clock : true;
+      capacitance : 0.0000;
+    }
+    pin("rst_ni") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    bus("ui_PAD2CORE") {
+      bus_type : ui_PAD2CORE;
+      direction : input;
+      capacitance : 0.0000;
+    pin("ui_PAD2CORE[16]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[15]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[14]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[13]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[12]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[11]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[10]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[9]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[8]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[7]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[6]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[5]") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("ui_PAD2CORE[4]") {
+      direction : input;
+      capacitance : 0.0030;
+    }
+    pin("ui_PAD2CORE[3]") {
+      direction : input;
+      capacitance : 0.0031;
+    }
+    pin("ui_PAD2CORE[2]") {
+      direction : input;
+      capacitance : 0.0039;
+    }
+    pin("ui_PAD2CORE[1]") {
+      direction : input;
+      capacitance : 0.0031;
+    }
+    pin("ui_PAD2CORE[0]") {
+      direction : input;
+      capacitance : 0.0031;
+    }
+    }
+    bus("uo_CORE2PAD") {
+      bus_type : uo_CORE2PAD;
+      direction : output;
+      capacitance : 0.0000;
+    pin("uo_CORE2PAD[16]") {
+      direction : output;
+      capacitance : 0.0011;
+    }
+    pin("uo_CORE2PAD[15]") {
+      direction : output;
+      capacitance : 0.0012;
+    }
+    pin("uo_CORE2PAD[14]") {
+      direction : output;
+      capacitance : 0.0020;
+    }
+    pin("uo_CORE2PAD[13]") {
+      direction : output;
+      capacitance : 0.0016;
+    }
+    pin("uo_CORE2PAD[12]") {
+      direction : output;
+      capacitance : 0.0015;
+    }
+    pin("uo_CORE2PAD[11]") {
+      direction : output;
+      capacitance : 0.0015;
+    }
+    pin("uo_CORE2PAD[10]") {
+      direction : output;
+      capacitance : 0.0007;
+    }
+    pin("uo_CORE2PAD[9]") {
+      direction : output;
+      capacitance : 0.0012;
+    }
+    pin("uo_CORE2PAD[8]") {
+      direction : output;
+      capacitance : 0.0007;
+    }
+    pin("uo_CORE2PAD[7]") {
+      direction : output;
+      capacitance : 0.0008;
+    }
+    pin("uo_CORE2PAD[6]") {
+      direction : output;
+      capacitance : 0.0015;
+    }
+    pin("uo_CORE2PAD[5]") {
+      direction : output;
+      capacitance : 0.0012;
+    }
+    pin("uo_CORE2PAD[4]") {
+      direction : output;
+      capacitance : 0.0021;
+    }
+    pin("uo_CORE2PAD[3]") {
+      direction : output;
+      capacitance : 0.0019;
+    }
+    pin("uo_CORE2PAD[2]") {
+      direction : output;
+      capacitance : 0.0007;
+    }
+    pin("uo_CORE2PAD[1]") {
+      direction : output;
+      capacitance : 0.0005;
+    }
+    pin("uo_CORE2PAD[0]") {
+      direction : output;
+      capacitance : 0.0008;
+    }
+    }
+  }
+
+}

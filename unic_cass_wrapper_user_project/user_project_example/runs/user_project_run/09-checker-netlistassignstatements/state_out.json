@@ -1,0 +1,14 @@
+{
+    "json_h": "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/05-yosys-jsonheader/user_project_example.h.json",
+    "nl": "/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/06-yosys-synthesis/user_project_example.nl.v",
+    "metrics": {
+        "design__lint_error__count": 0,
+        "design__lint_timing_construct__count": 0,
+        "design__lint_warning__count": 1,
+        "design__inferred_latch__count": 0,
+        "design__instance__count": 142,
+        "design__instance__area": 2619.9936,
+        "design__instance_unmapped__count": 0,
+        "synthesis__check_error__count": 0
+    }
+}

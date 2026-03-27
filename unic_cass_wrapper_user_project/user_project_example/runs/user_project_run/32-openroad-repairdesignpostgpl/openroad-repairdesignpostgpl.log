@@ -1,0 +1,77 @@
+Reading timing models for corner nom_fast_1p32V_m40C…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_fast_1p32V_m40C.lib'…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_fast_1p32V_3p6V_m40C.lib'…
+Reading timing models for corner nom_slow_1p08V_125C…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_slow_1p08V_125C.lib'…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_slow_1p08V_3p0V_125C.lib'…
+Reading timing models for corner nom_typ_1p20V_25C…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_stdcell/lib/sg13g2_stdcell_typ_1p20V_25C.lib'…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/designer/projects/CNN4IC/IHP-Open-PDK/ihp-sg13g2/libs.ref/sg13g2_io/lib/sg13g2_io_typ_1p2V_3p3V_25C.lib'…
+Reading OpenROAD database at '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/28-openroad-globalplacement/user_project_example.odb'…
+Reading design constraints file at '/nix/store/w99sjyq5j8hvscxr5zh2x597anf2hadx-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk_i…
+[INFO] Setting output delay to: 2
+[INFO] Setting input delay to: 2
+[INFO] Setting load to: 0.006
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.15
+[INFO] Setting timing derate to: 5%
+[INFO RSZ-0027] Inserted 18 sg13g2_buf_1 input buffers.
+[INFO RSZ-0028] Inserted 1 sg13g2_buf_1 output buffers.
++ repair_design -verbose -max_wire_length 0 -slew_margin 20 -cap_margin 20
+Iteration |   Area    | Resized | Buffers | Nets repaired | Remaining
+---------------------------------------------------------------------
+        0 |     +0.0% |       0 |       0 |             0 |       180
+       10 |     +0.0% |       0 |       0 |             0 |       170
+       20 |     +0.0% |       0 |       0 |             0 |       160
+       30 |     +0.0% |       0 |       0 |             0 |       150
+       40 |     +0.0% |       0 |       0 |             0 |       140
+       50 |     +0.0% |       0 |       0 |             0 |       130
+       60 |     +0.0% |       0 |       0 |             0 |       120
+       70 |     +0.0% |       0 |       0 |             0 |       110
+       80 |     +0.0% |       0 |       0 |             0 |       100
+       90 |     +0.0% |       0 |       0 |             0 |        90
+      100 |     +0.0% |       0 |       0 |             0 |        80
+      110 |     +0.0% |       0 |       0 |             0 |        70
+      120 |     +0.0% |       0 |       0 |             0 |        60
+      130 |     +0.0% |       0 |       0 |             0 |        50
+      140 |     +0.5% |       0 |       2 |             1 |        40
+      150 |     +1.8% |       0 |       7 |             2 |        30
+      160 |     +1.8% |       0 |       7 |             2 |        20
+      170 |     +1.8% |       0 |       7 |             2 |        10
+      180 |     +1.8% |       0 |       7 |             2 |         0
+    final |     +1.8% |       0 |       7 |             2 |         0
+---------------------------------------------------------------------
+[INFO RSZ-0035] Found 2 fanout violations.
+[INFO RSZ-0038] Inserted 7 buffers in 2 nets.
+[INFO RSZ-0042] Inserted 15 tie sg13g2_tielo instances.
+[INFO RSZ-0042] Inserted 1 tie sg13g2_tiehi instances.
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement        774.8 u
+average displacement        4.6 u
+max displacement           19.3 u
+original HPWL            1933.2 u
+legalized HPWL           2505.4 u
+delta HPWL                   30 %
+
+[INFO DPL-0020] Mirrored 73 instances
+[INFO DPL-0021] HPWL before            2505.4 u
+[INFO DPL-0022] HPWL after             2366.5 u
+[INFO DPL-0023] HPWL delta               -5.5 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+[INFO ODB-0403] 84 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Buffer                                    1       7.26
+  Timing Repair Buffer                     26     188.70
+  Sequential cell                          32    1567.64
+  Multi-Input combinational cell          109    1045.09
+  Total                                   168    2808.69
+Writing OpenROAD database to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/32-openroad-repairdesignpostgpl/user_project_example.odb'…
+Writing netlist to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/32-openroad-repairdesignpostgpl/user_project_example.nl.v'…
+Writing powered netlist to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/32-openroad-repairdesignpostgpl/user_project_example.pnl.v'…
+Writing layout to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/32-openroad-repairdesignpostgpl/user_project_example.def'…
+Writing timing constraints to '/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/32-openroad-repairdesignpostgpl/user_project_example.sdc'…

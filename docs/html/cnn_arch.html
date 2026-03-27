@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CNNver2 — Arquitectura Visual</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #07090f;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #c9d1e0;
+  overflow-x: hidden;
+}
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.label-mono { font-family: 'IBM Plex Mono', monospace; }
+
+/* Tooltip */
+#tt {
+  position: fixed;
+  background: #0d1117;
+  border: 1px solid #00e5ff66;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  pointer-events: none;
+  display: none;
+  z-index: 100;
+  max-width: 260px;
+  color: #c9d1e0;
+  box-shadow: 0 4px 24px #00000088;
+}
+#tt .tt-h { color: #00e5ff; font-weight: 600; margin-bottom: 4px; }
+
+/* legend */
+.legend {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: #0d1117ee;
+  border: 1px solid #1e2530;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 11px;
+  line-height: 2;
+}
+.legend-dot { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:8px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<div id="tt"></div>
+
+<svg id="main" viewBox="0 0 1400 920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <!-- Gradientes de fondo para cada módulo -->
+  <linearGradient id="g-top" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#0a1628"/>
+    <stop offset="100%" stop-color="#060e1c"/>
+  </linearGradient>
+  <linearGradient id="g-comm" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#0a1a14"/>
+    <stop offset="100%" stop-color="#060f0c"/>
+  </linearGradient>
+  <linearGradient id="g-proc" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#15091a"/>
+    <stop offset="100%" stop-color="#0c0610"/>
+  </linearGradient>
+  <linearGradient id="g-ctrl" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1a0f06"/>
+    <stop offset="100%" stop-color="#110a04"/>
+  </linearGradient>
+  <linearGradient id="g-cnn" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#061520"/>
+    <stop offset="100%" stop-color="#040d14"/>
+  </linearGradient>
+  <linearGradient id="g-mux" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1a0a18"/>
+    <stop offset="100%" stop-color="#120712"/>
+  </linearGradient>
+
+  <!-- Glow filters -->
+  <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="3" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="glow-orange">
+    <feGaussianBlur stdDeviation="2.5" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+
+  <!-- Arrow markers -->
+  <marker id="arr-cyan" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#00e5ff"/>
+  </marker>
+  <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#ff8c42"/>
+  </marker>
+  <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#4ade80"/>
+  </marker>
+  <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#c77dff"/>
+  </marker>
+  <marker id="arr-yellow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+    <path d="M0,0 L0,6 L8,3 z" fill="#ffd60a"/>
+  </marker>
+</defs>
+
+<!-- ══════════════════════════════════════════════════════════════
+     FONDO GENERAL
+═══════════════════════════════════════════════════════════════ -->
+<rect width="1400" height="920" fill="#07090f"/>
+
+<!-- Título -->
+<text x="700" y="38" text-anchor="middle" font-family="IBM Plex Mono" font-size="18" font-weight="600" fill="#00e5ff" letter-spacing="2">CNNver2 — Arquitectura de Sistema</text>
+<text x="700" y="58" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#4a5568">10×10 imagen · 5×5 kernel · clasificación binaria · 50 MHz SPI</text>
+
+<!-- ══════════════════════════════════════════════════════════════
+     CAPA 0: CNNver2 TOP LEVEL
+═══════════════════════════════════════════════════════════════ -->
+<rect x="30" y="70" width="1340" height="820" rx="12" fill="url(#g-top)" stroke="#1e3a5f" stroke-width="1.5"/>
+<text x="52" y="92" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#4a9eff" letter-spacing="1">CNNver2  (top level)</text>
+<text x="52" y="107" font-family="IBM Plex Mono" font-size="10" fill="#2a4a6a">8 pines externos · clock compartido SPI/CNN · reset global</text>
+
+<!-- Pines externos izquierda -->
+<!-- MOSI -->
+<rect x="32" y="145" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="68" y="160" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#00e5ff">MOSI</text>
+<line x1="104" y1="156" x2="130" y2="156" stroke="#00e5ff" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+
+<!-- SPI_CLK -->
+<rect x="32" y="175" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="68" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#00e5ff">SPI_CLK</text>
+<line x1="104" y1="186" x2="130" y2="186" stroke="#00e5ff" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+
+<!-- SS_N -->
+<rect x="32" y="205" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="68" y="220" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#00e5ff">SS_N</text>
+<line x1="104" y1="216" x2="130" y2="216" stroke="#00e5ff" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+
+<!-- RESET -->
+<rect x="32" y="235" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="68" y="250" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#ff6b6b">RESET</text>
+<line x1="104" y1="246" x2="130" y2="246" stroke="#ff6b6b" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+
+<!-- CMD_RST -->
+<rect x="32" y="265" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="68" y="280" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#ff6b6b">CMD_RST</text>
+<line x1="104" y1="276" x2="130" y2="276" stroke="#ff6b6b" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+
+<!-- Pines externos derecha -->
+<!-- MISO -->
+<rect x="1296" y="145" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="1332" y="160" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#4ade80">MISO</text>
+<line x1="1272" y1="156" x2="1296" y2="156" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+<!-- MR1_Load (debug) -->
+<rect x="1296" y="175" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="1332" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#ffd60a">MR1_Load</text>
+<line x1="1272" y1="186" x2="1296" y2="186" stroke="#ffd60a" stroke-width="1.5" marker-end="url(#arr-yellow)"/>
+
+<!-- MR2_Load (debug) -->
+<rect x="1296" y="205" width="72" height="22" rx="3" fill="#0a1628" stroke="#1e3a5f"/>
+<text x="1332" y="220" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#ffd60a">MR2_Load</text>
+<line x1="1272" y1="216" x2="1296" y2="216" stroke="#ffd60a" stroke-width="1.5" marker-end="url(#arr-yellow)"/>
+
+<!-- ══════════════════════════════════════════════════════════════
+     BLOQUE: comm_mem_top
+═══════════════════════════════════════════════════════════════ -->
+<rect id="b-comm" x="130" y="120" width="480" height="530" rx="10"
+      fill="url(#g-comm)" stroke="#1a4a30" stroke-width="1.5"
+      class="clickable" style="cursor:pointer"/>
+<text x="152" y="142" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#4ade80" letter-spacing="1">comm_mem_top</text>
+<text x="152" y="157" font-family="IBM Plex Mono" font-size="9" fill="#2a6a45">Comunicación SPI + Memoria de registros</text>
+
+<!-- ── spi_cnn_slave_8 ── -->
+<rect id="b-spi" x="150" y="168" width="200" height="130" rx="7"
+      fill="#061a10" stroke="#1a5a30" stroke-width="1"
+      class="clickable" style="cursor:pointer"/>
+<text x="160" y="185" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#4ade80">spi_cnn_slave_8</text>
+<text x="160" y="198" font-family="IBM Plex Mono" font-size="9" fill="#2a6a45">SPI slave · decodifica CMD</text>
+<!-- Entradas dentro del bloque SPI -->
+<text x="160" y="216" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">in: MOSI, CLK, SS_N</text>
+<text x="160" y="228" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">out: MISO, cmd[2:0]</text>
+<text x="160" y="240" font-family="IBM Plex Mono" font-size="8" fill="#ff8c42">out: load_img, load_wgt</text>
+<text x="160" y="252" font-family="IBM Plex Mono" font-size="8" fill="#ff8c42">out: start_cnn</text>
+<text x="160" y="265" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">out: image_mem[0..9]</text>
+<text x="160" y="277" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">out: weight_mem[0..4]</text>
+<text x="160" y="289" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">  3b CMD + payload</text>
+
+<!-- ── SM IMAGE LOADER ── -->
+<rect id="b-smiml" x="370" y="168" width="220" height="58" rx="7"
+      fill="#061a10" stroke="#1a5a30" stroke-width="1" style="cursor:pointer"/>
+<text x="380" y="185" font-family="IBM Plex Mono" font-size="9" font-weight="600" fill="#4ade80">SC_SM_IMAGE_LOADER</text>
+<text x="380" y="197" font-family="IBM Plex Mono" font-size="8" fill="#2a6a45">FSM carga imagen SPI</text>
+<text x="380" y="210" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">10 filas · 30b/fila</text>
+<text x="380" y="220" font-family="IBM Plex Mono" font-size="8" fill="#ffd60a">cmd 001</text>
+
+<!-- ── SM WEIGHT LOADER ── -->
+<rect id="b-smwgt" x="370" y="238" width="220" height="58" rx="7"
+      fill="#061a10" stroke="#1a5a30" stroke-width="1" style="cursor:pointer"/>
+<text x="380" y="255" font-family="IBM Plex Mono" font-size="9" font-weight="600" fill="#4ade80">SC_SM_WEIGHT_LOADER</text>
+<text x="380" y="267" font-family="IBM Plex Mono" font-size="8" fill="#2a6a45">FSM carga pesos SPI</text>
+<text x="380" y="279" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">5 filas · 15b/fila</text>
+<text x="380" y="290" font-family="IBM Plex Mono" font-size="8" fill="#ffd60a">cmd 010</text>
+
+<!-- ── Register_Imag × 10 ── -->
+<rect id="b-rimg" x="150" y="320" width="200" height="100" rx="7"
+      fill="#061a10" stroke="#1a5a30" stroke-width="1" style="cursor:pointer"/>
+<text x="160" y="337" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#4ade80">Register_Imag × 10</text>
+<text x="160" y="349" font-family="IBM Plex Mono" font-size="9" fill="#2a6a45">10 registros de 30 bits</text>
+<text x="160" y="363" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">img_row00..09</text>
+<text x="160" y="375" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">10 × 30b = 300b total</text>
+<text x="160" y="387" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">clk: SPI_Clk</text>
+<text x="160" y="399" font-family="IBM Plex Mono" font-size="8" fill="#ffd60a">→ i_img_row (proc)</text>
+<text x="160" y="411" font-family="IBM Plex Mono" font-size="8" fill="#ff6b6b">rst: síncrono</text>
+
+<!-- ── Register_Weight × 5 ── -->
+<rect id="b-rwgt" x="370" y="320" width="220" height="100" rx="7"
+      fill="#061a10" stroke="#1a5a30" stroke-width="1" style="cursor:pointer"/>
+<text x="380" y="337" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#4ade80">Register_Weight × 5</text>
+<text x="380" y="349" font-family="IBM Plex Mono" font-size="9" fill="#2a6a45">5 registros de 15 bits</text>
+<text x="380" y="363" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">wgt_row00..04</text>
+<text x="380" y="375" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">5 × 15b = 75b total</text>
+<text x="380" y="387" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">clk: SPI_Clk</text>
+<text x="380" y="399" font-family="IBM Plex Mono" font-size="8" fill="#ffd60a">→ i_wgt_row (proc)</text>
+<text x="380" y="411" font-family="IBM Plex Mono" font-size="8" fill="#ff6b6b">rst: síncrono</text>
+
+<!-- ── Master Register MR1 ── -->
+<rect id="b-mr1" x="150" y="445" width="200" height="75" rx="7"
+      fill="#061a10" stroke="#1a5a30" stroke-width="1" style="cursor:pointer"/>
+<text x="160" y="462" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#ffd60a">Master_register MR1</text>
+<text x="160" y="474" font-family="IBM Plex Mono" font-size="9" fill="#2a6a45">Resultado kernel0 (acc0)</text>
+<text x="160" y="486" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">16 bits signed</text>
+<text x="160" y="498" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">carga con mr1_load↓</text>
+<text x="160" y="510" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">→ MISO (cmd 101)</text>
+
+<!-- ── Master Register MR2 ── -->
+<rect id="b-mr2" x="370" y="445" width="220" height="75" rx="7"
+      fill="#061a10" stroke="#1a5a30" stroke-width="1" style="cursor:pointer"/>
+<text x="380" y="462" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#ffd60a">Master_register MR2</text>
+<text x="380" y="474" font-family="IBM Plex Mono" font-size="9" fill="#2a6a45">Resultado kernel1 (acc1)</text>
+<text x="380" y="486" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">16 bits signed</text>
+<text x="380" y="498" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">carga con mr2_load↓</text>
+<text x="380" y="510" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">→ MISO (cmd 110)</text>
+
+<!-- ══════════════════════════════════════════════════════════════
+     BLOQUE: cnn_proc_top
+═══════════════════════════════════════════════════════════════ -->
+<rect id="b-proc" x="640" y="120" width="710" height="530" rx="10"
+      fill="url(#g-proc)" stroke="#3a1a5f" stroke-width="1.5"
+      style="cursor:pointer"/>
+<text x="662" y="142" font-family="IBM Plex Mono" font-size="12" font-weight="600" fill="#c77dff" letter-spacing="1">cnn_proc_top</text>
+<text x="662" y="157" font-family="IBM Plex Mono" font-size="9" fill="#5a2a8a">Lógica de procesamiento CNN + comparador</text>
+
+<!-- ── SC_STATEMACHINE_CNN_CTRL ── -->
+<rect id="b-ctrl" x="660" y="168" width="300" height="200" rx="8"
+      fill="url(#g-ctrl)" stroke="#5a3010" stroke-width="1"
+      style="cursor:pointer"/>
+<text x="672" y="185" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#ff8c42">SC_SM_CNN_CTRL</text>
+<text x="672" y="197" font-family="IBM Plex Mono" font-size="8" fill="#7a4a20">FSM 13 estados · orquesta 2 kernels</text>
+<!-- Estados clave -->
+<rect x="672" y="206" width="270" height="12" rx="2" fill="#1a0a00"/>
+<text x="676" y="216" font-family="IBM Plex Mono" font-size="7.5" fill="#ff8c42">IDLE→LATCH_K0→RST0→START0→WAIT0→SAVE_K0</text>
+<rect x="672" y="221" width="270" height="12" rx="2" fill="#1a0a00"/>
+<text x="676" y="231" font-family="IBM Plex Mono" font-size="7.5" fill="#ff8c42">    →WAIT_K1→LATCH_K1→RST1→START1→WAIT1→SAVE_K1→FINISH</text>
+<!-- Señales internas del ctrl -->
+<text x="672" y="248" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">in:  i_START_CNN (pulso 1 ciclo)</text>
+<text x="672" y="260" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">in:  i_wgt_row00..04 → kernel_reg</text>
+<text x="672" y="272" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">out: o_acc0, o_acc1 (16b signed)</text>
+<text x="672" y="284" font-family="IBM Plex Mono" font-size="8" fill="#ffd60a">out: o_mr1_load, o_mr2_load (act.bajo)</text>
+<text x="672" y="296" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">out: o_done (pulso fin)</text>
+<text x="672" y="310" font-family="IBM Plex Mono" font-size="8" fill="#ff6b6b">    kernel_reg latched en LATCH_K0/K1</text>
+<text x="672" y="322" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">    image_flat = {row09,..,row00} wire</text>
+<text x="672" y="354" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">    ~108 ciclos por kernel</text>
+
+<!-- ── cnn_top ── -->
+<rect id="b-cnntop" x="990" y="168" width="340" height="360" rx="8"
+      fill="url(#g-cnn)" stroke="#0a3a5a" stroke-width="1"
+      style="cursor:pointer"/>
+<text x="1002" y="185" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#4a9eff">cnn_top</text>
+<text x="1002" y="197" font-family="IBM Plex Mono" font-size="8" fill="#1a4a6a">FSM 6 estados · 9 fragmentos · acumula</text>
+<text x="1002" y="211" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">IDLE→FRAG→START→WAIT→ACC(×9)→FINISH</text>
+<text x="1002" y="225" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">in: image_flat[299:0], kernel_flat[74:0]</text>
+<text x="1002" y="237" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">out: acc[15:0] signed, done</text>
+
+<!-- ── fragment_mux_10x10_6x6 ── -->
+<rect id="b-fmux" x="1002" y="252" width="318" height="80" rx="6"
+      fill="#040d14" stroke="#0a3060" stroke-width="1" style="cursor:pointer"/>
+<text x="1012" y="268" font-family="IBM Plex Mono" font-size="9" font-weight="600" fill="#4a9eff">fragment_mux_10x10_6x6</text>
+<text x="1012" y="280" font-family="IBM Plex Mono" font-size="8" fill="#1a4a6a">combinacional · stride=2</text>
+<text x="1012" y="293" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">in:  image_flat[299:0], frag_sel[3:0]</text>
+<text x="1012" y="305" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">out: fragment_flat[107:0]</text>
+<text x="1012" y="317" font-family="IBM Plex Mono" font-size="8" fill="#ffd60a">9 fragmentos 6×6 con orígenes (0..4,0..4)</text>
+<text x="1012" y="328" font-family="IBM Plex Mono" font-size="8" fill="#ffd60a">stride=2: (0,0)(0,2)(0,4)(2,0)...(4,4)</text>
+
+<!-- ── mux_cnn ── -->
+<rect id="b-mcnn" x="1002" y="348" width="318" height="165" rx="6"
+      fill="url(#g-mux)" stroke="#3a1050" stroke-width="1" style="cursor:pointer"/>
+<text x="1012" y="365" font-family="IBM Plex Mono" font-size="9" font-weight="600" fill="#c77dff">mux_cnn</text>
+<text x="1012" y="377" font-family="IBM Plex Mono" font-size="8" fill="#5a2a8a">FSM · 4 ventanas por fragmento</text>
+<text x="1012" y="391" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">in: fragment_flat[107:0], kernel_flat[74:0]</text>
+<text x="1012" y="403" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">out: conv_out[15:0], done</text>
+
+<!-- window_mux dentro de mux_cnn -->
+<rect id="b-wmux" x="1012" y="412" width="140" height="90" rx="5"
+      fill="#0d0515" stroke="#3a1060" stroke-width="1" style="cursor:pointer"/>
+<text x="1020" y="427" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#c77dff">window_mux_6x6_5x5</text>
+<text x="1020" y="439" font-family="IBM Plex Mono" font-size="7.5" fill="#5a2a8a">comb · stride=1</text>
+<text x="1020" y="452" font-family="IBM Plex Mono" font-size="7.5" fill="#c77dff">in: frag[107:0]</text>
+<text x="1020" y="463" font-family="IBM Plex Mono" font-size="7.5" fill="#c77dff">    win_sel[1:0]</text>
+<text x="1020" y="475" font-family="IBM Plex Mono" font-size="7.5" fill="#4ade80">out: win[74:0]</text>
+<text x="1020" y="487" font-family="IBM Plex Mono" font-size="7.5" fill="#ffd60a">4 pos: (0,0)(0,1)</text>
+<text x="1020" y="497" font-family="IBM Plex Mono" font-size="7.5" fill="#ffd60a">       (1,0)(1,1)</text>
+
+<!-- mac_parallel dentro de mux_cnn -->
+<rect id="b-mac" x="1162" y="412" width="148" height="55" rx="5"
+      fill="#0d0515" stroke="#3a1060" stroke-width="1" style="cursor:pointer"/>
+<text x="1170" y="427" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#ffd60a">mac_parallel</text>
+<text x="1170" y="439" font-family="IBM Plex Mono" font-size="7.5" fill="#5a2a8a">combinacional</text>
+<text x="1170" y="452" font-family="IBM Plex Mono" font-size="7.5" fill="#ffd60a">25 × (3b × 3b)</text>
+<text x="1170" y="463" font-family="IBM Plex Mono" font-size="7.5" fill="#4ade80">→ signed 16b</text>
+
+<!-- progressive_maxpool dentro de mux_cnn -->
+<rect id="b-mp" x="1162" y="477" width="148" height="55" rx="5"
+      fill="#0d0515" stroke="#3a1060" stroke-width="1" style="cursor:pointer"/>
+<text x="1170" y="492" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#4ade80">prog_maxpool</text>
+<text x="1170" y="504" font-family="IBM Plex Mono" font-size="7.5" fill="#5a2a8a">secuencial</text>
+<text x="1170" y="517" font-family="IBM Plex Mono" font-size="7.5" fill="#4ade80">max de 4 MACs</text>
+<text x="1170" y="528" font-family="IBM Plex Mono" font-size="7.5" fill="#ffd60a">first_en iter 0</text>
+
+<!-- ── Comparador combinacional ── -->
+<rect id="b-cmp" x="660" y="400" width="300" height="70" rx="7"
+      fill="#061a0a" stroke="#1a5a1a" stroke-width="1" style="cursor:pointer"/>
+<text x="672" y="418" font-family="IBM Plex Mono" font-size="10" font-weight="600" fill="#4ade80">Comparador combinacional</text>
+<text x="672" y="430" font-family="IBM Plex Mono" font-size="8" fill="#2a6a45">comp = $signed(acc0) &gt; $signed(acc1)</text>
+<text x="672" y="444" font-family="IBM Plex Mono" font-size="8" fill="#4a9eff">in:  ctrl_acc0[15:0], ctrl_acc1[15:0]</text>
+<text x="672" y="458" font-family="IBM Plex Mono" font-size="8" fill="#4ade80">out: o_comp_result (1b, combinacional)</text>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SEÑALES ENTRE BLOQUES
+═══════════════════════════════════════════════════════════════ -->
+
+<!-- MOSI → SPI slave (ya dibujada arriba) -->
+
+<!-- SPI_CLK a todos los bloques (bus de clock) -->
+<line x1="104" y1="186" x2="120" y2="186" stroke="#00e5ff" stroke-width="1.5"/>
+<line x1="120" y1="186" x2="120" y2="860" stroke="#00e5ff" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+
+<!-- RESET global (bus) -->
+<line x1="104" y1="246" x2="116" y2="246" stroke="#ff6b6b" stroke-width="1.5"/>
+<line x1="116" y1="246" x2="116" y2="870" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="4,4" opacity="0.25"/>
+
+<!-- image_mem (SPI slave → Register_Imag) -->
+<line x1="250" y1="290" x2="250" y2="320" stroke="#c77dff" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+<text x="255" y="308" font-family="IBM Plex Mono" font-size="7.5" fill="#c77dff">image_mem</text>
+
+<!-- weight_mem (SPI slave → SM_WEIGHT via SPI_SM_IMAGE) -->
+<line x1="350" y1="232" x2="370" y2="232" stroke="#c77dff" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+
+<!-- Register_Imag → cnn_proc (bus 300b) -->
+<line x1="350" y1="365" x2="620" y2="365" stroke="#c77dff" stroke-width="2" marker-end="url(#arr-purple)"/>
+<text x="430" y="358" font-family="IBM Plex Mono" font-size="8" fill="#c77dff">i_img_row00..09</text>
+<text x="430" y="369" font-family="IBM Plex Mono" font-size="7.5" fill="#5a2a8a">10 × 30b = 300b</text>
+<!-- continúa al ctrl -->
+<line x1="640" y1="365" x2="660" y2="280" stroke="#c77dff" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-purple)"/>
+
+<!-- Register_Weight → cnn_proc (bus 75b) -->
+<line x1="590" y1="380" x2="620" y2="380" stroke="#c77dff" stroke-width="1.5"/>
+<line x1="620" y1="380" x2="660" y2="290" stroke="#c77dff" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-purple)"/>
+<text x="595" y="373" font-family="IBM Plex Mono" font-size="7.5" fill="#c77dff">wgt 75b</text>
+
+<!-- start_cnn (SPI slave → cnn_proc_top) -->
+<line x1="350" y1="252" x2="612" y2="252" stroke="#ff8c42" stroke-width="2" marker-end="url(#arr-orange)"/>
+<line x1="612" y1="252" x2="660" y2="252" stroke="#ff8c42" stroke-width="2" marker-end="url(#arr-orange)"/>
+<text x="400" y="245" font-family="IBM Plex Mono" font-size="8" fill="#ff8c42">start_cnn (1b pulso)</text>
+
+<!-- acc0 / mr1_load (ctrl → MR1) -->
+<line x1="660" y1="420" x2="610" y2="420" stroke="#ffd60a" stroke-width="1.5"/>
+<line x1="610" y1="420" x2="610" y2="475" stroke="#ffd60a" stroke-width="1.5"/>
+<line x1="610" y1="475" x2="350" y2="475" stroke="#ffd60a" stroke-width="1.5" marker-end="url(#arr-yellow)"/>
+<text x="420" y="470" font-family="IBM Plex Mono" font-size="7.5" fill="#ffd60a">acc0[15:0] + mr1_load↓</text>
+
+<!-- acc1 / mr2_load (ctrl → MR2) -->
+<line x1="660" y1="440" x2="608" y2="440" stroke="#ffd60a" stroke-width="1.5"/>
+<line x1="608" y1="440" x2="608" y2="490" stroke="#ffd60a" stroke-width="1.5"/>
+<line x1="608" y1="490" x2="590" y2="490" stroke="#ffd60a" stroke-width="1.5" marker-end="url(#arr-yellow)"/>
+<text x="430" y="488" font-family="IBM Plex Mono" font-size="7.5" fill="#ffd60a">acc1 + mr2_load↓</text>
+
+<!-- MR1 → MISO (a través del SPI slave) -->
+<line x1="350" y1="480" x2="360" y2="480" stroke="#4ade80" stroke-width="1.5"/>
+<line x1="360" y1="480" x2="360" y2="540" stroke="#4ade80" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+<line x1="360" y1="540" x2="250" y2="540" stroke="#4ade80" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+
+<!-- MR2 → MISO -->
+<line x1="590" y1="500" x2="595" y2="560" stroke="#4ade80" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+<!-- comp_result (comparador → SPI slave) -->
+<line x1="660" y1="435" x2="605" y2="435" stroke="#4ade80" stroke-width="1.5"/>
+<line x1="605" y1="435" x2="605" y2="560" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="5,3"/>
+<line x1="605" y1="560" x2="340" y2="560" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="5,3"/>
+<line x1="340" y1="560" x2="340" y2="290" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+<text x="360" y="558" font-family="IBM Plex Mono" font-size="7.5" fill="#4ade80">comp_result (1b)</text>
+
+<!-- ctrl → cnn_top (cnn_start, cnn_rst, kernel, image) -->
+<line x1="960" y1="230" x2="990" y2="230" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+<text x="965" y="224" font-family="IBM Plex Mono" font-size="7.5" fill="#4a9eff">start/rst</text>
+
+<!-- image_flat → fragment_mux -->
+<line x1="960" y1="280" x2="1002" y2="280" stroke="#c77dff" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+<text x="962" y="274" font-family="IBM Plex Mono" font-size="7.5" fill="#c77dff">300b flat</text>
+
+<!-- frag_sel → fragment_mux -->
+<line x1="960" y1="295" x2="1002" y2="295" stroke="#ff8c42" stroke-width="1.5" marker-end="url(#arr-orange)"/>
+<text x="962" y="308" font-family="IBM Plex Mono" font-size="7.5" fill="#ff8c42">frag_sel[3:0]</text>
+
+<!-- fragment_flat → mux_cnn -->
+<line x1="1082" y1="332" x2="1082" y2="348" stroke="#4a9eff" stroke-width="1.5" marker-end="url(#arr-cyan)"/>
+<text x="1085" y="344" font-family="IBM Plex Mono" font-size="7.5" fill="#4a9eff">108b</text>
+
+<!-- window_mux → mac_parallel -->
+<line x1="1152" y1="450" x2="1162" y2="450" stroke="#c77dff" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+<text x="1150" y="445" font-family="IBM Plex Mono" font-size="7.5" fill="#c77dff">75b</text>
+
+<!-- mac → maxpool -->
+<line x1="1236" y1="467" x2="1236" y2="477" stroke="#ffd60a" stroke-width="1.5" marker-end="url(#arr-yellow)"/>
+<text x="1240" y="475" font-family="IBM Plex Mono" font-size="7.5" fill="#ffd60a">MAC</text>
+
+<!-- maxpool → cnn_top out -->
+<line x1="1162" y1="504" x2="1110" y2="504" stroke="#4ade80" stroke-width="1.5"/>
+<line x1="1110" y1="504" x2="1002" y2="400" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr-green)"/>
+<text x="1030" y="420" font-family="IBM Plex Mono" font-size="7.5" fill="#4ade80">conv_out</text>
+
+<!-- cnn_top acc → ctrl -->
+<line x1="990" y1="340" x2="960" y2="340" stroke="#4ade80" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="962" y="335" font-family="IBM Plex Mono" font-size="7.5" fill="#4ade80">acc[15:0]</text>
+
+<!-- MR1/MR2 → MISO (etiqueta) -->
+<line x1="250" y1="520" x2="250" y2="580" stroke="#4ade80" stroke-width="1.5"/>
+<line x1="250" y1="580" x2="180" y2="580" stroke="#4ade80" stroke-width="1.5"/>
+<line x1="180" y1="580" x2="180" y2="156" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+<text x="130" y="360" font-family="IBM Plex Mono" font-size="8" fill="#4ade80" transform="rotate(-90,130,360)">→ MISO</text>
+
+<!-- MR1_Load debug out -->
+<line x1="350" y1="462" x2="1272" y2="186" stroke="#ffd60a" stroke-width="1" stroke-dasharray="3,5" opacity="0.35"/>
+
+<!-- ══════════════════════════════════════════════════════════════
+     TABLA DE DIMENSIONES (abajo)
+═══════════════════════════════════════════════════════════════ -->
+<rect x="30" y="665" width="1340" height="210" rx="8" fill="#0a0c14" stroke="#1e2530" stroke-width="1"/>
+<text x="50" y="685" font-family="IBM Plex Mono" font-size="11" font-weight="600" fill="#4a9eff" letter-spacing="1">PARÁMETROS CLAVE DEL SISTEMA</text>
+
+<!-- Columna 1: Representación -->
+<text x="50" y="705" font-family="IBM Plex Mono" font-size="9" fill="#4ade80" font-weight="600">REPRESENTACIÓN</text>
+<text x="50" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Pixel / Peso</text>
+<text x="200" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">3 bits signed  [-4, 3]</text>
+<text x="50" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">MAC resultado</text>
+<text x="200" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">16 bits signed [-300, 225]</text>
+<text x="50" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">acc (9 maxpools)</text>
+<text x="200" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">16 bits signed [-2700, 2025]</text>
+<text x="50" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Bus imagen</text>
+<text x="200" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">10 × 30b = 300b</text>
+<text x="50" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Bus kernel</text>
+<text x="200" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">5 × 15b = 75b</text>
+
+<!-- Columna 2: Estructura espacial -->
+<text x="400" y="705" font-family="IBM Plex Mono" font-size="9" fill="#ff8c42" font-weight="600">ESTRUCTURA ESPACIAL</text>
+<text x="400" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Imagen</text>
+<text x="530" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">10 × 10 px</text>
+<text x="400" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Fragmentos</text>
+<text x="530" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">9 × (6×6),  stride=2</text>
+<text x="400" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Ventanas/frag</text>
+<text x="530" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">4 × (5×5),  stride=1</text>
+<text x="400" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Kernel</text>
+<text x="530" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">5 × 5 px</text>
+<text x="400" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Cobertura px centro</text>
+<text x="530" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">25 ventanas (máximo)</text>
+<text x="400" y="785" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Cobertura px esquina</text>
+<text x="530" y="785" font-family="IBM Plex Mono" font-size="8.5" fill="#ff6b6b">1 ventana (mínimo)</text>
+
+<!-- Columna 3: Computación -->
+<text x="720" y="705" font-family="IBM Plex Mono" font-size="9" fill="#c77dff" font-weight="600">COMPUTACIÓN</text>
+<text x="720" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">MACs totales/kernel</text>
+<text x="880" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">9 × 4 × 25 = 900</text>
+<text x="720" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">MACs totales/clasif.</text>
+<text x="880" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">1800 mults 3b×3b</text>
+<text x="720" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Ciclos/kernel</text>
+<text x="880" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">~108 ciclos</text>
+<text x="720" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Ciclos clasificación</text>
+<text x="880" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">~400–500 ciclos total</text>
+<text x="720" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Clock</text>
+<text x="880" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">50 MHz (compartido SPI/CNN)</text>
+<text x="720" y="785" font-family="IBM Plex Mono" font-size="8.5" fill="#6b7280">Tiempo total</text>
+<text x="880" y="785" font-family="IBM Plex Mono" font-size="8.5" fill="#4ade80">≈ 8–10 μs por clasif.</text>
+
+<!-- Columna 4: Comandos SPI -->
+<text x="1060" y="705" font-family="IBM Plex Mono" font-size="9" fill="#00e5ff" font-weight="600">PROTOCOLO SPI</text>
+<text x="1060" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">CMD 001</text>
+<text x="1120" y="720" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">LOAD IMAGE  (10×30b)</text>
+<text x="1060" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">CMD 010</text>
+<text x="1120" y="733" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">LOAD WEIGHTS (5×15b)</text>
+<text x="1060" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">CMD 011</text>
+<text x="1120" y="746" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">START CNN   (pulso)</text>
+<text x="1060" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">CMD 100</text>
+<text x="1120" y="759" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">READ RESULT  (1b MISO)</text>
+<text x="1060" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">CMD 101</text>
+<text x="1120" y="772" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">READ MR1     (16b MISO)</text>
+<text x="1060" y="785" font-family="IBM Plex Mono" font-size="8.5" fill="#ffd60a">CMD 110</text>
+<text x="1120" y="785" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">READ MR2     (16b MISO)</text>
+
+<!-- Línea separadora -->
+<line x1="50" y1="800" x2="1350" y2="800" stroke="#1e2530" stroke-width="1"/>
+
+<!-- Flujo de uso -->
+<text x="50" y="818" font-family="IBM Plex Mono" font-size="9" fill="#4a9eff" font-weight="600">FLUJO MCU → CHIP:</text>
+<text x="200" y="818" font-family="IBM Plex Mono" font-size="8.5" fill="#c9d1e0">
+  001(imagen) → 010(ker0) → 011(START) →  [wait ~108 ciclos]  → 010(ker1) → 011(START) → [wait] → 101/110/100(leer resultados)
+</text>
+
+<!-- Nota importante -->
+<text x="50" y="840" font-family="IBM Plex Mono" font-size="9" fill="#ff8c42" font-weight="600">NOTA:</text>
+<text x="120" y="840" font-family="IBM Plex Mono" font-size="8.5" fill="#8a7060">kernel_reg se LATCHA en LATCH_K0/K1 → el SPI puede cambiar los pesos sin afectar el procesamiento en curso.</text>
+<text x="50" y="856" font-family="IBM Plex Mono" font-size="9" fill="#ff6b6b" font-weight="600">ATENCIÓN:</text>
+<text x="140" y="856" font-family="IBM Plex Mono" font-size="8.5" fill="#8a6060">Los píxeles del centro (4,4)–(5,5) tienen 25× más influencia que las esquinas → los kernels deben priorizar la región central para X vs Cruz.</text>
+<text x="50" y="872" font-family="IBM Plex Mono" font-size="9" fill="#4ade80" font-weight="600">CLOCK:</text>
+<text x="120" y="872" font-family="IBM Plex Mono" font-size="8.5" fill="#607a60">Un solo clock SPI_CLK para TODO el sistema (SPI + CNN). El procesamiento CNN ocurre entre transacciones SPI.</text>
+
+</svg>
+
+<!-- Leyenda -->
+<div class="legend">
+  <div><span class="legend-dot" style="background:#00e5ff"></span>Datos / Bus</div>
+  <div><span class="legend-dot" style="background:#ff8c42"></span>Control / FSM</div>
+  <div><span class="legend-dot" style="background:#4ade80"></span>Resultado / Salida</div>
+  <div><span class="legend-dot" style="background:#c77dff"></span>Memoria / Registros</div>
+  <div><span class="legend-dot" style="background:#ffd60a"></span>Cuantitativo / Debug</div>
+  <div><span class="legend-dot" style="background:#ff6b6b"></span>Reset / Error</div>
+</div>
+
+</body>
+</html>

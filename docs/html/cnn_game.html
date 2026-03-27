@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CNNver2 — Dibuja y Clasifica</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #060810;
+  --surface: #0b0f1a;
+  --panel:   #0e1220;
+  --border:  #1a2238;
+  --X:       #00e5ff;
+  --Cruz:    #ff5533;
+  --on:      #e8f4ff;
+  --off:     #0a1020;
+  --hover:   #152030;
+  --good:    #39d98a;
+  --warn:    #ffce00;
+  --muted:   #3a4d6a;
+  --text:    #8aa8c8;
+  --mono: 'Share Tech Mono', monospace;
+  --display: 'Orbitron', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  user-select: none;
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 3px,#00000012 3px,#00000012 4px);
+  pointer-events: none; z-index: 200;
+}
+
+.shell {
+  display: flex;
+  gap: 24px;
+  padding: 32px;
+  align-items: flex-start;
+}
+
+/* ── LEFT ── */
+.left { display: flex; flex-direction: column; gap: 12px; }
+
+.canvas-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.canvas-title {
+  font-family: var(--display);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .3em; text-transform: uppercase;
+  color: var(--muted);
+}
+.coord-hint { font-size: 10px; color: #1e3050; min-width: 60px; text-align: right; }
+
+.canvas-outer { display: flex; }
+
+.row-labels {
+  display: grid;
+  grid-template-rows: repeat(10, 46px);
+  gap: 3px;
+  padding: 10px 8px 10px 0;
+  align-items: center;
+}
+.col-labels {
+  display: grid;
+  grid-template-columns: repeat(10, 46px);
+  gap: 3px;
+  padding: 0 10px 6px;
+  margin-left: calc(8px + 16px);
+  justify-items: center;
+}
+.ax { font-size: 9px; color: #1a2d45; font-family: var(--mono); }
+.ax-r { text-align: right; }
+
+.canvas-frame {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 10px;
+  box-shadow: 0 0 60px #000a, inset 0 0 30px #00000044;
+}
+
+#pixel-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 46px);
+  grid-template-rows: repeat(10, 46px);
+  gap: 3px;
+  cursor: crosshair;
+}
+
+.px {
+  background: var(--off);
+  border-radius: 4px;
+  transition: background .05s, box-shadow .05s;
+}
+.px:hover { background: var(--hover); }
+.px.lit {
+  background: var(--on);
+  box-shadow: 0 0 6px #e8f4ff88, 0 0 12px #e8f4ff22;
+}
+.px.lit:hover { background: #fff; }
+
+.toolbar {
+  display: flex; gap: 10px; align-items: center;
+}
+.btn {
+  font-family: var(--mono);
+  font-size: 11px; letter-spacing: .06em;
+  padding: 8px 16px;
+  border-radius: 5px; border: 1px solid;
+  background: transparent; cursor: pointer;
+  transition: all .15s; text-transform: uppercase;
+}
+.btn-draw  { border-color: var(--good); color: var(--good); }
+.btn-draw.active  { background: #39d98a18; box-shadow: 0 0 12px #39d98a22; }
+.btn-draw:hover   { background: #39d98a14; }
+.btn-erase { border-color: #2a3a52; color: var(--muted); }
+.btn-erase.active { border-color: var(--warn); color: var(--warn); box-shadow: 0 0 12px #ffce0022; }
+.btn-erase:hover  { border-color: var(--warn); color: var(--warn); }
+.btn-clear { border-color: #1a2a3a; color: #2a4050; }
+.btn-clear:hover  { border-color: var(--Cruz); color: var(--Cruz); }
+.tool-sep { width: 1px; height: 22px; background: var(--border); }
+.px-count { font-size: 10px; color: var(--muted); margin-left: auto; }
+
+.shortcuts {
+  font-size: 9px; color: #1a2a3a; text-align: center;
+  letter-spacing: .06em; margin-top: 2px;
+}
+kbd {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 3px; padding: 0 4px;
+  font-family: var(--mono); font-size: 9px; color: #2a4060;
+}
+
+/* ── RIGHT ── */
+.right {
+  display: flex; flex-direction: column;
+  gap: 14px; width: 288px;
+}
+
+/* Result */
+.result-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 20px;
+  min-height: 168px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  transition: border-color .3s;
+}
+.result-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 10px;
+  opacity: 0; transition: opacity .4s; pointer-events: none;
+}
+.res-X    { border-color: #00e5ff33; }
+.res-Cruz { border-color: #ff553333; }
+.res-X::before    { background: radial-gradient(ellipse at 50% 70%,#00e5ff09,transparent 65%); opacity:1; }
+.res-Cruz::before { background: radial-gradient(ellipse at 50% 70%,#ff553309,transparent 65%); opacity:1; }
+
+.idle-msg {
+  text-align: center; color: var(--muted);
+  font-size: 11px; line-height: 2.4;
+}
+.idle-arrow { font-size: 22px; color: #1a2d40; display: block; margin-bottom: 4px; }
+
+.result-glyph {
+  font-family: var(--display);
+  font-size: 68px; font-weight: 900; line-height: 1;
+  margin-bottom: 4px; transition: color .3s;
+}
+.res-X    .result-glyph { color: var(--X); }
+.res-Cruz .result-glyph { color: var(--Cruz); }
+
+@keyframes gX { 0%,100%{text-shadow:0 0 28px #00e5ff88,0 0 56px #00e5ff33} 50%{text-shadow:0 0 48px #00e5ffcc,0 0 90px #00e5ff55} }
+@keyframes gC { 0%,100%{text-shadow:0 0 28px #ff553388,0 0 56px #ff553333} 50%{text-shadow:0 0 48px #ff5533cc,0 0 90px #ff553355} }
+.res-X    .result-glyph { animation: gX 2.6s ease-in-out infinite; }
+.res-Cruz .result-glyph { animation: gC 2.6s ease-in-out infinite; }
+
+.result-word {
+  font-family: var(--display);
+  font-size: 11px; font-weight: 700; letter-spacing: .3em;
+  margin-bottom: 10px;
+}
+.res-X    .result-word { color: #00e5ffaa; }
+.res-Cruz .result-word { color: #ff5533aa; }
+
+.result-stats {
+  font-size: 10px; color: var(--muted); text-align: center; line-height: 1.9;
+}
+
+/* Meters */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.card-title {
+  font-size: 9px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 12px;
+}
+
+.meter { margin-bottom: 10px; }
+.meter:last-of-type { margin-bottom: 0; }
+.meter-top {
+  display: flex; justify-content: space-between;
+  font-size: 10px; margin-bottom: 4px;
+}
+.m-X    { color: var(--X); }
+.m-Cruz { color: var(--Cruz); }
+.m-val  { color: var(--muted); font-size: 10px; }
+.meter-track {
+  height: 7px; background: #080d18;
+  border-radius: 4px; overflow: hidden;
+}
+.meter-fill {
+  height: 100%; border-radius: 4px;
+  transition: width .35s cubic-bezier(.4,0,.2,1);
+}
+.fill-X    { background: linear-gradient(90deg,#00e5ff44,var(--X)); }
+.fill-Cruz { background: linear-gradient(90deg,#ff553344,var(--Cruz)); }
+.fill-dim  { opacity: .3; }
+
+.comp-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 10px; color: var(--muted);
+}
+.comp-chip {
+  padding: 2px 10px; border-radius: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: .06em;
+}
+.chip-X    { background:#00e5ff14; border:1px solid #00e5ff44; color:var(--X); }
+.chip-Cruz { background:#ff553314; border:1px solid #ff553344; color:var(--Cruz); }
+
+/* Margin */
+.margin-display {
+  display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px;
+}
+.margin-big {
+  font-family: var(--display);
+  font-size: 34px; font-weight: 700;
+  transition: color .3s; color: var(--muted);
+}
+.margin-sub { font-size: 10px; color: var(--muted); line-height: 1.8; }
+
+.margin-segs {
+  display: flex; gap: 3px; margin-bottom: 5px;
+}
+.seg {
+  flex: 1; height: 8px; border-radius: 2px;
+  background: #080d18; transition: background .25s;
+}
+.seg.lit-X    { background: var(--X); }
+.seg.lit-Cruz { background: var(--Cruz); }
+
+.seg-labels {
+  display: flex; justify-content: space-between;
+  font-size: 9px; color: #1a2d45;
+}
+
+/* History */
+.hist-list {
+  display: flex; flex-direction: column; gap: 4px;
+  max-height: 108px; overflow-y: auto;
+}
+.hist-list::-webkit-scrollbar { width: 3px; }
+.hist-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.hist-item {
+  display: flex; justify-content: space-between;
+  font-size: 10px; padding: 4px 8px;
+  border-radius: 4px; background: var(--panel);
+  animation: fi .18s ease;
+}
+@keyframes fi { from{opacity:0;transform:translateY(-3px)} to{opacity:1;transform:none} }
+.hist-X    { border-left: 2px solid #00e5ff66; }
+.hist-Cruz { border-left: 2px solid #ff553366; }
+.hsym-X    { color: var(--X); font-weight: 700; }
+.hsym-Cruz { color: var(--Cruz); font-weight: 700; }
+.hnum { color: #253545; }
+.no-hist { font-size: 10px; color: #1e2d45; text-align: center; padding: 10px 0; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ══ IZQUIERDA ══ -->
+  <div class="left">
+    <div class="canvas-header">
+      <span class="canvas-title">Lienzo 10 × 10</span>
+      <span class="coord-hint" id="coord-hint"></span>
+    </div>
+
+    <!-- Col labels -->
+    <div class="col-labels" id="col-labels"></div>
+
+    <div class="canvas-outer">
+      <!-- Row labels -->
+      <div class="row-labels" id="row-labels"></div>
+
+      <!-- Canvas -->
+      <div class="canvas-frame">
+        <div id="pixel-grid"></div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button class="btn btn-draw active" id="btn-draw"  onclick="setMode('draw')">✦ Dibujar</button>
+      <button class="btn btn-erase"       id="btn-erase" onclick="setMode('erase')">◻ Borrar</button>
+      <div class="tool-sep"></div>
+      <button class="btn btn-clear" onclick="clearAll()">⟳ Limpiar</button>
+      <span class="px-count" id="px-count">0 px</span>
+    </div>
+
+    <div class="shortcuts">
+      <kbd>D</kbd> dibujar &nbsp;
+      <kbd>E</kbd> borrar &nbsp;
+      <kbd>C</kbd> / <kbd>Esc</kbd> limpiar
+    </div>
+  </div>
+
+  <!-- ══ DERECHA ══ -->
+  <div class="right">
+
+    <!-- Resultado -->
+    <div class="result-card" id="result-card">
+      <div id="idle-msg" class="idle-msg">
+        <span class="idle-arrow">✦</span>
+        Dibuja en el lienzo<br>para clasificar
+      </div>
+      <div id="result-show" style="display:none; text-align:center;">
+        <div class="result-glyph" id="r-glyph"></div>
+        <div class="result-word"  id="r-word"></div>
+        <div class="result-stats" id="r-stats"></div>
+      </div>
+    </div>
+
+    <!-- Acumuladores -->
+    <div class="card">
+      <div class="card-title">Acumuladores CNN</div>
+      <div class="meter">
+        <div class="meter-top">
+          <span class="m-X">acc₀ — Kernel X</span>
+          <span class="m-val" id="v0">—</span>
+        </div>
+        <div class="meter-track"><div class="meter-fill fill-X" id="f0" style="width:0%"></div></div>
+      </div>
+      <div class="meter">
+        <div class="meter-top">
+          <span class="m-Cruz">acc₁ — Kernel Cruz</span>
+          <span class="m-val" id="v1">—</span>
+        </div>
+        <div class="meter-track"><div class="meter-fill fill-Cruz" id="f1" style="width:0%"></div></div>
+      </div>
+      <div class="comp-row">
+        <span>comp = acc₀ &gt; acc₁</span>
+        <span class="comp-chip" id="comp-chip" style="display:none"></span>
+      </div>
+    </div>
+
+    <!-- Margen -->
+    <div class="card">
+      <div class="card-title">Margen de decisión</div>
+      <div class="margin-display">
+        <div class="margin-big" id="mg-big">—</div>
+        <div class="margin-sub" id="mg-sub">Dibuja para ver</div>
+      </div>
+      <div class="margin-segs" id="margin-segs"></div>
+      <div class="seg-labels">
+        <span>0</span><span>25</span><span>50</span><span>75</span><span>100+</span>
+      </div>
+    </div>
+
+    <!-- Historial -->
+    <div class="card">
+      <div class="card-title" style="margin-bottom:10px">Historial</div>
+      <div class="hist-list" id="hist-list">
+        <div class="no-hist" id="no-hist">Sin clasificaciones aún</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// MODELO CNN — replica de cnn_sim.py
+// ═══════════════════════════════════════
+
+const FRAGS = [[0,0],[0,2],[0,4],[2,0],[2,2],[2,4],[4,0],[4,2],[4,4]];
+const WINS  = [[0,0],[0,1],[1,0],[1,1]];
+
+const K0 = [  // Kernel X — optimizado por GA (60 gen, pop=200)
+  [-4,-1, 3,-2,-4],
+  [-4,-2,-4,-1, 2],
+  [ 2,-3,-4, 2, 2],
+  [ 2,-3, 1,-2, 1],
+  [-4, 3, 2, 0,-4],
+];
+const K1 = [  // Kernel Cruz
+  [-4, 0,-2,-4,-4],
+  [-4, 3, 0,-2,-3],
+  [-3, 3, 2,-2, 2],
+  [ 0, 3, 3, 1, 2],
+  [-3, 0,-2,-4,-1],
+];
+
+const clip = v => Math.max(-32768, Math.min(32767, v | 0));
+
+function mac(img, fr, fc, wr, wc, K) {
+  let s = 0;
+  for (let r = 0; r < 5; r++)
+    for (let c = 0; c < 5; c++)
+      s += img[fr+wr+r][fc+wc+c] * K[r][c];
+  return clip(s);
+}
+
+function cnnTop(img, K) {
+  let acc = 0;
+  for (const [fr, fc] of FRAGS) {
+    let mx = null;
+    for (const [wr, wc] of WINS) {
+      const m = mac(img, fr, fc, wr, wc, K);
+      if (mx === null || m > mx) mx = m;
+    }
+    acc = clip(acc + mx);
+  }
+  return acc;
+}
+
+function runCNN(img) {
+  const acc0 = cnnTop(img, K0);
+  const acc1 = cnnTop(img, K1);
+  return { acc0, acc1, comp: acc0 > acc1 ? 1 : 0 };
+}
+
+// ═══════════════════════════════════════
+// ESTADO
+// ═══════════════════════════════════════
+
+let grid     = Array.from({length:10}, () => new Array(10).fill(0));
+let painting = false;
+let mode     = 'draw';
+let history  = [];
+let timer    = null;
+
+// ═══════════════════════════════════════
+// BUILD UI
+// ═══════════════════════════════════════
+
+// Axis labels
+const colWrap = document.getElementById('col-labels');
+const rowWrap = document.getElementById('row-labels');
+for (let c = 0; c < 10; c++) {
+  const d = document.createElement('div');
+  d.className = 'ax'; d.textContent = c; colWrap.appendChild(d);
+}
+for (let r = 0; r < 10; r++) {
+  const d = document.createElement('div');
+  d.className = 'ax ax-r'; d.textContent = r; rowWrap.appendChild(d);
+}
+
+// Pixel grid
+const gridEl = document.getElementById('pixel-grid');
+for (let r = 0; r < 10; r++) {
+  for (let c = 0; c < 10; c++) {
+    const cell = document.createElement('div');
+    cell.className = 'px';
+    cell.dataset.r = r; cell.dataset.c = c;
+    cell.addEventListener('mousedown', e => { e.preventDefault(); painting = true; paint(r, c); });
+    cell.addEventListener('mouseenter', () => {
+      document.getElementById('coord-hint').textContent = `(${r},${c})`;
+      if (painting) paint(r, c);
+    });
+    gridEl.appendChild(cell);
+  }
+}
+document.addEventListener('mouseup', () => painting = false);
+
+// Margin segments
+const segsEl = document.getElementById('margin-segs');
+for (let i = 0; i < 20; i++) {
+  const s = document.createElement('div');
+  s.className = 'seg'; s.id = `seg${i}`; segsEl.appendChild(s);
+}
+
+// ═══════════════════════════════════════
+// INTERACCIÓN
+// ═══════════════════════════════════════
+
+function paint(r, c) {
+  const val = mode === 'draw' ? 1 : 0;
+  if (grid[r][c] === val) return;
+  grid[r][c] = val;
+  document.querySelector(`.px[data-r="${r}"][data-c="${c}"]`)
+    .classList.toggle('lit', val === 1);
+  updateCount();
+  clearTimeout(timer);
+  timer = setTimeout(doClassify, 55);
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('btn-draw').classList.toggle('active', m === 'draw');
+  document.getElementById('btn-erase').classList.toggle('active', m === 'erase');
+}
+
+function clearAll() {
+  grid = Array.from({length:10}, () => new Array(10).fill(0));
+  document.querySelectorAll('.px').forEach(c => c.classList.remove('lit'));
+  updateCount(); resetUI();
+}
+
+function updateCount() {
+  const n = grid.flat().filter(Boolean).length;
+  document.getElementById('px-count').textContent = `${n} px`;
+}
+
+// ═══════════════════════════════════════
+// CLASIFICACIÓN
+// ═══════════════════════════════════════
+
+function confLabel(m) {
+  return m >= 60 ? 'muy seguro' : m >= 30 ? 'seguro' : m >= 10 ? 'probable' : 'frágil';
+}
+
+function doClassify() {
+  if (grid.flat().every(v => v === 0)) { resetUI(); return; }
+
+  const { acc0, acc1, comp } = runCNN(grid);
+  const isX   = comp === 1;
+  const margin = Math.abs(acc0 - acc1);
+
+  // ── Result card ──
+  const card = document.getElementById('result-card');
+  card.className = 'result-card ' + (isX ? 'res-X' : 'res-Cruz');
+  document.getElementById('idle-msg').style.display    = 'none';
+  document.getElementById('result-show').style.display = 'block';
+  document.getElementById('r-glyph').textContent = isX ? 'X' : '+';
+  document.getElementById('r-word').textContent  = isX ? 'EQUIS' : 'CRUZ';
+  document.getElementById('r-stats').innerHTML   =
+    `acc₀ = ${acc0} &nbsp;·&nbsp; acc₁ = ${acc1}<br>` +
+    `margen = <strong>${margin}</strong> &nbsp;·&nbsp; ${confLabel(margin)}`;
+
+  // ── Meters ──
+  const MAX = Math.max(Math.abs(acc0), Math.abs(acc1), 60);
+  const p0  = Math.min(100, (Math.max(0, acc0) / MAX) * 100);
+  const p1  = Math.min(100, (Math.max(0, acc1) / MAX) * 100);
+  document.getElementById('v0').textContent = acc0;
+  document.getElementById('v1').textContent = acc1;
+  const f0 = document.getElementById('f0');
+  const f1 = document.getElementById('f1');
+  f0.style.width = p0 + '%';
+  f1.style.width = p1 + '%';
+  f0.classList.toggle('fill-dim', acc0 < 0);
+  f1.classList.toggle('fill-dim', acc1 < 0);
+
+  const chip = document.getElementById('comp-chip');
+  chip.style.display = 'inline-block';
+  chip.className = 'comp-chip ' + (isX ? 'chip-X' : 'chip-Cruz');
+  chip.textContent = isX ? 'comp=1 → X' : 'comp=0 → Cruz';
+
+  // ── Margin segments ──
+  const lit = Math.min(20, Math.round(margin / 5));
+  for (let i = 0; i < 20; i++) {
+    const s = document.getElementById(`seg${i}`);
+    s.className = 'seg' + (i < lit ? (isX ? ' lit-X' : ' lit-Cruz') : '');
+  }
+  document.getElementById('mg-big').textContent = margin;
+  document.getElementById('mg-big').style.color = isX ? 'var(--X)' : 'var(--Cruz)';
+  document.getElementById('mg-sub').textContent =
+    (isX ? 'acc₀ − acc₁' : 'acc₁ − acc₀') + ' = ' + margin;
+
+  // ── History ──
+  history.unshift({ isX, acc0, acc1, margin });
+  if (history.length > 8) history.pop();
+  const hl = document.getElementById('hist-list');
+  const nh = document.getElementById('no-hist');
+  if (nh) nh.remove();
+  hl.innerHTML = '';
+  history.forEach(h => {
+    const item = document.createElement('div');
+    item.className = `hist-item ${h.isX ? 'hist-X' : 'hist-Cruz'}`;
+    item.innerHTML =
+      `<span class="${h.isX ? 'hsym-X' : 'hsym-Cruz'}">${h.isX ? 'X' : '+'}</span>` +
+      `<span class="hnum">acc₀=${h.acc0} acc₁=${h.acc1} mg=${h.margin}</span>`;
+    hl.appendChild(item);
+  });
+}
+
+function resetUI() {
+  const card = document.getElementById('result-card');
+  card.className = 'result-card';
+  document.getElementById('idle-msg').style.display    = 'block';
+  document.getElementById('result-show').style.display = 'none';
+  document.getElementById('v0').textContent = '—';
+  document.getElementById('v1').textContent = '—';
+  document.getElementById('f0').style.width = '0%';
+  document.getElementById('f1').style.width = '0%';
+  document.getElementById('comp-chip').style.display = 'none';
+  document.getElementById('mg-big').textContent = '—';
+  document.getElementById('mg-big').style.color = 'var(--muted)';
+  document.getElementById('mg-sub').textContent = 'Dibuja para ver';
+  for (let i = 0; i < 20; i++)
+    document.getElementById(`seg${i}`).className = 'seg';
+}
+
+// Teclado
+document.addEventListener('keydown', e => {
+  if (e.key === 'd' || e.key === 'D') setMode('draw');
+  if (e.key === 'e' || e.key === 'E') setMode('erase');
+  if (e.key === 'c' || e.key === 'C' || e.key === 'Escape') clearAll();
+});
+
+updateCount();
+</script>
+</body>
+</html>

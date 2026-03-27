@@ -1,0 +1,433 @@
+VERSION 5.8 ;
+DIVIDERCHAR "/" ;
+BUSBITCHARS "[]" ;
+DESIGN user_project_example ;
+UNITS DISTANCE MICRONS 1000 ;
+DIEAREA ( 0 0 ) ( 83905 102625 ) ;
+ROW ROW_0 CoreSite 5760 15120 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_1 CoreSite 5760 18900 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_2 CoreSite 5760 22680 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_3 CoreSite 5760 26460 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_4 CoreSite 5760 30240 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_5 CoreSite 5760 34020 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_6 CoreSite 5760 37800 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_7 CoreSite 5760 41580 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_8 CoreSite 5760 45360 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_9 CoreSite 5760 49140 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_10 CoreSite 5760 52920 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_11 CoreSite 5760 56700 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_12 CoreSite 5760 60480 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_13 CoreSite 5760 64260 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_14 CoreSite 5760 68040 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_15 CoreSite 5760 71820 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_16 CoreSite 5760 75600 N DO 150 BY 1 STEP 480 0 ;
+ROW ROW_17 CoreSite 5760 79380 FS DO 150 BY 1 STEP 480 0 ;
+ROW ROW_18 CoreSite 5760 83160 N DO 150 BY 1 STEP 480 0 ;
+TRACKS X 480 DO 174 STEP 480 LAYER Metal1 ;
+TRACKS Y 420 DO 244 STEP 420 LAYER Metal1 ;
+TRACKS X 480 DO 174 STEP 480 LAYER Metal2 ;
+TRACKS Y 420 DO 244 STEP 420 LAYER Metal2 ;
+TRACKS X 480 DO 174 STEP 480 LAYER Metal3 ;
+TRACKS Y 420 DO 244 STEP 420 LAYER Metal3 ;
+TRACKS X 480 DO 174 STEP 480 LAYER Metal4 ;
+TRACKS Y 420 DO 244 STEP 420 LAYER Metal4 ;
+TRACKS X 480 DO 174 STEP 480 LAYER Metal5 ;
+TRACKS Y 420 DO 244 STEP 420 LAYER Metal5 ;
+TRACKS X 1640 DO 36 STEP 2280 LAYER TopMetal1 ;
+TRACKS Y 1640 DO 44 STEP 2280 LAYER TopMetal1 ;
+TRACKS X 2000 DO 21 STEP 4000 LAYER TopMetal2 ;
+TRACKS Y 2000 DO 25 STEP 4000 LAYER TopMetal2 ;
+COMPONENTS 142 ;
+    - _078_ sg13g2_nand2_1 ;
+    - _079_ sg13g2_nand2_1 ;
+    - _080_ sg13g2_nor2_1 ;
+    - _081_ sg13g2_xor2_1 ;
+    - _082_ sg13g2_xnor2_1 ;
+    - _083_ sg13g2_o21ai_1 ;
+    - _084_ sg13g2_nand2_1 ;
+    - _085_ sg13g2_nand2_1 ;
+    - _086_ sg13g2_nor2_1 ;
+    - _087_ sg13g2_xor2_1 ;
+    - _088_ sg13g2_xnor2_1 ;
+    - _089_ sg13g2_o21ai_1 ;
+    - _090_ sg13g2_nand2_1 ;
+    - _091_ sg13g2_nand2_1 ;
+    - _092_ sg13g2_nor2_1 ;
+    - _093_ sg13g2_xor2_1 ;
+    - _094_ sg13g2_xnor2_1 ;
+    - _095_ sg13g2_o21ai_1 ;
+    - _096_ sg13g2_nand2_1 ;
+    - _097_ sg13g2_nand2_1 ;
+    - _098_ sg13g2_nor2_1 ;
+    - _099_ sg13g2_xor2_1 ;
+    - _100_ sg13g2_xnor2_1 ;
+    - _101_ sg13g2_o21ai_1 ;
+    - _102_ sg13g2_nand2_1 ;
+    - _103_ sg13g2_nand2_1 ;
+    - _104_ sg13g2_nor2_1 ;
+    - _105_ sg13g2_xor2_1 ;
+    - _106_ sg13g2_xnor2_1 ;
+    - _107_ sg13g2_o21ai_1 ;
+    - _108_ sg13g2_nand2_1 ;
+    - _109_ sg13g2_nand2_1 ;
+    - _110_ sg13g2_nor2_1 ;
+    - _111_ sg13g2_xor2_1 ;
+    - _112_ sg13g2_xnor2_1 ;
+    - _113_ sg13g2_o21ai_1 ;
+    - _114_ sg13g2_nand2_1 ;
+    - _115_ sg13g2_nand2_1 ;
+    - _116_ sg13g2_nor2_1 ;
+    - _117_ sg13g2_xor2_1 ;
+    - _118_ sg13g2_xnor2_1 ;
+    - _119_ sg13g2_o21ai_1 ;
+    - _120_ sg13g2_nand2_1 ;
+    - _121_ sg13g2_nand2_1 ;
+    - _122_ sg13g2_nor2_1 ;
+    - _123_ sg13g2_xor2_1 ;
+    - _124_ sg13g2_xnor2_1 ;
+    - _125_ sg13g2_o21ai_1 ;
+    - _126_ sg13g2_nand2_1 ;
+    - _127_ sg13g2_nand2_1 ;
+    - _128_ sg13g2_nor2_1 ;
+    - _129_ sg13g2_xor2_1 ;
+    - _130_ sg13g2_xnor2_1 ;
+    - _131_ sg13g2_o21ai_1 ;
+    - _132_ sg13g2_nand2_1 ;
+    - _133_ sg13g2_nand2_1 ;
+    - _134_ sg13g2_nor2_1 ;
+    - _135_ sg13g2_xor2_1 ;
+    - _136_ sg13g2_xnor2_1 ;
+    - _137_ sg13g2_o21ai_1 ;
+    - _138_ sg13g2_nand2_1 ;
+    - _139_ sg13g2_nand2_1 ;
+    - _140_ sg13g2_nor2_1 ;
+    - _141_ sg13g2_xor2_1 ;
+    - _142_ sg13g2_xnor2_1 ;
+    - _143_ sg13g2_o21ai_1 ;
+    - _144_ sg13g2_nand2_1 ;
+    - _145_ sg13g2_nand2_1 ;
+    - _146_ sg13g2_nor2_1 ;
+    - _147_ sg13g2_xor2_1 ;
+    - _148_ sg13g2_xnor2_1 ;
+    - _149_ sg13g2_o21ai_1 ;
+    - _150_ sg13g2_nand2_1 ;
+    - _151_ sg13g2_nand2_1 ;
+    - _152_ sg13g2_nor2_1 ;
+    - _153_ sg13g2_xor2_1 ;
+    - _154_ sg13g2_xnor2_1 ;
+    - _155_ sg13g2_o21ai_1 ;
+    - _156_ sg13g2_nand2_1 ;
+    - _157_ sg13g2_nand2_1 ;
+    - _158_ sg13g2_nor2_1 ;
+    - _159_ sg13g2_xor2_1 ;
+    - _160_ sg13g2_xnor2_1 ;
+    - _161_ sg13g2_o21ai_1 ;
+    - _162_ sg13g2_nand2_1 ;
+    - _163_ sg13g2_nand2b_1 ;
+    - _164_ sg13g2_xnor2_1 ;
+    - _165_ sg13g2_nand2_1 ;
+    - _166_ sg13g2_nand2_1 ;
+    - _167_ sg13g2_nor2_1 ;
+    - _168_ sg13g2_xor2_1 ;
+    - _169_ sg13g2_xnor2_1 ;
+    - _170_ sg13g2_o21ai_1 ;
+    - _171_ sg13g2_dfrbpq_1 ;
+    - _172_ sg13g2_dfrbpq_1 ;
+    - _173_ sg13g2_dfrbpq_1 ;
+    - _174_ sg13g2_dfrbpq_1 ;
+    - _175_ sg13g2_dfrbpq_1 ;
+    - _176_ sg13g2_dfrbpq_1 ;
+    - _177_ sg13g2_dfrbpq_1 ;
+    - _178_ sg13g2_dfrbpq_1 ;
+    - _179_ sg13g2_dfrbpq_1 ;
+    - _180_ sg13g2_dfrbpq_1 ;
+    - _181_ sg13g2_dfrbpq_1 ;
+    - _182_ sg13g2_dfrbpq_1 ;
+    - _183_ sg13g2_dfrbpq_1 ;
+    - _184_ sg13g2_dfrbpq_1 ;
+    - _185_ sg13g2_dfrbpq_1 ;
+    - _186_ sg13g2_dfrbpq_1 ;
+    - _187_ sg13g2_dfrbpq_1 ;
+    - _188_ sg13g2_dfrbpq_1 ;
+    - _189_ sg13g2_dfrbpq_1 ;
+    - _190_ sg13g2_dfrbpq_1 ;
+    - _191_ sg13g2_dfrbpq_1 ;
+    - _192_ sg13g2_dfrbpq_1 ;
+    - _193_ sg13g2_dfrbpq_1 ;
+    - _194_ sg13g2_dfrbpq_1 ;
+    - _195_ sg13g2_dfrbpq_1 ;
+    - _196_ sg13g2_dfrbpq_1 ;
+    - _197_ sg13g2_dfrbpq_1 ;
+    - _198_ sg13g2_dfrbpq_1 ;
+    - _199_ sg13g2_dfrbpq_1 ;
+    - _200_ sg13g2_dfrbpq_1 ;
+    - _201_ sg13g2_dfrbpq_1 ;
+    - _202_ sg13g2_dfrbpq_1 ;
+    - _203_ sg13g2_tiehi ;
+    - _204_ sg13g2_tielo ;
+    - _205_ sg13g2_tielo ;
+    - _206_ sg13g2_tielo ;
+    - _207_ sg13g2_tielo ;
+    - _208_ sg13g2_tielo ;
+    - _209_ sg13g2_tielo ;
+    - _210_ sg13g2_tielo ;
+    - _211_ sg13g2_tielo ;
+    - _212_ sg13g2_tielo ;
+    - _213_ sg13g2_tielo ;
+    - _214_ sg13g2_tielo ;
+    - _215_ sg13g2_tielo ;
+    - _216_ sg13g2_tielo ;
+    - _217_ sg13g2_tielo ;
+    - _218_ sg13g2_tielo ;
+    - _219_ sg13g2_buf_1 ;
+END COMPONENTS
+PINS 36 ;
+    - clk_i + NET clk_i + DIRECTION INPUT + USE SIGNAL ;
+    - rst_ni + NET rst_ni + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[0] + NET ui_PAD2CORE[0] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[10] + NET ui_PAD2CORE[10] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[11] + NET ui_PAD2CORE[11] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[12] + NET ui_PAD2CORE[12] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[13] + NET ui_PAD2CORE[13] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[14] + NET ui_PAD2CORE[14] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[15] + NET ui_PAD2CORE[15] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[16] + NET ui_PAD2CORE[16] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[1] + NET ui_PAD2CORE[1] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[2] + NET ui_PAD2CORE[2] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[3] + NET ui_PAD2CORE[3] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[4] + NET ui_PAD2CORE[4] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[5] + NET ui_PAD2CORE[5] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[6] + NET ui_PAD2CORE[6] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[7] + NET ui_PAD2CORE[7] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[8] + NET ui_PAD2CORE[8] + DIRECTION INPUT + USE SIGNAL ;
+    - ui_PAD2CORE[9] + NET ui_PAD2CORE[9] + DIRECTION INPUT + USE SIGNAL ;
+    - uo_CORE2PAD[0] + NET uo_CORE2PAD[0] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[10] + NET uo_CORE2PAD[10] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[11] + NET uo_CORE2PAD[11] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[12] + NET uo_CORE2PAD[12] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[13] + NET uo_CORE2PAD[13] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[14] + NET uo_CORE2PAD[14] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[15] + NET uo_CORE2PAD[15] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[16] + NET uo_CORE2PAD[16] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[1] + NET uo_CORE2PAD[1] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[2] + NET uo_CORE2PAD[2] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[3] + NET uo_CORE2PAD[3] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[4] + NET uo_CORE2PAD[4] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[5] + NET uo_CORE2PAD[5] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[6] + NET uo_CORE2PAD[6] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[7] + NET uo_CORE2PAD[7] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[8] + NET uo_CORE2PAD[8] + DIRECTION OUTPUT + USE SIGNAL ;
+    - uo_CORE2PAD[9] + NET uo_CORE2PAD[9] + DIRECTION OUTPUT + USE SIGNAL ;
+END PINS
+SPECIALNETS 2 ;
+    - VGND ( _219_ VSS ) ( _218_ VSS ) ( _217_ VSS ) ( _216_ VSS ) ( _215_ VSS ) ( _214_ VSS ) ( _213_ VSS )
+      ( _212_ VSS ) ( _211_ VSS ) ( _210_ VSS ) ( _209_ VSS ) ( _208_ VSS ) ( _207_ VSS ) ( _206_ VSS ) ( _205_ VSS )
+      ( _204_ VSS ) ( _203_ VSS ) ( _202_ VSS ) ( _201_ VSS ) ( _200_ VSS ) ( _199_ VSS ) ( _198_ VSS ) ( _197_ VSS )
+      ( _196_ VSS ) ( _195_ VSS ) ( _194_ VSS ) ( _193_ VSS ) ( _192_ VSS ) ( _191_ VSS ) ( _190_ VSS ) ( _189_ VSS )
+      ( _188_ VSS ) ( _187_ VSS ) ( _186_ VSS ) ( _185_ VSS ) ( _184_ VSS ) ( _183_ VSS ) ( _182_ VSS ) ( _181_ VSS )
+      ( _180_ VSS ) ( _179_ VSS ) ( _178_ VSS ) ( _177_ VSS ) ( _176_ VSS ) ( _175_ VSS ) ( _174_ VSS ) ( _173_ VSS )
+      ( _172_ VSS ) ( _171_ VSS ) ( _170_ VSS ) ( _169_ VSS ) ( _168_ VSS ) ( _167_ VSS ) ( _166_ VSS ) ( _165_ VSS )
+      ( _164_ VSS ) ( _163_ VSS ) ( _162_ VSS ) ( _161_ VSS ) ( _160_ VSS ) ( _159_ VSS ) ( _158_ VSS ) ( _157_ VSS )
+      ( _156_ VSS ) ( _155_ VSS ) ( _154_ VSS ) ( _153_ VSS ) ( _152_ VSS ) ( _151_ VSS ) ( _150_ VSS ) ( _149_ VSS )
+      ( _148_ VSS ) ( _147_ VSS ) ( _146_ VSS ) ( _145_ VSS ) ( _144_ VSS ) ( _143_ VSS ) ( _142_ VSS ) ( _141_ VSS )
+      ( _140_ VSS ) ( _139_ VSS ) ( _138_ VSS ) ( _137_ VSS ) ( _136_ VSS ) ( _135_ VSS ) ( _134_ VSS ) ( _133_ VSS )
+      ( _132_ VSS ) ( _131_ VSS ) ( _130_ VSS ) ( _129_ VSS ) ( _128_ VSS ) ( _127_ VSS ) ( _126_ VSS ) ( _125_ VSS )
+      ( _124_ VSS ) ( _123_ VSS ) ( _122_ VSS ) ( _121_ VSS ) ( _120_ VSS ) ( _119_ VSS ) ( _118_ VSS ) ( _117_ VSS )
+      ( _116_ VSS ) ( _115_ VSS ) ( _114_ VSS ) ( _113_ VSS ) ( _112_ VSS ) ( _111_ VSS ) ( _110_ VSS ) ( _109_ VSS )
+      ( _108_ VSS ) ( _107_ VSS ) ( _106_ VSS ) ( _105_ VSS ) ( _104_ VSS ) ( _103_ VSS ) ( _102_ VSS ) ( _101_ VSS )
+      ( _100_ VSS ) ( _099_ VSS ) ( _098_ VSS ) ( _097_ VSS ) ( _096_ VSS ) ( _095_ VSS ) ( _094_ VSS ) ( _093_ VSS )
+      ( _092_ VSS ) ( _091_ VSS ) ( _090_ VSS ) ( _089_ VSS ) ( _088_ VSS ) ( _087_ VSS ) ( _086_ VSS ) ( _085_ VSS )
+      ( _084_ VSS ) ( _083_ VSS ) ( _082_ VSS ) ( _081_ VSS ) ( _080_ VSS ) ( _079_ VSS ) ( _078_ VSS ) + USE GROUND ;
+    - VPWR ( _219_ VDD ) ( _218_ VDD ) ( _217_ VDD ) ( _216_ VDD ) ( _215_ VDD ) ( _214_ VDD ) ( _213_ VDD )
+      ( _212_ VDD ) ( _211_ VDD ) ( _210_ VDD ) ( _209_ VDD ) ( _208_ VDD ) ( _207_ VDD ) ( _206_ VDD ) ( _205_ VDD )
+      ( _204_ VDD ) ( _203_ VDD ) ( _202_ VDD ) ( _201_ VDD ) ( _200_ VDD ) ( _199_ VDD ) ( _198_ VDD ) ( _197_ VDD )
+      ( _196_ VDD ) ( _195_ VDD ) ( _194_ VDD ) ( _193_ VDD ) ( _192_ VDD ) ( _191_ VDD ) ( _190_ VDD ) ( _189_ VDD )
+      ( _188_ VDD ) ( _187_ VDD ) ( _186_ VDD ) ( _185_ VDD ) ( _184_ VDD ) ( _183_ VDD ) ( _182_ VDD ) ( _181_ VDD )
+      ( _180_ VDD ) ( _179_ VDD ) ( _178_ VDD ) ( _177_ VDD ) ( _176_ VDD ) ( _175_ VDD ) ( _174_ VDD ) ( _173_ VDD )
+      ( _172_ VDD ) ( _171_ VDD ) ( _170_ VDD ) ( _169_ VDD ) ( _168_ VDD ) ( _167_ VDD ) ( _166_ VDD ) ( _165_ VDD )
+      ( _164_ VDD ) ( _163_ VDD ) ( _162_ VDD ) ( _161_ VDD ) ( _160_ VDD ) ( _159_ VDD ) ( _158_ VDD ) ( _157_ VDD )
+      ( _156_ VDD ) ( _155_ VDD ) ( _154_ VDD ) ( _153_ VDD ) ( _152_ VDD ) ( _151_ VDD ) ( _150_ VDD ) ( _149_ VDD )
+      ( _148_ VDD ) ( _147_ VDD ) ( _146_ VDD ) ( _145_ VDD ) ( _144_ VDD ) ( _143_ VDD ) ( _142_ VDD ) ( _141_ VDD )
+      ( _140_ VDD ) ( _139_ VDD ) ( _138_ VDD ) ( _137_ VDD ) ( _136_ VDD ) ( _135_ VDD ) ( _134_ VDD ) ( _133_ VDD )
+      ( _132_ VDD ) ( _131_ VDD ) ( _130_ VDD ) ( _129_ VDD ) ( _128_ VDD ) ( _127_ VDD ) ( _126_ VDD ) ( _125_ VDD )
+      ( _124_ VDD ) ( _123_ VDD ) ( _122_ VDD ) ( _121_ VDD ) ( _120_ VDD ) ( _119_ VDD ) ( _118_ VDD ) ( _117_ VDD )
+      ( _116_ VDD ) ( _115_ VDD ) ( _114_ VDD ) ( _113_ VDD ) ( _112_ VDD ) ( _111_ VDD ) ( _110_ VDD ) ( _109_ VDD )
+      ( _108_ VDD ) ( _107_ VDD ) ( _106_ VDD ) ( _105_ VDD ) ( _104_ VDD ) ( _103_ VDD ) ( _102_ VDD ) ( _101_ VDD )
+      ( _100_ VDD ) ( _099_ VDD ) ( _098_ VDD ) ( _097_ VDD ) ( _096_ VDD ) ( _095_ VDD ) ( _094_ VDD ) ( _093_ VDD )
+      ( _092_ VDD ) ( _091_ VDD ) ( _090_ VDD ) ( _089_ VDD ) ( _088_ VDD ) ( _087_ VDD ) ( _086_ VDD ) ( _085_ VDD )
+      ( _084_ VDD ) ( _083_ VDD ) ( _082_ VDD ) ( _081_ VDD ) ( _080_ VDD ) ( _079_ VDD ) ( _078_ VDD ) + USE POWER ;
+END SPECIALNETS
+NETS 161 ;
+    - _000_ ( _201_ D ) ( _170_ Y ) + USE SIGNAL ;
+    - _001_ ( _179_ D ) ( _107_ Y ) + USE SIGNAL ;
+    - _002_ ( _177_ D ) ( _101_ Y ) + USE SIGNAL ;
+    - _003_ ( _175_ D ) ( _095_ Y ) + USE SIGNAL ;
+    - _004_ ( _173_ D ) ( _089_ Y ) + USE SIGNAL ;
+    - _005_ ( _171_ D ) ( _083_ Y ) + USE SIGNAL ;
+    - _006_ ( _197_ D ) ( _161_ Y ) + USE SIGNAL ;
+    - _007_ ( _195_ D ) ( _155_ Y ) + USE SIGNAL ;
+    - _008_ ( _193_ D ) ( _149_ Y ) + USE SIGNAL ;
+    - _009_ ( _191_ D ) ( _143_ Y ) + USE SIGNAL ;
+    - _010_ ( _189_ D ) ( _137_ Y ) + USE SIGNAL ;
+    - _011_ ( _187_ D ) ( _131_ Y ) + USE SIGNAL ;
+    - _012_ ( _185_ D ) ( _125_ Y ) + USE SIGNAL ;
+    - _013_ ( _183_ D ) ( _119_ Y ) + USE SIGNAL ;
+    - _014_ ( _181_ D ) ( _113_ Y ) + USE SIGNAL ;
+    - _015_ ( _199_ D ) ( _164_ Y ) + USE SIGNAL ;
+    - _016_ ( _200_ D ) ( _163_ Y ) + USE SIGNAL ;
+    - _017_ ( _101_ B1 ) ( _097_ Y ) + USE SIGNAL ;
+    - _018_ ( _101_ A2 ) ( _098_ Y ) + USE SIGNAL ;
+    - _019_ ( _100_ B ) ( _099_ X ) + USE SIGNAL ;
+    - _020_ ( _107_ A1 ) ( _106_ A ) ( _102_ Y ) + USE SIGNAL ;
+    - _021_ ( _107_ B1 ) ( _103_ Y ) + USE SIGNAL ;
+    - _022_ ( _107_ A2 ) ( _104_ Y ) + USE SIGNAL ;
+    - _023_ ( _106_ B ) ( _105_ X ) + USE SIGNAL ;
+    - _024_ ( _113_ A1 ) ( _112_ A ) ( _108_ Y ) + USE SIGNAL ;
+    - _025_ ( _113_ B1 ) ( _109_ Y ) + USE SIGNAL ;
+    - _026_ ( _113_ A2 ) ( _110_ Y ) + USE SIGNAL ;
+    - _027_ ( _112_ B ) ( _111_ X ) + USE SIGNAL ;
+    - _028_ ( _119_ A1 ) ( _118_ A ) ( _114_ Y ) + USE SIGNAL ;
+    - _029_ ( _119_ B1 ) ( _115_ Y ) + USE SIGNAL ;
+    - _030_ ( _119_ A2 ) ( _116_ Y ) + USE SIGNAL ;
+    - _031_ ( _118_ B ) ( _117_ X ) + USE SIGNAL ;
+    - _032_ ( _125_ A1 ) ( _124_ A ) ( _120_ Y ) + USE SIGNAL ;
+    - _033_ ( _125_ B1 ) ( _121_ Y ) + USE SIGNAL ;
+    - _034_ ( _125_ A2 ) ( _122_ Y ) + USE SIGNAL ;
+    - _035_ ( _124_ B ) ( _123_ X ) + USE SIGNAL ;
+    - _036_ ( _131_ A1 ) ( _130_ A ) ( _126_ Y ) + USE SIGNAL ;
+    - _037_ ( _131_ B1 ) ( _127_ Y ) + USE SIGNAL ;
+    - _038_ ( _131_ A2 ) ( _128_ Y ) + USE SIGNAL ;
+    - _039_ ( _130_ B ) ( _129_ X ) + USE SIGNAL ;
+    - _040_ ( _137_ A1 ) ( _136_ A ) ( _132_ Y ) + USE SIGNAL ;
+    - _041_ ( _137_ B1 ) ( _133_ Y ) + USE SIGNAL ;
+    - _042_ ( _137_ A2 ) ( _134_ Y ) + USE SIGNAL ;
+    - _043_ ( _136_ B ) ( _135_ X ) + USE SIGNAL ;
+    - _044_ ( _143_ A1 ) ( _142_ A ) ( _138_ Y ) + USE SIGNAL ;
+    - _045_ ( _143_ B1 ) ( _139_ Y ) + USE SIGNAL ;
+    - _046_ ( _143_ A2 ) ( _140_ Y ) + USE SIGNAL ;
+    - _047_ ( _142_ B ) ( _141_ X ) + USE SIGNAL ;
+    - _048_ ( _149_ A1 ) ( _148_ A ) ( _144_ Y ) + USE SIGNAL ;
+    - _049_ ( _149_ B1 ) ( _145_ Y ) + USE SIGNAL ;
+    - _050_ ( _149_ A2 ) ( _146_ Y ) + USE SIGNAL ;
+    - _051_ ( _148_ B ) ( _147_ X ) + USE SIGNAL ;
+    - _052_ ( _155_ A1 ) ( _154_ A ) ( _150_ Y ) + USE SIGNAL ;
+    - _053_ ( _155_ B1 ) ( _151_ Y ) + USE SIGNAL ;
+    - _054_ ( _155_ A2 ) ( _152_ Y ) + USE SIGNAL ;
+    - _055_ ( _154_ B ) ( _153_ X ) + USE SIGNAL ;
+    - _056_ ( _161_ A1 ) ( _160_ A ) ( _156_ Y ) + USE SIGNAL ;
+    - _057_ ( _161_ B1 ) ( _157_ Y ) + USE SIGNAL ;
+    - _058_ ( _161_ A2 ) ( _158_ Y ) + USE SIGNAL ;
+    - _059_ ( _160_ B ) ( _159_ X ) + USE SIGNAL ;
+    - _060_ ( _164_ B ) ( _163_ B ) ( _162_ Y ) + USE SIGNAL ;
+    - _061_ ( _170_ A1 ) ( _169_ A ) ( _165_ Y ) + USE SIGNAL ;
+    - _062_ ( _170_ B1 ) ( _166_ Y ) + USE SIGNAL ;
+    - _063_ ( _170_ A2 ) ( _167_ Y ) + USE SIGNAL ;
+    - _064_ ( _169_ B ) ( _168_ X ) + USE SIGNAL ;
+    - _065_ ( _083_ A1 ) ( _082_ A ) ( _078_ Y ) + USE SIGNAL ;
+    - _066_ ( _083_ B1 ) ( _079_ Y ) + USE SIGNAL ;
+    - _067_ ( _083_ A2 ) ( _080_ Y ) + USE SIGNAL ;
+    - _068_ ( _082_ B ) ( _081_ X ) + USE SIGNAL ;
+    - _069_ ( _089_ A1 ) ( _088_ A ) ( _084_ Y ) + USE SIGNAL ;
+    - _070_ ( _089_ B1 ) ( _085_ Y ) + USE SIGNAL ;
+    - _071_ ( _089_ A2 ) ( _086_ Y ) + USE SIGNAL ;
+    - _072_ ( _088_ B ) ( _087_ X ) + USE SIGNAL ;
+    - _073_ ( _095_ A1 ) ( _094_ A ) ( _090_ Y ) + USE SIGNAL ;
+    - _074_ ( _095_ B1 ) ( _091_ Y ) + USE SIGNAL ;
+    - _075_ ( _095_ A2 ) ( _092_ Y ) + USE SIGNAL ;
+    - _076_ ( _094_ B ) ( _093_ X ) + USE SIGNAL ;
+    - _077_ ( _101_ A1 ) ( _100_ A ) ( _096_ Y ) + USE SIGNAL ;
+    - clk_i ( PIN clk_i ) ( _202_ CLK ) ( _201_ CLK ) ( _200_ CLK ) ( _199_ CLK ) ( _198_ CLK ) ( _197_ CLK )
+      ( _196_ CLK ) ( _195_ CLK ) ( _194_ CLK ) ( _193_ CLK ) ( _192_ CLK ) ( _191_ CLK ) ( _190_ CLK ) ( _189_ CLK )
+      ( _188_ CLK ) ( _187_ CLK ) ( _186_ CLK ) ( _185_ CLK ) ( _184_ CLK ) ( _183_ CLK ) ( _182_ CLK ) ( _181_ CLK )
+      ( _180_ CLK ) ( _179_ CLK ) ( _178_ CLK ) ( _177_ CLK ) ( _176_ CLK ) ( _175_ CLK ) ( _174_ CLK ) ( _173_ CLK )
+      ( _172_ CLK ) ( _171_ CLK ) + USE SIGNAL ;
+    - rst_ni ( PIN rst_ni ) ( _202_ RESET_B ) ( _201_ RESET_B ) ( _200_ RESET_B ) ( _199_ RESET_B ) ( _198_ RESET_B ) ( _197_ RESET_B )
+      ( _196_ RESET_B ) ( _195_ RESET_B ) ( _194_ RESET_B ) ( _193_ RESET_B ) ( _192_ RESET_B ) ( _191_ RESET_B ) ( _190_ RESET_B ) ( _189_ RESET_B )
+      ( _188_ RESET_B ) ( _187_ RESET_B ) ( _186_ RESET_B ) ( _185_ RESET_B ) ( _184_ RESET_B ) ( _183_ RESET_B ) ( _182_ RESET_B ) ( _181_ RESET_B )
+      ( _180_ RESET_B ) ( _179_ RESET_B ) ( _178_ RESET_B ) ( _177_ RESET_B ) ( _176_ RESET_B ) ( _175_ RESET_B ) ( _174_ RESET_B ) ( _173_ RESET_B )
+      ( _172_ RESET_B ) ( _171_ RESET_B ) + USE SIGNAL ;
+    - spm_inst.csa0.hsum2 ( _202_ D ) ( _169_ Y ) + USE SIGNAL ;
+    - spm_inst.csa0.sc ( _201_ Q ) ( _168_ A ) ( _167_ A ) ( _166_ A ) + USE SIGNAL ;
+    - spm_inst.csa0.sum ( _219_ A ) ( _202_ Q ) + USE SIGNAL ;
+    - spm_inst.csa0.y ( _198_ Q ) ( _168_ B ) ( _167_ B ) ( _166_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[10\].csa.hsum2 ( _180_ D ) ( _106_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[10\].csa.sc ( _179_ Q ) ( _105_ A ) ( _104_ A ) ( _103_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[10\].csa.sum ( _180_ Q ) ( _111_ B ) ( _110_ B ) ( _109_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[10\].csa.y ( _178_ Q ) ( _105_ B ) ( _104_ B ) ( _103_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[11\].csa.hsum2 ( _178_ D ) ( _100_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[11\].csa.sc ( _177_ Q ) ( _099_ A ) ( _098_ A ) ( _097_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[11\].csa.y ( _176_ Q ) ( _099_ B ) ( _098_ B ) ( _097_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[12\].csa.hsum2 ( _176_ D ) ( _094_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[12\].csa.sc ( _175_ Q ) ( _093_ A ) ( _092_ A ) ( _091_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[12\].csa.y ( _174_ Q ) ( _093_ B ) ( _092_ B ) ( _091_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[13\].csa.hsum2 ( _174_ D ) ( _088_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[13\].csa.sc ( _173_ Q ) ( _087_ A ) ( _086_ A ) ( _085_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[13\].csa.y ( _172_ Q ) ( _087_ B ) ( _086_ B ) ( _085_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[14\].csa.hsum2 ( _172_ D ) ( _082_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[14\].csa.sc ( _171_ Q ) ( _081_ A ) ( _080_ A ) ( _079_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[14\].csa.y ( _199_ Q ) ( _081_ B ) ( _080_ B ) ( _079_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[1\].csa.hsum2 ( _198_ D ) ( _160_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[1\].csa.sc ( _197_ Q ) ( _159_ A ) ( _158_ A ) ( _157_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[1\].csa.y ( _196_ Q ) ( _159_ B ) ( _158_ B ) ( _157_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[2\].csa.hsum2 ( _196_ D ) ( _154_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[2\].csa.sc ( _195_ Q ) ( _153_ A ) ( _152_ A ) ( _151_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[2\].csa.y ( _194_ Q ) ( _153_ B ) ( _152_ B ) ( _151_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[3\].csa.hsum2 ( _194_ D ) ( _148_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[3\].csa.sc ( _193_ Q ) ( _147_ A ) ( _146_ A ) ( _145_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[3\].csa.y ( _192_ Q ) ( _147_ B ) ( _146_ B ) ( _145_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[4\].csa.hsum2 ( _192_ D ) ( _142_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[4\].csa.sc ( _191_ Q ) ( _141_ A ) ( _140_ A ) ( _139_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[4\].csa.y ( _190_ Q ) ( _141_ B ) ( _140_ B ) ( _139_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[5\].csa.hsum2 ( _190_ D ) ( _136_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[5\].csa.sc ( _189_ Q ) ( _135_ A ) ( _134_ A ) ( _133_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[5\].csa.y ( _188_ Q ) ( _135_ B ) ( _134_ B ) ( _133_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[6\].csa.hsum2 ( _188_ D ) ( _130_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[6\].csa.sc ( _187_ Q ) ( _129_ A ) ( _128_ A ) ( _127_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[6\].csa.y ( _186_ Q ) ( _129_ B ) ( _128_ B ) ( _127_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[7\].csa.hsum2 ( _186_ D ) ( _124_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[7\].csa.sc ( _185_ Q ) ( _123_ A ) ( _122_ A ) ( _121_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[7\].csa.y ( _184_ Q ) ( _123_ B ) ( _122_ B ) ( _121_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[8\].csa.hsum2 ( _184_ D ) ( _118_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[8\].csa.sc ( _183_ Q ) ( _117_ A ) ( _116_ A ) ( _115_ A ) + USE SIGNAL ;
+    - spm_inst.genblk1\[8\].csa.y ( _182_ Q ) ( _117_ B ) ( _116_ B ) ( _115_ B ) + USE SIGNAL ;
+    - spm_inst.genblk1\[9\].csa.hsum2 ( _182_ D ) ( _112_ Y ) + USE SIGNAL ;
+    - spm_inst.genblk1\[9\].csa.sc ( _181_ Q ) ( _111_ A ) ( _110_ A ) ( _109_ A ) + USE SIGNAL ;
+    - spm_inst.tcmp.z ( _200_ Q ) ( _164_ A ) ( _163_ A_N ) + USE SIGNAL ;
+    - ui_PAD2CORE[0] ( PIN ui_PAD2CORE[0] ) ( _165_ A ) ( _162_ A ) ( _156_ A ) ( _150_ A ) ( _144_ A ) ( _138_ A )
+      ( _132_ A ) ( _126_ A ) ( _120_ A ) ( _114_ A ) ( _108_ A ) ( _102_ A ) ( _096_ A ) ( _090_ A )
+      ( _084_ B ) ( _078_ A ) + USE SIGNAL ;
+    - ui_PAD2CORE[10] ( PIN ui_PAD2CORE[10] ) ( _108_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[11] ( PIN ui_PAD2CORE[11] ) ( _102_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[12] ( PIN ui_PAD2CORE[12] ) ( _096_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[13] ( PIN ui_PAD2CORE[13] ) ( _090_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[14] ( PIN ui_PAD2CORE[14] ) ( _084_ A ) + USE SIGNAL ;
+    - ui_PAD2CORE[15] ( PIN ui_PAD2CORE[15] ) ( _078_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[16] ( PIN ui_PAD2CORE[16] ) ( _162_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[1] ( PIN ui_PAD2CORE[1] ) ( _165_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[2] ( PIN ui_PAD2CORE[2] ) ( _156_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[3] ( PIN ui_PAD2CORE[3] ) ( _150_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[4] ( PIN ui_PAD2CORE[4] ) ( _144_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[5] ( PIN ui_PAD2CORE[5] ) ( _138_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[6] ( PIN ui_PAD2CORE[6] ) ( _132_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[7] ( PIN ui_PAD2CORE[7] ) ( _126_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[8] ( PIN ui_PAD2CORE[8] ) ( _120_ B ) + USE SIGNAL ;
+    - ui_PAD2CORE[9] ( PIN ui_PAD2CORE[9] ) ( _114_ B ) + USE SIGNAL ;
+    - uo_CORE2PAD[0] ( PIN uo_CORE2PAD[0] ) ( _219_ X ) + USE SIGNAL ;
+    - uo_CORE2PAD[10] ( PIN uo_CORE2PAD[10] ) ( _212_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[11] ( PIN uo_CORE2PAD[11] ) ( _213_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[12] ( PIN uo_CORE2PAD[12] ) ( _214_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[13] ( PIN uo_CORE2PAD[13] ) ( _215_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[14] ( PIN uo_CORE2PAD[14] ) ( _216_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[15] ( PIN uo_CORE2PAD[15] ) ( _217_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[16] ( PIN uo_CORE2PAD[16] ) ( _218_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[1] ( PIN uo_CORE2PAD[1] ) ( _203_ L_HI ) + USE SIGNAL ;
+    - uo_CORE2PAD[2] ( PIN uo_CORE2PAD[2] ) ( _204_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[3] ( PIN uo_CORE2PAD[3] ) ( _205_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[4] ( PIN uo_CORE2PAD[4] ) ( _206_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[5] ( PIN uo_CORE2PAD[5] ) ( _207_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[6] ( PIN uo_CORE2PAD[6] ) ( _208_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[7] ( PIN uo_CORE2PAD[7] ) ( _209_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[8] ( PIN uo_CORE2PAD[8] ) ( _210_ L_LO ) + USE SIGNAL ;
+    - uo_CORE2PAD[9] ( PIN uo_CORE2PAD[9] ) ( _211_ L_LO ) + USE SIGNAL ;
+END NETS
+END DESIGN

@@ -1,0 +1,1 @@
+openroad -exit -no_splash -metrics /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/18-openroad-cutrows/or_metrics_out.json /nix/store/w99sjyq5j8hvscxr5zh2x597anf2hadx-python3-3.13.9-env/lib/python3.13/site-packages/librelane/scripts/openroad/cut_rows.tcl

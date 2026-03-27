@@ -1,0 +1,26 @@
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
+┃ Macro/Instance            ┃ Power Pins ┃ Disconnected ┃ Signal Pins     ┃ Disconnected    ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
+│ CLASSIFIER_plus_cross_TOP │ VPWR       │              │ ui_PAD2CORE[0]  │ clk_i           │
+│                           │ VGND       │              │ ui_PAD2CORE[1]  │ rst_ni          │
+│                           │            │              │ ui_PAD2CORE[2]  │ ui_PAD2CORE[10] │
+│                           │            │              │ ui_PAD2CORE[3]  │ ui_PAD2CORE[11] │
+│                           │            │              │ ui_PAD2CORE[4]  │ ui_PAD2CORE[12] │
+│                           │            │              │ uo_CORE2PAD[0]  │ ui_PAD2CORE[13] │
+│                           │            │              │ uo_CORE2PAD[10] │ ui_PAD2CORE[14] │
+│                           │            │              │ uo_CORE2PAD[11] │ ui_PAD2CORE[15] │
+│                           │            │              │ uo_CORE2PAD[12] │ ui_PAD2CORE[16] │
+│                           │            │              │ uo_CORE2PAD[13] │ ui_PAD2CORE[5]  │
+│                           │            │              │ uo_CORE2PAD[14] │ ui_PAD2CORE[6]  │
+│                           │            │              │ uo_CORE2PAD[15] │ ui_PAD2CORE[7]  │
+│                           │            │              │ uo_CORE2PAD[16] │ ui_PAD2CORE[8]  │
+│                           │            │              │ uo_CORE2PAD[1]  │ ui_PAD2CORE[9]  │
+│                           │            │              │ uo_CORE2PAD[2]  │                 │
+│                           │            │              │ uo_CORE2PAD[3]  │                 │
+│                           │            │              │ uo_CORE2PAD[4]  │                 │
+│                           │            │              │ uo_CORE2PAD[5]  │                 │
+│                           │            │              │ uo_CORE2PAD[6]  │                 │
+│                           │            │              │ uo_CORE2PAD[7]  │                 │
+│                           │            │              │ uo_CORE2PAD[8]  │                 │
+│                           │            │              │ uo_CORE2PAD[9]  │                 │
+└───────────────────────────┴────────────┴──────────────┴─────────────────┴─────────────────┘

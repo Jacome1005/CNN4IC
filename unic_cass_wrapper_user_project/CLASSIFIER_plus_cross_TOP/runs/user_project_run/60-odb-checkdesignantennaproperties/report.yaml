@@ -1,0 +1,18 @@
+- cell: CLASSIFIER_plus_cross_TOP
+  inout: []
+  input:
+  - clk_i
+  - rst_ni
+  - ui_PAD2CORE[10]
+  - ui_PAD2CORE[11]
+  - ui_PAD2CORE[12]
+  - ui_PAD2CORE[13]
+  - ui_PAD2CORE[14]
+  - ui_PAD2CORE[15]
+  - ui_PAD2CORE[16]
+  - ui_PAD2CORE[5]
+  - ui_PAD2CORE[6]
+  - ui_PAD2CORE[7]
+  - ui_PAD2CORE[8]
+  - ui_PAD2CORE[9]
+  output: []

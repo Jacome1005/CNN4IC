@@ -1,10 +1,8 @@
 # CNN4IC
 Convolutional Neural Network (CNN) for Image Classification
 
-_Project still in development_
 
 #### Created by:
-
 - Jacobo Morales Erazo
 - Mateo Fernandez Riveros
 - Martín Calderón
@@ -14,55 +12,74 @@ _Project still in development_
 **Chapter/Section:** CASS Universidad de los Andes Student Chapter / Colombia Section
 
 
-# Latest design files at CNNver2
-### Project Status & Implementation Metrics - *updated 26/02/2026*
+## Demos & Visualizations
+Explore the project details and interactive simulations:
+* [Interactive CNN Game](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/cnn_game.html)
+* [Architecture Diagram](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/arch_diagram.html)
+* [Dataset Cases](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/dataset_casos.html)
+* [CNN Architecture Details](https://unic-cass-2025-uniandes.github.io/CNN4IC/html/cnn_arch.html)
 
-- **RTL Completion:** 90 % (refining small details with SPI communication)
-    
-- **Estimated Final Area:** 70000 $\mu m^2$
-    
-- **Actual Post-Synthesis Area:** 61598 $\mu m^2$ 
-	- 614.4 $\mu m$  x 633.1 $\mu m$ 
 
-<img src="AREA_total.png" style="height: 80px">
-<img src="AREA_sides.png" style="height: 70px">
+## Project Status & Implementation Metrics
+**Last Update:** March 06, 2026
+
+| Metric | Value |
+| :--- | :--- |
+| **Core Dimensions** | $\approx 503\ \mu m \times 504\ \mu m$ |
+| **Die (Chip) Dimensions** | $\approx 515\ \mu m \times 534\ \mu m$ |
+| **Logic Area** | $\approx 135,000\ \mu m^2$ |
+| **Total Chip Area** | $\approx 0.27\ mm^2$ |
+
+### Physical Layout & Dimensions
+<img src="docs/assets/gds_dimentions.png" width="500px" alt="GDS Dimensions">
+
+
+## Design Concept: Lightweight Binary Shape Classifier
+This Integrated Circuit (IC) implements a specialized, resource-optimized Convolutional Neural Network (CNN) designed specifically for the low-power discrimination of geometric primitives (crosses and plus signs). 
+
+### Architecture and Data Flow
+The system processes 3-bit grayscale images with **10×10** dimensions.
+
+1. **Image Input:** Data is loaded row-by-row via **SPI** into a bank of 10 dedicated image registers (30 bits each).
+2. **Convolution:** Executed sequentially by the same datapath using two independently loaded kernels ($W_{+}$ and $W_{\times}$). For each kernel, the 10×10 image is partitioned into 9 overlapping 6×6 fragments (stride = 2). Within each fragment, the 4 valid 5×5 windows are evaluated by a fully parallel MAC unit operating on signed 3-bit operands.
+3. **Max Pooling:** Applied per-fragment: the maximum convolution result across the 4 windows is retained by a progressive comparator. The 9 fragment maxima are then accumulated into a single signed 16-bit score per kernel ($\text{acc}_0$, $\text{acc}_1$).
+4. **Classification:** Determined by a combinational signed comparator operating on the two accumulated scores:
+
+$$\text{Class} = \begin{cases} 0 \ (+) & \text{if } \text{acc}_0 > \text{acc}_1 \\ 1 \ (\times) & \text{otherwise} \end{cases}$$
+
+### Hardware Optimization
+The core innovation lies in **Strict Bit-Width Management**:
+- **Weight Precision:** 3-bit signed fields for all kernel positions, enabling compact 15-bit per-row register storage.
+- **Integer Domain:** All arithmetic is performed on signed integers synthesized from the 3-bit operand widths.
+- **Sequential Kernel Reuse:** A single convolutional datapath is time-multiplexed across both kernels, significantly reducing area relative to a parallel dual-kernel architecture.
+- **Area Efficiency:** By streaming results externally via SPI, the silicon footprint is reduced to $0.27\ \text{mm}^2$.
+
+### Serial Interface (SPI)
+A 4-wire protocol with an 8-command space distinguishes between:
+
+| Command | Code | Description |
+|---|---|---|
+| LOAD IMAGE | `001` | Streams 10 rows × 30 bits into image registers |
+| LOAD WEIGHTS | `010` | Streams 5 rows × 15 bits into kernel registers |
+| START CNN | `011` | Triggers one sequential inference pass |
+| READ RESULT | `100` | Returns 1-bit classification output via MISO |
+| READ MR1 | `101` | Returns 16-bit accumulated score for kernel 0 |
+| READ MR2 | `110` | Returns 16-bit accumulated score for kernel 1 |
+
+A typical inference cycle requires two START pulses: the first processes $W_{+}$ and latches $\text{acc}_0$; the second processes $W_{\times}$ and latches $\text{acc}_1$. The kernel registers are reloaded by the host MCU between the two passes.
+
+Unlike fixed logic implementations, this architecture employs a dynamic weight scheme via SPI, transforming the IC into a general-purpose classifier for 10x10 patterns. This capability allows the chip to be reprogrammed in real time for diverse low-power computer vision applications beyond the discrimination of crosses.
 
 ---
+## Project Structure and Implementation
+The complete implementation flow, from digital synthesis to physical layout, is organized as follows:
 
-### Description of the Design concept: Lightweight Binary Shape Classifier
+### Open-Source EDA Flow (LibreLane)
+The physical design results, including the final GDSII and manufacturing reports, are located in the [Final_Version/LibreLane/](./Final_Version/LibreLane/) directory.
 
-This Integrated Circuit (IC) implements a specialized, resource-optimized Convolutional Neural Network (CNN) designed specifically for the low-power discrimination of geometric primitives (crosses and plus signs). By pivoting from generalized MNIST digit recognition (original idea) to a targeted binary classification task, the architecture achieves a significant reduction in gate count and memory requirements while maintaining high operational reliability.
+* **Final GDSII & Layout:** Can be found in: [Final_Version/LibreLane/cnn_+x_classifier/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/final/](./Final_Version/LibreLane/cnn_+x_classifier/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/final/)
+* **Synthesis & Timing Reports:** All logs for DRC, LVS, and timing violations are located in the numbered subdirectories within: [RUN_2026-03-06_05-17-31](./Final_Version/LibreLane/cnn_+x_classifier/librelane/CNNver3/runs/RUN_2026-03-06_05-17-31/)
+* **Source RTL:** The Verilog source files used for the silicon flow are in: [Final_Version/LibreLane/cnn_+x_classifier/rtl/](./Final_Version/LibreLane/cnn_+x_classifier/rtl/)
 
-#### Architecture and Data Flow
-
-The system is **capable** of processing **3-bit** grayscale images with **8 x 8** dimensions.
-
-1. **Image Input:** An image is saved into the chip via the Serial Peripheral Interface (SPI) protocol onto a **pre-established** set of registers.
-    
-2. **Convolution:** The image is processed by two concurrent kernels ($W_{+}$ and $W_x$). These kernels are quantized to signed integers, allowing the convolution to be performed using simple shift-and-add logic rather than complex floating-point multipliers.
-    
-3. **Max Pooling:** Each value of the $2\times2$ resulting matrix following the convolution is passed **through** a Max pooling layer to extract the most prominent structural features.
-    
-4. **Accumulation & Comparison:** The system calculates a "Structural Score" by summing the pooled feature maps. The final classification is determined by a simple digital comparator:
-    
-
-$$\text{Class} = \begin{cases} 0 (+) & \text{if } \sum \text{Pool}_{+} > \sum \text{Pool}_{x} \\ 1 (\text{X}) & \text{otherwise} \end{cases}$$
-
-#### Hardware Optimization & Quantization Strategy
-
-The core innovation of this design lies in its **Strict Bit-Width Management**. Unlike standard CNNs that propagate high-precision values, this IC enforces hardware-level quantization at every stage:
-
-- **Weight Precision:** Kernels are stored in 3-bit registers.
-    
-- **Integer Domain:** All operations are performed in the integer domain.
-    
-- **Dynamic Range Control:** The results of the convolution operation are immediately **sent** outside the chip to be saved. In this way, **response times are yielded** to ensure a more optimal design in terms of **silicon area** used.
-    
-
-#### Serial Interface and Control
-
-Communication is handled via a 4-wire **SPI (Serial Peripheral Interface)**. A simple addressing protocol distinguishes between:
-
-- **Weight Configuration:** Allowing the kernels to be updated "in-field" for different geometric patterns.
-    
-- **Image Data/Control:** Facilitating the transfer of pixel data and triggering the inference cycle.
+### FPGA Prototyping (Quartus)
+* **Quartus Project:** The files for Intel/Altera FPGA synthesis and testing are located in: [Final_Version/Quartus/](./Final_Version/Quartus/)

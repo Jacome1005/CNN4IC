@@ -1,0 +1,246 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.60 (git sha1 5bafeb77dc71e054fa331ab9efa613e6fb0a1c49, clang++ 21.1.2 -fPIC -O3)
+
+1. Executing Verilog-2005 frontend: /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/4adb29fe2bd34f9a8d49004d4b302e71.bb.v
+Parsing SystemVerilog input from `/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/4adb29fe2bd34f9a8d49004d4b302e71.bb.v' to AST representation.
+verilog frontend filename /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/4adb29fe2bd34f9a8d49004d4b302e71.bb.v
+Generating RTLIL representation for module `\sg13g2_a21o_1'.
+Generating RTLIL representation for module `\sg13g2_a21o_2'.
+Generating RTLIL representation for module `\sg13g2_a21oi_1'.
+Generating RTLIL representation for module `\sg13g2_a21oi_2'.
+Generating RTLIL representation for module `\sg13g2_a221oi_1'.
+Generating RTLIL representation for module `\sg13g2_a22oi_1'.
+Generating RTLIL representation for module `\sg13g2_and2_1'.
+Generating RTLIL representation for module `\sg13g2_and2_2'.
+Generating RTLIL representation for module `\sg13g2_and3_1'.
+Generating RTLIL representation for module `\sg13g2_and3_2'.
+Generating RTLIL representation for module `\sg13g2_and4_1'.
+Generating RTLIL representation for module `\sg13g2_and4_2'.
+Generating RTLIL representation for module `\sg13g2_antennanp'.
+Generating RTLIL representation for module `\sg13g2_buf_1'.
+Generating RTLIL representation for module `\sg13g2_buf_16'.
+Generating RTLIL representation for module `\sg13g2_buf_2'.
+Generating RTLIL representation for module `\sg13g2_buf_4'.
+Generating RTLIL representation for module `\sg13g2_buf_8'.
+Generating RTLIL representation for module `\sg13g2_decap_4'.
+Generating RTLIL representation for module `\sg13g2_decap_8'.
+Generating RTLIL representation for module `\sg13g2_dfrbp_1'.
+Generating RTLIL representation for module `\sg13g2_dfrbp_2'.
+Generating RTLIL representation for module `\sg13g2_dfrbpq_1'.
+Generating RTLIL representation for module `\sg13g2_dfrbpq_2'.
+Generating RTLIL representation for module `\sg13g2_dlhq_1'.
+Generating RTLIL representation for module `\sg13g2_dlhr_1'.
+Generating RTLIL representation for module `\sg13g2_dlhrq_1'.
+Generating RTLIL representation for module `\sg13g2_dllr_1'.
+Generating RTLIL representation for module `\sg13g2_dllrq_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd1_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd2_1'.
+Generating RTLIL representation for module `\sg13g2_dlygate4sd3_1'.
+Generating RTLIL representation for module `\sg13g2_ebufn_2'.
+Generating RTLIL representation for module `\sg13g2_ebufn_4'.
+Generating RTLIL representation for module `\sg13g2_ebufn_8'.
+Generating RTLIL representation for module `\sg13g2_einvn_2'.
+Generating RTLIL representation for module `\sg13g2_einvn_4'.
+Generating RTLIL representation for module `\sg13g2_einvn_8'.
+Generating RTLIL representation for module `\sg13g2_fill_1'.
+Generating RTLIL representation for module `\sg13g2_fill_2'.
+Generating RTLIL representation for module `\sg13g2_fill_4'.
+Generating RTLIL representation for module `\sg13g2_fill_8'.
+Generating RTLIL representation for module `\sg13g2_inv_1'.
+Generating RTLIL representation for module `\sg13g2_inv_16'.
+Generating RTLIL representation for module `\sg13g2_inv_2'.
+Generating RTLIL representation for module `\sg13g2_inv_4'.
+Generating RTLIL representation for module `\sg13g2_inv_8'.
+Generating RTLIL representation for module `\sg13g2_lgcp_1'.
+Generating RTLIL representation for module `\sg13g2_mux2_1'.
+Generating RTLIL representation for module `\sg13g2_mux2_2'.
+Generating RTLIL representation for module `\sg13g2_mux4_1'.
+Generating RTLIL representation for module `\sg13g2_nand2_1'.
+Generating RTLIL representation for module `\sg13g2_nand2_2'.
+Generating RTLIL representation for module `\sg13g2_nand2b_1'.
+Generating RTLIL representation for module `\sg13g2_nand2b_2'.
+Generating RTLIL representation for module `\sg13g2_nand3_1'.
+Generating RTLIL representation for module `\sg13g2_nand3b_1'.
+Generating RTLIL representation for module `\sg13g2_nand4_1'.
+Generating RTLIL representation for module `\sg13g2_nor2_1'.
+Generating RTLIL representation for module `\sg13g2_nor2_2'.
+Generating RTLIL representation for module `\sg13g2_nor2b_1'.
+Generating RTLIL representation for module `\sg13g2_nor2b_2'.
+Generating RTLIL representation for module `\sg13g2_nor3_1'.
+Generating RTLIL representation for module `\sg13g2_nor3_2'.
+Generating RTLIL representation for module `\sg13g2_nor4_1'.
+Generating RTLIL representation for module `\sg13g2_nor4_2'.
+Generating RTLIL representation for module `\sg13g2_o21ai_1'.
+Generating RTLIL representation for module `\sg13g2_or2_1'.
+Generating RTLIL representation for module `\sg13g2_or2_2'.
+Generating RTLIL representation for module `\sg13g2_or3_1'.
+Generating RTLIL representation for module `\sg13g2_or3_2'.
+Generating RTLIL representation for module `\sg13g2_or4_1'.
+Generating RTLIL representation for module `\sg13g2_or4_2'.
+Generating RTLIL representation for module `\sg13g2_sdfbbp_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbp_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbp_2'.
+Generating RTLIL representation for module `\sg13g2_sdfrbpq_1'.
+Generating RTLIL representation for module `\sg13g2_sdfrbpq_2'.
+Generating RTLIL representation for module `\sg13g2_sighold'.
+Generating RTLIL representation for module `\sg13g2_slgcp_1'.
+Generating RTLIL representation for module `\sg13g2_tiehi'.
+Generating RTLIL representation for module `\sg13g2_tielo'.
+Generating RTLIL representation for module `\sg13g2_xnor2_1'.
+Generating RTLIL representation for module `\sg13g2_xor2_1'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/f6d3860989474d658a12992da14560cc.bb.v
+Parsing SystemVerilog input from `/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/f6d3860989474d658a12992da14560cc.bb.v' to AST representation.
+verilog frontend filename /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/runs/user_project_run/tmp/f6d3860989474d658a12992da14560cc.bb.v
+Generating RTLIL representation for module `\sg13g2_Corner'.
+Generating RTLIL representation for module `\sg13g2_Filler1000'.
+Generating RTLIL representation for module `\sg13g2_Filler10000'.
+Generating RTLIL representation for module `\sg13g2_Filler200'.
+Generating RTLIL representation for module `\sg13g2_Filler2000'.
+Generating RTLIL representation for module `\sg13g2_Filler400'.
+Generating RTLIL representation for module `\sg13g2_Filler4000'.
+Generating RTLIL representation for module `\sg13g2_IOPadAnalog'.
+Generating RTLIL representation for module `\sg13g2_IOPadIOVdd'.
+Generating RTLIL representation for module `\sg13g2_IOPadIOVss'.
+Generating RTLIL representation for module `\sg13g2_IOPadIn'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadInOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut16mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut30mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadTriOut4mA'.
+Generating RTLIL representation for module `\sg13g2_IOPadVdd'.
+Generating RTLIL representation for module `\sg13g2_IOPadVss'.
+Successfully finished Verilog frontend.
+wtaf
+
+3. Executing Verilog-2005 frontend: /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v
+Parsing SystemVerilog input from `/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v' to AST representation.
+verilog frontend filename /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v
+Storing AST representation for module `$abstract\spm'.
+Storing AST representation for module `$abstract\TCMP'.
+Storing AST representation for module `$abstract\CSADD'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/user_project_example.v
+Parsing SystemVerilog input from `/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/user_project_example.v' to AST representation.
+verilog frontend filename /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/user_project_example.v
+Storing AST representation for module `$abstract\user_project_example'.
+Successfully finished Verilog frontend.
+
+5. Executing HIERARCHY pass (managing design hierarchy).
+
+6. Executing AST frontend in derive mode using pre-parsed AST for module `\user_project_example'.
+Generating RTLIL representation for module `\user_project_example'.
+
+6.1. Analyzing design hierarchy..
+Top module:  \user_project_example
+
+6.2. Executing AST frontend in derive mode using pre-parsed AST for module `\spm'.
+Generating RTLIL representation for module `\spm'.
+
+6.3. Analyzing design hierarchy..
+Top module:  \user_project_example
+Used module:     \spm
+
+6.4. Executing AST frontend in derive mode using pre-parsed AST for module `\CSADD'.
+Generating RTLIL representation for module `\CSADD'.
+
+6.5. Executing AST frontend in derive mode using pre-parsed AST for module `\TCMP'.
+Generating RTLIL representation for module `\TCMP'.
+
+6.6. Analyzing design hierarchy..
+Top module:  \user_project_example
+Used module:     \spm
+Used module:         \CSADD
+Used module:         \TCMP
+
+6.7. Analyzing design hierarchy..
+Top module:  \user_project_example
+Used module:     \spm
+Used module:         \CSADD
+Used module:         \TCMP
+Removing unused module `$abstract\user_project_example'.
+Removing unused module `$abstract\CSADD'.
+Removing unused module `$abstract\TCMP'.
+Removing unused module `$abstract\spm'.
+Removed 4 unused modules.
+Renaming module user_project_example to user_project_example.
+
+7. Executing PROC pass (convert processes to netlists).
+
+7.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:79$22 in module CSADD.
+Marked 1 switch rules as full_case in process $proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:49$24 in module TCMP.
+Removed a total of 0 dead cases.
+
+7.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 4 redundant assignments.
+Promoted 0 assignments to connections.
+
+7.4. Executing PROC_INIT pass (extract init attributes).
+
+7.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst in `\CSADD.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:79$22'.
+Found async reset \rst in `\TCMP.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:49$24'.
+
+7.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+7.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\CSADD.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:79$22'.
+     1/2: $0\sc[0:0]
+     2/2: $0\sum[0:0]
+Creating decoders for process `\TCMP.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:49$24'.
+     1/2: $0\s[0:0]
+     2/2: $0\z[0:0]
+
+7.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+7.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\CSADD.\sum' using process `\CSADD.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:79$22'.
+  created $adff cell `$procdff$29' with positive edge clock and positive level reset.
+Creating register for signal `\CSADD.\sc' using process `\CSADD.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:79$22'.
+  created $adff cell `$procdff$32' with positive edge clock and positive level reset.
+Creating register for signal `\TCMP.\z' using process `\TCMP.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:49$24'.
+  created $adff cell `$procdff$35' with positive edge clock and positive level reset.
+Creating register for signal `\TCMP.\s' using process `\TCMP.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:49$24'.
+  created $adff cell `$procdff$38' with positive edge clock and positive level reset.
+
+7.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+7.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `CSADD.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:79$22'.
+Removing empty process `TCMP.$proc$/home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:49$24'.
+Cleaned up 0 empty switches.
+
+7.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module user_project_example.
+Optimizing module CSADD.
+<suppressed ~2 debug messages>
+Optimizing module spm.
+Optimizing module TCMP.
+<suppressed ~2 debug messages>
+
+8. Executing FLATTEN pass (flatten design).
+Deleting now unused module CSADD.
+Deleting now unused module spm.
+Deleting now unused module TCMP.
+<suppressed ~17 debug messages>
+
+9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \user_project_example..
+Removed 17 unused cells and 196 unused wires.
+<suppressed ~73 debug messages>

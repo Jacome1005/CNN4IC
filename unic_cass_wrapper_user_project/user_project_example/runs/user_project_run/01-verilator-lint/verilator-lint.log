@@ -1,0 +1,9 @@
+%Warning-UNUSEDSIGNAL: /home/designer/projects/CNN4IC/unic_cass_wrapper_user_project/user_project_example/src/spm.v:30:20: Signal is not driven, nor used: 'xy'
+                                                                                                                         : ... note: In instance 'user_project_example.spm_inst'
+   30 |     wire[size-1:0] xy;
+      |                    ^~
+                       ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.042
+                       ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+- V e r i l a t i o n   R e p o r t: Verilator 5.042 2025-11-02 rev v5.040
+- Verilator: Built from 0.216 MB sources in 111 modules, into 0.057 MB in 3 C++ files needing 0.000 MB
+- Verilator: Walltime 0.020 s (elab=0.001, cvt=0.010, bld=0.000); cpu 0.020 s on 1 threads; alloced 21.348 MB
